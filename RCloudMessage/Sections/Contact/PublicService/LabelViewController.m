@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setNav];
     [self createHeaderView];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, RCDScreenWidth, RCDScreenHeight - 64 - RCDExtraTopHeight - RCDExtraBottomHeight) style:UITableViewStylePlain];
@@ -45,18 +45,28 @@
 }
 
 
+- (void)setNav{
+    self.title = @"标签";
+}
+
 - (void)createHeaderView{
     self.headerView = [UIButton buttonWithType:UIButtonTypeCustom];
     self.headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [LabelTableViewCell cellHeight]);
     [self.headerView addTarget:self action:@selector(createLabelBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     self.headerView.backgroundColor = [UIColor clearColor];
     
-    UIImageView *addView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (CellHeight - 16) / 2, 13, 13)];
-    addView.image = [UIImage imageNamed:@""];
-//    addView.backgroundColor = [UIColor colorWithHex:0x24db5a];
-    [self.headerView addSubview:addView];
+    UILabel *imgLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, (CellHeight - 20) / 2, 20, 20)];
+    imgLabel.text = @"+";
+    imgLabel.layer.borderColor = [FPStyleGuide weichatGreenColor].CGColor;
+    imgLabel.layer.borderWidth = 1;
+    imgLabel.layer.cornerRadius = 10;
+    imgLabel.textAlignment = NSTextAlignmentCenter;
+    imgLabel.textColor = [FPStyleGuide weichatGreenColor];
+    imgLabel.clipsToBounds = YES;
+    [self.headerView addSubview:imgLabel];
     
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(addView.right + 10, 20, SCREEN_WIDTH, 20)];
+    
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(imgLabel.right + 10, (CellHeight - 20) / 2, SCREEN_WIDTH, 20)];
     newLabel.font = [UIFont systemFontOfSize:15];
     newLabel.text = @"新建标签";
     newLabel.textColor = [UIColor colorWithHex:0x24db5a];

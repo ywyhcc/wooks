@@ -48,11 +48,11 @@
 - (void)textFieldDidChange:(UITextField *)textField {
     NSString *toBeString = textField.text;
     if (![toBeString isEqualToString:self.originNickName]) {
-        [self.rightBtn buttonIsCanClick:YES buttonColor:RCDDYCOLOR(0xffffff, 0xA8A8A8) barButtonItem:self.rightBtn];
+        [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
     } else {
         [self.rightBtn
             buttonIsCanClick:NO
-                 buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                 buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
                                                       darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                barButtonItem:self.rightBtn];
     }
@@ -81,14 +81,14 @@
     self.navigationItem.leftBarButtonItem = self.leftBtn;
 
     self.rightBtn = [[RCDUIBarButtonItem alloc]
-        initWithbuttonTitle:RCDLocalizedString(@"save")
-                 titleColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+        initWithbuttonTitle:@"确定"
+                 titleColor:[RCDUtilities generateDynamicColor:[UIColor blackColor]
                                                      darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                 buttonFrame:CGRectMake(0, 0, 50, 30)
                      target:self
                      action:@selector(saveBtnClicked)];
     [self.rightBtn buttonIsCanClick:NO
-                        buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
                                                              darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                       barButtonItem:self.rightBtn];
     self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];

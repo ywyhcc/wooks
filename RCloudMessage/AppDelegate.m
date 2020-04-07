@@ -391,12 +391,14 @@
  */
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-        [self showAlert:RCDLocalizedString(@"alert")
-                   message:RCDLocalizedString(@"accout_kicked")
-            cancelBtnTitle:RCDLocalizedString(@"i_know")];
+        
         RCDLoginViewController *loginVC = [[RCDLoginViewController alloc] init];
         RCDNavigationViewController *_navi = [[RCDNavigationViewController alloc] initWithRootViewController:loginVC];
         self.window.rootViewController = _navi;
+        
+        [self showAlert:RCDLocalizedString(@"alert")
+               message:RCDLocalizedString(@"accout_kicked")
+        cancelBtnTitle:RCDLocalizedString(@"i_know")];
     } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
         [RCDLoginManager getToken:^(BOOL success, NSString *_Nonnull token, NSString *_Nonnull userId) {
             if (success) {

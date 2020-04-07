@@ -44,7 +44,7 @@
 "fail_to_add_to_blacklist"="加入黑名单失败";
 "removing_from_blacklist"="正在从黑名单移除";
 "fail_to_remove_from_blacklist"="从黑名单移除失败";
-"new_friend"="新朋友";
+"new_friend"="新的朋友";
 "group"="群聊";
 "public_account"="公众号";
 "add_friend"="添加好友";
@@ -410,7 +410,7 @@
 "CleanUpGroupMessagesRegularly" = "定时清理群消息";
 "PleaseSetTime" = "请设置时间";
 "CleanUpGroupMessagesInfo" = "设置定时清理后，系统会定时清理规定时间前的群消息，清理后的消息无法恢复，请谨慎设置";
-"PhoneOrSealTalkNumber"="手机号";
+"PhoneOrSealTalkNumber"="手机号或woostalk号";
 "CleanUpGroupMessages36HoursAgo" = "清理 36 小时前的消息";
 "CleanUpGroupMessages3DaysAgo" = "清理 3 天前的消息";
 "CleanUpGroupMessages7DaysAgo" = "清理 7 天前的消息";

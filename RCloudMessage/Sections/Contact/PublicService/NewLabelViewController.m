@@ -58,19 +58,21 @@
 }
 
 - (void)createHeaderView{
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, [RCDAddressBookTableViewCell cellHeight] * 2)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, [RCDAddressBookTableViewCell cellHeight] * 3)];
     self.headerView.backgroundColor = RCDDYCOLOR(0xf0f0f6, 0x000000);
     
-    UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH, 20)];
+    UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, SCREEN_WIDTH, 30)];
     firstLabel.text = @"标签名字";
-    firstLabel.font = [UIFont systemFontOfSize:12];
+    firstLabel.font = [UIFont systemFontOfSize:14];
+    firstLabel.textColor = [FPStyleGuide lightGrayTextColor];
     [self.headerView addSubview:firstLabel];
     
     self.nameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nameBtn.frame = CGRectMake(0, firstLabel.bottom, SCREEN_WIDTH, [RCDAddressBookTableViewCell cellHeight] - firstLabel.height);
     [self.nameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.nameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.nameBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.nameBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.nameBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     [self.nameBtn addTarget:self action:@selector(nameBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     self.nameBtn.backgroundColor = [UIColor whiteColor];
     if (self.nameStr.length > 0) {
@@ -79,34 +81,42 @@
     
     [self.headerView addSubview:self.nameBtn];
     
-    UILabel *secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.nameBtn.bottom, SCREEN_WIDTH, 20)];
+    UILabel *secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.nameBtn.bottom, SCREEN_WIDTH, 40)];
     secondLabel.text = @"标签成员";
-    secondLabel.font = [UIFont systemFontOfSize:12];
+    secondLabel.font = [UIFont systemFontOfSize:14];
+    secondLabel.textColor = [FPStyleGuide lightGrayTextColor];
     [self.headerView addSubview:secondLabel];
     
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addBtn.frame = CGRectMake(0, secondLabel.bottom, SCREEN_WIDTH, [RCDAddressBookTableViewCell cellHeight] - firstLabel.height);
+    addBtn.frame = CGRectMake(0, secondLabel.bottom, SCREEN_WIDTH, [RCDAddressBookTableViewCell cellHeight]);
     addBtn.backgroundColor = [UIColor whiteColor];
     [addBtn addTarget:self action:@selector(addMembers) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:addBtn];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, addBtn.bottom - 0.2, SCREEN_WIDTH, 0.2)];
-    line.backgroundColor = [UIColor grayColor];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, addBtn.bottom - 0.3, SCREEN_WIDTH, 0.3)];
+    line.backgroundColor = [UIColor lightGrayColor];
     [self.headerView addSubview:line];
     
-    UIImageView *addView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (addBtn.height - 13) / 2, 13, 13)];
-    addView.image = [UIImage imageNamed:@""];
-//    addView.backgroundColor = [UIColor colorWithHex:0x24db5a];
-    [addBtn addSubview:addView];
+    UILabel *imgLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, (addBtn.height - 20) / 2, 20, 20)];
+    imgLabel.text = @"+";
+    imgLabel.layer.borderColor = [FPStyleGuide weichatGreenColor].CGColor;
+    imgLabel.layer.borderWidth = 1;
+    imgLabel.layer.cornerRadius = 10;
+    imgLabel.textAlignment = NSTextAlignmentCenter;
+    imgLabel.textColor = [FPStyleGuide weichatGreenColor];
+    imgLabel.clipsToBounds = YES;
+    [addBtn addSubview:imgLabel];
     
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(addView.right + 10, (addBtn.height - 20) / 2, SCREEN_WIDTH, 20)];
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(imgLabel.right + 10, (addBtn.height - 20) / 2, SCREEN_WIDTH, 20)];
     newLabel.font = [UIFont systemFontOfSize:15];
     newLabel.text = @"添加成员";
     newLabel.textColor = [UIColor colorWithHex:0x24db5a];
     [addBtn addSubview:newLabel];
     
-    UIView *bline = [[UIView alloc] initWithFrame:CGRectMake(15, addBtn.bottom - 0.2, SCREEN_WIDTH, 0.2)];
-    bline.backgroundColor = [FPStyleGuide lightGrayTextColor];
+    self.headerView.height = addBtn.bottom;
+    
+    UIView *bline = [[UIView alloc] initWithFrame:CGRectMake(15, self.headerView.bottom - 0.3, SCREEN_WIDTH, 0.3)];
+    bline.backgroundColor = [UIColor lightGrayColor];
     [self.headerView addSubview:bline];
     
 }
@@ -142,14 +152,14 @@
     self.navigationItem.title = self.titleStr;
     
     self.rightBtn = [[RCDUIBarButtonItem alloc]
-        initWithbuttonTitle:RCDLocalizedString(@"save")
-                 titleColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
+        initWithbuttonTitle:@"完成"//RCDLocalizedString(@"save")
+                 titleColor:[RCDUtilities generateDynamicColor:[UIColor blackColor]
                                                      darkColor:[UIColor whiteColor]]
                 buttonFrame:CGRectMake(0, 0, 50, 30)
                      target:self
                      action:@selector(createLabelRequest)];
     [self.rightBtn buttonIsCanClick:YES
-                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
+                        buttonColor:[RCDUtilities generateDynamicColor:[UIColor blackColor]
                                                              darkColor:[UIColor whiteColor]]
                       barButtonItem:self.rightBtn];
     self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];

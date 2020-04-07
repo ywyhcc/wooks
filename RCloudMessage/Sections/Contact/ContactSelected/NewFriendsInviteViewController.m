@@ -107,7 +107,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     [self.headView addSubview:whiteView];
     
     UIImageView *leftView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 30, 30)];
-    leftView.image = [UIImage imageNamed:@"addfriend_icon"];
+    leftView.image = [UIImage imageNamed:@"new_friend_call"];
     [self.headView addSubview:leftView];
     
     UIButton *contractBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -217,9 +217,12 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     }];
     
     if (self.phoneList.count > 0) {
-        AddContactFriendsTableViewController *nextVC = [[AddContactFriendsTableViewController alloc] init];
-        nextVC.phoneMembers = self.phoneList;
-        [self.navigationController pushViewController:nextVC animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            AddContactFriendsTableViewController *nextVC = [[AddContactFriendsTableViewController alloc] init];
+            nextVC.phoneMembers = self.phoneList;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        });
+        
     }
     
 }
@@ -327,7 +330,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.rightBtn buttonIsCanClick:YES buttonColor:[FPStyleGuide lightGrayTextColor] barButtonItem:self.rightBtn];
+    [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
     [self.hud hide:YES];
 }
 
@@ -502,13 +505,13 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     NSString *titleStr;
     if (self.selectUserList.count > 0) {
         titleStr = [NSString stringWithFormat:@"%@(%zd)", RCDLocalizedString(@"confirm"), [self.selectUserList count]];
-        [self.rightBtn buttonIsCanClick:YES buttonColor:[FPStyleGuide lightGrayTextColor] barButtonItem:self.rightBtn];
+        [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
     } else {
         titleStr = RCDLocalizedString(@"confirm");
 
         [self.rightBtn
             buttonIsCanClick:YES
-                 buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
+                 buttonColor:[RCDUtilities generateDynamicColor:[UIColor blackColor]
                                                       darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                barButtonItem:self.rightBtn];
     }
@@ -574,7 +577,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     }
 
     [self.rightBtn buttonIsCanClick:YES
-                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
+                        buttonColor:[RCDUtilities generateDynamicColor:[UIColor blackColor]
                                                              darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                       barButtonItem:self.rightBtn];
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -603,7 +606,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
                         } else {
                             [self showAlertViewWithMessage:RCDLocalizedString(@"add_member_fail")];
                             [self.rightBtn buttonIsCanClick:YES
-                                                buttonColor:[FPStyleGuide lightGrayTextColor]
+                                                buttonColor:[UIColor blackColor]
                                               barButtonItem:self.rightBtn];
                         }
                         if (status == RCDGroupAddMemberStatusInviteeApproving) {
@@ -625,7 +628,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
                                       } else {
                                           [self showAlertViewWithMessage:RCDLocalizedString(@"delete_member_fail")];
                                           [self.rightBtn buttonIsCanClick:YES
-                                                              buttonColor:[FPStyleGuide lightGrayTextColor]
+                                                              buttonColor:[UIColor blackColor]
                                                             barButtonItem:self.rightBtn];
                                       }
                                   })}];
@@ -643,7 +646,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
 
             if (seletedUsersId.count == 1 && [RCDForwardManager sharedInstance].isForward) {
                 [self.rightBtn buttonIsCanClick:YES
-                                    buttonColor:[FPStyleGuide lightGrayTextColor]
+                                    buttonColor:[UIColor blackColor]
                                   barButtonItem:self.rightBtn];
                 RCConversation *conversation = [[RCConversation alloc] init];
                 conversation.targetId = seletedUsersId[0];
@@ -652,7 +655,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
                     [RCDForwardManager sharedInstance].selectConversationCompleted([@[ conversation ] copy]);
                     [[RCDForwardManager sharedInstance] forwardEnd];
                 } else {
-                    [self.rightBtn buttonIsCanClick:YES buttonColor:[FPStyleGuide lightGrayTextColor] barButtonItem:self.rightBtn];
+                    [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
                     [RCDForwardManager sharedInstance].toConversation = conversation;
                     [[RCDForwardManager sharedInstance] showForwardAlertViewInViewController:self];
                 }
@@ -1059,14 +1062,14 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
 - (RCDUIBarButtonItem *)rightBtn {
     if (!_rightBtn) {
         _rightBtn = [[RCDUIBarButtonItem alloc] initWithbuttonTitle:@"添加好友"
-                                                         titleColor:[FPStyleGuide lightGrayTextColor]
+                                                         titleColor:[UIColor blackColor]
                                                         buttonFrame:CGRectMake(0, 0, 90, 30)
                                                              target:self
                                                              action:@selector(addNewFriend)];
         _rightBtn.button.titleLabel.font = [UIFont systemFontOfSize:16];
         [_rightBtn.button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
         [_rightBtn buttonIsCanClick:YES
-                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
+                        buttonColor:[RCDUtilities generateDynamicColor:[UIColor blackColor]
                                                              darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                       barButtonItem:_rightBtn];
     }

@@ -94,9 +94,17 @@
     self.tabBarController.navigationItem.titleView = nil;
     self.tabBarController.navigationItem.title = RCDLocalizedString(@"me");
     self.tabBarController.navigationItem.rightBarButtonItems = nil;
-    [self.navigationController setNavigationBarHidden:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
+    dispatch_get_main_queue(), ^{
+        [self.navigationController setNavigationBarHidden:YES animated:animated];
+    });
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
     [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)dealloc {

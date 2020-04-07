@@ -199,7 +199,7 @@
         switch (indexPath.row) {
         case 0: {
             NewFriendsInviteViewController *contactSelectedVC =
-                [[NewFriendsInviteViewController alloc] initWithTitle:@"新朋友"
+                [[NewFriendsInviteViewController alloc] initWithTitle:@"新的朋友"
                                                    isAllowsMultipleSelection:YES];
             [self.navigationController pushViewController:contactSelectedVC animated:YES];
 //            RCDAddressBookViewController *addressBookVC = [[RCDAddressBookViewController alloc] init];
@@ -318,7 +318,7 @@
                                                                     buttonTitle:nil
                                                                      titleColor:nil
                                                                      titleFrame:CGRectZero
-                                                                    buttonFrame:CGRectMake(0, 0, 34, 34)
+                                                                    buttonFrame:CGRectMake(0, 0, 40, 40)
                                                                          target:self
                                                                          action:@selector(showMenu)];
     self.tabBarController.navigationItem.rightBarButtonItems = @[rightBtn ];//setTranslation:rightBtn translation:-6

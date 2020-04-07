@@ -74,7 +74,7 @@
         }
     }
     // 第一组
-    NSArray * titles = [NSArray arrayWithObjects:@"新朋友",@"群聊",@"标签",@"公众号", nil];
+    NSArray * titles = [NSArray arrayWithObjects:@"新的朋友",@"群聊",@"标签",@"公众号", nil];
     [newSectionsArray insertObject:titles atIndex:0];
     // 二维数组
     self.userList = newSectionsArray;

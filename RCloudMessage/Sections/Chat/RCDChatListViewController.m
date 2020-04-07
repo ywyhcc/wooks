@@ -664,7 +664,7 @@
                                                                     buttonTitle:nil
                                                                      titleColor:nil
                                                                      titleFrame:CGRectZero
-                                                                    buttonFrame:CGRectMake(0, 0, 34, 34)
+                                                                    buttonFrame:CGRectMake(0, 0, 40, 40)
                                                                          target:self
                                                                          action:@selector(showMenu)];
     self.tabBarController.navigationItem.rightBarButtonItems = @[ rightBtn ];

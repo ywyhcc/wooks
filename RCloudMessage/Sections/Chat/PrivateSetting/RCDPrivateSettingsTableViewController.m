@@ -245,7 +245,7 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
 - (void)setNaviItem {
     self.title = RCDLocalizedString(@"chat_detail");
     RCDUIBarButtonItem *leftButton =
-        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                    target:self
                                                    action:@selector(leftBarButtonItemPressed)];
     [self.navigationItem setLeftBarButtonItem:leftButton];

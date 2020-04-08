@@ -45,6 +45,7 @@
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideSerchBarWhenTapBackground:)];
     tap.delegate = self;
     [self.view addGestureRecognizer:tap];
+    [self.navigationItem setLeftBarButtonItem:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,7 +57,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.barTintColor = RCDDYCOLOR(0x0099ff, 0x000000);
+    self.navigationController.navigationBar.barTintColor = RCDDYCOLOR(0xffffff, 0xA8A8A8);
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 

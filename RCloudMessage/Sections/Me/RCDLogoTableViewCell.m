@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         self.backgroundColor = RCDDYCOLOR(0xffffff, 0x000000);
-        UIImageView *logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mixin_ic_tab_chat_hover"]];
+        UIImageView *logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"about_rong"]];
         logoImageView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:logoImageView];
         NSDictionary *views = NSDictionaryOfVariableBindings(logoImageView);

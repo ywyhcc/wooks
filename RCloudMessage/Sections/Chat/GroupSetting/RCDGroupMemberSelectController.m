@@ -257,7 +257,7 @@
     } else if (self.type == RCDGroupMemberSelectTypeAddManager) {
         self.title = RCDLocalizedString(@"GroupManagerTitle");
     }
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                                              target:self
                                                                              action:@selector(clickBackBtn)];
     self.navigationItem.leftBarButtonItem = leftBtn;

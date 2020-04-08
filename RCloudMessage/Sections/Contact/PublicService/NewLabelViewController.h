@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "RCDFriendInfo.h"
+#import "RCDViewController.h"
 
-
-@interface NewLabelViewController : UIViewController
+@interface NewLabelViewController : RCDViewController
 
 @property (nonatomic, strong) NSString *titleStr;
 

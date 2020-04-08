@@ -12,6 +12,8 @@
 #import "LabelEditNameViewController.h"
 #import "RCDFriendInfo.h"
 #import "RCDUIBarButtonItem.h"
+#import "RCDPersonDetailViewController.h"
+#import "RCDUserInfoAPI.h"
 #define CellHeight 70.0f
 
 @interface NewLabelViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -190,7 +192,32 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    RCDFriendInfo *user = self.addMemberArr[indexPath.row];
+    [self pushUserDetailVC:user.userId];
     
+}
+
+- (void)pushUserDetailVC:(NSString *)userId {
+    RCDPersonDetailViewController *personDetailVC = [[RCDPersonDetailViewController alloc] init];
+    personDetailVC.userId = userId;
+    if (self.addMemberArr.count > 0) {
+        for (RCDFriendInfo *info in self.addMemberArr) {
+            if ([info.userId isEqualToString:userId]) {
+                personDetailVC.friendID = info.stAccount;
+            }
+        }
+        [self.navigationController pushViewController:personDetailVC animated:YES];
+    }
+    else{
+        [RCDUserInfoAPI getMailFriendList:^(NSArray<RCDFriendInfo *> *friendList) {
+            for (RCDFriendInfo *info in friendList) {
+                if ([info.userId isEqualToString:userId]) {
+                    personDetailVC.friendID = info.stAccount;
+                }
+            }
+            [self.navigationController pushViewController:personDetailVC animated:YES];
+        }];
+    }
 }
 
 - (void)requestAllMembers{

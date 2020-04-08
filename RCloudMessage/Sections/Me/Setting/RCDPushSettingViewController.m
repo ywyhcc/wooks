@@ -235,7 +235,7 @@
 }
 
 - (void)initUI {
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"me")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"me")
                                                                              target:self
                                                                              action:@selector(clickBackBtn:)];
     self.navigationItem.leftBarButtonItem = leftBtn;

@@ -321,7 +321,7 @@ static NSString *forwardSelectedCellIdentifier = @"RCDForwardSelectedCellIdentif
 
 - (void)setupNavi {
     self.navigationItem.leftBarButtonItem =
-        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                    target:self
                                                    action:@selector(clickBackBtn)];
     self.navigationController.navigationBar.translucent = NO;

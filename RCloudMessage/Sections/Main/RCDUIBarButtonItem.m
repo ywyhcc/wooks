@@ -17,9 +17,9 @@
 @implementation RCDUIBarButtonItem
 - (RCDUIBarButtonItem *)initWithLeftBarButton:(NSString *)title target:(id)target action:(SEL)method {
     CGRect titleFrame = CGRectMake(15, 4, 85, 17);
-    if (title.length == 0) {
-        titleFrame = CGRectZero;
-    }
+//    if (title.length == 0) {
+//        titleFrame = CGRectZero;
+//    }
     return [self initContainImage:[UIImage imageNamed:@"back_nav"]
                    imageViewFrame:CGRectMake(0, 4, 10, 17)
                       buttonTitle:title

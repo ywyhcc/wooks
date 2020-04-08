@@ -224,7 +224,7 @@
 
 #pragma mark Navigation Setting
 - (void)createNavLeftBarButtonItem {
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                                              target:self
                                                                              action:@selector(clickLeftBarButtonItem:)];
     self.navigationItem.leftBarButtonItem = leftBtn;

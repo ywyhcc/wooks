@@ -676,11 +676,11 @@
     
     
     __weak typeof(self) ws = self;
-    self.typeView = [[TypeHeaderSelectView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH / 3, 45) typeNames:@[@"单聊",@"群聊"]];
+    self.typeView = [[TypeHeaderSelectView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH / 3, 45) typeNames:@[@"私聊",@"群聊"]];
     self.typeView.backgroundColor = [UIColor clearColor];
     self.typeView.selectCallback = ^(NSString* str){
         
-        if ([str isEqualToString:@"单聊"]) {
+        if ([str isEqualToString:@"私聊"]) {
             ws.selectGroupChat = NO;
             [ws setDisplayConversationTypes:@[
                 @(ConversationType_PRIVATE)

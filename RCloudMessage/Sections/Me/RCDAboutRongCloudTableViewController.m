@@ -36,6 +36,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+
+    NSLog(@"%@",infoDictionary);
+
+    // app名称
+
+    NSString *app_Name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+
+    // app版本
+
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSLog(@"------%@------%@",app_Name,app_Version);
     [self initUI];
 }
 
@@ -201,7 +213,7 @@
     [self setPoweredView];
     self.navigationItem.title = RCDLocalizedString(@"about_sealtalk");
 
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"me")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"me")
                                                                              target:self
                                                                              action:@selector(clickBackBtn:)];
     self.navigationItem.leftBarButtonItem = leftBtn;

@@ -71,7 +71,7 @@
                                                                    action:@selector(clickRightBtn:)];
     self.navigationItem.rightBarButtonItem = rightButton;
 
-    RCDUIBarButtonItem *leftButton = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+    RCDUIBarButtonItem *leftButton = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                                                 target:self
                                                                                 action:@selector(clickBackBtn:)];
     self.navigationItem.leftBarButtonItem = leftButton;

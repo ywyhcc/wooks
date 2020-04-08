@@ -852,11 +852,11 @@
             self.navigationItem.rightBarButtonItem = nil;
             return;
         }
-        [self setRightNavigationItem:[UIImage imageNamed:@"Group_Setting_right"] withFrame:CGRectMake(0, 0, 21, 19.5)];
+        [self setRightNavigationItem:[UIImage imageNamed:@"right_more_detail"] withFrame:CGRectMake(0, 0, 21, 19.5)];
     } else if (self.conversationType == ConversationType_CHATROOM) {
         [self setRightNavigationItem:nil withFrame:CGRectZero];
     } else {
-        [self setRightNavigationItem:[UIImage imageNamed:@"private_setting_right"] withFrame:CGRectMake(0, 0, 16, 18.5)];
+        [self setRightNavigationItem:[UIImage imageNamed:@"right_more_detail"] withFrame:CGRectMake(0, 0, 16, 18.5)];
     }
 }
 - (void)addNotifications {

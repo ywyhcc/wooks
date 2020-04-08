@@ -282,53 +282,51 @@
 //    UIGraphicsEndImageContext();
 //    UIImage *imageToShare = screenShotImage;//截取的当前屏幕的图片可以作为如下imageToShare图片分享出去
 
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        UIImage *logoImage = [UIImage imageNamed:@"57x57_logo"];
-//
-//        //    NSURL *urlToShare = [NSURL URLWithString:@"https://www.baidu.com"];
-//
-//            NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:0];
-//        [activityItems addObject:logoImage];
-//
-//            UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems
-//                                                                                    applicationActivities:nil];
-//
-//            activityVC.completionWithItemsHandler = ^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError){
-//
-//                NSLog(@" 111activityType = %@ \n completed = %d",activityType,completed);
-//
-//                if (completed) {
-//
-//                    if ([activityType isEqualToString:@"com.tencent.xin.sharetimeline"]) {
-//
-//                        NSLog(@"分享有效");
-//
-//                    }
-//
-//                }
-//
-//            };
-//
-//            activityVC.excludedActivityTypes = @[   //除去的分享平台
-//                                                 UIActivityTypePostToFacebook
-//                                                 ,UIActivityTypePostToTwitter
-//                                                 ,UIActivityTypePostToWeibo
-//                                                 ,UIActivityTypeMessage
-//                                                 ,UIActivityTypeMail
-//                                                 ,UIActivityTypePrint
-//                                                 ,UIActivityTypeCopyToPasteboard
-//                                                 ,UIActivityTypeAssignToContact
-//                                                 ,UIActivityTypeSaveToCameraRoll
-//                                                 ,UIActivityTypeAddToReadingList
-//                                                 ,UIActivityTypePostToFlickr
-//                                                 ,UIActivityTypePostToVimeo
-//                                                 ,UIActivityTypeAirDrop
-//                                                 ,UIActivityTypeOpenInIBooks
-//                                                 ,UIActivityTypePostToTencentWeibo
-//                                                 ];
-//
-//            [self presentViewController:activityVC animated:TRUE completion:nil];
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIImage *logoImage = [UIImage imageNamed:@"about_rong"];
+
+        NSArray *activityItems = @[logoImage];
+
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems
+                                                                                    applicationActivities:nil];
+
+        activityVC.completionWithItemsHandler = ^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError){
+
+                NSLog(@" 111activityType = %@ \n completed = %d",activityType,completed);
+
+                if (completed) {
+
+                    if ([activityType isEqualToString:@"com.tencent.xin.sharetimeline"]) {
+
+                        NSLog(@"分享有效");
+
+                    }
+
+                }
+
+            };
+
+            activityVC.excludedActivityTypes = @[   //除去的分享平台
+                                                 UIActivityTypePostToFacebook
+                                                 ,UIActivityTypePostToTwitter
+                                                 ,UIActivityTypePostToWeibo
+                                                 ,UIActivityTypeMessage
+                                                 ,UIActivityTypeMail
+                                                 ,UIActivityTypePrint
+                                                 ,UIActivityTypeCopyToPasteboard
+                                                 ,UIActivityTypeAssignToContact
+                                                 ,UIActivityTypeSaveToCameraRoll
+                                                 ,UIActivityTypeAddToReadingList
+                                                 ,UIActivityTypePostToFlickr
+                                                 ,UIActivityTypePostToVimeo
+                                                 ,UIActivityTypeAirDrop
+                                                 ,UIActivityTypeOpenInIBooks
+                                                 ,UIActivityTypePostToTencentWeibo
+                                                 ];
+
+            [self presentViewController:activityVC animated:TRUE completion:nil];
+    });
     
 //    UIImage *logoImage = [UIImage imageNamed:@"57x57_logo"];
 //    if ([RCDWeChatManager weChatCanShared]) {
@@ -410,6 +408,7 @@
 - (RCDMyQRCodeView *)QRCodeView {
     if (!_QRCodeView) {
         _QRCodeView = [[RCDMyQRCodeView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.frame];
+//        _QRCodeView.backgroundColor = [UIColor redColor];
         _QRCodeView.hidden = YES;
         _QRCodeView.delegate = self;
     }

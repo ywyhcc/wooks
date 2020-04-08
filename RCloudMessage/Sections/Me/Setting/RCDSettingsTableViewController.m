@@ -243,7 +243,7 @@
 - (void)initUI {
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.navigationItem.title = RCDLocalizedString(@"account_setting");
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"me")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"me")
                                                                              target:self
                                                                              action:@selector(clickBackBtn:)];
     self.navigationItem.leftBarButtonItem = leftBtn;

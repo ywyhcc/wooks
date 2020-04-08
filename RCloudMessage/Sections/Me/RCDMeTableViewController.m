@@ -22,6 +22,7 @@
 #import "ActiveInviteCodeViewController.h"
 #import "VipRechargeViewController.h"
 #import "VipRechargeViewController.h"
+#import "MeHeadTableViewCell.h"
 
 //#define SERVICE_ID @"KEFU146001495753714"
 #define SERVICE_ID @"service"
@@ -129,11 +130,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (0 == indexPath.section) {
-        static NSString *detailsCellWithIdentifier = @"RCDMeDetailsCell";
-        RCDMeDetailsCell *detailsCell = [self.tableView dequeueReusableCellWithIdentifier:detailsCellWithIdentifier];
+        static NSString *detailsCellWithIdentifier = @"MeHeadTableViewCell";
+        MeHeadTableViewCell *detailsCell = [self.tableView dequeueReusableCellWithIdentifier:detailsCellWithIdentifier];
         if (detailsCell == nil) {
-            detailsCell = [[RCDMeDetailsCell alloc] init];
-            [detailsCell addDetailLabel];
+            detailsCell = [[MeHeadTableViewCell alloc] init];
         }
         return detailsCell;
     }
@@ -224,7 +224,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 88.f;
+        return 120.f;
     }
     return 55.f;
 }

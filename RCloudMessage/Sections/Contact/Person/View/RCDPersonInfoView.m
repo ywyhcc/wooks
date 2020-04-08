@@ -15,6 +15,8 @@
 #import "RCDUtilities.h"
 #import "DefaultPortraitView.h"
 
+#import "RCDCommonString.h"
+
 @interface RCDPersonInfoView ()
 
 @property (nonatomic, strong) UIView *infoBgView;
@@ -26,6 +28,8 @@
 @property (nonatomic, strong) UIImageView *genderImgView;
 
 @property (nonatomic, strong) RCDFriendInfo *friendInfo;
+
+@property (nonatomic, strong) UIButton *headBtn;
 
 @end
 
@@ -80,6 +84,32 @@
             [NSString stringWithFormat:@"%@：%@", RCDLocalizedString(@"GroupNickname"), groupNickname];
         [self updateInfoViewLayout];
     }
+}
+
+
+- (void)tapClicked{
+    
+    self.headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.headBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.headBtn.backgroundColor = [UIColor clearColor];
+    [self.headBtn addTarget:self action:@selector(removeHeadView) forControlEvents:UIControlEventTouchUpInside];
+    [[UIApplication sharedApplication].keyWindow addSubview:self.headBtn];
+    
+    //CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0)];
+    headImage.backgroundColor = [UIColor blackColor];
+    [headImage sd_setImageWithURL:[NSURL URLWithString:[DEFAULTS stringForKey:RCDUserPortraitUriKey]]];
+    headImage.contentMode = UIViewContentModeScaleAspectFit;
+    [self.headBtn addSubview:headImage];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        headImage.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }];
+    
+}
+
+- (void)removeHeadView{
+    [self.headBtn removeFromSuperview];
 }
 
 #pragma mark - Private Method
@@ -285,6 +315,10 @@
             _portraitImgView.layer.cornerRadius = 5;
         }
         _portraitImgView.clipsToBounds = YES;
+        _portraitImgView.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClicked)];
+        [_portraitImgView addGestureRecognizer:tap];
     }
     return _portraitImgView;
 }

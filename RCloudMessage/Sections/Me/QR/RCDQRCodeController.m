@@ -97,7 +97,7 @@
         self.navigationItem.title = RCDLocalizedString(@"My_QR");
     }
 
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                                              target:self
                                                                              action:@selector(clickBackBtn)];
     self.navigationItem.leftBarButtonItem = leftBtn;
@@ -163,19 +163,64 @@
 }
 
 - (void)didShareWechatBtnAction {
-    if ([RCDWeChatManager weChatCanShared]) {
-        UIImage *image = [self captureCurrentView:self.qrBgView];
-        [[RCDWeChatManager sharedManager] sendImage:image atScene:WXSceneSession];
-    } else {
-        // 提示用户安装微信
-        [NormalAlertView showAlertWithTitle:nil
-                                    message:RCDLocalizedString(@"NotInstalledWeChat")
-                              describeTitle:nil
-                               confirmTitle:RCDLocalizedString(@"confirm")
-                                    confirm:^{
+    
+    UIImage *imageToShare = [self captureCurrentView:self.qrBgView];//截取的当前屏幕的图片可以作为如下imageToShare图片分享出去
+    //分享的array(存放需要分享的内容)
+    NSArray *activityItems = @[imageToShare];
+    
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems
+                                                                                applicationActivities:nil];
 
-                                    }];
-    }
+    activityVC.completionWithItemsHandler = ^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError){
+
+            NSLog(@" 111activityType = %@ \n completed = %d",activityType,completed);
+
+            if (completed) {
+
+                if ([activityType isEqualToString:@"com.tencent.xin.sharetimeline"]) {
+
+                    NSLog(@"分享有效");
+
+                }
+
+            }
+
+        };
+
+        activityVC.excludedActivityTypes = @[   //除去的分享平台
+                                             UIActivityTypePostToFacebook
+                                             ,UIActivityTypePostToTwitter
+                                             ,UIActivityTypePostToWeibo
+                                             ,UIActivityTypeMessage
+                                             ,UIActivityTypeMail
+                                             ,UIActivityTypePrint
+                                             ,UIActivityTypeCopyToPasteboard
+                                             ,UIActivityTypeAssignToContact
+                                             ,UIActivityTypeSaveToCameraRoll
+                                             ,UIActivityTypeAddToReadingList
+                                             ,UIActivityTypePostToFlickr
+                                             ,UIActivityTypePostToVimeo
+                                             ,UIActivityTypeAirDrop
+                                             ,UIActivityTypeOpenInIBooks
+                                             ,UIActivityTypePostToTencentWeibo
+                                             ];
+
+        [self presentViewController:activityVC animated:TRUE completion:nil];
+    
+//    if ([RCDWeChatManager weChatCanShared]) {
+//        UIImage *image = [self captureCurrentView:self.qrBgView];
+//        [[RCDWeChatManager sharedManager] sendImage:image atScene:WXSceneSession];
+//    } else {
+//        // 提示用户安装微信
+//        [NormalAlertView showAlertWithTitle:nil
+//                                    message:RCDLocalizedString(@"NotInstalledWeChat")
+//                              describeTitle:nil
+//                               confirmTitle:RCDLocalizedString(@"confirm")
+//                                    confirm:^{
+//
+//                                    }];
+//    }
 }
 
 - (UIImage *)captureCurrentView:(UIView *)view {

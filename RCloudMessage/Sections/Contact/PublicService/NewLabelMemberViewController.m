@@ -92,14 +92,14 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate>
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.rightBtn buttonIsCanClick:YES buttonColor:RCDDYCOLOR(0xffffff, 0xA8A8A8) barButtonItem:self.rightBtn];
+    [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
     [self.hud hide:YES];
 }
 
 #pragma mark - Private Method
 - (void)setupNavi {
     self.navigationItem.leftBarButtonItem =
-        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                    target:self
                                                    action:@selector(clickBackBtn)];
     self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];
@@ -270,13 +270,13 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate>
     NSString *titleStr;
     if (self.selectUserList.count > 0) {
         titleStr = [NSString stringWithFormat:@"%@(%zd)", RCDLocalizedString(@"confirm"), [self.selectUserList count]];
-        [self.rightBtn buttonIsCanClick:YES buttonColor:RCDDYCOLOR(0xffffff, 0xA8A8A8) barButtonItem:self.rightBtn];
+        [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
     } else {
         titleStr = RCDLocalizedString(@"confirm");
 
         [self.rightBtn
             buttonIsCanClick:NO
-                 buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                 buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
                                                       darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                barButtonItem:self.rightBtn];
     }
@@ -342,7 +342,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate>
     }
 
     [self.rightBtn buttonIsCanClick:NO
-                        buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
                                                              darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                       barButtonItem:self.rightBtn];
 //    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -726,14 +726,14 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate>
 - (RCDUIBarButtonItem *)rightBtn {
     if (!_rightBtn) {
         _rightBtn = [[RCDUIBarButtonItem alloc] initWithbuttonTitle:RCDLocalizedString(@"confirm")
-                                                         titleColor:[UIColor colorWithHexString:@"000000" alpha:1.0]
+                                                         titleColor:[UIColor blackColor]
                                                         buttonFrame:CGRectMake(0, 0, 90, 30)
                                                              target:self
                                                              action:@selector(clickedDone:)];
         _rightBtn.button.titleLabel.font = [UIFont systemFontOfSize:16];
         [_rightBtn.button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
         [_rightBtn buttonIsCanClick:NO
-                        buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayColor]
                                                              darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                       barButtonItem:_rightBtn];
     }

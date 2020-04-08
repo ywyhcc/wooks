@@ -32,7 +32,7 @@
     [super viewDidLoad];
     self.title =
         [NSString stringWithFormat:RCDLocalizedString(@"group_members_x"), (unsigned long)[self.groupMembers count]];
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                                              target:self
                                                                              action:@selector(clickBackBtn)];
     self.navigationItem.leftBarButtonItem = leftBtn;

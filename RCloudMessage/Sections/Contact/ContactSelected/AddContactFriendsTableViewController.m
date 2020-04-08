@@ -50,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"通讯录中的好友";
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                                              target:self
                                                                              action:@selector(clickBackBtn)];
     self.navigationItem.leftBarButtonItem = leftBtn;

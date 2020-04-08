@@ -46,7 +46,7 @@
 
 
 - (void)setNav{
-    self.title = @"标签";
+    self.title = @"标签页";
 }
 
 - (void)createHeaderView{

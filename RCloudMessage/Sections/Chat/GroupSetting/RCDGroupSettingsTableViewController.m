@@ -60,7 +60,7 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     RCDUIBarButtonItem *leftButton =
-        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                    target:self
                                                    action:@selector(backBarButtonItemClicked:)];
     [self.navigationItem setLeftBarButtonItem:leftButton];

@@ -337,7 +337,7 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
 #pragma mark - Private Method
 - (void)setupNavi {
     self.navigationItem.leftBarButtonItem =
-        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                    target:self
                                                    action:@selector(clickBackBtn)];
     self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];

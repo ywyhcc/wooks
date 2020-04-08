@@ -106,7 +106,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"back")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"back")
                                                                              target:self
                                                                              action:@selector(clickBackBtn)];
     self.navigationItem.leftBarButtonItem = leftBtn;

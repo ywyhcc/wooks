@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "NewLabelMemberViewController.h"
+#import "RCDViewController.h"
 
 
-@interface LabelViewController : UIViewController
+@interface LabelViewController : RCDViewController
 
 @end

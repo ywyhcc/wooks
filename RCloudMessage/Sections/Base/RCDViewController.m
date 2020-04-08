@@ -12,7 +12,17 @@
 @implementation RCDViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-//      self.navigationController.navigationBar.topItem.title = @"";
+    
     self.view.backgroundColor = RCDDYCOLOR(0xf0f0f6, 0x000000);
+    
+    RCDUIBarButtonItem *leftButton =
+        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""
+                                                   target:self
+                                                   action:@selector(leftBarButtonItemPressed)];
+    [self.navigationItem setLeftBarButtonItem:leftButton];
+}
+
+- (void)leftBarButtonItemPressed {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

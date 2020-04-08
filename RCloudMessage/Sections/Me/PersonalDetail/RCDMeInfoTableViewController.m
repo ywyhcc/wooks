@@ -291,7 +291,7 @@
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     self.navigationItem.title = RCDLocalizedString(@"Personal_information");
 
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"me")
+    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""//RCDLocalizedString(@"me")
                                                                              target:self
                                                                              action:@selector(clickBackBtn:)];
     self.navigationItem.leftBarButtonItem = leftBtn;

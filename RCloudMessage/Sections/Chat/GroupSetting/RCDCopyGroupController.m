@@ -16,6 +16,8 @@
 #import "UIView+MBProgressHUD.h"
 #import "NormalAlertView.h"
 #import "RCDChatViewController.h"
+#import "RCDCreateGroupViewController.h"
+
 @interface RCDCopyGroupController ()
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIImageView *portraitImageView;
@@ -64,47 +66,52 @@
 }
 
 - (void)copyGroup {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *groupName = [self getGroupName];
-    __weak typeof(self) weakSelf = self;
-    [RCDGroupManager copyGroup:self.groupId
-        groupName:groupName
-        portraitUri:nil
-        complete:^(NSString *groupId, RCDGroupAddMemberStatus status) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //关闭HUD
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                if (groupId) {
-                    if (status == RCDGroupAddMemberStatusInviteeApproving) {
-                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
-                    }
-                    [weakSelf gotoChatView:groupId groupName:groupName];
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        //关闭HUD
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"CopyGroupFail")];
-                    });
-                }
-            });
-        }
-        error:^(RCDGroupErrorCode errorCode) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //关闭HUD
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                // 20004: 群处于保护期
-                // 20005: 7 天内已被复制一次
-                if (errorCode == RCDGroupErrorCodeProtection) {
-                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupIsProtectionTip")];
-                } else if (errorCode == RCDGroupErrorCodeCopyOnceIn7D) {
-                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupHasCopyInSevenDay")];
-                } else if (errorCode == RCDGroupErrorCodeMemberOnlyOne) {
-                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupMemberOnlyOne")];
-                } else {
-                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"CopyGroupFail")];
-                }
-            });
-        }];
+    
+    RCDCreateGroupViewController *createGroupVC = [[RCDCreateGroupViewController alloc] init];
+    createGroupVC.groupID = self.groupId;
+    [self.navigationController pushViewController:createGroupVC animated:YES];
+    
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    NSString *groupName = [self getGroupName];
+//    __weak typeof(self) weakSelf = self;
+//    [RCDGroupManager copyGroup:self.groupId
+//        groupName:groupName
+//        portraitUri:nil
+//        complete:^(NSString *groupId, RCDGroupAddMemberStatus status) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                //关闭HUD
+//                [MBProgressHUD hideHUDForView:self.view animated:YES];
+//                if (groupId) {
+//                    if (status == RCDGroupAddMemberStatusInviteeApproving) {
+//                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
+//                    }
+//                    [weakSelf gotoChatView:groupId groupName:groupName];
+//                } else {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        //关闭HUD
+//                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"CopyGroupFail")];
+//                    });
+//                }
+//            });
+//        }
+//        error:^(RCDGroupErrorCode errorCode) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                //关闭HUD
+//                [MBProgressHUD hideHUDForView:self.view animated:YES];
+//                // 20004: 群处于保护期
+//                // 20005: 7 天内已被复制一次
+//                if (errorCode == RCDGroupErrorCodeProtection) {
+//                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupIsProtectionTip")];
+//                } else if (errorCode == RCDGroupErrorCodeCopyOnceIn7D) {
+//                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupHasCopyInSevenDay")];
+//                } else if (errorCode == RCDGroupErrorCodeMemberOnlyOne) {
+//                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupMemberOnlyOne")];
+//                } else {
+//                    [weakSelf.view showHUDMessage:RCDLocalizedString(@"CopyGroupFail")];
+//                }
+//            });
+//        }];
 }
 
 - (NSString *)getGroupName {

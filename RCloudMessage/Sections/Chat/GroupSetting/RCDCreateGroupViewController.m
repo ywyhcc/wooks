@@ -302,50 +302,95 @@
 }
 
 - (void)createGroupWithPortraitUri:(NSString *)portraitUri {
-    NSString *nameStr = [self.groupName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    [RCDGroupManager
-        createGroup:nameStr
-        portraitUri:portraitUri
-          memberIds:self.groupMemberIdList
-           complete:^(NSString *groupId, RCDGroupAddMemberStatus status) {
-               dispatch_async(dispatch_get_main_queue(), ^{
-                   if (groupId) {
-                       if (status == RCDGroupAddMemberStatusInviteeApproving) {
-                           [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
-                       }
-
-                       if ([RCDForwardManager sharedInstance].isForward) {
-                           if ([RCDForwardManager sharedInstance].selectConversationCompleted) {
-                               RCConversation *conversation = [[RCConversation alloc] init];
-                               conversation.targetId = groupId;
-                               conversation.conversationType = ConversationType_GROUP;
-                               [RCDForwardManager sharedInstance].selectConversationCompleted([@[ conversation ] copy]);
-                               [[RCDForwardManager sharedInstance] forwardEnd];
-                           } else {
-                               [self sendForwardMessage:groupId];
+    if (self.groupID.length > 0) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        NSString *groupName = [self.groupName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        __weak typeof(self) weakSelf = self;
+        [RCDGroupManager copyGroup:self.groupID
+            groupName:groupName
+            portraitUri:portraitUri
+            complete:^(NSString *groupId, RCDGroupAddMemberStatus status) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //关闭HUD
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    if (groupId) {
+                        if (status == RCDGroupAddMemberStatusInviteeApproving) {
+                            [weakSelf.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
+                        }
+                        [weakSelf gotoChatView:groupId groupName:groupName];
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            //关闭HUD
+                            [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            [weakSelf.view showHUDMessage:RCDLocalizedString(@"CopyGroupFail")];
+                        });
+                    }
+                });
+            }
+            error:^(RCDGroupErrorCode errorCode) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //关闭HUD
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    // 20004: 群处于保护期
+                    // 20005: 7 天内已被复制一次
+                    if (errorCode == RCDGroupErrorCodeProtection) {
+                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupIsProtectionTip")];
+                    } else if (errorCode == RCDGroupErrorCodeCopyOnceIn7D) {
+                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupHasCopyInSevenDay")];
+                    } else if (errorCode == RCDGroupErrorCodeMemberOnlyOne) {
+                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"GroupMemberOnlyOne")];
+                    } else {
+                        [weakSelf.view showHUDMessage:RCDLocalizedString(@"CopyGroupFail")];
+                    }
+                });
+            }];
+    }
+    else{
+        NSString *nameStr = [self.groupName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        [RCDGroupManager
+            createGroup:nameStr
+            portraitUri:portraitUri
+              memberIds:self.groupMemberIdList
+               complete:^(NSString *groupId, RCDGroupAddMemberStatus status) {
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       if (groupId) {
+                           if (status == RCDGroupAddMemberStatusInviteeApproving) {
+                               [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
                            }
-                       } else {
-                           [RCDGroupManager
-                                   getGroupMembersFromServer:groupId
-                                                    complete:^(NSArray<NSString *> *memberIdList) {
-                                                        if (memberIdList) {
-                                                            [self gotoChatView:groupId groupName:nameStr];
-                                                        }
-                                                    }];
-                       }
-                       
-                       //关闭HUD
-                       [MBProgressHUD hideHUDForView:self.view animated:YES];
-                   } else {
-                       dispatch_async(dispatch_get_main_queue(), ^{
-                           self.navigationItem.rightBarButtonItem.enabled = YES;
+
+                           if ([RCDForwardManager sharedInstance].isForward) {
+                               if ([RCDForwardManager sharedInstance].selectConversationCompleted) {
+                                   RCConversation *conversation = [[RCConversation alloc] init];
+                                   conversation.targetId = groupId;
+                                   conversation.conversationType = ConversationType_GROUP;
+                                   [RCDForwardManager sharedInstance].selectConversationCompleted([@[ conversation ] copy]);
+                                   [[RCDForwardManager sharedInstance] forwardEnd];
+                               } else {
+                                   [self sendForwardMessage:groupId];
+                               }
+                           } else {
+                               [RCDGroupManager
+                                       getGroupMembersFromServer:groupId
+                                                        complete:^(NSArray<NSString *> *memberIdList) {
+                                                            if (memberIdList) {
+                                                                [self gotoChatView:groupId groupName:nameStr];
+                                                            }
+                                                        }];
+                           }
+                           
                            //关闭HUD
                            [MBProgressHUD hideHUDForView:self.view animated:YES];
-                           [self showAlert:RCDLocalizedString(@"create_group_fail")];
-                       });
-                   }
-               });
-           }];
+                       } else {
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               self.navigationItem.rightBarButtonItem.enabled = YES;
+                               //关闭HUD
+                               [MBProgressHUD hideHUDForView:self.view animated:YES];
+                               [self showAlert:RCDLocalizedString(@"create_group_fail")];
+                           });
+                       }
+                   });
+               }];
+    }
 }
 
 #pragma mark - geter & setter

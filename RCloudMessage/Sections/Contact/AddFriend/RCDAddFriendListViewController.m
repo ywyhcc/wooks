@@ -273,20 +273,18 @@
 }
 
 - (void)shareUrlToWeChat {
+    RCDQRCodeController *qrCodeVC =
+    [[RCDQRCodeController alloc] initWithTargetId:[RCIM sharedRCIM].currentUserInfo.userId
+                                 conversationType:ConversationType_PRIVATE];
+    UIImage *img = [qrCodeVC captureCurrent];
     
-//    NSString *textToShare = @"分享分享分享分享";
-
-//    UIGraphicsBeginImageContext([UIScreen mainScreen].bounds.size);//设置截屏的范围，起点为当前视图的（0，0，0，0）
-//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-//    UIImage *screenShotImage=UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    UIImage *imageToShare = screenShotImage;//截取的当前屏幕的图片可以作为如下imageToShare图片分享出去
-
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIImage *aimg = [qrCodeVC captureCurrent];
+        if (aimg == nil) {
+            return;
+        }
         
-        UIImage *logoImage = [UIImage imageNamed:@"about_rong"];
-
-        NSArray *activityItems = @[logoImage];
+        NSArray *activityItems = @[aimg];
 
         UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems
                                                                                     applicationActivities:nil];
@@ -327,6 +325,16 @@
 
             [self presentViewController:activityVC animated:TRUE completion:nil];
     });
+    
+//    NSString *textToShare = @"分享分享分享分享";
+
+//    UIGraphicsBeginImageContext([UIScreen mainScreen].bounds.size);//设置截屏的范围，起点为当前视图的（0，0，0，0）
+//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *screenShotImage=UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    UIImage *imageToShare = screenShotImage;//截取的当前屏幕的图片可以作为如下imageToShare图片分享出去
+
+    
     
 //    UIImage *logoImage = [UIImage imageNamed:@"57x57_logo"];
 //    if ([RCDWeChatManager weChatCanShared]) {

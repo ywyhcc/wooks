@@ -28,15 +28,14 @@
 - (void)requestUsers{
     NSMutableArray *muArr = [NSMutableArray arrayWithCapacity:0];
     NSDictionary *params = @{@"fromUserAccountId":[ProfileUtil getUserAccountID],@"telphones":self.phoneMembers};
+    //0.已发送1.已通过-1.被拒绝) 别人加我的好友请求(2.正在审核中3.同意-2.拒绝)-3.不是好友
     [SYNetworkingManager postWithURLString:GetPhoneAllUser parameters:params success:^(NSDictionary *data) {
         if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
             NSArray *allPhoneUser = [data arrayValueForKey:@"allPhoneUser"];
             for (NSDictionary *dic in allPhoneUser) {
-                bool isFriend = [dic boolValueForKey:@"isMyFriend"];
-                NSDictionary *userInfo = [dic dictionaryValueForKey:@"userInfo"];
-                
-                ContactAddUserModel *model = [[ContactAddUserModel alloc] initWithDictionary:userInfo];
-                model.isMyFriend = isFriend;
+                NSString *status = [dic stringValueForKey:@"status"];
+                ContactAddUserModel *model = [[ContactAddUserModel alloc] initWithDictionary:dic];
+                model.status = status;
                 [muArr addObject:model];
             }
             self.userMembers = muArr;
@@ -91,6 +90,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ContactAddUserModel *userInfo = self.userMembers[indexPath.row];
+    RCDPersonDetailViewController *personDetailVC = [[RCDPersonDetailViewController alloc] init];
+    personDetailVC.userId = userInfo.userAccountId;
+    [self.navigationController pushViewController:personDetailVC animated:YES];
 //    NSString *userId = self.userMembers[indexPath.row];
 //    if (self.searchController.active) {
 //        userId = self.searchResultList[indexPath.row];

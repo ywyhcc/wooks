@@ -79,7 +79,7 @@
         }
         return;
     }
-    NSDictionary *params = @{ @"optUserAccountId" : [ProfileUtil getUserAccountID], @"groupId" : groupId };
+    NSDictionary *params = @{ @"optUserAccountId" : [ProfileUtil getUserAccountID], @"groupId" : groupId,@"groupCover": portraitUri,@"groupName": groupName };
     if (portraitUri.length > 0) {
 //        params = @{ @"name" : groupName, @"groupId" : groupId, @"portraitUri" : portraitUri };
     }
@@ -88,7 +88,7 @@
     [SYNetworkingManager requestPUTWithURLStr:CopyGroup paramDic:params success:^(NSDictionary *data) {
         if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
             if (complete) {
-                complete([data stringValueForKey:@"newGroupId"],
+                complete([[data dictionaryValueForKey:@"newGroup"] stringValueForKey:@"id"],
                          RCDGroupAddMemberStatusInviteeApproving);
             }
         }

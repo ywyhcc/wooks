@@ -163,10 +163,10 @@ typedef enum {
 // - (void) dealloc { NSLog(@"dealloc %@", self); }
 
 - (void)setupFrameInView:(UIView *)view fromRect:(CGRect)fromRect {
-//    CGSize cSize = _contentView.frame.size;
-//    cSize.height = cSize.height + 100;
+    CGSize cSize = _contentView.frame.size;
+    cSize.width = cSize.width + 30;
 //
-    const CGSize contentSize = _contentView.frame.size;
+    const CGSize contentSize = cSize;//_contentView.frame.size;
 
     const CGFloat outerWidth = view.bounds.size.width;
     const CGFloat outerHeight = view.bounds.size.height;
@@ -347,14 +347,14 @@ typedef enum {
     if (!_menuItems.count)
         return nil;
 
-    const CGFloat kMinMenuItemHeight = 32.f;
-    const CGFloat kMinMenuItemWidth = 32.f;
+    const CGFloat kMinMenuItemHeight = 45.f;
+    const CGFloat kMinMenuItemWidth = 45.f;
     const CGFloat kMarginX = 10.f;
     const CGFloat kMarginY = 5.f;
 
     UIFont *titleFont = [KxMenu titleFont];
     if (!titleFont)
-        titleFont = [UIFont boldSystemFontOfSize:16];
+        titleFont = [UIFont boldSystemFontOfSize:20];
 
     CGFloat maxImageWidth = 0;
     CGFloat maxItemHeight = 0;

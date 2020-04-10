@@ -95,7 +95,7 @@
     self.tabBarController.navigationItem.titleView = nil;
     self.tabBarController.navigationItem.title = RCDLocalizedString(@"me");
     self.tabBarController.navigationItem.rightBarButtonItems = nil;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)),
     dispatch_get_main_queue(), ^{
         [self.navigationController setNavigationBarHidden:YES animated:animated];
     });

@@ -10,4 +10,6 @@
 
 @interface RCDCreateGroupViewController : RCDViewController
 @property (nonatomic, strong) NSMutableArray *groupMemberIdList;
+
+@property (nonatomic, strong) NSString *groupID;
 @end

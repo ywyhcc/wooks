@@ -14,6 +14,8 @@
 #import <Masonry/Masonry.h>
 #import "RCDCommonString.h"
 #import "RCDRCIMDataSource.h"
+#import "RCDPersonDetailViewController.h"
+
 @interface RCDBlackListViewController ()
 
 @property (nonatomic, strong) NSMutableDictionary *mDictData;
@@ -163,7 +165,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *key = [self.keys objectAtIndex:indexPath.section];
+    RCUserInfo *info = [[self.mDictData objectForKey:key] objectAtIndex:indexPath.row];
+    
+    RCDPersonDetailViewController *detailViewController = [[RCDPersonDetailViewController alloc] init];
+    detailViewController.userId = info.userId;
+    [self.navigationController pushViewController:detailViewController animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (UILabel *)emptyLabel {

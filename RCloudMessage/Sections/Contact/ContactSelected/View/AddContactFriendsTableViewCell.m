@@ -44,14 +44,31 @@
     self.nameLabel.text = model.nickName;
     self.wtLabel.text = model.woostalkId;
     [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:model.avaterUrl]];
-    if (model.isMyFriend) {
+    if (model.status.length > 0) {
         self.rightBtn.hidden = YES;
         self.rightLabel.hidden = NO;
-        self.rightLabel.text = @"已添加";
-    }
-    else {
-        self.rightBtn.hidden = NO;
-        self.rightLabel.hidden = YES;
+        if ([model.status isEqualToString:@"0"]) {
+            self.rightLabel.text = @"已发送";
+        }
+        else if ([model.status isEqualToString:@"1"]) {
+            self.rightLabel.text = @"已通过";
+        }
+        else if ([model.status isEqualToString:@"-1"]) {
+            self.rightLabel.text = @"被拒绝";
+        }
+        else if ([model.status isEqualToString:@"2"]) {
+            self.rightLabel.text = @"审核中";
+        }
+        else if ([model.status isEqualToString:@"3"]) {
+            self.rightLabel.text = @"已添加";
+        }
+        else if ([model.status isEqualToString:@"-2"]) {
+            self.rightLabel.text = @"已拒绝";
+        }
+        else if ([model.status isEqualToString:@"-3"]) {
+            self.rightBtn.hidden = NO;
+            self.rightLabel.hidden = YES;
+        }
     }
 }
 

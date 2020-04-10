@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RCDQRCodeController : RCDViewController
 - (instancetype)initWithTargetId:(NSString *)targetId conversationType:(RCConversationType)type;
+- (UIImage *)captureCurrent;
 @end
 
 NS_ASSUME_NONNULL_END

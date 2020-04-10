@@ -301,7 +301,7 @@
 "SaveToAddress"="保存到通讯录";
 "Person"="人";
 "GroupScanQRCodeInfo"="扫一扫群二维码，立刻加入该群";
-"MyScanQRCodeInfo"="扫一扫二维码，加我为好友";
+"MyScanQRCodeInfo"="扫一扫二维码，加我为Woostalk好友";
 "JoinGroup"="加入群聊";
 "JoinThisGroup"="加入该群";
 "GroupDetailCount"="群内已有 %@ 人";

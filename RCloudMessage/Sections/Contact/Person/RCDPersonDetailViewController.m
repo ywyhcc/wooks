@@ -157,14 +157,26 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
 - (void)getUserInfoData {
     if ([self isCurrentUser]) {
+        __weak typeof(self) weakSelf = self;
         NSString *currentUserId = [RCIM sharedRCIM].currentUserInfo.userId;
-        RCDUserInfo *currentUserInfo = [RCDUserInfoManager getUserInfo:currentUserId];
-        self.userInfo = [[RCDFriendInfo alloc] initWithUserId:currentUserInfo.userId
-                                                         name:currentUserInfo.name
-                                                     portrait:currentUserInfo.portraitUri];
-        self.userInfo.stAccount = currentUserInfo.stAccount;
-        self.userInfo.gender = currentUserInfo.gender;
-        [self.infoView setUserInfo:self.userInfo];
+        [RCDUserInfoManager getUserInfoFromServer:currentUserId
+        complete:^(RCDUserInfo *userInfo) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.userInfo = [[RCDFriendInfo alloc]init];
+                weakSelf.userInfo.gender = userInfo.gender;
+                weakSelf.userInfo.userId = userInfo.userId;
+                weakSelf.userInfo.name = userInfo.name;
+                weakSelf.userInfo.portraitUri = userInfo.portraitUri;
+                [weakSelf.infoView setUserInfo:weakSelf.userInfo];
+            });
+        }];
+//        RCDUserInfo *currentUserInfo = [RCDUserInfoManager getUserInfo:currentUserId];
+//        self.userInfo = [[RCDFriendInfo alloc] initWithUserId:currentUserInfo.userId
+//                                                         name:currentUserInfo.name
+//                                                     portrait:currentUserInfo.portraitUri];
+//        self.userInfo.stAccount = currentUserInfo.stAccount;
+//        self.userInfo.gender = currentUserInfo.gender;
+//        [self.infoView setUserInfo:self.userInfo];
     } else {
         self.userInfo = [RCDUserInfoManager getFriendInfo:self.userId];
         [self handleIsInBlockList];

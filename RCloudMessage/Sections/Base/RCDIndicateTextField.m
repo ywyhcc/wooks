@@ -119,7 +119,7 @@
 
     [self addConstraints:[NSLayoutConstraint
                              constraintsWithVisualFormat:
-                                 @"H:|-0-[_indicateInfoLabel]-10-[_textField(>=150)]-10-[_indicateIcon(9)]-10-|"
+                                 @"H:|-0-[_indicateInfoLabel(<=100)]-10-[_textField(>=150)]-10-[_indicateIcon(9)]-10-|"
                                                  options:0
                                                  metrics:nil
                                                    views:subviews]];

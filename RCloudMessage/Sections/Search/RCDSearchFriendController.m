@@ -45,16 +45,16 @@
 
 #pragma mark - Target action
 - (void)didTapCountryTextField {
-    RCDCountryListController *countryListVC = [[RCDCountryListController alloc] init];
-    countryListVC.showNavigationBarWhenBack = YES;
-    __weak typeof(self) weakSelf = self;
-    [countryListVC setSelectCountryResult:^(RCDCountry *_Nonnull country) {
-        weakSelf.currentRegion = country;
-        weakSelf.countryTextField.textField.text = country.countryName;
-        weakSelf.phoneTextField.indicateInfoLabel.text =
-            [NSString stringWithFormat:@"+%@", weakSelf.currentRegion.phoneCode];
-    }];
-    [self.navigationController pushViewController:countryListVC animated:YES];
+//    RCDCountryListController *countryListVC = [[RCDCountryListController alloc] init];
+//    countryListVC.showNavigationBarWhenBack = YES;
+//    __weak typeof(self) weakSelf = self;
+//    [countryListVC setSelectCountryResult:^(RCDCountry *_Nonnull country) {
+//        weakSelf.currentRegion = country;
+//        weakSelf.countryTextField.textField.text = country.countryName;
+//        weakSelf.phoneTextField.indicateInfoLabel.text =
+//            [NSString stringWithFormat:@"+%@", weakSelf.currentRegion.phoneCode];
+//    }];
+//    [self.navigationController pushViewController:countryListVC animated:YES];
 }
 
 - (void)didSearchFriend {

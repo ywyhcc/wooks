@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ContactAddUserModel : BaseUserInfoModel
 
-@property (nonatomic) bool isMyFriend;
+@property (nonatomic, strong)NSString *status;
 
 @end
 

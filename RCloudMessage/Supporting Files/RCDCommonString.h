@@ -52,5 +52,6 @@ NSString *const WoosTalkID = @"WoostalkId";
 NSString *const EditChangeWoosTalkID = @"ChangeWoosID";
 NSString *const LocationInfo = @"LocationInfo";
 NSString *const UserSingleSign = @"UserSingleSign";
+NSString *const DisplayPhone = @"DisplayPhone";
 
 #endif /* RCDCommonString_h */

@@ -23,6 +23,7 @@
 #import "RCDSetSealTalkNumViewController.h"
 #import "QiniuQuery.h"
 #import "MeMoreInfoTableViewController.h"
+#import "PhoneMoreTableViewController.h"
 
 @interface RCDMeInfoTableViewController ()
 @property (nonatomic, strong) NSData *data;
@@ -141,7 +142,7 @@
             }
         } break;
         case 3: {
-            [cell setCellStyle:DefaultStyle_RightLabel_WithoutRightArrow];
+            [cell setCellStyle:DefaultStyle_RightLabel];
             cell.leftLabel.text = RCDLocalizedString(@"mobile_number");
             cell.rightLabel.text = [DEFAULTS stringForKey:RCDUserNameKey];
         } break;
@@ -190,6 +191,10 @@
                 RCDSetSealTalkNumViewController *setSealTalkNumVC = [[RCDSetSealTalkNumViewController alloc] init];
                 [self.navigationController pushViewController:setSealTalkNumVC animated:YES];
             }
+        }
+        else if (indexPath.row == 3) {
+            PhoneMoreTableViewController *nextVC = [[PhoneMoreTableViewController alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
         }
     } else {
         if (indexPath.row == 0) {

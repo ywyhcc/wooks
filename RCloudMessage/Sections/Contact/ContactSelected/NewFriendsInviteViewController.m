@@ -27,6 +27,7 @@
 #import "AddContactFriendsTableViewController.h"
 #import "RCDCommonString.h"
 #import <ContactsUI/ContactsUI.h>
+#import "RCDAddFriendListViewController.h"
 
 @interface NewFriendsInviteViewController ()<UICollectionViewDelegateFlowLayout, UICollectionViewDataSource,
 UICollectionViewDelegate, UITableViewDelegate,
@@ -92,8 +93,10 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
 }
 
 - (void)addNewFriend{
-    RCDSearchFriendController *searchFirendVC = [[RCDSearchFriendController alloc] init];
-    [self.navigationController pushViewController:searchFirendVC animated:YES];
+    RCDAddFriendListViewController *addFriendListVC = [[RCDAddFriendListViewController alloc] init];
+    [self.navigationController pushViewController:addFriendListVC animated:YES];
+//    RCDSearchFriendController *searchFirendVC = [[RCDSearchFriendController alloc] init];
+//    [self.navigationController pushViewController:searchFirendVC animated:YES];
 }
 
 - (void)viewDidLayoutSubviews {

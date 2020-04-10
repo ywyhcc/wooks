@@ -117,6 +117,7 @@
             [self.userListCollectionViewDelegate respondsToSelector:@selector(didTipHeaderClicked:)]) {
             [self.userListCollectionViewDelegate didTipHeaderClicked:user.userId];
         }
+        NSLog(@"%@---%@---%@",user.userId,user.name,user.portraitUri);
     } else if (self.isAllowAdd && indexPath.row == self.userList.count) {
         if (self.userListCollectionViewDelegate &&
             [self.userListCollectionViewDelegate respondsToSelector:@selector(addButtonDidClicked)]) {

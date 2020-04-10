@@ -129,7 +129,7 @@
 
 - (void)getUserInfo {
 //    self.targetUserInfo = [RCDUserInfoManager getUserInfo:self.targetUserId];
-    if (!self.targetUserInfo) {
+    if ((self.targetUserInfo.userId.length > 0)){
         __weak typeof(self) weakSelf = self;
         [RCDUserInfoManager getOtherInfoFromServer:self.targetUserInfo.userId complete:^(RCDUserInfo *userInfo) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -137,14 +137,24 @@
                 [weakSelf setHeaderData];
             });
         }];
+    }
+    else if (![[ProfileUtil getUserAccountID] isEqualToString:self.targetUserId]){
+        __weak typeof(self) weakSelf = self;
+        [RCDUserInfoManager getOtherInfoFromServer:self.targetUserId complete:^(RCDUserInfo *userInfo) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.targetUserInfo = userInfo;
+                [weakSelf setHeaderData];
+            });
+        }];
+    }
+    else if ([[ProfileUtil getUserAccountID] isEqualToString:self.targetUserId]) {
+        __weak typeof(self) weakSelf = self;
         [RCDUserInfoManager getUserInfoFromServer:self.targetUserId
-                                         complete:^(RCDUserInfo *userInfo) {
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 [weakSelf setHeaderData];
-                                             });
-                                         }];
-    } else {
-        [self setHeaderData];
+        complete:^(RCDUserInfo *userInfo) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf setHeaderData];
+            });
+        }];
     }
 }
 

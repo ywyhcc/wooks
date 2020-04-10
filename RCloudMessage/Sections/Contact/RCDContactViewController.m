@@ -79,6 +79,7 @@
         });
     }];
     [self getServerFriends];
+    [self updateFriendNum];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -91,6 +92,14 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)updateFriendNum{
+    UILabel *bottomView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
+    bottomView.text = [NSString stringWithFormat:@"%lu位朋友及联系人",(unsigned long)self.allFriendArray.count];
+    bottomView.textColor = [FPStyleGuide lightGrayTextColor];
+    bottomView.textAlignment = NSTextAlignmentCenter;
+    self.friendsTabelView.tableFooterView = bottomView;
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -526,6 +535,7 @@
         self.emptyLabel.hidden = YES;
     }
     [self.friendsTabelView reloadData];
+    [self updateFriendNum];
 }
 
 #pragma mark - Target Action
@@ -554,7 +564,6 @@
         _friendsTabelView = [[RCDTableView alloc] initWithFrame:CGRectZero style:(UITableViewStyleGrouped)];
         _friendsTabelView.delegate = self;
         _friendsTabelView.dataSource = self;
-        _friendsTabelView.tableFooterView = [UIView new];
         _friendsTabelView.tableHeaderView =
             [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _friendsTabelView.bounds.size.width, 0.01f)];
         //设置右侧索引

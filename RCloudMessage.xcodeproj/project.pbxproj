@@ -210,6 +210,8 @@
 		7F30D8172425F84D0018A519 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F30D7F72425F84D0018A519 /* ContactsViewController.m */; };
 		7F30D8182425F84D0018A519 /* MMUserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F30D7F92425F84D0018A519 /* MMUserDetailViewController.m */; };
 		7F4CEE57243C6338008C24DA /* MeHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4CEE56243C6338008C24DA /* MeHeadTableViewCell.m */; };
+		7F4CEE5A243F33CE008C24DA /* PhoneMoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4CEE59243F33CE008C24DA /* PhoneMoreTableViewController.m */; };
+		7F4CEE5D243F5D21008C24DA /* EditPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4CEE5C243F5D21008C24DA /* EditPhoneViewController.m */; };
 		7F5ED404243998D8007958F5 /* AddContactFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED403243998D8007958F5 /* AddContactFriendsTableViewController.m */; };
 		7F5ED40724399992007958F5 /* AddContactFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED40624399992007958F5 /* AddContactFriendsTableViewCell.m */; };
 		7F5ED40A2439A277007958F5 /* BaseUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED4092439A277007958F5 /* BaseUserInfoModel.m */; };
@@ -865,6 +867,10 @@
 		7F30D7F92425F84D0018A519 /* MMUserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMUserDetailViewController.m; sourceTree = "<group>"; };
 		7F4CEE55243C6338008C24DA /* MeHeadTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeHeadTableViewCell.h; sourceTree = "<group>"; };
 		7F4CEE56243C6338008C24DA /* MeHeadTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeHeadTableViewCell.m; sourceTree = "<group>"; };
+		7F4CEE58243F33CE008C24DA /* PhoneMoreTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneMoreTableViewController.h; sourceTree = "<group>"; };
+		7F4CEE59243F33CE008C24DA /* PhoneMoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneMoreTableViewController.m; sourceTree = "<group>"; };
+		7F4CEE5B243F5D21008C24DA /* EditPhoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditPhoneViewController.h; sourceTree = "<group>"; };
+		7F4CEE5C243F5D21008C24DA /* EditPhoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPhoneViewController.m; sourceTree = "<group>"; };
 		7F5ED402243998D8007958F5 /* AddContactFriendsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactFriendsTableViewController.h; sourceTree = "<group>"; };
 		7F5ED403243998D8007958F5 /* AddContactFriendsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactFriendsTableViewController.m; sourceTree = "<group>"; };
 		7F5ED40524399992007958F5 /* AddContactFriendsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactFriendsTableViewCell.h; sourceTree = "<group>"; };
@@ -1531,6 +1537,10 @@
 			children = (
 				27F0E38822A0E3E000C8B0B8 /* RCDMeInfoTableViewController.h */,
 				27F0E38B22A0E3E000C8B0B8 /* RCDMeInfoTableViewController.m */,
+				7F4CEE58243F33CE008C24DA /* PhoneMoreTableViewController.h */,
+				7F4CEE59243F33CE008C24DA /* PhoneMoreTableViewController.m */,
+				7F4CEE5B243F5D21008C24DA /* EditPhoneViewController.h */,
+				7F4CEE5C243F5D21008C24DA /* EditPhoneViewController.m */,
 				7FC042072439C4FB007CF4F6 /* MeMoreInfoTableViewController.h */,
 				7FC042082439C4FB007CF4F6 /* MeMoreInfoTableViewController.m */,
 				7FC0420A2439D6A8007CF4F6 /* LocationTableViewController.h */,
@@ -3580,6 +3590,7 @@
 				A29070BA229E8045006BDAC7 /* RCDCustomerEmoticonTab.m in Sources */,
 				27F0E3C322A0E3E300C8B0B8 /* RCDMeInfoTableViewController.m in Sources */,
 				A29070BC229E8045006BDAC7 /* RCDTestMessageCell.m in Sources */,
+				7F4CEE5D243F5D21008C24DA /* EditPhoneViewController.m in Sources */,
 				7FF936DD242A202D00694A1E /* ActiveInviteCodeViewController.m in Sources */,
 				A6B1D8EB1B1FFCB700AD32EC /* RCWKNotifier.m in Sources */,
 				7F30D80E2425F84D0018A519 /* UIView+Geometry.m in Sources */,
@@ -3639,6 +3650,7 @@
 				27F0E3CC22A0E3E300C8B0B8 /* RCDVersionCell.m in Sources */,
 				27644ABC2355CEB8005A39F5 /* RCDDataStatistics.m in Sources */,
 				7F30D73424239AFE0018A519 /* UIImage+SplashImage.m in Sources */,
+				7F4CEE5A243F33CE008C24DA /* PhoneMoreTableViewController.m in Sources */,
 				3B4788E822B780EF00D33F10 /* RCDForwardManager.m in Sources */,
 				A2E705D822BA31D20047DF47 /* RCDTipMessageCell.m in Sources */,
 				27F0E3D722A0E3E300C8B0B8 /* RCDMessageNotifySettingTableViewController.m in Sources */,

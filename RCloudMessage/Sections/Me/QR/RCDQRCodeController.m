@@ -36,6 +36,9 @@
 @property (nonatomic, strong) NSString *targetId;
 @property (nonatomic, assign) RCConversationType type;
 @property (nonatomic, strong) RCDGroupInfo *group;
+
+@property (nonatomic, strong) UILabel *logoLabel;
+
 @end
 
 @implementation RCDQRCodeController
@@ -233,6 +236,14 @@
     return image;
 }
 
+- (UIImage *)captureCurrent{
+    [self setDataInfo];
+    [self setNaviItem];
+    [self addSubViews];
+    UIImage *image = [self captureCurrentView:self.qrBgView];
+    return image;
+}
+
 - (void)saveImageToPhotos:(UIImage *)image {
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
@@ -347,6 +358,7 @@
 
         } else {
             [self.qrBgView addSubview:self.qrCodeImageView];
+            [self.qrBgView addSubview:self.logoLabel];
             [self.qrBgView addSubview:self.countLabel];
             [self.qrBgView addSubview:self.infoLabel];
             [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -366,6 +378,7 @@
     } else {
         [self.qrBgView addSubview:self.qrCodeImageView];
         [self.qrBgView addSubview:self.infoLabel];
+        [self.qrBgView addSubview:self.logoLabel];
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.portraitImageView.mas_right).offset(15);
             make.right.equalTo(self.qrBgView.mas_right).offset(-15);
@@ -381,10 +394,17 @@
         make.height.offset(0.5);
     }];
     if (!self.group.needCertification) {
+        [self.logoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.qrBgView);
+            make.top.equalTo(self.qrBgView).offset(110);
+            make.width.equalTo(self.qrBgView);
+            make.height.offset(30);
+        }];
+        
         [self.qrCodeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.qrBgView);
-            make.top.equalTo(self.qrBgView).offset(70);
-            make.width.height.offset(280);
+            make.top.equalTo(self.qrBgView).offset(130);
+            make.width.height.offset(200);
         }];
         [self.infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.qrBgView);
@@ -438,10 +458,23 @@
     return _qrCodeImageView;
 }
 
+- (UILabel *)logoLabel {
+    if (!_logoLabel) {
+        _logoLabel = [[UILabel alloc] init];
+        _logoLabel.text = @"Woostalk";
+        _logoLabel.textColor = [FPStyleGuide weichatGreenColor];
+        _logoLabel.backgroundColor = [UIColor clearColor];
+        _logoLabel.font = [UIFont systemFontOfSize:17];
+        _logoLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _logoLabel;
+}
+
 - (UILabel *)infoLabel {
     if (!_infoLabel) {
         _infoLabel = [[UILabel alloc] init];
-        _infoLabel.textColor = HEXCOLOR(0x939393);
+        _infoLabel.textColor = [FPStyleGuide weichatGreenColor];
+        _infoLabel.backgroundColor = [UIColor clearColor];
         _infoLabel.font = [UIFont systemFontOfSize:13];
         _infoLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -459,7 +492,7 @@
 - (UIButton *)saveButton {
     if (!_saveButton) {
         _saveButton = [[UIButton alloc] init];
-        [_saveButton setTitleColor:HEXCOLOR(0x0099ff) forState:(UIControlStateNormal)];
+        [_saveButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         _saveButton.titleLabel.font = [UIFont systemFontOfSize:13];
         [_saveButton setTitle:RCDLocalizedString(@"SaveImage") forState:(UIControlStateNormal)];
         [_saveButton addTarget:self
@@ -472,7 +505,7 @@
 - (UIButton *)shareSealTalkBtn {
     if (!_shareSealTalkBtn) {
         _shareSealTalkBtn = [[UIButton alloc] init];
-        [_shareSealTalkBtn setTitleColor:HEXCOLOR(0x0099ff) forState:(UIControlStateNormal)];
+        [_shareSealTalkBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         _shareSealTalkBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [_shareSealTalkBtn setTitle:RCDLocalizedString(@"ShareToSealTalk") forState:(UIControlStateNormal)];
         [_shareSealTalkBtn addTarget:self
@@ -485,7 +518,7 @@
 - (UIButton *)shareWechatBtn {
     if (!_shareWechatBtn) {
         _shareWechatBtn = [[UIButton alloc] init];
-        [_shareWechatBtn setTitleColor:HEXCOLOR(0x0099ff) forState:(UIControlStateNormal)];
+        [_shareWechatBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         _shareWechatBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [_shareWechatBtn setTitle:RCDLocalizedString(@"ShareToWeChat") forState:(UIControlStateNormal)];
         [_shareWechatBtn addTarget:self

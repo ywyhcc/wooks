@@ -33,6 +33,7 @@
 #import "RCDGroupMemberDetailController.h"
 #import "RCDGroupManager.h"
 #import "UIImage+Additions.h"
+#import "MomentViewController.h"
 
 typedef NS_ENUM(NSInteger, RCDPersonOperation) {
     RCDPersonOperationDelete = 0,
@@ -116,7 +117,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
     [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.contentView);
-        make.height.offset(85);
+        make.height.offset(105);
     }];
 
     UIView *lastView = nil;
@@ -180,7 +181,6 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
     } else {
         self.userInfo = [RCDUserInfoManager getFriendInfo:self.userId];
         [self handleIsInBlockList];
-        [self.infoView setUserInfo:self.userInfo];
         [RCDUserInfoManager getFriendInfoFromServer:self.userId
                                            complete:^(RCDFriendInfo *friendInfo) {
                                                rcd_dispatch_main_async_safe(^{
@@ -211,7 +211,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 }
 
 - (void)getFriendDescription {
-    self.friendDescription = [RCDUserInfoManager getFriendDescription:self.userId];
+//    self.friendDescription = [RCDUserInfoManager getFriendDescription:self.userId];
     if (!self.friendDescription && !self.isLoadFriendDescription) {
         self.isLoadFriendDescription = YES;
         [RCDUserInfoManager getDescriptionFromServer:self.userId
@@ -472,9 +472,9 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
     if (section == 0) {
         NSInteger row = 0;
         if (self.descriptionType == RCDFriendDescriptionTypeDefault) {
-            row = 1;
-        } else {
             row = 2;
+        } else {
+            row = 3;
         }
         if (self.groupId.length > 0) {
             row = row + 1;
@@ -516,7 +516,9 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
             if (indexPath.row == 0) {
                 cell.detailLabel.textColor = [UIColor colorWithHexString:@"0099FF" alpha:1];
                 cell.titleLabel.text = RCDLocalizedString(@"PhoneNumber");
-                cell.detailLabel.text = self.friendDescription.phone;
+                if (![self.friendDescription.hidePhone isEqualToString:@"1"]) {
+                    cell.detailLabel.text = self.friendDescription.phone;
+                }
                 cell.detailLabel.userInteractionEnabled = YES;
                 cell.tapDetailBlock = ^(NSString *_Nonnull detail) {
                     rcd_dispatch_main_async_safe(^{
@@ -525,9 +527,14 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 };
             } else {
                 cell.detailLabel.textColor = [UIColor colorWithHexString:@"999999" alpha:1];
-                cell.titleLabel.text = RCDLocalizedString(@"Describe");
-                cell.detailLabel.text = self.friendDescription.desc;
                 cell.detailLabel.userInteractionEnabled = NO;
+                if (indexPath.row == 1) {
+                    cell.titleLabel.text = RCDLocalizedString(@"Describe");
+                    cell.detailLabel.text = self.friendDescription.desc;
+                }
+                else if (indexPath.row == 2) {
+                    cell.titleLabel.text = @"密友圈";
+                }
             }
         } break;
         case RCDFriendDescriptionTypeDefault:
@@ -568,7 +575,21 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 [self pushToRemarksVC];
             }
         } else {
-            [self pushToRemarksVC];
+            if (indexPath.row == 0) {
+                if (![self.friendDescription.hidePhone isEqualToString:@"1"]) {
+                    [self presentActionSheet];
+                }
+            }
+            else if (indexPath.row == 1) {
+                [self pushToRemarksVC];
+            }
+            else if (indexPath.row == 2) {
+//                MomentViewController *momentVC = [[MomentViewController alloc] init];
+//                [self.navigationController pushViewController:momentVC animated:YES];
+                [self pushToRemarksVC];
+            }
+//            [self pushToRemarksVC];
+            
         }
     } else {
         if (indexPath.row == 0) {

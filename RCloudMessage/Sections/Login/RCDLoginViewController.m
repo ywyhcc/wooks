@@ -29,6 +29,7 @@
 #import "RCDUserInfoManager.h"
 #import "RCDIMService.h"
 #import "NSUserDefaults+Category.h"
+#import "WKWebViewController.h"
 
 #define UserTextFieldTag 1000
 #define PassWordFieldTag 1001
@@ -537,7 +538,7 @@
         arrayByAddingObjectsFromArray:[NSLayoutConstraint
                                           constraintsWithVisualFormat:@"V:|-70-[_rongLogoView(100)]-100-["
                                                                       @"_errorMsgLb(==15)]-20-["
-                                                                      @"_inputBackground(380)]-20-["
+                                                                      @"_inputBackground(180)]-20-["
                                                                       @"_userProtocolButton(==20)]"
                                                               options:0
                                                               metrics:nil
@@ -1027,11 +1028,15 @@
 }
 
 - (void)personProtocol{
-    
+    WKWebViewController *webVC = [[WKWebViewController alloc] init];
+    webVC.url = @"http://www.woostalk.com/service_agreement.html";
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (void)hideProtocol{
-    
+    WKWebViewController *webVC = [[WKWebViewController alloc] init];
+    webVC.url = @"http://www.woostalk.com/agreement.html";
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (UIImage *)getScreenShot{

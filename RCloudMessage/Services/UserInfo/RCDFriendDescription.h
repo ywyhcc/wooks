@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *phone;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *imageUrl;
+@property (nonatomic, copy) NSString *hidePhone;
 
 - (instancetype)initWithJson:(NSDictionary *)json;
 

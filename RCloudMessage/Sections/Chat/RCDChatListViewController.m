@@ -48,7 +48,8 @@
     if (self) {
         //设置要显示的会话类型
         [self setDisplayConversationTypes:@[
-            @(ConversationType_PRIVATE)
+            @(ConversationType_PRIVATE),
+            @(ConversationType_SYSTEM)
         ]];
 /*,@(ConversationType_APPSERVICE),
 @(ConversationType_PUBLICSERVICE),
@@ -370,7 +371,9 @@
         [KxMenuItem menuItem:RCDLocalizedString(@"start_chatting")
                        image:[UIImage imageNamed:@"home_right3"]
                       target:self
-                      action:@selector(pushChat:)],
+//                      action:@selector(pushChat:)],
+                     action:@selector(testSendMessage)],
+         
 
         [KxMenuItem menuItem:RCDLocalizedString(@"create_groups")
                        image:[UIImage imageNamed:@"home_right4"]
@@ -702,6 +705,30 @@
     if (self.selectGroupChat) {
         [self.typeView selectIndex:1];
     }
+}
+
+- (void)testSendMessage{
+    RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:@"新建了群聊"];
+    //                        [message decodeUserInfo:@{@"message":@"新建了群聊"}];
+                            
+//        [message encode];
+        
+        [[RCIMClient sharedRCIMClient]
+                    sendMessage:ConversationType_GROUP
+                    targetId:@"139ba70cab764de7a32d02980c4b77b9"
+                    content:message
+                    pushContent:@""
+                    pushData:@""
+                    success:^(long messageId) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"aaaaa");
+            });
+                    }
+                    error:^(RCErrorCode nErrorCode, long messageId) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"bbbbb");
+            });
+        }];
 }
 
 #pragma mark - geter & setter

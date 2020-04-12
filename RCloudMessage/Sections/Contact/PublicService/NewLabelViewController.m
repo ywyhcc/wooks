@@ -232,7 +232,8 @@
                 friendInfo.userId = userDic[@"userAccountId"];
                 friendInfo.name = userDic[@"nickName"];
                 friendInfo.portraitUri = userDic[@"avaterUrl"];
-                friendInfo.displayName = userDic[@"nickName"];
+                friendInfo.displayName = [userDic stringValueForKey:@"userRemarks"];
+                friendInfo.district = [userDic stringValueForKey:@"district"];
                 friendInfo.status = 20;
                 friendInfo.phoneNumber = userDic[@"telphone"];
                 friendInfo.stAccount = userDic[@"friendId"];
@@ -297,9 +298,10 @@
                 for (NSDictionary *userDic in userArray) {
                     RCDFriendInfo *friendInfo = [[RCDFriendInfo alloc] init];
                     friendInfo.userId = userDic[@"userAccountId"];
+                    friendInfo.district = [userDic stringValueForKey:@"district"];
                     friendInfo.name = userDic[@"nickName"];
                     friendInfo.portraitUri = userDic[@"avaterUrl"];
-                    friendInfo.displayName = userDic[@"nickName"];
+                    friendInfo.displayName = [userDic stringValueForKey:@"userRemarks"];
                     friendInfo.status = 20;
                     friendInfo.phoneNumber = userDic[@"telphone"];
                     friendInfo.stAccount = userDic[@"friendId"];

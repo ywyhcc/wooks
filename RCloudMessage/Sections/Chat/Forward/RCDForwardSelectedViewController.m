@@ -270,6 +270,7 @@ static NSString *forwardSelectedCellIdentifier = @"RCDForwardSelectedCellIdentif
 
     self.title = RCDLocalizedString(@"SelectAConversation");
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
+    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
 
     UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithTitle:RCDLocalizedString(@"cancel")
                                                                     style:UIBarButtonItemStylePlain

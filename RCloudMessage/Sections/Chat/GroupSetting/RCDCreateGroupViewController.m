@@ -314,6 +314,7 @@
                     //关闭HUD
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                     if (groupId) {
+
                         if (status == RCDGroupAddMemberStatusInviteeApproving) {
                             [weakSelf.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
                         }
@@ -354,6 +355,31 @@
                complete:^(NSString *groupId, RCDGroupAddMemberStatus status) {
                    dispatch_async(dispatch_get_main_queue(), ^{
                        if (groupId) {
+                           RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:@"新建了群聊"];
+                           //                        [message decodeUserInfo:@{@"message":@"新建了群聊"}];
+                                                   
+                               [message encode];
+                               
+                               [[RCIMClient sharedRCIMClient]
+                                           sendMessage:ConversationType_GROUP
+                                           targetId:groupId
+                                           content:message
+                                           pushContent:@""
+                                           pushData:@""
+                                           success:^(long messageId) {
+                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                       NSLog(@"aaaaa");
+                                   });
+                                           }
+                                           error:^(RCErrorCode nErrorCode, long messageId) {
+                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                       NSLog(@"bbbbb");
+                                   });
+                               }];
+       
+                           
+                           
+                           
                            if (status == RCDGroupAddMemberStatusInviteeApproving) {
                                [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
                            }

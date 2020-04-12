@@ -18,7 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+     [self.navigationController setNavigationBarHidden:NO animated:YES];
     MMWebView * webView = [[MMWebView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, k_screen_height-k_top_height)];
     webView.backgroundColor = [UIColor whiteColor];
     webView.opaque = NO;

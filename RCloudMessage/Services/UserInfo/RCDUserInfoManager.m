@@ -366,6 +366,11 @@
                                     }
                                 }];
                             }
+                            else {
+                                if (completeBlock) {
+                                    completeBlock(success, action);
+                                }
+                            }
                         }];
 }
 

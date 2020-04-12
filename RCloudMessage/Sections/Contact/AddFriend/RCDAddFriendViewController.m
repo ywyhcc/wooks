@@ -321,7 +321,7 @@
                             }
                             [self updateFooterView];
                         } else {
-                            [self showAlertViewWith:RCDLocalizedString(@"request_fail_retry")];
+                            [self showAlertViewWith:action];
                         }
                     });
                 }];

@@ -21,6 +21,7 @@
 #import "RCDCommonString.h"
 #import "RCDLoginManager.h"
 #import "SYNetworkingManager.h"
+#import "WKWebViewController.h"
 
 #define UserTextFieldTag 1000
 #define NickNameFieldTag 1003
@@ -1057,11 +1058,15 @@
 }
 
 - (void)personProtocol{
-    
+    WKWebViewController *webVC = [[WKWebViewController alloc] init];
+    webVC.url = @"http://www.woostalk.com/service_agreement.html";
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (void)hideProtocol{
-    
+    WKWebViewController *webVC = [[WKWebViewController alloc] init];
+    webVC.url = @"http://www.woostalk.com/agreement.html";
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (UIView *)bottomBackground {

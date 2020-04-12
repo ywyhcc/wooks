@@ -10,6 +10,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "RCDQRInfoHandle.h"
 #import "RCDQRCodeManager.h"
+#import "RCDForwardSelectedViewController.h"
+#import "RCDForwardManager.h"
+
 @interface RCDImageSlideController ()
 
 @end
@@ -53,7 +56,17 @@
                                    handler:^(UIAlertAction *_Nonnull action) {
                                        [self saveImage];
                                    }];
-        NSArray *actions = @[ cancelAction, saveAction ];
+        UIAlertAction *fowardAction =
+        [UIAlertAction actionWithTitle:@"转发"
+                                 style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *_Nonnull action) {
+            [RCDForwardManager sharedInstance].selectedMessages = @[self.messageModel];
+                                   RCDForwardSelectedViewController *forwardSelectedVC = [[RCDForwardSelectedViewController alloc] init];
+                                   UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:forwardSelectedVC];
+                                   navi.modalPresentationStyle = UIModalPresentationFullScreen;
+                                   [self.navigationController presentViewController:navi animated:YES completion:nil];
+                               }];
+        NSArray *actions = @[ cancelAction, saveAction,fowardAction ];
         NSString *info = [RCDQRCodeManager decodeQRCodeImage:[UIImage imageWithData:[self getCurrentPreviewImageData]]];
         if (info) {
             UIAlertAction *identifyQRCodeAction =

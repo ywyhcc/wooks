@@ -27,6 +27,8 @@ extern NSString *const RCDGroupMemberProtectionClose;
  */
 @interface RCDGroupNotificationMessage : RCMessageContent
 
++ (instancetype)messageWithTextMsg:(NSString *)textMsg;
+
 @property (nonatomic, copy) NSString *operation;
 
 @property (nonatomic, copy) NSString *operatorUserId;
@@ -34,6 +36,8 @@ extern NSString *const RCDGroupMemberProtectionClose;
 @property (nonatomic, strong) NSArray<NSString *> *targetUserIds;
 
 @property (nonatomic, copy) NSString *message;
+
+@property (nonatomic, copy) NSString *userName;
 
 - (NSString *)getDigest:(NSString *)groupId;
 

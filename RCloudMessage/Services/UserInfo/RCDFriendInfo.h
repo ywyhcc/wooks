@@ -44,4 +44,8 @@ typedef NS_ENUM(NSInteger, RCDFriendStatus) {
 
 @property (nonatomic, strong) NSString *friendID;
 
+@property (nonatomic, strong) NSString *district;
+
+@property (nonatomic, strong) NSString *isHidePhone;
+
 @end

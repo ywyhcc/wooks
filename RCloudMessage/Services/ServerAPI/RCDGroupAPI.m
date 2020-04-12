@@ -722,7 +722,12 @@
                 if ([[userinfo stringValueForKey:@"gender"] isEqualToString:@"2"]) {
                     member.gender = @"male";
                 }
-                member.groupNickname = [userinfo stringValueForKey:@"nickName"];//[groupDetailInfo stringValueForKey:@"groupName"];
+                if ([dic stringValueForKey:@"groupMemberNickName"].length > 0) {
+                    member.groupNickname = [dic stringValueForKey:@"groupMemberNickName"];
+                }
+                else{
+                    member.groupNickname = [userinfo stringValueForKey:@"nickName"];//[groupDetailInfo stringValueForKey:@"groupName"];
+                }
                 if ([dic boolValueForKey:@"isGroupMaster"]) {
                     member.role = RCDGroupMemberRoleOwner;
                 }

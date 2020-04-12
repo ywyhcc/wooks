@@ -33,6 +33,31 @@ NSString *const RCDGroupMemberProtectionClose = @"closeMemberProtection";
     return MessagePersistent_ISPERSISTED;
 }
 
++ (instancetype)messageWithTextMsg:(NSString *)textMsg{
+    RCDGroupNotificationMessage *text = [[RCDGroupNotificationMessage alloc] init];
+
+    if (text) {
+
+        text.message = textMsg;
+
+    }
+
+    return text;
+}
+
+- (NSData *)encode {
+
+    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+
+    [dataDict setObject:self.message forKey:@"content"];
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dataDict options:kNilOptions error:nil];
+
+    return data;
+}
+
+
+
 - (void)decodeWithData:(NSData *)data {
     __autoreleasing NSError *__error = nil;
     if (!data) {
@@ -41,7 +66,8 @@ NSString *const RCDGroupMemberProtectionClose = @"closeMemberProtection";
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&__error];
     NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:dictionary];
     if (!__error && dict) {
-        self.message = [dict stringValueForKey:@"message"];
+        self.message = [dict stringValueForKey:@"content"];
+        self.userName = [dict stringValueForKey:@"userName"];
         self.operation = [dict objectForKey:@"operation"];
         self.operatorUserId = [dict objectForKey:@"operatorUserId"];
         self.operationName = dict[@"data"][@"operatorNickname"];
@@ -62,7 +88,14 @@ NSString *const RCDGroupMemberProtectionClose = @"closeMemberProtection";
 }
 
 - (NSString *)getDigest:(NSString *)groupId {
-    NSString *content = (self.message.length > 0) ? self.message : @"系统消息";
+    NSString *content = @"系统消息";
+    if (self.message.length > 0) {
+        content = self.message;
+    }
+    else if (self.userName.length > 0){
+        content = self.userName;
+    }
+    
 //    NSString *operationName = [self getDisplayNames:@[ self.operatorUserId ] groupId:groupId];
 //    NSString *targetNames = [self getDisplayNames:self.targetUserIds groupId:groupId];
 //    BOOL isMeOperate = NO;

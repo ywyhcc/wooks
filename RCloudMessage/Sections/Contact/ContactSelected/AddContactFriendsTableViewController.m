@@ -7,7 +7,6 @@
 //
 
 #import "AddContactFriendsTableViewController.h"
-#import "RCDContactTableViewCell.h"
 #import "RCDPersonDetailViewController.h"
 #import "RCDUIBarButtonItem.h"
 #import <RongIMKit/RongIMKit.h>

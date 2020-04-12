@@ -26,7 +26,7 @@
         if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
             
             RCDUserInfo *userInfo = [[RCDUserInfo alloc] init];
-            userInfo.userId = userId;
+            userInfo.userId = otherId;
             userInfo.name = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
             userInfo.portraitUri = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"avaterUrl"];
             userInfo.stAccount = @"";//[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"userAccountId"];
@@ -91,16 +91,21 @@
             
             RCDFriendInfo *friendInfo = [[RCDFriendInfo alloc] init];
             friendInfo.userId = userId;
-            friendInfo.displayName = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
+            if ([data stringValueForKey:@"friendRemark"].length > 0) {
+                friendInfo.displayName = [data stringValueForKey:@"friendRemark"];
+            }
+            
+            friendInfo.district = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"district"];
             friendInfo.name = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
             friendInfo.portraitUri = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"avaterUrl"];
             friendInfo.status = RCDFriendStatusAgree;
             if ([data boolValueForKey:@"isAddBlackList"]) {
                 friendInfo.status = RCDFriendStatusBlock;
             }
-            friendInfo.phoneNumber = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"telphone"];
+            friendInfo.phoneNumber = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"isHidePhone"];
 //            friendInfo.updateDt = [userDic[@"updatedTime"] longLongValue];
             friendInfo.stAccount = @"";//[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"userAccountId"];
+            friendInfo.isHidePhone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"telphone"];
             if ([[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"gender"] isEqualToString:@"1"]) {
                 friendInfo.gender = @"female";
             }
@@ -372,7 +377,7 @@
                 friendInfo.userId = [userDic stringValueForKey:@"userAccountId"];
                 friendInfo.name = [userDic stringValueForKey:@"nickName"];
                 friendInfo.portraitUri = [userDic stringValueForKey:@"avaterUrl"];
-                friendInfo.displayName = [userDic stringValueForKey:@"nickName"];
+                friendInfo.displayName = [userDic stringValueForKey:@"userRemarks"];
                 
                 //好友审核状态(我发送的好友请求:0.已发送1.已通过-1.被拒绝) 别人加我的好友请求(2.正在审核中3.同意-2.拒绝)
                 
@@ -440,7 +445,8 @@
                  friendInfo.userId = userDic[@"userAccountId"];
                  friendInfo.name = userDic[@"nickName"];
                  friendInfo.portraitUri = userDic[@"avaterUrl"];
-                 friendInfo.displayName = userDic[@"nickName"];
+                 friendInfo.displayName = userDic[@"userRemarks"];
+                 friendInfo.district = [userDic stringValueForKey:@"district"];
                  
                  //好友审核状态(我发送的好友请求:0.已发送1.已通过-1.被拒绝) 别人加我的好友请求(2.正在审核中3.同意-2.拒绝)
                  
@@ -548,9 +554,10 @@
                 friendInfo.userId = userDic[@"userAccountId"];
                 friendInfo.name = userDic[@"nickName"];
                 friendInfo.portraitUri = userDic[@"avaterUrl"];
-                friendInfo.displayName = userDic[@"nickName"];
+                friendInfo.displayName = userDic[@"userRemarks"];
                 friendInfo.status = 20;
                 friendInfo.phoneNumber = userDic[@"telphone"];
+                friendInfo.district = [userDic stringValueForKey:@"district"];
                 friendInfo.stAccount = userDic[@"friendId"];
 //                friendInfo.gender = userDic[@"gender"];
                 if ([[userDic stringValueForKey:@"gender"] isEqualToString:@"1"]) {
@@ -602,13 +609,13 @@
         }
         else{
             if (completeBlock) {
-                completeBlock(YES, @"");
+                completeBlock(NO, [data stringValueForKey:@"message"]);
             }
         }
         
     } failure:^(NSError *error) {
         if (completeBlock) {
-            completeBlock(YES, @"");
+            completeBlock(NO, @"请求错误");
         }
     }];
     
@@ -1315,10 +1322,15 @@
             RCDFriendDescription *description =
                 [[RCDFriendDescription alloc] init];
             description.userId = friendId;
-            description.displayName = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
+            if ([data stringValueForKey:@"friendRemark"].length > 0) {
+                description.displayName = [data stringValueForKey:@"friendRemark"];
+//            }else {
+//                description.displayName = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
+            }
             description.phone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"telphone"];
             description.desc = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"comments"];
             description.imageUrl = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"avaterUrl"];
+            description.hidePhone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"isHidePhone"];
             if (completeBlock) {
                 completeBlock(description);
             }

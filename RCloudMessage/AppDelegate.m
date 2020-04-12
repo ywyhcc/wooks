@@ -31,6 +31,7 @@
 #import "RCDChatManager.h"
 #import "RCDIMService.h"
 #import "MomentUtil.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 //#define RONGCLOUD_IM_APPKEY @"n19jmcy59f1q9" // online key
 #define RONGCLOUD_IM_APPKEY @"pvxdm17jpe31r"
@@ -63,11 +64,16 @@
     [self loginAndEnterMainPage];
     [self getAppConfig];
     [self initMomentData];
+    [self initMapKey];
     return YES;
 }
 
 - (void)initMomentData{
     [MomentUtil initMomentData];
+}
+
+- (void)initMapKey{//线上key：97c93875002e3ba8142fbdd59b662030
+    [AMapServices sharedServices].apiKey = @"7034fd0af15c4004105c84d1fba27364";
 }
 
 - (void)getAppConfig{

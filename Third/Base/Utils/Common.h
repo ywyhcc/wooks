@@ -59,6 +59,18 @@
 //tabBar高
 #define WX_TABBAR_HEIGHT (49 + IS_IPHONEX * 34)
 
+#define GL_iPhone_X          (SCREEN_WIDTH == 375 && SCREEN_HEIGHT == 812)
+
+#define GL_iPhone_X_Max         (SCREEN_WIDTH == 414 && SCREEN_HEIGHT == 896)
+
+/** 是否是异形屏 */
+#define IS_HETERO_SCREEN            (GL_iPhone_X || GL_iPhone_X_Max)
+
+#define Nav_topH                    (IS_HETERO_SCREEN ? 88.0 : 64.0)    // 导航栏+状态栏高度
+
+#define NavMustAdd                 (IS_HETERO_SCREEN ? 34.0 : 0.0)     // 异形屏上方安全高度
+
+
 //基金流Cell高度
 #define kFundList_Cell_Height             (140)
 

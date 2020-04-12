@@ -93,8 +93,11 @@
             __weak typeof(self) weakSelf = self;
             [RCDUtilities getGroupUserDisplayInfo:user.userId
                                           groupId:self.groupId
-                                           result:^(RCUserInfo *user) {
-                                               weakSelf.nicknameLabel.text = user.name;
+                                           result:^(RCUserInfo *auser) {
+                                               weakSelf.nicknameLabel.text = auser.name;
+                                                if (user.displayName.length > 0) {
+                                                    weakSelf.nicknameLabel.text = user.displayName;
+                                                }
                                                [weakSelf.portraitImageView
                                                    sd_setImageWithURL:[NSURL URLWithString:user.portraitUri]
                                                      placeholderImage:[UIImage imageNamed:@"contact"]];
@@ -103,6 +106,9 @@
             
 //            [RCDUserInfoAPI getUserInfo:@"" anotherUserID:user.userId complete:^(RCDUserInfo *userInfo) {
                 self.nicknameLabel.text = user.name;
+            if (user.displayName.length > 0) {
+                self.nicknameLabel.text = user.displayName;
+            }
                 [self.portraitImageView
                  sd_setImageWithURL:[NSURL URLWithString:user.portraitUri]
                  placeholderImage:[UIImage imageNamed:@"contact"]];

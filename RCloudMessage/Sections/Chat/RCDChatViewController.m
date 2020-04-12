@@ -41,6 +41,7 @@
 #import "NormalAlertView.h"
 #import <Masonry/Masonry.h>
 #import "UIView+MBProgressHUD.h"
+#import "SendLocationViewController.h"
 
 #define PLUGIN_BOARD_ITEM_POKE_TAG 20000
 
@@ -90,7 +91,7 @@
 
     [self refreshUserInfoOrGroupInfo];
     [self addNotifications];
-    //    [self addToolbarItems];
+//        [self addToolbarItems];
     /*******************实时地理位置共享***************/
     [self registerRealTimeLocationCell];
     [self getRealTimeLocationProxy];
@@ -107,6 +108,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+
     self.defaultInputType = [self getInputStatus];
     [self refreshTitle];
     self.isShow = YES;
@@ -319,6 +322,7 @@
 }
 
 - (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag {
+    __weak RCDChatViewController *weakSelf = self;
     [self resetQucilySendView];
     switch (tag) {
     case PLUGIN_BOARD_ITEM_LOCATION_TAG: {
@@ -330,8 +334,27 @@
                 [UIAlertAction actionWithTitle:RCDLocalizedString(@"send_location")
                                          style:UIAlertActionStyleDefault
                                        handler:^(UIAlertAction *_Nonnull action) {
-                                           [super pluginBoardView:self.chatSessionInputBarControl.pluginBoardView
-                                               clickedItemWithTag:PLUGIN_BOARD_ITEM_LOCATION_TAG];
+                    SendLocationViewController *nextVC = [[SendLocationViewController alloc] init];
+                    nextVC.userID = self.targetId;
+                    nextVC.locationBack = ^(UIImage *img,CLLocationCoordinate2D currentLocation, NSString *name){
+                        RCLocationMessage *locationMessage = [RCLocationMessage messageWithLocationImage:img location:currentLocation locationName:name];
+                        
+                        [[RCIMClient sharedRCIMClient]
+                           sendMessage:ConversationType_PRIVATE
+                           targetId:self.targetId
+                           content:locationMessage
+                           pushContent:@"位置"
+                           pushData:@"位置"
+                           success:^(long messageId) {
+                   
+                           }
+                           error:^(RCErrorCode nErrorCode, long messageId) {
+                           
+                       }];
+                    };
+                    [self.navigationController pushViewController:nextVC animated:YES];
+//                                           [super pluginBoardView:self.chatSessionInputBarControl.pluginBoardView
+//                                               clickedItemWithTag:PLUGIN_BOARD_ITEM_LOCATION_TAG];
                                        }];
             UIAlertAction *locationShareAction = [UIAlertAction actionWithTitle:RCDLocalizedString(@"location_share")
                                                                           style:UIAlertActionStyleDefault
@@ -345,7 +368,26 @@
                                       actions:@[ cancelAction, sendLocationAction, locationShareAction ]
                              inViewController:self];
         } else {
-            [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
+//            [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
+            SendLocationViewController *nextVC = [[SendLocationViewController alloc] init];
+            nextVC.groupID = self.targetId;
+            nextVC.locationBack = ^(UIImage *img,CLLocationCoordinate2D currentLocation, NSString *name){
+                 RCLocationMessage *locationMessage = [RCLocationMessage messageWithLocationImage:img location:currentLocation locationName:name];
+                 
+                 [[RCIMClient sharedRCIMClient]
+                    sendMessage:ConversationType_GROUP
+                    targetId:self.targetId
+                    content:locationMessage
+                    pushContent:@"位置"
+                    pushData:@"位置"
+                    success:^(long messageId) {
+            
+                    }
+                    error:^(RCErrorCode nErrorCode, long messageId) {
+                    
+                }];
+             };
+            [self.navigationController pushViewController:nextVC animated:YES];
         }
     } break;
     case PLUGIN_BOARD_ITEM_POKE_TAG: {

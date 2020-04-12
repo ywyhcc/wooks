@@ -27,10 +27,11 @@ target 'SealTalk' do
   pod "Qiniu", "~> 7.3"
   
 #    pod "UMengAnalytics-NO-IDFA"
+  pod "AMap2DMap"
+  pod "AMapSearch"
   pod "MJRefresh"
   pod "MLLabel"
   pod "YYText"
-  pod "AMap3DMap"
   pod "UUActionSheet"
   pod "UUButton"
   pod "MMWebView"

@@ -11,6 +11,8 @@
 #import "UIColor+RCColor.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "RCDUserInfoManager.h"
+#import "RCDGroupManager.h"
+
 @implementation RCDUserListCollectionItem
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -86,11 +88,17 @@
 
 - (void)setUserModel:(NSString *)userId {
     if (self.groupId.length > 0) {
-        [RCDUtilities getGroupUserDisplayInfo:userId
-                                      groupId:self.groupId
-                                       result:^(RCUserInfo *user) {
-                                           [self setUIInfo:user];
-                                       }];
+        RCDGroupMember *memberDetail = [RCDGroupManager getGroupMember:userId groupId:self.groupId];
+//        [RCDUtilities getGroupUserDisplayInfo:userId
+//                                      groupId:self.groupId
+//                                       result:^(RCUserInfo *user) {
+//                                           [self setUIInfo:user];
+//                                       }];
+        RCUserInfo *user = [[RCUserInfo alloc] init];
+        user.userId = memberDetail.userId;
+        user.name = memberDetail.groupNickname;
+        user.portraitUri = memberDetail.portraitUri;
+        [self setUIInfo:user];
     } else {
         [RCDUtilities getUserDisplayInfo:userId
                                 complete:^(RCUserInfo *user) {

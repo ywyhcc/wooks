@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *groupNicknameLabel;
 @property (nonatomic, strong) UIImageView *genderImgView;
+@property (nonatomic, strong) UILabel *locationLabel;
 
 @property (nonatomic, strong) RCDFriendInfo *friendInfo;
 
@@ -59,9 +60,16 @@
             self.nameLabel.text = userInfo.name;
         }
     }
-    if (userInfo.stAccount.length > 0 && ![userInfo.stAccount isEqualToString:@""]) {
-        self.stAccountLabel.text =
-            [NSString stringWithFormat:@"%@：%@", RCDLocalizedString(@"SealTalkNumber"), userInfo.stAccount];
+//    if (userInfo.stAccount.length > 0 && ![userInfo.stAccount isEqualToString:@""]) {
+//        self.stAccountLabel.text =
+//            [NSString stringWithFormat:@"%@：%@", RCDLocalizedString(@"SealTalkNumber"), userInfo.stAccount];
+//    }
+    if (userInfo.district.length > 0) {
+        self.locationLabel.hidden = NO;
+        self.locationLabel.text = userInfo.district;
+    }
+    else {
+        self.locationLabel.hidden = YES;
     }
     if (!userInfo.portraitUri || userInfo.portraitUri.length <= 0) {
         self.portraitImgView.image = [DefaultPortraitView portraitView:userInfo.userId name:userInfo.name];
@@ -98,7 +106,7 @@
     //CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
     UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0)];
     headImage.backgroundColor = [UIColor blackColor];
-    [headImage sd_setImageWithURL:[NSURL URLWithString:[DEFAULTS stringForKey:RCDUserPortraitUriKey]]];
+    [headImage sd_setImageWithURL:[NSURL URLWithString:self.friendInfo.portraitUri]];
     headImage.contentMode = UIViewContentModeScaleAspectFit;
     [self.headBtn addSubview:headImage];
     
@@ -137,6 +145,12 @@
                 make.right.equalTo(self.infoBgView);
                 make.height.offset(16);
             }];
+            [self.locationLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.groupNicknameLabel.mas_bottom).offset(4);
+                make.left.equalTo(self.remarksLabel);
+                make.right.equalTo(self.infoBgView);
+                make.height.offset(16);
+            }];
         } else {
             if (self.stAccountLabel.hidden) {
                 [self.remarksLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -155,6 +169,12 @@
             }
             [self.groupNicknameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.nameLabel.mas_bottom).offset(4);
+                make.left.equalTo(self.remarksLabel);
+                make.right.equalTo(self.infoBgView);
+                make.height.offset(16);
+            }];
+            [self.locationLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.groupNicknameLabel.mas_bottom).offset(4);
                 make.left.equalTo(self.remarksLabel);
                 make.right.equalTo(self.infoBgView);
                 make.height.offset(16);
@@ -202,6 +222,14 @@
             make.right.equalTo(self.infoBgView);
             make.height.offset(16);
         }];
+        if (self.friendInfo.district.length > 0) {
+            [self.locationLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.nameLabel.mas_bottom).offset(4);
+                make.left.equalTo(self.remarksLabel);
+                make.right.equalTo(self.infoBgView);
+                make.height.offset(16);
+            }];
+        }
     } else {
         self.nameLabel.font = [UIFont systemFontOfSize:16];
         self.nameLabel.textColor = RCDDYCOLOR(0x000000, 0x9f9f9f);
@@ -229,6 +257,14 @@
                 make.height.offset(18);
                 make.right.equalTo(self.genderImgView.mas_left).offset(-5);
             }];
+            if (self.friendInfo.district.length > 0) {
+                [self.locationLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.nameLabel.mas_bottom).offset(4);
+                    make.left.equalTo(self.remarksLabel);
+                    make.right.equalTo(self.infoBgView);
+                    make.height.offset(16);
+                }];
+            }
         }
 
         [self.genderImgView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -248,7 +284,8 @@
     [self.infoBgView addSubview:self.nameLabel];
     [self.infoBgView addSubview:self.genderImgView];
     [self.infoBgView addSubview:self.groupNicknameLabel];
-
+    [self.infoBgView addSubview:self.locationLabel];
+    
     [self.infoBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.left.right.equalTo(self);
     }];
@@ -286,6 +323,13 @@
         make.height.offset(16);
     }];
 
+    [self.locationLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.groupNicknameLabel.mas_bottom).offset(4);
+        make.left.equalTo(self.remarksLabel);
+        make.right.equalTo(self.infoBgView);
+        make.height.offset(16);
+    }];
+    
     [self.genderImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.remarksLabel);
         make.left.equalTo(self.remarksLabel.mas_right).offset(5);
@@ -331,6 +375,16 @@
         _remarksLabel.hidden = YES;
     }
     return _remarksLabel;
+}
+
+- (UILabel *)locationLabel {
+    if (!_locationLabel) {
+        _locationLabel = [[UILabel alloc] init];
+        _locationLabel.font = [UIFont systemFontOfSize:14];
+        _locationLabel.textColor = [UIColor colorWithHexString:@"999999" alpha:1];
+        _locationLabel.hidden = YES;
+    }
+    return _locationLabel;
 }
 
 - (UILabel *)stAccountLabel {

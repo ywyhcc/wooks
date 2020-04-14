@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //关闭iOS11默认开启的self sizing
     [self closeSelfSizing];
     self.tableView.tableFooterView = [UIView new];

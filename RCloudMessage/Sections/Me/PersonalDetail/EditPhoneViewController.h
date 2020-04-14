@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EditPhoneViewController : RCDViewController
 
+@property (nonatomic, strong)NSString *displayPhone;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -61,6 +61,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
     [super viewWillAppear:animated];
     self.tabBarController.navigationItem.titleView = nil;
     self.tabBarController.navigationItem.title = RCDLocalizedString(@"contacts");

@@ -29,7 +29,7 @@
             userInfo.userId = otherId;
             userInfo.name = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
             userInfo.portraitUri = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"avaterUrl"];
-            userInfo.stAccount = @"";//[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"userAccountId"];
+            userInfo.stAccount = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"woostalkId"];
 //            userInfo.gender = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"gender"];
             if ([[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"gender"] isEqualToString:@"1"]) {
                 userInfo.gender = @"female";
@@ -94,7 +94,8 @@
             if ([data stringValueForKey:@"friendRemark"].length > 0) {
                 friendInfo.displayName = [data stringValueForKey:@"friendRemark"];
             }
-            
+            friendInfo.sparePhone = [data stringValueForKey:@"friendPhone"];//备注手机号(备注的)
+            friendInfo.showPhone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"sparePhoneNumber"];//用户备用用手机号
             friendInfo.district = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"district"];
             friendInfo.name = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
             friendInfo.portraitUri = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"avaterUrl"];
@@ -102,10 +103,10 @@
             if ([data boolValueForKey:@"isAddBlackList"]) {
                 friendInfo.status = RCDFriendStatusBlock;
             }
-            friendInfo.phoneNumber = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"isHidePhone"];
+            friendInfo.phoneNumber = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"telphone"];
 //            friendInfo.updateDt = [userDic[@"updatedTime"] longLongValue];
-            friendInfo.stAccount = @"";//[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"userAccountId"];
-            friendInfo.isHidePhone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"telphone"];
+            friendInfo.stAccount = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"woostalkId"];
+            friendInfo.isHidePhone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"isHidePhone"];
             if ([[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"gender"] isEqualToString:@"1"]) {
                 friendInfo.gender = @"female";
             }
@@ -1327,6 +1328,8 @@
 //            }else {
 //                description.displayName = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"];
             }
+            description.sparePhone = [data stringValueForKey:@"friendPhone"];//备注手机号(备注的)
+            description.showPhone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"sparePhoneNumber"];//用户备用手机号
             description.phone = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"telphone"];
             description.desc = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"comments"];
             description.imageUrl = [[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"avaterUrl"];

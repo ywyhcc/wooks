@@ -14,7 +14,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = RCDDYCOLOR(0xf0f0f6, 0x000000);
-    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     RCDUIBarButtonItem *leftButton =
         [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""
                                                    target:self

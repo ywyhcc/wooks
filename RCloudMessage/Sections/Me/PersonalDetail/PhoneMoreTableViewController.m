@@ -34,7 +34,7 @@
     self.titleData =
         @[
            @"隐藏我的手机号",
-           @"显示的手机号",
+           @"备用手机号",
 
     ];
     self.navigationItem.title = RCDLocalizedString(@"SecurityAndprivacy");
@@ -100,9 +100,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *title = self.titleData[indexPath.row];
-    if ([title isEqualToString:@"显示的手机号"]) {
+    if ([title isEqualToString:@"备用手机号"]) {
         EditPhoneViewController *vc = [[EditPhoneViewController
                                         alloc] init];
+        vc.displayPhone = self.displayPhone;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

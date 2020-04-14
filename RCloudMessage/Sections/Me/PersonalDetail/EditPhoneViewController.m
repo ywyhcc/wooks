@@ -149,6 +149,7 @@
     [self.userNameTextField addTarget:self
                                action:@selector(textFieldDidChange:)
                      forControlEvents:UIControlEventEditingChanged];
+    self.userNameTextField.text = self.displayPhone;
     [self.bgView addSubview:self.userNameTextField];
 
     self.subViews = NSDictionaryOfVariableBindings(_bgView, _userNameTextField);

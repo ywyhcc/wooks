@@ -42,7 +42,7 @@
 //#define RONGCLOUD_IM_APPKEY @"e0x9wycfx7flq" // offline key
 
 #define RONGCLOUD_STATUS_SERVER @""
-#define BUGLY_APPID @""
+#define BUGLY_APPID @"197556f165"
 #define LOG_EXPIRE_TIME -7 * 24 * 60 * 60
 
 #define WECHAT_APPID @"wxe3d4d4ec21b00104"

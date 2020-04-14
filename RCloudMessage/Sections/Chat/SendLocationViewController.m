@@ -87,7 +87,7 @@
 
 - (void)sendMessage{
     UIImage *img = [self captureCurrentView:self.mapView];
-    RCLocationMessage *locationMessage = [RCLocationMessage messageWithLocationImage:img location:self.currentLocationCoordinate locationName:self.selectPOI.name];
+//    RCLocationMessage *locationMessage = [RCLocationMessage messageWithLocationImage:img location:self.currentLocationCoordinate locationName:self.selectPOI.name];
     if (self.locationBack) {
         self.locationBack(img, self.currentLocationCoordinate,self.selectPOI.name);
     }
@@ -345,7 +345,11 @@
     CGFloat leftWid = (frame.size.width - 230) / 2;
     CGFloat topWid = (frame.size.height - 100) / 2;
     CGRect newFrame = CGRectMake(leftWid, topWid, 230, 100);
-    return [self.mapView takeSnapshotInRect:frame];
+//    UIImage *resImg = nil;
+//    return [self.mapView takeSnapshotInRect:frame];
+    [self.mapView takeSnapshotInRect:frame withCompletionBlock:^(UIImage *resultImage, CGRect rect) {
+//        resImg = resultImage;
+    }];
     
 //    [self.mapView takeSnapshotInRect:newFrame withCompletionBlock:^(UIImage *resultImage, CGRect rect) {
 //        return resultImage;
@@ -356,12 +360,12 @@
     
 //    CGRect lastFrame = CGRectMake(mapFrame.origin.x + leftWid, mapFrame.origin.y + topWid, 230, 100);
     
-//    UIGraphicsBeginImageContextWithOptions(frame.size, NO, [UIScreen mainScreen].scale);
-//    CGContextRef contextRef = UIGraphicsGetCurrentContext();
-//    [view.layer renderInContext:contextRef];
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-    
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, [UIScreen mainScreen].scale);
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:contextRef];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 - (void)onInputTipsSearchDone:(AMapInputTipsSearchRequest *)request response:(AMapInputTipsSearchResponse *)response{

@@ -57,7 +57,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setNavigationBarAppearance];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:NO];
@@ -91,21 +90,22 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     self.tabBarController.navigationItem.titleView = nil;
     self.tabBarController.navigationItem.title = RCDLocalizedString(@"me");
     self.tabBarController.navigationItem.rightBarButtonItems = nil;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)),
-    dispatch_get_main_queue(), ^{
-        [self.navigationController setNavigationBarHidden:YES animated:animated];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)),
+//    dispatch_get_main_queue(), ^{
+//        [self.navigationController setNavigationBarHidden:YES animated:animated];
+//    });
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
     [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)dealloc {

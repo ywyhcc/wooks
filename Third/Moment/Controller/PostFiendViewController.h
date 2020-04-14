@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RCDViewController.h"
 
-@interface PostFiendViewController : UIViewController
+@interface PostFiendViewController : RCDViewController
 
 @property (nonatomic, assign) BOOL textOrPic;
 

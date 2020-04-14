@@ -60,10 +60,10 @@
             self.nameLabel.text = userInfo.name;
         }
     }
-//    if (userInfo.stAccount.length > 0 && ![userInfo.stAccount isEqualToString:@""]) {
-//        self.stAccountLabel.text =
-//            [NSString stringWithFormat:@"%@：%@", RCDLocalizedString(@"SealTalkNumber"), userInfo.stAccount];
-//    }
+    if (userInfo.stAccount.length > 0 && ![userInfo.stAccount isEqualToString:@""]) {
+        self.stAccountLabel.text =
+            [NSString stringWithFormat:@"%@：%@", RCDLocalizedString(@"SealTalkNumber"), userInfo.stAccount];
+    }
     if (userInfo.district.length > 0) {
         self.locationLabel.hidden = NO;
         self.locationLabel.text = userInfo.district;

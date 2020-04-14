@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MLocation.h"
+#import "RCDViewController.h"
 
-@interface MMLocationViewController : UIViewController
+@interface MMLocationViewController : RCDViewController
 
 @property (nonatomic, strong) MLocation * location;
 

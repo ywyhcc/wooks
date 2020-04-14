@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];  
     self.evaStarDic = [NSMutableDictionary dictionary];
     __weak typeof(self) weakSelf = self;

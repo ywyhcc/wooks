@@ -259,7 +259,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
 - (void)calculateTableViewHeight {
     // 跟 numberOfRowsInSection 逻辑对应
-    NSInteger rows = 2;
+    NSInteger rows = 4;
     if (self.descriptionType == RCDFriendDescriptionTypeDefault) {
         rows += 1;
     } else {
@@ -317,6 +317,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
     vc.setRemarksSuccess = ^{
         [self getUserInfoData];
     };
+    vc.friendDescription = self.friendDescription;
     vc.friendId = self.userId;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -463,6 +464,41 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                      inViewController:self];
 }
 
+- (void)presentSpareActionSheet {
+    UIAlertAction *cancelAction =
+        [UIAlertAction actionWithTitle:RCDLocalizedString(@"cancel") style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *callAction = [UIAlertAction
+        actionWithTitle:RCDLocalizedString(@"Call")
+                  style:UIAlertActionStyleDefault
+                handler:^(UIAlertAction *_Nonnull action) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (self.friendDescription.sparePhone) {
+                            NSURL *phoneUrl = [NSURL
+                                URLWithString:[NSString stringWithFormat:@"tel://%@", self.friendDescription.sparePhone]];
+                            if (IOS_FSystenVersion > 10) {
+                                [[UIApplication sharedApplication] openURL:phoneUrl options:@{} completionHandler:nil];
+                            } else {
+                                [[UIApplication sharedApplication] openURL:phoneUrl];
+                            }
+                        }
+                    });
+                }];
+    UIAlertAction *copyAction = [UIAlertAction actionWithTitle:RCDLocalizedString(@"CopyNumber")
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *_Nonnull action) {
+                                                           if (self.friendDescription.sparePhone) {
+                                                               UIPasteboard *pastboard =
+                                                                   [UIPasteboard generalPasteboard];
+                                                               [pastboard setString:self.friendDescription.sparePhone];
+                                                           }
+                                                       }];
+    [RCKitUtility showAlertController:nil
+                              message:nil
+                       preferredStyle:UIAlertControllerStyleActionSheet
+                              actions:@[ cancelAction, callAction, copyAction ]
+                     inViewController:self];
+}
+
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -472,9 +508,9 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
     if (section == 0) {
         NSInteger row = 0;
         if (self.descriptionType == RCDFriendDescriptionTypeDefault) {
-            row = 2;
-        } else {
             row = 3;
+        } else {
+            row = 4;
         }
         if (self.groupId.length > 0) {
             row = row + 1;
@@ -517,7 +553,12 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 cell.detailLabel.textColor = [UIColor colorWithHexString:@"0099FF" alpha:1];
                 cell.titleLabel.text = RCDLocalizedString(@"PhoneNumber");
                 if (![self.friendDescription.hidePhone isEqualToString:@"1"]) {
-                    cell.detailLabel.text = self.friendDescription.phone;
+                    if (self.friendDescription.showPhone.length > 0) {
+                        cell.detailLabel.text = self.friendDescription.showPhone;
+                    }
+                    else {
+                        cell.detailLabel.text = self.friendDescription.phone;
+                    }
                 }
                 cell.detailLabel.userInteractionEnabled = YES;
                 cell.tapDetailBlock = ^(NSString *_Nonnull detail) {
@@ -529,10 +570,17 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 cell.detailLabel.textColor = [UIColor colorWithHexString:@"999999" alpha:1];
                 cell.detailLabel.userInteractionEnabled = NO;
                 if (indexPath.row == 1) {
-                    cell.titleLabel.text = RCDLocalizedString(@"Describe");
-                    cell.detailLabel.text = self.friendDescription.desc;
+                    cell.titleLabel.text = @"备用手机号";
+                    cell.detailLabel.textColor = [UIColor colorWithHexString:@"0099FF" alpha:1];
+                    if (self.friendDescription.sparePhone.length > 0) {
+                        cell.detailLabel.text = self.friendDescription.sparePhone;
+                    }
                 }
                 else if (indexPath.row == 2) {
+                    cell.titleLabel.text = @"设置备注和描述";//RCDLocalizedString(@"Describe");
+                    cell.detailLabel.text = self.friendDescription.desc;
+                }
+                else if (indexPath.row == 3) {
                     cell.titleLabel.text = @"密友圈";
                 }
             }
@@ -581,9 +629,14 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 }
             }
             else if (indexPath.row == 1) {
-                [self pushToRemarksVC];
+                if (self.friendDescription.sparePhone.length > 0) {
+                    [self presentSpareActionSheet];
+                }
             }
             else if (indexPath.row == 2) {
+                [self pushToRemarksVC];
+            }
+            else if (indexPath.row == 3) {
 //                MomentViewController *momentVC = [[MomentViewController alloc] init];
 //                [self.navigationController pushViewController:momentVC animated:YES];
                 [self pushToRemarksVC];

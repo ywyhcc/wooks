@@ -42,7 +42,6 @@
 
 @property (nonatomic, strong) RCDCountry *currentRegion;
 
-@property (nonatomic, strong) RCDFriendDescription *friendDescription;
 @property (nonatomic, assign) CGFloat keyboardY;
 @property (nonatomic, assign) CGFloat descriptionViewY;
 
@@ -122,14 +121,24 @@
 
 - (void)setupData {
     self.originalFrame = self.view.frame;
-    self.friendDescription = [RCDUserInfoManager getFriendDescription:self.friendId];
+//    self.friendDescription = [RCDUserInfoManager getFriendDescription:self.friendId];
     if (self.friendDescription.region.length <= 0) {
         self.friendDescription.region = @"86";
     }
     self.remarksView.inputText = self.friendDescription.displayName;
     self.phoneView.btnTitle = self.friendDescription.region;
-    self.phoneView.inputText = self.friendDescription.phone;
     self.descriptionView.inputText = self.friendDescription.desc;
+    if (self.friendDescription.sparePhone.length > 0) {
+        self.phoneView.inputText = self.friendDescription.sparePhone;
+    }
+    else if (![self.friendDescription.hidePhone isEqualToString:@"1"]){
+        if (self.friendDescription.showPhone.length > 0) {
+            self.phoneView.inputText = self.friendDescription.showPhone;
+        }
+        else {
+            self.phoneView.inputText = self.friendDescription.phone;
+        }
+    }
 
     if (self.friendDescription.imageUrl != nil && ![self.friendDescription.imageUrl isEqualToString:@""]) {
         [self.pictureView.imageView sd_setImageWithURL:[NSURL URLWithString:self.friendDescription.imageUrl]

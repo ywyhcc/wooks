@@ -10,8 +10,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MUser.h"
+#import "RCDViewController.h"
 
-@interface MMUserDetailViewController : UIViewController
+@interface MMUserDetailViewController : RCDViewController
 
 @property (nonatomic, strong) MUser * user;
 

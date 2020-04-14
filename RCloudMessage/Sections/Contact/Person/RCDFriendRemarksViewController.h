@@ -8,10 +8,12 @@
 
 #import "RCDFriendInfo.h"
 #import "RCDViewController.h"
+#import "RCDFriendDescription.h"
 
 @interface RCDFriendRemarksViewController : RCDViewController
 
 @property (nonatomic, copy) void (^setRemarksSuccess)();
 @property (nonatomic, copy) NSString *friendId;
+@property (nonatomic, strong) RCDFriendDescription *friendDescription;
 
 @end

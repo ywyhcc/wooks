@@ -48,4 +48,8 @@ typedef NS_ENUM(NSInteger, RCDFriendStatus) {
 
 @property (nonatomic, strong) NSString *isHidePhone;
 
+@property (nonatomic, strong) NSString *sparePhone;
+
+@property (nonatomic, strong) NSString *showPhone;
+
 @end

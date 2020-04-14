@@ -79,6 +79,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
     self.isClick = YES;
     [self setTabbarSelectColor];
     [self setNaviItem];
@@ -371,8 +372,8 @@
         [KxMenuItem menuItem:RCDLocalizedString(@"start_chatting")
                        image:[UIImage imageNamed:@"home_right3"]
                       target:self
-//                      action:@selector(pushChat:)],
-                     action:@selector(testSendMessage)],
+                      action:@selector(pushChat:)],
+//                     action:@selector(testSendMessage)],
          
 
         [KxMenuItem menuItem:RCDLocalizedString(@"create_groups")
@@ -686,7 +687,8 @@
         if ([str isEqualToString:@"私聊"]) {
             ws.selectGroupChat = NO;
             [ws setDisplayConversationTypes:@[
-                @(ConversationType_PRIVATE)
+                @(ConversationType_PRIVATE),
+                @(ConversationType_SYSTEM)
             ]];
         }
         else{

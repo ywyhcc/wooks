@@ -86,7 +86,9 @@ static NSString *cell_id = @"cell_id";
                           @"momentCanLookLabelIds":@""
     };
     [SYNetworkingManager postWithURLString:CreatFrindInfo parameters:dic success:^(NSDictionary *data) {
-        NSLog(@"%@", data);
+        if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+            
+        }
     } failure:^(NSError *error) {
         
     }];

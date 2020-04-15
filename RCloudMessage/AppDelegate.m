@@ -72,8 +72,8 @@
     [MomentUtil initMomentData];
 }
 
-- (void)initMapKey{//线上key：97c93875002e3ba8142fbdd59b662030
-    [AMapServices sharedServices].apiKey = @"7034fd0af15c4004105c84d1fba27364";
+- (void)initMapKey{//线上key：
+    [AMapServices sharedServices].apiKey = @"97c93875002e3ba8142fbdd59b662030";
 }
 
 - (void)getAppConfig{
@@ -146,15 +146,16 @@
 }
 
 - (void)configSealTalkWithApp:(UIApplication *)application andOptions:(NSDictionary *)launchOptions {
+    if (BUGLY_APPID.length > 0) {
+        [RCDBuglyManager startWithAppId:BUGLY_APPID];
+    }
+    
     [self saveCountryInfoIfNeed];
 #ifndef DEBUG
     [self redirectNSlogToDocumentFolder];
 #endif
     [NSThread sleepForTimeInterval:1.0];
     application.statusBarHidden = NO;
-    if (BUGLY_APPID.length > 0) {
-        [RCDBuglyManager startWithAppId:BUGLY_APPID];
-    }
     [self setNavigationBarAppearance];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMessageNotification:)

@@ -224,6 +224,10 @@
 		7F604BBF242B405D0040732A /* AgreeFriendsAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F604BBE242B405D0040732A /* AgreeFriendsAddressViewController.m */; };
 		7F611FDD243B149100BE72D6 /* PostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDC243B149100BE72D6 /* PostInfoViewController.m */; };
 		7F611FE0243B14BB00BE72D6 /* PrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */; };
+		7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */; };
+		7F66C9012446E7B300B6AB1E /* XFCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */; };
+		7F66C9022446E7B300B6AB1E /* XFCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F66C8FB2446E7B300B6AB1E /* XFCameraController.xib */; };
+		7F66C9032446E7B300B6AB1E /* XFPhotoLibraryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8FF2446E7B300B6AB1E /* XFPhotoLibraryManager.m */; };
 		7F93193724385C88009744C6 /* PostFiendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93193524385C88009744C6 /* PostFiendViewController.m */; };
 		7F93193824385C88009744C6 /* PostFiendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F93193624385C88009744C6 /* PostFiendViewController.xib */; };
 		7F9BE1CF242F472200BFABB2 /* NewFriendsInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1CE242F472200BFABB2 /* NewFriendsInviteViewController.m */; };
@@ -897,6 +901,13 @@
 		7F611FDC243B149100BE72D6 /* PostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostInfoViewController.m; sourceTree = "<group>"; };
 		7F611FDE243B14BB00BE72D6 /* PrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyViewController.h; sourceTree = "<group>"; };
 		7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyViewController.m; sourceTree = "<group>"; };
+		7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraButton.m; sourceTree = "<group>"; };
+		7F66C8F92446E7B300B6AB1E /* XFCameraButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFCameraButton.h; sourceTree = "<group>"; };
+		7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraController.m; sourceTree = "<group>"; };
+		7F66C8FB2446E7B300B6AB1E /* XFCameraController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XFCameraController.xib; sourceTree = "<group>"; };
+		7F66C8FC2446E7B300B6AB1E /* XFCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFCameraController.h; sourceTree = "<group>"; };
+		7F66C8FE2446E7B300B6AB1E /* XFPhotoLibraryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFPhotoLibraryManager.h; sourceTree = "<group>"; };
+		7F66C8FF2446E7B300B6AB1E /* XFPhotoLibraryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFPhotoLibraryManager.m; sourceTree = "<group>"; };
 		7F93193424385C88009744C6 /* PostFiendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostFiendViewController.h; sourceTree = "<group>"; };
 		7F93193524385C88009744C6 /* PostFiendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostFiendViewController.m; sourceTree = "<group>"; };
 		7F93193624385C88009744C6 /* PostFiendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostFiendViewController.xib; sourceTree = "<group>"; };
@@ -2065,6 +2076,7 @@
 		7F30D7AF2425F84C0018A519 /* Moment */ = {
 			isa = PBXGroup;
 			children = (
+				7F66C8F52446E7B300B6AB1E /* PhotoVideo */,
 				7F30D7B02425F84C0018A519 /* Utils */,
 				7F30D7B82425F84C0018A519 /* Controller */,
 				7F30D7BF2425F84C0018A519 /* Model */,
@@ -2233,6 +2245,44 @@
 				7F4CEE632441B6FC008C24DA /* UIViewController+HUD.m */,
 			);
 			path = LocationExtension;
+			sourceTree = "<group>";
+		};
+		7F66C8F52446E7B300B6AB1E /* PhotoVideo */ = {
+			isa = PBXGroup;
+			children = (
+				7F66C8F62446E7B300B6AB1E /* XFAVFoundation */,
+				7F66C8FD2446E7B300B6AB1E /* XFPhotoLibraryManager */,
+			);
+			path = PhotoVideo;
+			sourceTree = "<group>";
+		};
+		7F66C8F62446E7B300B6AB1E /* XFAVFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				7F66C8F72446E7B300B6AB1E /* XFCameraButton */,
+				7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */,
+				7F66C8FB2446E7B300B6AB1E /* XFCameraController.xib */,
+				7F66C8FC2446E7B300B6AB1E /* XFCameraController.h */,
+			);
+			path = XFAVFoundation;
+			sourceTree = "<group>";
+		};
+		7F66C8F72446E7B300B6AB1E /* XFCameraButton */ = {
+			isa = PBXGroup;
+			children = (
+				7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */,
+				7F66C8F92446E7B300B6AB1E /* XFCameraButton.h */,
+			);
+			path = XFCameraButton;
+			sourceTree = "<group>";
+		};
+		7F66C8FD2446E7B300B6AB1E /* XFPhotoLibraryManager */ = {
+			isa = PBXGroup;
+			children = (
+				7F66C8FE2446E7B300B6AB1E /* XFPhotoLibraryManager.h */,
+				7F66C8FF2446E7B300B6AB1E /* XFPhotoLibraryManager.m */,
+			);
+			path = XFPhotoLibraryManager;
 			sourceTree = "<group>";
 		};
 		7FF936D62429EBF400694A1E /* QiNiu */ = {
@@ -3267,6 +3317,7 @@
 				A28C439322E95818005BA7A0 /* InfoPlist.strings in Resources */,
 				E4BFAE251A121839007165B1 /* Images.xcassets in Resources */,
 				A28C439522E95818005BA7A0 /* SealTalk.strings in Resources */,
+				7F66C9022446E7B300B6AB1E /* XFCameraController.xib in Resources */,
 				A2F0A96F22F9173000422802 /* poke.mp3 in Resources */,
 				7F93193824385C88009744C6 /* PostFiendViewController.xib in Resources */,
 				987653631D796C5B008A6BF0 /* Launch Screen.storyboard in Resources */,
@@ -3516,6 +3567,7 @@
 				7F30D73C24239AFE0018A519 /* KeyChainUtils.m in Sources */,
 				A2A5258022B8B9D1008188A1 /* NormalAlertView.m in Sources */,
 				7F30D73824239AFE0018A519 /* NSURLRequest+Additions.m in Sources */,
+				7F66C9032446E7B300B6AB1E /* XFPhotoLibraryManager.m in Sources */,
 				27AD3023229E721F003C2680 /* RCDNoFriendView.m in Sources */,
 				9C119469229D4A14005407ED /* RCDRCIMDataSource.m in Sources */,
 				9C226D1D229FFD1600F49FC5 /* RCDUserInfoAPI.m in Sources */,
@@ -3595,6 +3647,7 @@
 				A290709B229E7F61006BDAC7 /* RCDReceiptDetailsTableViewCell.m in Sources */,
 				3B0E2AA622D48EA8000E1BE6 /* RCDAddFriendListCell.m in Sources */,
 				7F9BE1DD2430BA6E00BFABB2 /* NewLabelMemberViewController.m in Sources */,
+				7F66C9012446E7B300B6AB1E /* XFCameraController.m in Sources */,
 				7F611FE0243B14BB00BE72D6 /* PrivacyViewController.m in Sources */,
 				A25750A822B8DA6700A79749 /* RCDGroupMemberSelectCell.m in Sources */,
 				7FF936D224260D0400694A1E /* FBYRequestName.m in Sources */,
@@ -3638,6 +3691,7 @@
 				A2AD03BA22D46CA100F8E64D /* RCDGroupNotice.m in Sources */,
 				A257509F22B8DA0000A79749 /* RCDGroupMemberSelectController.m in Sources */,
 				276599E2229E95250074FAB2 /* UIImage+RCImage.m in Sources */,
+				7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */,
 				7F30D7FC2425F84D0018A519 /* MLLabelUtil.m in Sources */,
 				A25750AB22B8F6DD00A79749 /* RCDGroupMember.m in Sources */,
 				9C226CF2229FB17000F49FC5 /* RCDHTTPUtility.m in Sources */,

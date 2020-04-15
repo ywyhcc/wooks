@@ -16,8 +16,10 @@
 #import "MMRunLoopWorkDistribution.h"
 #import "MMFPSLabel.h"
 #import "PostFiendViewController.h"
+#include <CoreServices/CoreServices.h>
+#import "XFCameraController.h"
 
-@interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
+@interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray * momentList;  // 朋友圈动态列表
 @property (nonatomic, strong) MMTableView * tableView; // 表格
@@ -46,7 +48,6 @@
     [super viewDidLoad];
     self.title = @"";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"moment_camera"] style:UIBarButtonItemStylePlain target:self action:@selector(addMoment)];
     
 //    [self getData];//获取朋友圈数据
 //    [self configData];
@@ -119,7 +120,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(k_screen_width - 50, 20, 40, 30);
-    btn.backgroundColor = [UIColor redColor];
+    [btn setImage:[UIImage imageNamed:@"moment_camera"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(addMoment) forControlEvents:UIControlEventTouchUpInside];
     
     //button长按事件
@@ -205,9 +206,9 @@
     NSLog(@"新增");
     
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
+        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄", @"从相册选择", nil];
     }else{
-        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择图像" delegate:self cancelButtonTitle:@"取消"destructiveButtonTitle:nil otherButtonTitles:@"从相册选择", nil];
+        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消"destructiveButtonTitle:nil otherButtonTitles:@"从相册选择", nil];
     }
     self.picOrBack = NO;
     self.actionSheet.tag = 10005;
@@ -310,7 +311,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 // db移除
                 NSDictionary *dic = @{@"momentId":cell.moment.discussIdStr};
-//                [SYNetworkingManager deleteWithURLString:DeleteDisucuss parameters:dic success:^(NSDictionary *data) {
+
                 [SYNetworkingManager deleteWithURLString:DelFriendInfo parameters:dic success:^(NSDictionary *data) {
                     [cell.moment deleteObject];
                     // 移除UI
@@ -565,14 +566,39 @@
                 sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
             }
         }
-        // 跳转到相机或相册页面
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = sourceType;
-        [self presentViewController:imagePickerController animated:YES completion:^{
+        if (sourceType == UIImagePickerControllerSourceTypeCamera) {
+            XFCameraController *cameraController = [XFCameraController defaultCameraController];
             
-        }];
+            __weak XFCameraController *weakCameraController = cameraController;
+            
+            cameraController.takePhotosCompletionBlock = ^(UIImage *image, NSError *error) {
+                NSLog(@"takePhotosCompletionBlock");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakCameraController dismissViewControllerAnimated:YES completion:nil];
+                });
+            };
+            
+            cameraController.shootCompletionBlock = ^(NSURL *videoUrl, CGFloat videoTimeLength, UIImage *thumbnailImage, NSError *error) {
+                NSLog(@"shootCompletionBlock");
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakCameraController dismissViewControllerAnimated:YES completion:nil];
+                });
+            };
+            cameraController.modalPresentationStyle = UIModalPresentationFullScreen;
+            
+            [self presentViewController:cameraController animated:YES completion:nil];
+        }
+        else {
+            // 跳转到相机或相册页面
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = self;
+            imagePickerController.allowsEditing = YES;
+            imagePickerController.sourceType = sourceType;
+            [self presentViewController:imagePickerController animated:YES completion:^{
+                
+            }];
+        }
     }
 }
 
@@ -601,13 +627,13 @@
     cell.delegate = self;
     // 停止滚动时渲染图片
     cell.currentIndexPath = indexPath;
-    [[MMRunLoopWorkDistribution sharedInstance] addTask:^BOOL{ // kCFRunLoopDefaultMode
-        if (![cell.currentIndexPath isEqual:indexPath]) {
-            return NO;
-        }
+//    [[MMRunLoopWorkDistribution sharedInstance] addTask:^BOOL{ // kCFRunLoopDefaultMode
+//        if (![cell.currentIndexPath isEqual:indexPath]) {
+//            return NO;
+//        }
         [cell loadPicture];
-        return YES;
-    } withKey:indexPath];
+//        return YES;
+//    } withKey:indexPath];
     return cell;
 }
 

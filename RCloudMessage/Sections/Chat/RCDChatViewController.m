@@ -339,7 +339,7 @@
                     nextVC.locationBack = ^(UIImage *img,CLLocationCoordinate2D currentLocation, NSString *name){
                         RCLocationMessage *locationMessage = [RCLocationMessage messageWithLocationImage:img location:currentLocation locationName:name];
                         
-                        [[RCIMClient sharedRCIMClient]
+                        [[RCIM sharedRCIM]
                            sendMessage:ConversationType_PRIVATE
                            targetId:self.targetId
                            content:locationMessage
@@ -374,7 +374,7 @@
             nextVC.locationBack = ^(UIImage *img,CLLocationCoordinate2D currentLocation, NSString *name){
                  RCLocationMessage *locationMessage = [RCLocationMessage messageWithLocationImage:img location:currentLocation locationName:name];
                  
-                 [[RCIMClient sharedRCIMClient]
+                 [[RCIM sharedRCIM]
                     sendMessage:ConversationType_GROUP
                     targetId:self.targetId
                     content:locationMessage

@@ -35,4 +35,8 @@ target 'SealTalk' do
   pod "UUActionSheet"
   pod "UUButton"
   pod "MMWebView"
+
+  pod "IJSFoundation"
+  pod "IJSUExtension"
+
 end

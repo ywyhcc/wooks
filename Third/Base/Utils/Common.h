@@ -10,7 +10,7 @@
 
 #define BaseURL                             @"http://120.27.250.124:6060"
 
-#define QiniuCloudBaseURL                   @"http://q7aik13n8.bkt.clouddn.com/"
+#define QiniuCloudBaseURL                   @"http://resources.woostalk.com/"
 
 //#define BaseURL                             @"http://192.168.11.105:6060"
 #define RongCloudAPPKEY                     @"pvxdm17jpe31r"

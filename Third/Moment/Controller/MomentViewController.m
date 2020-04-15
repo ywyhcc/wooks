@@ -18,6 +18,8 @@
 #import "PostFiendViewController.h"
 #include <CoreServices/CoreServices.h>
 #import "XFCameraController.h"
+#import "SendMomentsViewController.h"
+#import "IJSImagePickerController.h"
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -163,9 +165,14 @@
 -(void)btnLong:(UILongPressGestureRecognizer *)gestureRecognizer{
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         // do something
-        PostFiendViewController *post = [[PostFiendViewController alloc] init];
-        post.textOrPic = YES;
-        [self.navigationController pushViewController:post animated:YES];
+        SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+        UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+        nextVC.title = @"发布动态";
+        cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
+        [self.navigationController presentViewController:cityListNav animated:YES completion:nil];
+//        PostFiendViewController *post = [[PostFiendViewController alloc] init];
+//        post.textOrPic = YES;
+//        [self.navigationController pushViewController:post animated:YES];
     }else {
     }
 }
@@ -548,13 +555,43 @@
         // 判断是否支持相机
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             switch (buttonIndex) {
-                case 0:
+                case 0:{
                     //来源:相机
-                    sourceType = UIImagePickerControllerSourceTypeCamera;
+                    XFCameraController *cameraController = [XFCameraController defaultCameraController];
+                    
+                    __weak XFCameraController *weakCameraController = cameraController;
+                    
+                    cameraController.takePhotosCompletionBlock = ^(UIImage *image, NSError *error) {
+                        NSLog(@"takePhotosCompletionBlock");
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakCameraController dismissViewControllerAnimated:YES completion:nil];
+                        });
+                    };
+                    
+                    cameraController.shootCompletionBlock = ^(NSURL *videoUrl, CGFloat videoTimeLength, UIImage *thumbnailImage, NSError *error) {
+                        NSLog(@"shootCompletionBlock");
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakCameraController dismissViewControllerAnimated:YES completion:nil];
+                        });
+                    };
+                    cameraController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    
+                    [self presentViewController:cameraController animated:YES completion:nil];
+                }
                     break;
                 case 1:
                     //来源:相册
-                    sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                {
+                    IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4];
+                        //可选  可以通过代理的回调去获取数据
+                        [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
+                            NSLog(@"%@",photos);
+                            NSLog(@"%@",avPlayers);
+                        }];
+                    imageVc.modalPresentationStyle = UIModalPresentationFullScreen;
+                    [self presentViewController:imageVc animated:YES completion:nil];
+                }
                     break;
                 case 2:
                     return;
@@ -563,42 +600,24 @@
             if (buttonIndex == 2) {
                 return;
             } else {
-                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:3 columnNumber:4];
+                    //可选  可以通过代理的回调去获取数据
+                    [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
+                        NSLog(@"%@",photos);
+                        NSLog(@"%@",avPlayers);
+                    }];
+                imageVc.modalPresentationStyle = UIModalPresentationFullScreen;
+                [self presentViewController:imageVc animated:YES completion:nil];
             }
         }
-        if (sourceType == UIImagePickerControllerSourceTypeCamera) {
-            XFCameraController *cameraController = [XFCameraController defaultCameraController];
-            
-            __weak XFCameraController *weakCameraController = cameraController;
-            
-            cameraController.takePhotosCompletionBlock = ^(UIImage *image, NSError *error) {
-                NSLog(@"takePhotosCompletionBlock");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakCameraController dismissViewControllerAnimated:YES completion:nil];
-                });
-            };
-            
-            cameraController.shootCompletionBlock = ^(NSURL *videoUrl, CGFloat videoTimeLength, UIImage *thumbnailImage, NSError *error) {
-                NSLog(@"shootCompletionBlock");
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakCameraController dismissViewControllerAnimated:YES completion:nil];
-                });
-            };
-            cameraController.modalPresentationStyle = UIModalPresentationFullScreen;
-            
-            [self presentViewController:cameraController animated:YES completion:nil];
-        }
-        else {
             // 跳转到相机或相册页面
-            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-            imagePickerController.delegate = self;
-            imagePickerController.allowsEditing = YES;
-            imagePickerController.sourceType = sourceType;
-            [self presentViewController:imagePickerController animated:YES completion:^{
-                
-            }];
-        }
+//            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+//            imagePickerController.delegate = self;
+//            imagePickerController.allowsEditing = YES;
+//            imagePickerController.sourceType = sourceType;
+//            [self presentViewController:imagePickerController animated:YES completion:^{
+//
+//            }];
     }
 }
 

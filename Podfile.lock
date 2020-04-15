@@ -41,6 +41,8 @@ PODS:
     - GCDWebServer/Core
   - GCDWebServer/WebUploader (3.5.2):
     - GCDWebServer/Core
+  - IJSFoundation (0.0.4)
+  - IJSUExtension (0.0.5)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.3.1)
@@ -85,6 +87,8 @@ DEPENDENCIES:
   - GCDWebServer/Core (= 3.5.2)
   - GCDWebServer/WebDAV (= 3.5.2)
   - GCDWebServer/WebUploader (= 3.5.2)
+  - IJSFoundation
+  - IJSUExtension
   - Masonry (= 1.1.0)
   - MBProgressHUD (= 1.1.0)
   - MJRefresh
@@ -117,6 +121,8 @@ SPEC REPOS:
     - Bugly
     - FMDB
     - GCDWebServer
+    - IJSFoundation
+    - IJSUExtension
     - Masonry
     - MBProgressHUD
     - MJRefresh
@@ -145,6 +151,8 @@ SPEC CHECKSUMS:
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
+  IJSFoundation: 0ea83ad8c9279e63141ae7ff9d096004949dc66f
+  IJSUExtension: f4dc0b1c417175f89112314ddd4735a1bb6a0476
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
@@ -164,6 +172,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: dd41e89a7429000024e6154212215a7c330fbcf7
+PODFILE CHECKSUM: 283cdfffba9e1d2838eadeb9ce3eb1f0a3ba70be
 
 COCOAPODS: 1.6.0

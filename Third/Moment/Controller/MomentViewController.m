@@ -586,6 +586,13 @@
                     IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4];
                         //可选  可以通过代理的回调去获取数据
                         [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
+                            SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                            UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+                            nextVC.imageArray = photos;
+                            nextVC.title = @"发布动态";
+                            cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
+                            [self.navigationController presentViewController:cityListNav animated:YES completion:nil];
+                            
                             NSLog(@"%@",photos);
                             NSLog(@"%@",avPlayers);
                         }];

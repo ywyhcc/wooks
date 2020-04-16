@@ -198,8 +198,8 @@
     NSString *userName = self.phoneTextField.textField.text;
     NSString *verificationCode = self.verificationCodeField.text;
     NSString *userPwd = self.passwordTextField.text;
-    NSString *nickName = self.rePasswordTextField.text;
-    NSString *inviteCode = self.inviteTextField.text;
+//    NSString *nickName = self.rePasswordTextField.text;
+//    NSString *inviteCode = self.inviteTextField.text;
     
     [ws registerUser:userName password:userPwd verifyToken:verificationCode phoneNum:userName];
     //验证验证码是否有效

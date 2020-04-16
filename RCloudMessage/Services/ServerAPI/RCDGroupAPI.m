@@ -784,7 +784,9 @@
 
 //获取我的群组
 + (void)getMyGroupList:(void (^)(NSArray<RCDGroupInfo *> *groupList))complete {
-    
+    if ([ProfileUtil getUserAccountID] == nil) {
+        return;
+    }
     NSDictionary *params = @{@"userAccountId":[ProfileUtil getUserAccountID]};
     [SYNetworkingManager getWithURLString:GetAllGroups parameters:params success:^(NSDictionary *data) {
         if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {

@@ -495,10 +495,10 @@ static NSString *const CellID = @"pickerID";
     [self.navigationItem.leftBarButtonItem setTitleTextAttributes:dict forState:UIControlStateNormal];
     
     //背景
-    UIView *toolBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.js_height - TabbarHeight, self.view.js_width, TabbarHeight)];
+    UIView *toolBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.showCollectioView.bottom, self.view.js_width, TabbarHeight)];
     if (IJSGiPhoneX)
     {
-        toolBarView.frame = CGRectMake(0,JSScreenHeight - IJSGTabbarSafeBottomMargin - TabbarHeight, self.view.js_width, TabbarHeight);
+        toolBarView.frame = CGRectMake(0,self.showCollectioView.bottom, self.view.js_width, TabbarHeight);
     }
     toolBarView.backgroundColor = [UIColor colorWithRed:(34 / 255.0) green:(34 / 255.0) blue:(34 / 255.0) alpha:1.0];
     [self.view addSubview:toolBarView];
@@ -541,10 +541,10 @@ static NSString *const CellID = @"pickerID";
     layout.itemSize = CGSizeMake(self.itemHeight, self.itemHeight);
     layout.minimumInteritemSpacing = cellMargin;
     layout.minimumLineSpacing = cellMargin;//NavigationHeight
-    UICollectionView *collection = [[UICollectionView alloc] initWithFrame:CGRectMake(cellMargin, 0, JSScreenWidth - 2 * cellMargin, JSScreenHeight - TabbarHeight ) collectionViewLayout:layout];
+    UICollectionView *collection = [[UICollectionView alloc] initWithFrame:CGRectMake(cellMargin, 0, JSScreenWidth - 2 * cellMargin, JSScreenHeight - NavigationHeight - TabbarHeight ) collectionViewLayout:layout];
     if (IJSGiPhoneX)
     {//IJSGStatusBarAndNavigationBarHeight
-        collection.frame = CGRectMake(cellMargin, 0, JSScreenWidth - 2 * cellMargin, JSScreenHeight - IJSGTabbarSafeBottomMargin - TabbarHeight);
+        collection.frame = CGRectMake(cellMargin, 0, JSScreenWidth - 2 * cellMargin, JSScreenHeight - IJSGStatusBarAndNavigationBarHeight - IJSGTabbarSafeBottomMargin - TabbarHeight);
     }
     collection.backgroundColor = [UIColor whiteColor];
     collection.dataSource = self;

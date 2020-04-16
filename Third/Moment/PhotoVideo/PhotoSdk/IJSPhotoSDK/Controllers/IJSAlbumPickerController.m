@@ -12,7 +12,9 @@
 #import "IJSPhotoPickerController.h"
 #import "IJSConst.h"
 #import "IJSImagePickerController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "IJSPhotoPreviewController.h"
+#import "UIColor+RCColor.h"
 
 #import <IJSFoundation/IJSFoundation.h>
 #import "IJSExtension.h"
@@ -26,11 +28,22 @@ static NSString *const cellID = @"cellID";
 /* tableview */
 @property (nonatomic, weak) UITableView *tableView;
 
+@property (nonatomic, strong) MBProgressHUD *hud;
+
 @end
 
 @implementation IJSAlbumPickerController
 
 
+- (MBProgressHUD *)hud {
+    if (!_hud) {
+        _hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:_hud];
+        [self.view bringSubviewToFront:_hud];
+        _hud.color = [UIColor colorWithHexString:@"343637" alpha:0.8];
+    }
+    return _hud;
+}
 
 - (NSArray *)albumListArr
 {
@@ -65,12 +78,12 @@ static NSString *const cellID = @"cellID";
     self.title = [NSBundle localizedStringForKey:@"Photos"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle localizedStringForKey:@"Cancel"] style:UIBarButtonItemStylePlain target:self action:@selector(cancleAndDisMiss)];
 
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftButton.frame = CGRectMake(0, 0, 25, 25);
-    [leftButton setImage:[IJSFImageGet loadImageWithBundle:@"JSPhotoSDK" subFile:nil grandson:nil imageName:@"jiahao@2x" imageType:@"png"] forState:UIControlStateNormal];
-    [leftButton addTarget:self action:@selector(addAppAlbum:) forControlEvents:UIControlEventTouchUpInside];
-    leftButton.contentMode = UIViewContentModeScaleAspectFit;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+//    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    leftButton.frame = CGRectMake(0, 0, 25, 25);
+//    [leftButton setImage:[IJSFImageGet loadImageWithBundle:@"JSPhotoSDK" subFile:nil grandson:nil imageName:@"jiahao@2x" imageType:@"png"] forState:UIControlStateNormal];
+//    [leftButton addTarget:self action:@selector(addAppAlbum:) forControlEvents:UIControlEventTouchUpInside];
+//    leftButton.contentMode = UIViewContentModeScaleAspectFit;
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
 }
 
 - (void)_createTableViewUI
@@ -117,11 +130,13 @@ static NSString *const cellID = @"cellID";
     {
         __weak typeof(self) weakSelf = self;
         
-        UIView *loadView =  [IJSLodingView showLodingViewAddedTo:self.view title:[NSBundle localizedStringForKey:@"Processing..."]];
+//        UIView *loadView =  [IJSLodingView showLodingViewAddedTo:self.view title:[NSBundle localizedStringForKey:@"Processing..."]];
+        [self.hud showAnimated:YES];
         IJSImagePickerController *vc = (IJSImagePickerController *)self.navigationController;
         [[IJSImageManager shareManager] getAllAlbumsContentImage:vc.allowPickingImage contentVideo:vc.allowPickingVideo completion:^(NSArray<IJSAlbumModel *> *models) {
             weakSelf.albumListArr = models;
-            [loadView removeFromSuperview];
+//            [loadView removeFromSuperview];
+            [weakSelf.hud hideAnimated:YES];
             if (!weakSelf.tableView)
             {
                 [weakSelf _createTableViewUI];

@@ -468,34 +468,34 @@ static NSString *const IJSSelectedCellID = @"IJSSelectedCell";
         toolBarView.frame = CGRectMake(0, JSScreenHeight - TabbarHeight - IJSGTabbarSafeBottomMargin, JSScreenWidth, TabbarHeight);
     }
     
-    //编辑
-    UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    editButton.frame = CGRectMake(5, 5, 70, 30);
-    editButton.layer.masksToBounds = YES;
-    editButton.layer.cornerRadius = 2;
-    [editButton setTitle:[NSBundle localizedStringForKey:@"Edit"] forState:UIControlStateNormal];
-    editButton.backgroundColor = [IJSFColor colorWithR:40 G:170 B:40 alpha:1];
-    [editButton setTitleColor:[IJSFColor colorWithR:232 G:236 B:239 alpha:1] forState:UIControlStateNormal];
-    [editButton addTarget:self action:@selector(_editPhotoAction:) forControlEvents:UIControlEventTouchUpInside];
-    [toolBarView addSubview:editButton];
-    self.editButton = editButton;
-    IJSImagePickerController *vc = (IJSImagePickerController *)self.navigationController;
-    if (vc.isHiddenEdit)
-    {
-        self.editButton.hidden = YES;
-    }
-    // 完成
-    UIButton *finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    finishButton.frame = CGRectMake(self.view.js_width - 75, 5, 70, 30); //27 81 28
-    finishButton.layer.masksToBounds = YES;
-    finishButton.layer.cornerRadius = 2;
-    [finishButton setTitle:[NSBundle localizedStringForKey:@"Done"] forState:UIControlStateNormal];
-    [finishButton setTitleColor:[IJSFColor colorWithR:232 G:236 B:239 alpha:1] forState:UIControlStateNormal];
-    finishButton.backgroundColor = [IJSFColor colorWithR:40 G:170 B:40 alpha:1];
-    [finishButton addTarget:self action:@selector(_finishSelectImageDisMiss) forControlEvents:UIControlEventTouchUpInside];
-    [toolBarView addSubview:finishButton];
-    self.finishButton = finishButton;
-    [self _resetToorBarStatus];
+//    //编辑
+//    UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    editButton.frame = CGRectMake(5, 5, 70, 30);
+//    editButton.layer.masksToBounds = YES;
+//    editButton.layer.cornerRadius = 2;
+//    [editButton setTitle:[NSBundle localizedStringForKey:@"Edit"] forState:UIControlStateNormal];
+//    editButton.backgroundColor = [IJSFColor colorWithR:40 G:170 B:40 alpha:1];
+//    [editButton setTitleColor:[IJSFColor colorWithR:232 G:236 B:239 alpha:1] forState:UIControlStateNormal];
+//    [editButton addTarget:self action:@selector(_editPhotoAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [toolBarView addSubview:editButton];
+//    self.editButton = editButton;
+//    IJSImagePickerController *vc = (IJSImagePickerController *)self.navigationController;
+//    if (vc.isHiddenEdit)
+//    {
+//        self.editButton.hidden = YES;
+//    }
+//    // 完成
+//    UIButton *finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    finishButton.frame = CGRectMake(self.view.js_width - 75, 5, 70, 30); //27 81 28
+//    finishButton.layer.masksToBounds = YES;
+//    finishButton.layer.cornerRadius = 2;
+//    [finishButton setTitle:[NSBundle localizedStringForKey:@"Done"] forState:UIControlStateNormal];
+//    [finishButton setTitleColor:[IJSFColor colorWithR:232 G:236 B:239 alpha:1] forState:UIControlStateNormal];
+//    finishButton.backgroundColor = [IJSFColor colorWithR:40 G:170 B:40 alpha:1];
+//    [finishButton addTarget:self action:@selector(_finishSelectImageDisMiss) forControlEvents:UIControlEventTouchUpInside];
+//    [toolBarView addSubview:finishButton];
+//    self.finishButton = finishButton;
+//    [self _resetToorBarStatus];
     
     // 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle localizedStringForKey:@"Back"] style:UIBarButtonItemStylePlain target:self action:@selector(callBackButtonAction)];

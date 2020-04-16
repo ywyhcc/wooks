@@ -34,7 +34,7 @@
 #define titleMarginLeft 10
 #define titleMarginTop 20
 #define titleHeight 20
-#define numberWidth 50
+#define numberWidth 100
 #define numberHeight 20
 #define arrowImageWidth 10
 #define arrowImageHeight 10

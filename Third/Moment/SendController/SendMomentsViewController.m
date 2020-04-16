@@ -11,6 +11,8 @@
 #import "UIView+Ex.h"
 #import "RCDUIBarButtonItem.h"
 #import "RCDUtilities.h"
+#import "IJSImagePickerController.h"
+#import "IJSExtension.h"
 
 #define kSingleLineHeight 80
 #define kMaxLines  6
@@ -84,7 +86,7 @@
     
     [self.view addSubview:itemList];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, SCREEN_HEIGHT - IJSGStatusBarAndNavigationBarHeight - 10) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -109,8 +111,27 @@
 
     [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:NSStringFromClass(UITableViewCell.class)];
 
+    
+    [self initData];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewChange:) name:UITextViewTextDidChangeNotification object:nil];
 
+}
+
+- (void)initData{
+    if (self.imageArray.count == 0) {
+        return;
+    }
+    for (UIImage *img in self.imageArray) {
+        HDragItem *item = [[HDragItem alloc] init];
+        item.image = img;
+        item.backgroundColor = [UIColor purpleColor];
+        [self.itemList addItem:item];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateHeaderViewHeight];
+    });
+    
 }
 
 - (void)setNavigationButton {
@@ -202,25 +223,23 @@
 
 #pragma mark - UIImagePickerController
 - (void)showUIImagePickerController{
-    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-    controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    controller.delegate = self;
-    [self presentViewController:controller animated:YES completion:nil];
+    IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:9 - self.itemList.itemArray.count columnNumber:4];
+        //可选  可以通过代理的回调去获取数据
+        [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
+            
+            for (UIImage *img in photos) {
+                HDragItem *item = [[HDragItem alloc] init];
+                item.image = img;
+                item.backgroundColor = [UIColor purpleColor];
+                [self.itemList addItem:item];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateHeaderViewHeight];
+            });
+        }];
+    imageVc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:imageVc animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    
-    UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
-    
-    [picker dismissViewControllerAnimated:YES completion:^{
-        HDragItem *item = [[HDragItem alloc] init];
-        item.image = image;
-        item.backgroundColor = [UIColor purpleColor];
-        [self.itemList addItem:item];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateHeaderViewHeight];
-        });
-    }];
-}
 
 @end

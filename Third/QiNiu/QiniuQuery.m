@@ -11,7 +11,7 @@
 
 @implementation QiniuQuery
 
-- (void)uploadManagerFiles:(NSData*)image andToken:(NSString*)token success:(QiniuSuccessBlock)success faild:(QiniuFailureBlock)fail{
+- (void)uploadManagerFiles:(NSData*)image type:(uploadType)type andToken:(NSString*)token success:(QiniuSuccessBlock)success faild:(QiniuFailureBlock)fail{
     
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
     QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil
@@ -22,12 +22,12 @@
     cancellationSignal:nil];
     
     
-    NSString *name = [QiniuQuery qnImageFilePatName];
+    NSString *name = [QiniuQuery qnImageFilePatName:type];
     [upManager putData:image key:name token:token
     complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         if (success) {
             NSString *picURL = [NSString stringWithFormat:@"%@%@",QiniuCloudBaseURL,key];
-            success(picURL);
+            success(picURL,key);
         }
     NSLog(@"%@", info);
     NSLog(@"%@", resp);
@@ -39,18 +39,26 @@
     [SYNetworkingManager getWithURLString:GetQiniu parameters:nil success:^(NSDictionary *data) {
         if ([data boolValueForKey:@"success"]) {
             NSString *token = [data stringValueForKey:@"easyUploadToken"];
-            [self uploadManagerFiles:image andToken:token success:success faild:fail];
+            [self uploadManagerFiles:image type:images andToken:token success:success faild:fail];
         }
     } failure:^(NSError *error) {
-        NSLog(@"获取七牛失败");
+        fail(error);
     }];
 }
 
-- (void)uploadVideo:(NSString*)fileURL{
+- (void)uploadVideo:(NSData*)videoData success:(QiniuSuccessBlock)success faild:(QiniuFailureBlock)fail{
     
+    [SYNetworkingManager getWithURLString:GetQiniu parameters:nil success:^(NSDictionary *data) {
+        if ([data boolValueForKey:@"success"]) {
+            NSString *token = [data stringValueForKey:@"easyUploadToken"];
+            [self uploadManagerFiles:videoData type:videos andToken:token success:success faild:fail];
+        }
+    } failure:^(NSError *error) {
+        fail(error);
+    }];
 }
 
-+ (NSString *)qnImageFilePatName{
++ (NSString *)qnImageFilePatName:(uploadType)type{
    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
    [formatter setDateFormat:@"yyyyMMdd"];
    NSString *nowe = [formatter stringFromDate:[NSDate date]];
@@ -59,10 +67,19 @@
    NSString *number = [[NSString alloc] initWithBytes:datax length:12 encoding:NSUTF8StringEncoding];
    //当前时间
    NSInteger interval = (NSInteger)[[NSDate date]timeIntervalSince1970];
-
-   NSString *name = [NSString stringWithFormat:@"Picture/%@/%ld%@.jpg",nowe,interval,number];
-   NSLog(@"name__%@",name);
-   return name;}
+    
+    if (type == images) {
+        NSString *name = [NSString stringWithFormat:@"Picture/%@/%ld%@.png",nowe,interval,number];
+        NSLog(@"name__%@",name);
+        return name;
+    }
+    else{
+        NSString *name = [NSString stringWithFormat:@"Picture/%@/%ld%@.mp4",nowe,interval,number];
+        NSLog(@"name__%@",name);
+        return name;
+    }
+    
+}
 
 
 //照片获取本地路径转换

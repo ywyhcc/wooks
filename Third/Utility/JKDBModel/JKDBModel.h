@@ -28,6 +28,8 @@
 @property (retain, readonly, nonatomic) NSMutableArray         *columeTypes;
 
 @property (nonatomic, strong) NSString *discussIdStr;
+
+@property (nonatomic, strong) NSString *commentDiscussIdStr;
 /** 
  *  获取该类的所有属性
  */

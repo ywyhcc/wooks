@@ -10,8 +10,8 @@
 #import "UIButton+Ex.h"
 #import "UIView+Ex.h"
 
-#define SCREEN_WIDTH    [[UIScreen mainScreen] bounds].size.width
-#define SCREEN_HEIGHT   [[UIScreen mainScreen] bounds].size.height
+//#define SCREEN_WIDTH    [[UIScreen mainScreen] bounds].size.width
+//#define SCREEN_HEIGHT   [[UIScreen mainScreen] bounds].size.height
 
 @interface HDragItemListView()
 

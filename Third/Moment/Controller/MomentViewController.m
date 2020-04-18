@@ -20,6 +20,8 @@
 #import "XFCameraController.h"
 #import "SendMomentsViewController.h"
 #import "IJSImagePickerController.h"
+#import <AVKit/AVKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -167,6 +169,7 @@
         // do something
         SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
         UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+        nextVC.type = text;
         nextVC.title = @"发布动态";
         cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
         [self.navigationController presentViewController:cityListNav animated:YES completion:nil];
@@ -196,14 +199,36 @@
     
     }];
     
-    if (self.picOrBack) {
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        self.coverImageView.image = image;
-    } else {
-        PostFiendViewController *post = [[PostFiendViewController alloc] init];
+    // 文件显示的图片
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+     // 获取文件类型:
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
+         // 用户选的文件为图片类型(kUTTypeImage)
+    }else if([mediaType isEqualToString:(NSString*)kUTTypeMovie]){
+        // 用户选的文件为视频类型(kUTTypeMovie)
+        // 获取视频对应的URL
+        NSURL *url = info[UIImagePickerControllerMediaURL];
+        // 上传视频时用到data
+        NSData *data = [NSData dataWithContentsOfURL:url];
         
-        [self.navigationController pushViewController:post animated:YES];
+        SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+        UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+        nextVC.title = @"发布动态";
+        nextVC.type = video;
+        nextVC.videoPath = url;
+        cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
+        [self.navigationController presentViewController:cityListNav animated:YES completion:nil];
     }
+    
+//    if (self.picOrBack) {
+//        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//        self.coverImageView.image = image;
+//    } else {
+//        PostFiendViewController *post = [[PostFiendViewController alloc] init];
+//
+//        [self.navigationController pushViewController:post animated:YES];
+//    }
 }
 
 
@@ -213,9 +238,9 @@
     NSLog(@"新增");
     
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄", @"从相册选择", nil];
+        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄", @"从相册选择",@"视频(不大于60s)", nil];
     }else{
-        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消"destructiveButtonTitle:nil otherButtonTitles:@"从相册选择", nil];
+        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消"destructiveButtonTitle:nil otherButtonTitles:@"从相册选择",@"视频(不大于60s)", nil];
     }
     self.picOrBack = NO;
     self.actionSheet.tag = 10005;
@@ -242,8 +267,8 @@
     if (!self.operateComment) {
         dic = @{@"momentId":moment.discussIdStr, @"fromUserAccountId":[ProfileUtil getUserAccountID], @"momentOwnerUser":moment.userIds, @"optCode":@"1", @"content":commentText};
     } else {
-        NSArray *arr = [self.operateComment.text componentsSeparatedByString:@"."];
-        dic = @{@"momentId":moment.discussIdStr, @"fromUserAccountId":[ProfileUtil getUserAccountID], @"momentOwnerUser":moment.userIds, @"optCode":@"2", @"content":commentText, @"toUserAccountId":self.operateComment.fromUserAccountIdStr, @"discussId":arr[1]};
+//        NSArray *arr = [self.operateComment.text componentsSeparatedByString:@"."];
+        dic = @{@"momentId":moment.discussIdStr, @"fromUserAccountId":[ProfileUtil getUserAccountID], @"momentOwnerUser":moment.userIds, @"optCode":@"2", @"content":commentText, @"toUserAccountId":self.operateComment.fromUserAccountIdStr, @"discussId":self.operateComment.commentDiscussIdStr};
     }
     [SYNetworkingManager postWithURLString:DiscussOrReply parameters:dic success:^(NSDictionary *data) {
         // 新增评论
@@ -488,8 +513,9 @@
         {
             // 移除Moment的评论
             Moment * moment = self.operateCell.moment;
-            NSArray *arr = [self.operateComment.text componentsSeparatedByString:@"."];
-            NSDictionary *dic = @{@"discussId":arr[1]};
+//            NSArray *arr = [self.operateComment.text componentsSeparatedByString:@"."];
+//            NSDictionary *dic = @{@"discussId":arr[1]};
+            NSDictionary *dic = @{@"discussId":self.operateComment.commentDiscussIdStr};
             [SYNetworkingManager deleteWithURLString:DeleteDisucuss parameters:dic success:^(NSDictionary *data) {
 //                NSLog(@"12312%@", data);
                 // 移除Moment的评论
@@ -551,7 +577,7 @@
         }];
     } else if (actionSheet.tag == 10005) {
     
-        NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        __weak MomentViewController *weakSelf = self;
         // 判断是否支持相机
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             switch (buttonIndex) {
@@ -562,17 +588,33 @@
                     __weak XFCameraController *weakCameraController = cameraController;
                     
                     cameraController.takePhotosCompletionBlock = ^(UIImage *image, NSError *error) {
-                        NSLog(@"takePhotosCompletionBlock");
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [weakCameraController dismissViewControllerAnimated:YES completion:nil];
+                            
+                            SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                            UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+                            nextVC.type = pic;
+                            nextVC.imageArray = @[image];
+                            nextVC.title = @"发布动态";
+                            cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
+                            [weakSelf.navigationController presentViewController:cityListNav animated:YES completion:nil];
                         });
+                        
                     };
                     
                     cameraController.shootCompletionBlock = ^(NSURL *videoUrl, CGFloat videoTimeLength, UIImage *thumbnailImage, NSError *error) {
-                        NSLog(@"shootCompletionBlock");
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [weakCameraController dismissViewControllerAnimated:YES completion:nil];
+                            
+                            SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                            UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+                            nextVC.type = video;
+                            nextVC.videoPath = videoUrl;
+                            nextVC.videoImage = thumbnailImage;
+                            nextVC.title = @"发布动态";
+                            cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
+                            [self.navigationController presentViewController:cityListNav animated:YES completion:nil];
                         });
                     };
                     cameraController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -588,6 +630,7 @@
                         [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
                             SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
                             UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+                            nextVC.type = pic;
                             nextVC.imageArray = photos;
                             nextVC.title = @"发布动态";
                             cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -600,16 +643,32 @@
                     [self presentViewController:imageVc animated:YES completion:nil];
                 }
                     break;
-                case 2:
-                    return;
+                case 2:{
+                    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+                    imagePicker.modalPresentationStyle = UIModalPresentationFullScreen;
+                    imagePicker.delegate = self;
+                    imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                    imagePicker.mediaTypes = @[(NSString *)kUTTypeMovie];
+                    imagePicker.allowsEditing = YES;
+                    imagePicker.videoMaximumDuration = 60;
+                    [self presentViewController:imagePicker animated:YES completion:nil];
+                }
             }
         } else {
-            if (buttonIndex == 2) {
-                return;
+            if (buttonIndex == 1) {
+                
             } else {
-                IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:3 columnNumber:4];
+                IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4];
                     //可选  可以通过代理的回调去获取数据
                     [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
+                        SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                        UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+                        nextVC.imageArray = photos;
+                        nextVC.type = pic;
+                        nextVC.title = @"发布动态";
+                        cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
+                        [self.navigationController presentViewController:cityListNav animated:YES completion:nil];
+                        
                         NSLog(@"%@",photos);
                         NSLog(@"%@",avPlayers);
                     }];

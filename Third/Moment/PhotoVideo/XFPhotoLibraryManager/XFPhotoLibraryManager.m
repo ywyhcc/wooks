@@ -70,13 +70,15 @@
     __block NSString *assetId = nil;
     
     PHPhotoLibrary *library = [PHPhotoLibrary sharedPhotoLibrary];
-    
+    __block BOOL shouldCallBack = YES;
     // 1. 存储图片到"相机胶卷"
     [library performChanges:^{ // 这个block里保存一些"修改"性质的代码
         // 新建一个PHAssetCreationRequest对象, 保存图片到"相机胶卷"
         // 返回PHAsset(图片)的字符串标识
+        shouldCallBack = NO;
         assetId = [PHAssetCreationRequest creationRequestForAssetFromImage:blockImage].placeholderForCreatedAsset.localIdentifier;
     } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        shouldCallBack = NO;
         if (error) {
             NSLog(@"error1%@", error);
             return;
@@ -158,6 +160,11 @@
         }
         
     }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (shouldCallBack) {
+            savePhotoCompletionBlock(image, nil);
+        }
+    });
 }
 
 /**

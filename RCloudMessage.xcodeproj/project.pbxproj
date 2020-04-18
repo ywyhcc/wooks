@@ -222,6 +222,10 @@
 		7F5ED40A2439A277007958F5 /* BaseUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED4092439A277007958F5 /* BaseUserInfoModel.m */; };
 		7F5ED40D2439A457007958F5 /* ContactAddUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED40C2439A457007958F5 /* ContactAddUserModel.m */; };
 		7F604BBF242B405D0040732A /* AgreeFriendsAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F604BBE242B405D0040732A /* AgreeFriendsAddressViewController.m */; };
+		7F60A9232448665800F63BC5 /* CanSeeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A9222448665800F63BC5 /* CanSeeTableViewCell.m */; };
+		7F60A92624486F1500F63BC5 /* CanSeeCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A92524486F1500F63BC5 /* CanSeeCellView.m */; };
+		7F60A929244876DB00F63BC5 /* CanSeePersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A928244876DB00F63BC5 /* CanSeePersonTableViewCell.m */; };
+		7F60A92C2449A61500F63BC5 /* AddContactMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A92B2449A61500F63BC5 /* AddContactMembersViewController.m */; };
 		7F611FDD243B149100BE72D6 /* PostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDC243B149100BE72D6 /* PostInfoViewController.m */; };
 		7F611FE0243B14BB00BE72D6 /* PrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */; };
 		7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */; };
@@ -260,6 +264,8 @@
 		7F66CB6C244721AD00B6AB1E /* IJSMapViewCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66CB63244721AD00B6AB1E /* IJSMapViewCollectionViewLayout.m */; };
 		7F66CB6D244721AD00B6AB1E /* IJSMapViewThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66CB66244721AD00B6AB1E /* IJSMapViewThumbCell.m */; };
 		7F66CB702447240100B6AB1E /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F66CB6F2447240000B6AB1E /* PhotosUI.framework */; };
+		7F66CB732448566E00B6AB1E /* MomentNowLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66CB722448566D00B6AB1E /* MomentNowLocationViewController.m */; };
+		7F66CB762448568B00B6AB1E /* CanSeeMomentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66CB752448568B00B6AB1E /* CanSeeMomentViewController.m */; };
 		7F93193724385C88009744C6 /* PostFiendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93193524385C88009744C6 /* PostFiendViewController.m */; };
 		7F93193824385C88009744C6 /* PostFiendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F93193624385C88009744C6 /* PostFiendViewController.xib */; };
 		7F9BE1CF242F472200BFABB2 /* NewFriendsInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1CE242F472200BFABB2 /* NewFriendsInviteViewController.m */; };
@@ -928,6 +934,14 @@
 		7F5ED40C2439A457007958F5 /* ContactAddUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactAddUserModel.m; sourceTree = "<group>"; };
 		7F604BBD242B405D0040732A /* AgreeFriendsAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgreeFriendsAddressViewController.h; sourceTree = "<group>"; };
 		7F604BBE242B405D0040732A /* AgreeFriendsAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgreeFriendsAddressViewController.m; sourceTree = "<group>"; };
+		7F60A9212448665800F63BC5 /* CanSeeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanSeeTableViewCell.h; sourceTree = "<group>"; };
+		7F60A9222448665800F63BC5 /* CanSeeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanSeeTableViewCell.m; sourceTree = "<group>"; };
+		7F60A92424486F1500F63BC5 /* CanSeeCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanSeeCellView.h; sourceTree = "<group>"; };
+		7F60A92524486F1500F63BC5 /* CanSeeCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanSeeCellView.m; sourceTree = "<group>"; };
+		7F60A927244876DB00F63BC5 /* CanSeePersonTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanSeePersonTableViewCell.h; sourceTree = "<group>"; };
+		7F60A928244876DB00F63BC5 /* CanSeePersonTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanSeePersonTableViewCell.m; sourceTree = "<group>"; };
+		7F60A92A2449A61500F63BC5 /* AddContactMembersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactMembersViewController.h; sourceTree = "<group>"; };
+		7F60A92B2449A61500F63BC5 /* AddContactMembersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactMembersViewController.m; sourceTree = "<group>"; };
 		7F611FDB243B149100BE72D6 /* PostInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostInfoViewController.h; sourceTree = "<group>"; };
 		7F611FDC243B149100BE72D6 /* PostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostInfoViewController.m; sourceTree = "<group>"; };
 		7F611FDE243B14BB00BE72D6 /* PrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyViewController.h; sourceTree = "<group>"; };
@@ -999,6 +1013,10 @@
 		7F66CB68244721AD00B6AB1E /* IJSMapViewCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJSMapViewCollectionViewLayout.h; sourceTree = "<group>"; };
 		7F66CB6E2447223E00B6AB1E /* IJSEditSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJSEditSDK.h; sourceTree = "<group>"; };
 		7F66CB6F2447240000B6AB1E /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		7F66CB712448566D00B6AB1E /* MomentNowLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MomentNowLocationViewController.h; sourceTree = "<group>"; };
+		7F66CB722448566D00B6AB1E /* MomentNowLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MomentNowLocationViewController.m; sourceTree = "<group>"; };
+		7F66CB742448568B00B6AB1E /* CanSeeMomentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanSeeMomentViewController.h; sourceTree = "<group>"; };
+		7F66CB752448568B00B6AB1E /* CanSeeMomentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanSeeMomentViewController.m; sourceTree = "<group>"; };
 		7F93193424385C88009744C6 /* PostFiendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostFiendViewController.h; sourceTree = "<group>"; };
 		7F93193524385C88009744C6 /* PostFiendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostFiendViewController.m; sourceTree = "<group>"; };
 		7F93193624385C88009744C6 /* PostFiendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostFiendViewController.xib; sourceTree = "<group>"; };
@@ -2383,6 +2401,18 @@
 			children = (
 				7F66C923244708F500B6AB1E /* SendMomentsViewController.h */,
 				7F66C924244708F500B6AB1E /* SendMomentsViewController.m */,
+				7F66CB712448566D00B6AB1E /* MomentNowLocationViewController.h */,
+				7F66CB722448566D00B6AB1E /* MomentNowLocationViewController.m */,
+				7F66CB742448568B00B6AB1E /* CanSeeMomentViewController.h */,
+				7F66CB752448568B00B6AB1E /* CanSeeMomentViewController.m */,
+				7F60A9212448665800F63BC5 /* CanSeeTableViewCell.h */,
+				7F60A9222448665800F63BC5 /* CanSeeTableViewCell.m */,
+				7F60A927244876DB00F63BC5 /* CanSeePersonTableViewCell.h */,
+				7F60A928244876DB00F63BC5 /* CanSeePersonTableViewCell.m */,
+				7F60A92424486F1500F63BC5 /* CanSeeCellView.h */,
+				7F60A92524486F1500F63BC5 /* CanSeeCellView.m */,
+				7F60A92A2449A61500F63BC5 /* AddContactMembersViewController.h */,
+				7F60A92B2449A61500F63BC5 /* AddContactMembersViewController.m */,
 				7F66C906244707E300B6AB1E /* HDragView */,
 			);
 			path = SendController;
@@ -3736,6 +3766,7 @@
 				7F30D73D24239AFE0018A519 /* FPStyleGuide.m in Sources */,
 				7F30D73E24239AFE0018A519 /* ProfileUtil.m in Sources */,
 				7F30D8052425F84D0018A519 /* MMImageListView.m in Sources */,
+				7F60A92C2449A61500F63BC5 /* AddContactMembersViewController.m in Sources */,
 				27AD3031229E721F003C2680 /* RCDCountry.m in Sources */,
 				7F9BE1CF242F472200BFABB2 /* NewFriendsInviteViewController.m in Sources */,
 				A2AD037A22D3226900F8E64D /* RCDScanQRCodeController.m in Sources */,
@@ -3846,6 +3877,7 @@
 				A2F0A99222FAA4C600422802 /* RCDGroupLeftMember.m in Sources */,
 				27AD300F229E721F003C2680 /* RCDSearchFriendController.m in Sources */,
 				7F66CA7024471CED00B6AB1E /* IJSPreviewVideoView.m in Sources */,
+				7F66CB732448566E00B6AB1E /* MomentNowLocationViewController.m in Sources */,
 				7F66CA7924471CED00B6AB1E /* IJSPhotoPreviewController.m in Sources */,
 				7F30D73124239AFE0018A519 /* NSString+Util.m in Sources */,
 				7F30D73A24239AFE0018A519 /* Common.m in Sources */,
@@ -3872,6 +3904,7 @@
 				27F0E3D822A0E3E300C8B0B8 /* RCDBlackListCell.m in Sources */,
 				9C27480F22A0E3E4001A4413 /* RCDDBManager.m in Sources */,
 				3B16DA0422F7D4AA00AD2770 /* RCDDescriptionView.m in Sources */,
+				7F60A9232448665800F63BC5 /* CanSeeTableViewCell.m in Sources */,
 				7F30D8022425F84D0018A519 /* MUser.m in Sources */,
 				A2F0A98F22FAA3FF00422802 /* RCDGroupLeftUserListCell.m in Sources */,
 				3BB6CE1B22D743720007FFFB /* RCDAddressBookManager.m in Sources */,
@@ -3893,6 +3926,7 @@
 				7F30D8082425F84D0018A519 /* MMImagePreviewView.m in Sources */,
 				7F66CB6C244721AD00B6AB1E /* IJSMapViewCollectionViewLayout.m in Sources */,
 				3B0F2C5522DC1C470017979E /* RCDUnableGetContactsView.m in Sources */,
+				7F60A929244876DB00F63BC5 /* CanSeePersonTableViewCell.m in Sources */,
 				A2F0A97B22FA7C8200422802 /* RCDCopyGroupController.m in Sources */,
 				7F30D72A24239AFE0018A519 /* UIView+Snapshot.m in Sources */,
 				A2D549572320FE7000AC640B /* RCDClearMessage.m in Sources */,
@@ -4032,6 +4066,7 @@
 				A2B126FA22C1FDB300697964 /* AppDelegate.m in Sources */,
 				A2F0A97222F9512200422802 /* RCDGroupMemberDetailController.m in Sources */,
 				7FC042152439EAD0007CF4F6 /* EditSignViewController.m in Sources */,
+				7F60A92624486F1500F63BC5 /* CanSeeCellView.m in Sources */,
 				3B7D8F2B223266B8009E1417 /* RCDBuglyManager.m in Sources */,
 				27F0E3CB22A0E3E300C8B0B8 /* RCDAboutRongCloudTableViewController.m in Sources */,
 				3BCA7CA52359536700EBCE54 /* RCDDebugAlertView.m in Sources */,
@@ -4067,6 +4102,7 @@
 				3B47890E22B79A3B00D33F10 /* RCDForwardSelectedViewController.m in Sources */,
 				7F30D73224239AFE0018A519 /* NSURL+Util.m in Sources */,
 				A20131F622F2D99400C24160 /* RCDPokeMessage.m in Sources */,
+				7F66CB762448568B00B6AB1E /* CanSeeMomentViewController.m in Sources */,
 				A2402F9322B237DF00BF8F6A /* RCDChatRoom.m in Sources */,
 				7F66CA7824471CED00B6AB1E /* IJS3DTouchController.m in Sources */,
 				7F30D7FF2425F84D0018A519 /* MomentViewController.m in Sources */,

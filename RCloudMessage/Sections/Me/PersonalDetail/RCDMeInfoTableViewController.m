@@ -69,7 +69,7 @@
 - (void)uploadImage {
     __weak typeof(self) ws = self;
     QiniuQuery *query = [[QiniuQuery alloc] init];
-    [query uploadWithImage:self.data success:^(NSString *success) {
+    [query uploadWithImage:self.data success:^(NSString *success, NSString *kye) {
         [ws uploadImageQuery:success];
     } faild:^(NSError *error) {
         

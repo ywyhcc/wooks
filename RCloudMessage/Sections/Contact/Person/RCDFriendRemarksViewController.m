@@ -248,7 +248,7 @@
     if (self.photoIsChange) {
         if (self.imageData) {
             QiniuQuery *query = [[QiniuQuery alloc] init];
-            [query uploadWithImage:self.imageData success:^(NSString *urlStr) {
+            [query uploadWithImage:self.imageData success:^(NSString *urlStr, NSString *kye) {
                 if (urlStr.length > 0) {
                     [self setRemarksAndDescription:urlStr hud:hud];
                 } else {

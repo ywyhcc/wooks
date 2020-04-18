@@ -176,6 +176,14 @@ CGFloat lineSpacing = 5;
     _timeLabel.frame = CGRectMake(_nicknameBtn.left, bottom, _timeLabel.width, kTimeLabelH);
     _deleteBtn.frame = CGRectMake(_timeLabel.right + 25, _timeLabel.top, 30, kTimeLabelH);
     bottom = _timeLabel.bottom + kPaddingValue;
+    
+    //是否隐藏delete btn
+    if ([moment.userIds isEqualToString:[ProfileUtil getUserAccountID]]) {
+        _deleteBtn.hidden = NO;
+    }
+    else {
+        _deleteBtn.hidden = YES;
+    }
     // 操作视图
     _menuView.frame = CGRectMake(k_screen_width-kOperateWidth-10, _timeLabel.top-(kOperateHeight-kTimeLabelH)/2, kOperateWidth, kOperateHeight);
     _menuView.show = NO;

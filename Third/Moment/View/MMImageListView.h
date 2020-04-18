@@ -26,8 +26,12 @@
 //### 单个小图显示视图
 @interface MMImageView : UIImageView
 
+@property (nonatomic, strong)UIImageView *centerImage;
+
 // 点击小图
 @property (nonatomic, copy) void (^clickHandler)(MMImageView *imageView);
+
+- (void)setCenterImageHidden:(BOOL)isHidden;
 
 @end
 

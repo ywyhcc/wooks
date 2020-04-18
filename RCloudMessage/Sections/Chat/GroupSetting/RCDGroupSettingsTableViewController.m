@@ -242,7 +242,7 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
     __weak typeof(self) weakSelf = self;
     
     QiniuQuery *query = [[QiniuQuery alloc] init];
-    [query uploadWithImage:data success:^(NSString *urlStr) {
+    [query uploadWithImage:data success:^(NSString *urlStr, NSString *kye) {
         [RCDGroupManager
          setGroupPortrait:urlStr
          groupId:weakSelf.group.groupId

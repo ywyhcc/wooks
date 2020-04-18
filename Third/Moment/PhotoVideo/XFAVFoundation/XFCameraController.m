@@ -248,30 +248,30 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     {
         UIImage *finalImage = [self cutImageWithView:self.photoPreviewImageView];
         NSLog(@"%@",finalImage);
-        if (finalImage != nil && self.takePhotosCompletionBlock) {
-            self.takePhotosCompletionBlock(finalImage,nil);
-        }
-        else {
-            self.takePhotosCompletionBlock(nil,nil);
-        }
-//        [XFPhotoLibraryManager savePhotoWithImage:finalImage andAssetCollectionName:self.assetCollectionName withCompletion:^(UIImage *image, NSError *error) {
-//
-//            if (self.takePhotosCompletionBlock)
-//            {
-//                if (error)
-//                {
-//                    NSLog(@"保存照片失败!");
-//                    weakSelf.takePhotosCompletionBlock(nil, error);
-//                }
-//                else
-//                {
-//                    NSLog(@"保存照片成功!");
-//                    weakSelf.takePhotosCompletionBlock(image, nil);
-//                }
-//            }
-//
-//        }];
-//
+//        if (finalImage != nil && self.takePhotosCompletionBlock) {
+//            self.takePhotosCompletionBlock(finalImage,nil);
+//        }
+//        else {
+//            self.takePhotosCompletionBlock(nil,nil);
+//        }
+        [XFPhotoLibraryManager savePhotoWithImage:finalImage andAssetCollectionName:@"最近项目" withCompletion:^(UIImage *image, NSError *error) {
+
+            if (self.takePhotosCompletionBlock)
+            {
+                if (error)
+                {
+                    NSLog(@"保存照片失败!");
+                    weakSelf.takePhotosCompletionBlock(nil, error);
+                }
+                else
+                {
+                    NSLog(@"保存照片成功!");
+                    weakSelf.takePhotosCompletionBlock(image, nil);
+                }
+            }
+
+        }];
+
 //        self.confirmButton.userInteractionEnabled = NO;
         
     }
@@ -282,41 +282,41 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
             if (isSuccess)
             {
                 // 获取视频的第一帧图片
-                UIImage *image = [weakSelf thumbnailImageRequestWithVideoUrl:weakSelf.videoURL andTime:0.01f];
-                
-                weakSelf.shootCompletionBlock(weakSelf.videoURL, videoDuration, image, nil);
-                
-                [[NSFileManager defaultManager] removeItemAtURL:weakSelf.videoURL error:nil];
-                weakSelf.videoURL = nil;
-                
-                
-                
-//                [XFPhotoLibraryManager saveVideoWithVideoUrl:outputURL andAssetCollectionName:nil withCompletion:^(NSURL *videoUrl, NSError *error) {
+//                UIImage *image = [weakSelf thumbnailImageRequestWithVideoUrl:weakSelf.videoURL andTime:0.01f];
+//                
+//                weakSelf.shootCompletionBlock(weakSelf.videoURL, videoDuration, image, nil);
 //
-//                    if (self.shootCompletionBlock)
-//                    {
-//                        if (error)
-//                        {
-//                            NSLog(@"保存视频失败!");
-//                            weakSelf.shootCompletionBlock(nil, 0, nil, error);
-//                        }
-//                        else
-//                        {
-//                            NSLog(@"保存视频成功!");
-//
-//                            // 获取视频的第一帧图片
-//                            UIImage *image = [weakSelf thumbnailImageRequestWithVideoUrl:videoUrl andTime:0.01f];
-//
-//                            weakSelf.shootCompletionBlock(videoUrl, videoDuration, image, nil);
-//
-//                            [[NSFileManager defaultManager] removeItemAtURL:weakSelf.videoURL error:nil];
-//                            weakSelf.videoURL = nil;
-//                        }
-//                    }
-//
+//                [[NSFileManager defaultManager] removeItemAtURL:weakSelf.videoURL error:nil];
+//                weakSelf.videoURL = nil;
+                
+                
+                
+                [XFPhotoLibraryManager saveVideoWithVideoUrl:outputURL andAssetCollectionName:nil withCompletion:^(NSURL *videoUrl, NSError *error) {
+
+                    if (self.shootCompletionBlock)
+                    {
+                        if (error)
+                        {
+                            NSLog(@"保存视频失败!");
+                            weakSelf.shootCompletionBlock(nil, 0, nil, error);
+                        }
+                        else
+                        {
+                            NSLog(@"保存视频成功!");
+
+                            // 获取视频的第一帧图片
+                            UIImage *image = [weakSelf thumbnailImageRequestWithVideoUrl:videoUrl andTime:0.01f];
+
+                            weakSelf.shootCompletionBlock(videoUrl, videoDuration, image, nil);
+
+                            [[NSFileManager defaultManager] removeItemAtURL:weakSelf.videoURL error:nil];
+                            weakSelf.videoURL = nil;
+                        }
+                    }
+
 //                    weakSelf.confirmButton.userInteractionEnabled = NO;
-//
-//                }];
+
+                }];
             }
             else
             {

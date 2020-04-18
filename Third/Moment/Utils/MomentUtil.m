@@ -47,7 +47,8 @@
             NSInteger pk = i + 1;
             Comment * comment = [[Comment alloc] init];//获取评论的内容
             comment.pk = pk;
-            comment.text = [NSString stringWithFormat:@"%@.%@", idList[i][@"content"], idList[i][@"discussId"]];
+            comment.text = [NSString stringWithFormat:@"%@", idList[i][@"content"]];//, idList[i][@"discussId"]
+            comment.commentDiscussIdStr = idList[i][@"discussId"];
             comment.fromId = 4;
             comment.toId = typeStr.intValue;
             comment.fromUserAccountIdStr = idList[i][@"fromUserAccountId"];

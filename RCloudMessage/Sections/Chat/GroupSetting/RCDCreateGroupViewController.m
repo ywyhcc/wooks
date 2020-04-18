@@ -287,7 +287,7 @@
     [hud show:YES];
     if (self.imageData) {
         QiniuQuery *query = [[QiniuQuery alloc] init];
-        [query uploadWithImage:self.imageData success:^(NSString *success) {
+        [query uploadWithImage:self.imageData success:^(NSString *success, NSString *kye) {
             [self createGroupWithPortraitUri:success];
         } faild:^(NSError *error) {
             NSLog(@"");

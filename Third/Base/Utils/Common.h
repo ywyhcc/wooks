@@ -9,7 +9,7 @@
 
 
 #define BaseURL                             @"http://120.27.250.124:6060"
-
+//http://api.woostalk.cn:6060/
 #define QiniuCloudBaseURL                   @"http://resources.woostalk.com/"
 
 //#define BaseURL                             @"http://192.168.11.105:6060"
@@ -57,7 +57,7 @@
 #define NAVIGATIONBAR_HEIGHT 44
 
 //tabBar高
-#define WX_TABBAR_HEIGHT (49 + IS_IPHONEX * 34)
+#define WX_TABBAR_HEIGHT         (49 + IS_IPHONEX * 34)
 
 #define GL_iPhone_X          (SCREEN_WIDTH == 375 && SCREEN_HEIGHT == 812)
 

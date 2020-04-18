@@ -13,6 +13,12 @@
 #import "RCDUtilities.h"
 #import "IJSImagePickerController.h"
 #import "IJSExtension.h"
+#import "MomentNowLocationViewController.h"
+#import "CanSeeMomentViewController.h"
+#import "QiniuQuery.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "UIView+MBProgressHUD.h"
+#import "UIColor+RCColor.h"
 
 #define kSingleLineHeight 80
 #define kMaxLines  6
@@ -23,15 +29,38 @@
 @property (nonatomic, strong) HDragItemListView *itemList;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) NSString *locationStr;
 
 @property (nonatomic, assign) CGFloat lastTextViewHeight;
 
 @property (nonatomic, strong) RCDUIBarButtonItem *rightBtn;
 @property (nonatomic, strong) RCDUIBarButtonItem *leftBtn;
 
+@property (nonatomic, strong) NSMutableDictionary *params;
+@property (nonatomic, strong) NSMutableArray *fileArray;
+@property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) UIImageView *videoPic;
+
 @end
 
 @implementation SendMomentsViewController
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)loadView{
+    [super loadView];
+    
+    self.fileArray = [NSMutableArray arrayWithCapacity:0];
+    self.params = [NSMutableDictionary dictionaryWithCapacity:0];
+    [self.params setObject:[ProfileUtil getUserAccountID] forKey:@"optUserAccountId"];
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.color = [UIColor colorWithHexString:@"343637" alpha:0.5];
+    [self.hud hideAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,6 +68,28 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setNavigationButton];
+    
+    switch (self.type) {
+        case pic:{
+            [self initPicHeadview];
+        }
+            break;
+        case text:{
+            [self initTextHeadview];
+        }
+            break;
+        case video:{
+            [self initVideoHeadView];
+        }
+                break;
+            
+        default:
+            break;
+    }
+
+}
+
+- (void)initPicHeadview{
     
     HDragItem *item = [[HDragItem alloc] init];
     item.backgroundColor = [UIColor clearColor];
@@ -84,7 +135,7 @@
         });
     };
     
-    [self.view addSubview:itemList];
+
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, SCREEN_HEIGHT - IJSGStatusBarAndNavigationBarHeight - 10) style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -96,7 +147,7 @@
 
     [headerView addSubview:itemList];
     
-//    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)]
+    self.locationStr = @"";
 
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, kSingleLineHeight)];
     _textView.font = [UIFont systemFontOfSize:16];
@@ -115,7 +166,60 @@
     [self initData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewChange:) name:UITextViewTextDidChangeNotification object:nil];
+}
 
+- (void)initTextHeadview{
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, SCREEN_HEIGHT - IJSGStatusBarAndNavigationBarHeight - 10) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [self.view addSubview:_tableView];
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 150)];
+    
+    self.locationStr = @"";
+
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, 130)];
+    _textView.font = [UIFont systemFontOfSize:16];
+    _textView.text = @"   你的想法";
+    [headerView addSubview:_textView];
+
+    _tableView.tableHeaderView = headerView;
+    _tableView.tableFooterView = [UIView new];
+
+    [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:NSStringFromClass(UITableViewCell.class)];
+}
+
+- (void)initVideoHeadView{
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, SCREEN_HEIGHT - IJSGStatusBarAndNavigationBarHeight - 10) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [self.view addSubview:_tableView];
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 150)];
+    
+    self.locationStr = @"";
+
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, 50)];
+    _textView.font = [UIFont systemFontOfSize:16];
+    _textView.text = @"   你的想法";
+    [headerView addSubview:_textView];
+    
+    self.videoPic = [[UIImageView alloc] initWithFrame:CGRectMake(20, _textView.bottom + 10, 45, 80)];
+    if (self.videoImage != nil) {
+        self.videoPic.image = self.videoImage;
+    }
+    else {
+        self.videoPic.image = [self getVideoPreViewImage:self.videoPath];
+    }
+    self.videoPic.backgroundColor = [UIColor redColor];
+    [headerView addSubview:self.videoPic];
+
+    _tableView.tableHeaderView = headerView;
+    _tableView.tableFooterView = [UIView new];
+
+    [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:NSStringFromClass(UITableViewCell.class)];
 }
 
 - (void)initData{
@@ -169,7 +273,67 @@
 }
 
 - (void)sendBtnClicked{
-    
+    [self.hud showAnimated:YES];
+    [self.params setObject:self.textView.text forKey:@"momentAbout"];
+    if (self.locationStr.length > 0) {
+        [self.params setObject:self.locationStr forKey:@"location"];
+    }
+    switch (self.type) {
+        case text:{
+            [SYNetworkingManager postWithURLString:CreatFrindInfo parameters:self.params success:^(NSDictionary *data) {
+                [self.hud hideAnimated:YES];
+                if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            } failure:^(NSError *error) {
+                [self.hud hideAnimated:YES];
+            }];
+            [self.hud hideAnimated:YES];
+        }
+            break;
+        case pic:{
+            [self backItemListImages:^(NSArray *imageArr) {
+                [SYNetworkingManager postWithURLString:CreatFrindInfo parameters:self.params success:^(NSDictionary *data) {
+                    [self.hud hideAnimated:YES];
+                    if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                } failure:^(NSError *error) {
+                    [self.hud hideAnimated:YES];
+                }];
+            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.hud hideAnimated:YES];
+            });
+        }
+            break;
+        case video:{
+            
+            NSData *data = [NSData dataWithContentsOfURL:self.videoPath];
+            QiniuQuery *query = [[QiniuQuery alloc] init];
+            [query uploadVideo:data success:^(NSString *urlStr, NSString *key) {
+                
+                NSMutableDictionary *muDic = [NSMutableDictionary dictionaryWithCapacity:0];
+                [muDic setObject:urlStr forKey:@"fileUrl"];
+                [muDic setObject:@"2" forKey:@"fileType"];//图片
+                [muDic setObject:@"mp4" forKey:@"fileExtension"];
+                [muDic setObject:key forKey:@"fileKey"];
+                [self.params setObject:@[muDic] forKey:@"momentFiles"];
+                [SYNetworkingManager postWithURLString:CreatFrindInfo parameters:self.params success:^(NSDictionary *data) {
+                    [self.hud hideAnimated:YES];
+                    if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                } failure:^(NSError *error) {
+                    [self.hud hideAnimated:YES];
+                }];
+            } faild:^(NSError *error) {
+            }];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 //更新头部高度
@@ -193,12 +357,76 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(UITableViewCell.class)];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.row == 0) {
         cell.textLabel.text = @"所在位置";
+        if (self.locationStr.length > 0) {
+            cell.textLabel.text = [NSString stringWithFormat:@"所在位置:%@",self.locationStr];
+        }
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"谁可以看";
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    __weak SendMomentsViewController *weakSelf = self;
+    if (indexPath.row == 0) {
+        
+        MomentNowLocationViewController *nextVC = [[MomentNowLocationViewController alloc] init];
+        nextVC.locationBack = ^(NSString *location){
+            weakSelf.locationStr = location;
+            [weakSelf.tableView reloadData];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    } else if (indexPath.row == 1) {
+        CanSeeMomentViewController *nextVC = [[CanSeeMomentViewController alloc] init];
+        nextVC.canSeeCallBack = ^(NSArray *membersID, BOOL isSomeCanSee, NSArray *labelsID) {
+            if (membersID.count > 0) {
+                [weakSelf.params setObject:membersID forKey:@"momentCanLookUserAccountIds"];
+            }
+            if (isSomeCanSee) {
+                [weakSelf.params setObject:@"2" forKey:@"momentAuthority"];
+            }
+            if (labelsID.count > 0) {
+                [weakSelf.params setObject:membersID forKey:@"momentCanLookLabelIds"];
+            }
+            
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
+}
+
+- (void)backItemListImages:(void (^)(NSArray *imageArr))back{
+    [self.fileArray removeAllObjects];
+    __weak SendMomentsViewController *weakSelf = self;
+    
+    HDragItem *lastItem = [weakSelf.itemList.itemArray lastObject];
+    BOOL lastIsAdd = lastItem.isAdd;
+    for (HDragItem *item in self.itemList.itemArray) {
+        if (item.isAdd) {continue;}
+        QiniuQuery *query = [[QiniuQuery alloc] init];
+        [query uploadWithImage:UIImagePNGRepresentation(item.image) success:^(NSString *urlStr, NSString *kye) {
+            NSMutableDictionary *muDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            [muDic setObject:urlStr forKey:@"fileUrl"];
+            [muDic setObject:@"1" forKey:@"fileType"];//图片
+            [muDic setObject:@"png" forKey:@"fileExtension"];
+            [muDic setObject:kye forKey:@"fileKey"];
+            [weakSelf.fileArray addObject:muDic];
+            NSUInteger itemCount = weakSelf.itemList.itemArray.count;
+            if (lastIsAdd) {
+                itemCount = weakSelf.itemList.itemArray.count - 1;
+            }
+            if (weakSelf.fileArray.count == itemCount) {
+                [weakSelf.params setObject:weakSelf.fileArray forKey:@"momentFiles"];
+                back(weakSelf.fileArray);
+            }
+            else {
+                [weakSelf.params setObject:@[] forKey:@"momentFiles"];
+            }
+        } faild:^(NSError *error) {
+        }];
+    }
 }
 
 
@@ -223,7 +451,14 @@
 
 #pragma mark - UIImagePickerController
 - (void)showUIImagePickerController{
-    IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:9 - self.itemList.itemArray.count columnNumber:4];
+    
+    HDragItem *lastItem = [self.itemList.itemArray lastObject];
+    BOOL lastIsAdd = lastItem.isAdd;
+    NSUInteger itemCount = lastIsAdd ? self.itemList.itemArray.count - 1 : self.itemList.itemArray.count;
+    if (9 - itemCount <= 0) {
+        return;
+    }
+    IJSImagePickerController *imageVc = [[IJSImagePickerController alloc] initWithMaxImagesCount:9 - itemCount columnNumber:4];
         //可选  可以通过代理的回调去获取数据
         [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
             
@@ -240,6 +475,23 @@
     imageVc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:imageVc animated:YES completion:nil];
 }
+
+// 获取视频第一帧
+- (UIImage*) getVideoPreViewImage:(NSURL *)path
+{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:path options:nil];
+    AVAssetImageGenerator *assetGen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    
+    assetGen.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+    NSError *error = nil;
+    CMTime actualTime;
+    CGImageRef image = [assetGen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+    UIImage *videoImage = [UIImage imageWithCGImage:image];
+    CGImageRelease(image);
+    return videoImage;
+}
+
 
 
 @end

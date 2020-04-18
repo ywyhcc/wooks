@@ -92,6 +92,13 @@
         imageView = [self viewWithTag:1000 + i];
         imageView.hidden = NO;
         imageView.frame = frame;
+        MPicture * picture = [_moment.pictureList objectAtIndex:i];
+       if (picture.thumbnailVideo.length) {
+           [imageView setCenterImageHidden:NO];
+       }
+       else {
+           [imageView setCenterImageHidden:YES];
+       }
     }
     self.width = kTextWidth;
     self.height = imageView.bottom;
@@ -301,6 +308,12 @@
         self.clipsToBounds  = YES;
         self.userInteractionEnabled = YES;
         
+        self.centerImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        self.centerImage.image = [UIImage imageNamed:@"album_video"];
+        self.centerImage.center = self.center;
+        self.centerImage.hidden = YES;
+        [self addSubview:self.centerImage];
+        
         UITapGestureRecognizer * singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCallback:)];
         [self addGestureRecognizer:singleTap];
     }
@@ -311,6 +324,16 @@
 {
     if (self.clickHandler) {
         self.clickHandler(self);
+    }
+}
+
+- (void)setCenterImageHidden:(BOOL)isHidden{
+    self.centerImage.center = self.center;
+    if (isHidden) {
+        self.centerImage.hidden = YES;
+    }
+    else {
+        self.centerImage.hidden = NO;
     }
 }
 

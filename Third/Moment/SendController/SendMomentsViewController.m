@@ -40,10 +40,18 @@
 @property (nonatomic, strong) NSMutableArray *fileArray;
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) UIImageView *videoPic;
+@property (nonatomic ,strong) dispatch_queue_t queue;
 
 @end
 
 @implementation SendMomentsViewController
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _queue = dispatch_get_main_queue();
+    }
+    return self;
+}
 
 - (void)dealloc
 {
@@ -400,32 +408,35 @@
 - (void)backItemListImages:(void (^)(NSArray *imageArr))back{
     [self.fileArray removeAllObjects];
     __weak SendMomentsViewController *weakSelf = self;
-    
+    [self.hud showAnimated:YES];
     HDragItem *lastItem = [weakSelf.itemList.itemArray lastObject];
     BOOL lastIsAdd = lastItem.isAdd;
     for (HDragItem *item in self.itemList.itemArray) {
         if (item.isAdd) {continue;}
-        QiniuQuery *query = [[QiniuQuery alloc] init];
-        [query uploadWithImage:UIImagePNGRepresentation(item.image) success:^(NSString *urlStr, NSString *kye) {
-            NSMutableDictionary *muDic = [NSMutableDictionary dictionaryWithCapacity:0];
-            [muDic setObject:urlStr forKey:@"fileUrl"];
-            [muDic setObject:@"1" forKey:@"fileType"];//图片
-            [muDic setObject:@"png" forKey:@"fileExtension"];
-            [muDic setObject:kye forKey:@"fileKey"];
-            [weakSelf.fileArray addObject:muDic];
-            NSUInteger itemCount = weakSelf.itemList.itemArray.count;
-            if (lastIsAdd) {
-                itemCount = weakSelf.itemList.itemArray.count - 1;
-            }
-            if (weakSelf.fileArray.count == itemCount) {
-                [weakSelf.params setObject:weakSelf.fileArray forKey:@"momentFiles"];
-                back(weakSelf.fileArray);
-            }
-            else {
-                [weakSelf.params setObject:@[] forKey:@"momentFiles"];
-            }
-        } faild:^(NSError *error) {
-        }];
+        dispatch_barrier_async(_queue, ^{
+            QiniuQuery *query = [[QiniuQuery alloc] init];
+            [query uploadWithImage:UIImagePNGRepresentation(item.image) success:^(NSString *urlStr, NSString *kye) {
+                NSMutableDictionary *muDic = [NSMutableDictionary dictionaryWithCapacity:0];
+                [muDic setObject:urlStr forKey:@"fileUrl"];
+                [muDic setObject:@"1" forKey:@"fileType"];//图片
+                [muDic setObject:@"png" forKey:@"fileExtension"];
+                [muDic setObject:kye forKey:@"fileKey"];
+                [weakSelf.fileArray addObject:muDic];
+                NSUInteger itemCount = weakSelf.itemList.itemArray.count;
+                if (lastIsAdd) {
+                    itemCount = weakSelf.itemList.itemArray.count - 1;
+                }
+                if (weakSelf.fileArray.count == itemCount) {
+                    [weakSelf.params setObject:weakSelf.fileArray forKey:@"momentFiles"];
+                    [weakSelf.hud hideAnimated:YES];
+                    back(weakSelf.fileArray);
+                }
+                else {
+                    [weakSelf.params setObject:@[] forKey:@"momentFiles"];
+                }
+            } faild:^(NSError *error) {
+            }];
+        });
     }
 }
 

@@ -34,6 +34,8 @@
             [DEFAULTS setObject:[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"district"] forKey:LocationInfo];
             
             [DEFAULTS setObject:[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"comments"] forKey:UserSingleSign];
+            
+            [DEFAULTS setObject:[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"momentCover"] forKey:MomentBackImg];
 
             NSString *rongCloudToken = [[data dictionaryValueForKey:@"rongyunToken"] stringValueForKey:@"token"];
             NSString *userID = [[data dictionaryValueForKey:@"rongyunToken"] stringValueForKey:@"userId"];

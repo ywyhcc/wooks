@@ -22,6 +22,8 @@
 #import "IJSImagePickerController.h"
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "RCDCommonString.h"
+#import "QiniuQuery.h"
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -109,17 +111,19 @@
 - (void)configUI
 {
     // 封面
-    MMImageView * imageView = [[MMImageView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, 270)];
-    imageView.image = [UIImage imageNamed:@"moment_cover"];
+    MMImageView * imageView = [[MMImageView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, 250)];
+//    imageView.image = [UIImage imageNamed:@"moment_cover"];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[DEFAULTS objectForKey:MomentBackImg]] placeholderImage:[UIImage imageNamed:@"moment_cover"]];
     self.coverImageView = imageView;
     
     UITapGestureRecognizer * singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCoverImage)];
     [self.coverImageView addGestureRecognizer:singleTap];
     // 用户头像
+    NSString *portraitUrl = [DEFAULTS stringForKey:RCDUserPortraitUriKey];
     imageView = [[MMImageView alloc] initWithFrame:CGRectMake(k_screen_width-85, self.coverImageView.bottom-40, 75, 75)];
     imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
     imageView.layer.borderWidth = 2;
-    imageView.image = [UIImage imageNamed:@"moment_head"];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:portraitUrl] placeholderImage:[UIImage imageNamed:@"moment_head"]];
     self.avatarImageView = imageView;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -133,7 +137,7 @@
     [btn addGestureRecognizer:longPress];
     
     // 表头
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, 270)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, 290)];
     view.userInteractionEnabled = YES;
     [view addSubview:self.coverImageView];
     [view addSubview:self.avatarImageView];
@@ -221,14 +225,33 @@
         [self.navigationController presentViewController:cityListNav animated:YES completion:nil];
     }
     
-//    if (self.picOrBack) {
-//        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-//        self.coverImageView.image = image;
-//    } else {
-//        PostFiendViewController *post = [[PostFiendViewController alloc] init];
-//
-//        [self.navigationController pushViewController:post animated:YES];
-//    }
+    if (self.picOrBack) {
+        __weak MomentViewController *weakSelf = self;
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        QiniuQuery *query = [[QiniuQuery alloc] init];
+        [query uploadWithImage:UIImagePNGRepresentation(image) success:^(NSString *urlStr, NSString *key) {
+            
+            NSDictionary *params = @{@"momentCover":urlStr,@"userInfoId":[ProfileUtil getUserProfile].userInfoID};
+            [SYNetworkingManager requestPUTWithURLStr:UpdateMyInfo paramDic:params success:^(NSDictionary *data) {
+                if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                    [DEFAULTS setObject:urlStr forKey:MomentBackImg];
+                    [DEFAULTS synchronize];
+                    [weakSelf updateCoverImage:urlStr];
+                }
+                else {
+                    
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+            
+            
+        } faild:^(NSError *error) {}];
+    }
+}
+
+- (void)updateCoverImage:(NSString*)imageStr{
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"moment_cover"]];
 }
 
 

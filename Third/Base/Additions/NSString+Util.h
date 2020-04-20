@@ -60,5 +60,8 @@
 // 数字转万截取2位小数
 + (NSString *)transactionMoneyForTenThousand:(CGFloat)amount;
 
++ (NSString *)convertStrToTime:(NSString *)timeStr;
+
++ (NSString *)converDetailStrToTime:(NSString *)timeStr;
 
 @end

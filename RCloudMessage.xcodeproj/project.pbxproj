@@ -226,6 +226,12 @@
 		7F60A92624486F1500F63BC5 /* CanSeeCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A92524486F1500F63BC5 /* CanSeeCellView.m */; };
 		7F60A929244876DB00F63BC5 /* CanSeePersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A928244876DB00F63BC5 /* CanSeePersonTableViewCell.m */; };
 		7F60A92C2449A61500F63BC5 /* AddContactMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A92B2449A61500F63BC5 /* AddContactMembersViewController.m */; };
+		7F60A930244C363500F63BC5 /* DetailMomentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A92F244C363500F63BC5 /* DetailMomentViewController.m */; };
+		7F60A933244C380D00F63BC5 /* DetailMomentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A932244C380D00F63BC5 /* DetailMomentTableViewCell.m */; };
+		7F60A936244C67DF00F63BC5 /* SingleMomentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A935244C67DF00F63BC5 /* SingleMomentViewController.m */; };
+		7F60A939244D9DB600F63BC5 /* MomentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A938244D9DB600F63BC5 /* MomentListViewController.m */; };
+		7F60A93C244D9F6E00F63BC5 /* MomentMsgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A93B244D9F6E00F63BC5 /* MomentMsgModel.m */; };
+		7F60A93F244DA20A00F63BC5 /* MomentMsgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A93E244DA20A00F63BC5 /* MomentMsgTableViewCell.m */; };
 		7F611FDD243B149100BE72D6 /* PostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDC243B149100BE72D6 /* PostInfoViewController.m */; };
 		7F611FE0243B14BB00BE72D6 /* PrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */; };
 		7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */; };
@@ -942,6 +948,18 @@
 		7F60A928244876DB00F63BC5 /* CanSeePersonTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanSeePersonTableViewCell.m; sourceTree = "<group>"; };
 		7F60A92A2449A61500F63BC5 /* AddContactMembersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactMembersViewController.h; sourceTree = "<group>"; };
 		7F60A92B2449A61500F63BC5 /* AddContactMembersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactMembersViewController.m; sourceTree = "<group>"; };
+		7F60A92E244C363500F63BC5 /* DetailMomentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailMomentViewController.h; sourceTree = "<group>"; };
+		7F60A92F244C363500F63BC5 /* DetailMomentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailMomentViewController.m; sourceTree = "<group>"; };
+		7F60A931244C380D00F63BC5 /* DetailMomentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailMomentTableViewCell.h; sourceTree = "<group>"; };
+		7F60A932244C380D00F63BC5 /* DetailMomentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailMomentTableViewCell.m; sourceTree = "<group>"; };
+		7F60A934244C67DF00F63BC5 /* SingleMomentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleMomentViewController.h; sourceTree = "<group>"; };
+		7F60A935244C67DF00F63BC5 /* SingleMomentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleMomentViewController.m; sourceTree = "<group>"; };
+		7F60A937244D9DB600F63BC5 /* MomentListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MomentListViewController.h; sourceTree = "<group>"; };
+		7F60A938244D9DB600F63BC5 /* MomentListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MomentListViewController.m; sourceTree = "<group>"; };
+		7F60A93A244D9F6E00F63BC5 /* MomentMsgModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MomentMsgModel.h; sourceTree = "<group>"; };
+		7F60A93B244D9F6E00F63BC5 /* MomentMsgModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MomentMsgModel.m; sourceTree = "<group>"; };
+		7F60A93D244DA20A00F63BC5 /* MomentMsgTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MomentMsgTableViewCell.h; sourceTree = "<group>"; };
+		7F60A93E244DA20A00F63BC5 /* MomentMsgTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MomentMsgTableViewCell.m; sourceTree = "<group>"; };
 		7F611FDB243B149100BE72D6 /* PostInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostInfoViewController.h; sourceTree = "<group>"; };
 		7F611FDC243B149100BE72D6 /* PostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostInfoViewController.m; sourceTree = "<group>"; };
 		7F611FDE243B14BB00BE72D6 /* PrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyViewController.h; sourceTree = "<group>"; };
@@ -1965,6 +1983,12 @@
 			children = (
 				3BC0C7C6229E79480079234F /* RCDPersonDetailViewController.h */,
 				3BC0C7C8229E79480079234F /* RCDPersonDetailViewController.m */,
+				7F60A937244D9DB600F63BC5 /* MomentListViewController.h */,
+				7F60A938244D9DB600F63BC5 /* MomentListViewController.m */,
+				7F60A93D244DA20A00F63BC5 /* MomentMsgTableViewCell.h */,
+				7F60A93E244DA20A00F63BC5 /* MomentMsgTableViewCell.m */,
+				7F60A93A244D9F6E00F63BC5 /* MomentMsgModel.h */,
+				7F60A93B244D9F6E00F63BC5 /* MomentMsgModel.m */,
 				3BC0C813229F8F980079234F /* RCDFriendRemarksViewController.h */,
 				3BC0C7C7229E79480079234F /* RCDFriendRemarksViewController.m */,
 				3B16DA2422F96D8500AD2770 /* RCDPictureDetailViewController.h */,
@@ -2223,6 +2247,12 @@
 				7F30D7BD2425F84C0018A519 /* WKWebViewController.h */,
 				7F30D7BB2425F84C0018A519 /* MomentViewController.h */,
 				7F30D7BE2425F84C0018A519 /* MomentViewController.m */,
+				7F60A92E244C363500F63BC5 /* DetailMomentViewController.h */,
+				7F60A92F244C363500F63BC5 /* DetailMomentViewController.m */,
+				7F60A934244C67DF00F63BC5 /* SingleMomentViewController.h */,
+				7F60A935244C67DF00F63BC5 /* SingleMomentViewController.m */,
+				7F60A931244C380D00F63BC5 /* DetailMomentTableViewCell.h */,
+				7F60A932244C380D00F63BC5 /* DetailMomentTableViewCell.m */,
 				7F611FDE243B14BB00BE72D6 /* PrivacyViewController.h */,
 				7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */,
 			);
@@ -3779,6 +3809,7 @@
 				3BB6CE2D22D833AC0007FFFB /* RCDSelectAddressBookCell.m in Sources */,
 				A2AD039E22D3251400F8E64D /* RCDQRCodeManager.m in Sources */,
 				7F30D8012425F84D0018A519 /* MPicture.m in Sources */,
+				7F60A930244C363500F63BC5 /* DetailMomentViewController.m in Sources */,
 				3BEB4F7322C380A7003923CC /* RCDContactNotificationMessage.m in Sources */,
 				7F66C925244708F500B6AB1E /* SendMomentsViewController.m in Sources */,
 				27AD3025229E721F003C2680 /* RCDTableView.m in Sources */,
@@ -3860,6 +3891,7 @@
 				A2CEEFF32366DE50008BC233 /* RCDTableViewCell.m in Sources */,
 				7F30D8182425F84D0018A519 /* MMUserDetailViewController.m in Sources */,
 				A29070AD229E7F61006BDAC7 /* RealTimeLocationViewController.m in Sources */,
+				7F60A939244D9DB600F63BC5 /* MomentListViewController.m in Sources */,
 				7FC0420F2439D926007CF4F6 /* LocationModel.m in Sources */,
 				9C226CF9229FB1D400F49FC5 /* RCDHTTPResult.m in Sources */,
 				27AD303D229E721F003C2680 /* RCDNavigationBar.m in Sources */,
@@ -3870,6 +3902,7 @@
 				466684361B5DF36E000B7504 /* RCDUtilities.m in Sources */,
 				3BC0C7E5229E79490079234F /* RCDContactSelectedTableViewController.m in Sources */,
 				7F5ED40D2439A457007958F5 /* ContactAddUserModel.m in Sources */,
+				7F60A933244C380D00F63BC5 /* DetailMomentTableViewCell.m in Sources */,
 				A2907091229E7F61006BDAC7 /* RCDGroupMemberListController.m in Sources */,
 				3B47892922B8D70B00D33F10 /* RCDHaveSelectedViewController.m in Sources */,
 				27AD303A229E721F003C2680 /* RCDMainTabBarViewController.m in Sources */,
@@ -3919,6 +3952,7 @@
 				7F66CB6B244721AD00B6AB1E /* IJSMapViewModel.m in Sources */,
 				A290709C229E7F61006BDAC7 /* RCDChatListViewController.m in Sources */,
 				A29070A8229E7F61006BDAC7 /* RCAnnotation.m in Sources */,
+				7F60A93C244D9F6E00F63BC5 /* MomentMsgModel.m in Sources */,
 				3B208C9B22F28BFB004076EA /* RCDQuicklySendManager.m in Sources */,
 				27F0E3DB22A0E3E300C8B0B8 /* RCDSettingsTableViewController.m in Sources */,
 				7F66CA7B24471CED00B6AB1E /* IJSAlbumPickerController.m in Sources */,
@@ -4016,6 +4050,7 @@
 				3B47890622B78F3200D33F10 /* RCDBottomResultView.m in Sources */,
 				27AD302B229E721F003C2680 /* RCDGroupInfo.m in Sources */,
 				27F0E3D922A0E3E300C8B0B8 /* RCDBlackListViewController.m in Sources */,
+				7F60A93F244DA20A00F63BC5 /* MomentMsgTableViewCell.m in Sources */,
 				3B16DA1422F8181600AD2770 /* RCDPictureView.m in Sources */,
 				7F66C916244707E400B6AB1E /* UIView+Ex.m in Sources */,
 				7F30D8072425F84D0018A519 /* MMCommentInputView.m in Sources */,
@@ -4035,6 +4070,7 @@
 				7FF936D92429EC0900694A1E /* QiniuQuery.m in Sources */,
 				3BC0C7DD229E79490079234F /* RCDGroupViewController.m in Sources */,
 				3B0E2A8522D33307000E1BE6 /* RCDSetSealTalkNumViewController.m in Sources */,
+				7F60A936244C67DF00F63BC5 /* SingleMomentViewController.m in Sources */,
 				A29070AB229E7F61006BDAC7 /* RCAnnotationView.m in Sources */,
 				7F66CB69244721AD00B6AB1E /* IJSMapView.m in Sources */,
 				7F66C91C244707E400B6AB1E /* UIButton+Ex.m in Sources */,

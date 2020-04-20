@@ -22,9 +22,14 @@
 @property (nonatomic, strong) Message * message;
 
 // 获取动态集合
-+ (NSArray *)getMomentList:(int)momentId pageNum:(NSDictionary *)pageNum;
++ (NSArray *)getMomentListDic:(NSDictionary *)dic;
+
+//获取他人动态集合
++ (NSArray *)getOtherMomentListDic:(NSDictionary *)dic;
 // 获取字符数组
 + (NSString *)getLikeString:(Moment *)moment;
+//获取单个朋友圈详情
++ (Moment*)getSingleMomentWithDic:(NSDictionary*)dic;
 
 // id集合
 + (NSArray *)getIdListByIds:(NSString *)ids;

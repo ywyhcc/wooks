@@ -15,6 +15,8 @@
 #import "RCDUtilities.h"
 #import "RCDFriendRemarksViewController.h"
 #import "RCDChatViewController.h"
+#import "DetailMomentViewController.h"
+#import "RCDUIBarButtonItem.h"
 
 #ifdef USE_SignalingKit
 #import <RongSignalingKit/RCSCallKit.h>
@@ -34,6 +36,7 @@
 #import "RCDGroupManager.h"
 #import "UIImage+Additions.h"
 #import "MomentViewController.h"
+#import "MomentListViewController.h"
 
 typedef NS_ENUM(NSInteger, RCDPersonOperation) {
     RCDPersonOperationDelete = 0,
@@ -69,6 +72,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 @property (nonatomic, strong) RCDFriendDescription *friendDescription;
 @property (nonatomic, assign) BOOL isLoadFriendDescription;
 @property (nonatomic, assign) RCDFriendDescriptionType descriptionType;
+@property (nonatomic, strong) UIButton *miyouButton;
 
 @property (nonatomic, assign) CGFloat tableViewHeight;
 
@@ -95,17 +99,36 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self setNaviItem];
     [self setupSubviews];
     [self getUserInfoData];
+}
+
+- (void)setNaviItem {
+    
+    RCDUIBarButtonItem *rightBtn = [[RCDUIBarButtonItem alloc] initContainImage:[UIImage imageNamed:@"config"]
+                                                                 imageViewFrame:CGRectMake(8.5, 8.5, 17, 17)
+                                                                    buttonTitle:nil
+                                                                     titleColor:nil
+                                                                     titleFrame:CGRectZero
+                                                                    buttonFrame:CGRectMake(0, 0, 40, 40)
+                                                                         target:self
+                                                                         action:@selector(showMessageList)];
+    self.navigationItem.rightBarButtonItem = rightBtn;
+}
+
+- (void)showMessageList{
+    MomentListViewController *momentVC = [[MomentListViewController alloc] init];
+    [self.navigationController pushViewController:momentVC animated:YES];
 }
 
 #pragma mark - Private Method
 - (void)setupSubviews {
     [self.view addSubview:self.scrollView];
+    self.scrollView.userInteractionEnabled = YES;
     [self.scrollView addSubview:self.contentView];
     [self.contentView addSubview:self.infoView];
-    [self.contentView addSubview:self.conversationButton];
-
+    self.contentView.userInteractionEnabled = YES;
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.width.height.equalTo(self.view);
     }];
@@ -122,7 +145,17 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
     UIView *lastView = nil;
     if ([self isCurrentUser]) {
-        lastView = self.infoView;
+        
+        [self.contentView addSubview:self.miyouButton];
+        self.miyouButton.enabled = YES;
+        [self.miyouButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.infoView.mas_bottom).offset(15);
+            make.left.right.equalTo(self.contentView).inset(10);
+            make.height.offset(43);
+        }];
+        lastView = self.miyouButton;
+        
+//        lastView = self.infoView;
     } else {
         [self.contentView addSubview:self.tableView];
         [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -133,14 +166,18 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
         lastView = self.tableView;
     }
 
-    [self.conversationButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lastView.mas_bottom).offset(15);
-        make.left.right.equalTo(self.contentView).inset(10);
-        make.height.offset(43);
-    }];
     if (![self isCurrentUser]) {
+        
         [self.contentView addSubview:self.audioCallButton];
         [self.contentView addSubview:self.videoCallButton];
+        [self.contentView addSubview:self.conversationButton];
+        
+        [self.conversationButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lastView.mas_bottom).offset(15);
+            make.left.right.equalTo(self.contentView).inset(10);
+            make.height.offset(43);
+        }];
+        
         [self.audioCallButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.conversationButton.mas_bottom).offset(15);
             make.left.right.equalTo(self.contentView).inset(10);
@@ -637,9 +674,10 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 [self pushToRemarksVC];
             }
             else if (indexPath.row == 3) {
-//                MomentViewController *momentVC = [[MomentViewController alloc] init];
-//                [self.navigationController pushViewController:momentVC animated:YES];
-                [self pushToRemarksVC];
+                DetailMomentViewController *momentVC = [[DetailMomentViewController alloc] init];
+                momentVC.userAccoutID = self.userId;
+                [self.navigationController pushViewController:momentVC animated:YES];
+//                [self pushToRemarksVC];
             }
 //            [self pushToRemarksVC];
             
@@ -664,6 +702,12 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                             rightTitle:RCDLocalizedString(@"Delete")];
         }
     }
+}
+
+- (void)onMiyouButtonClicked:(UIButton*)sender{
+    DetailMomentViewController *momentVC = [[DetailMomentViewController alloc] init];
+    momentVC.userAccoutID = self.userId;
+    [self.navigationController pushViewController:momentVC animated:YES];
 }
 
 #pragma mark - Setter && Getter
@@ -700,6 +744,21 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
         _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
+}
+
+- (UIButton *)miyouButton{
+    if (!_miyouButton) {
+
+        _miyouButton = [[UIButton alloc] init];
+        _miyouButton.backgroundColor = [UIColor whiteColor];//RCDDYCOLOR(0x0099ff, 0x007acc);
+        _miyouButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_miyouButton setTitle:@"密友圈" forState:UIControlStateNormal];
+        [_miyouButton addTarget:self action:@selector(onMiyouButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_miyouButton setTitleColor:[UIColor colorWithHex:0x5a5ca0] forState:UIControlStateNormal];
+        _miyouButton.layer.masksToBounds = YES;
+        _miyouButton.layer.cornerRadius = 5.f;
+    }
+    return _miyouButton;
 }
 
 - (UIButton *)conversationButton {

@@ -113,6 +113,7 @@
 
     NSString *userName = self.phoneTextField.textField.text;
     NSString *userPwd = self.passwordTextField.text;
+    NSString *verCode = self.verificationCodeField.text;
 
     [self login:userName password:userPwd];
 }

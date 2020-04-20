@@ -75,8 +75,12 @@
 #define DeleteDisucuss          @"/moment/discuss/reply/deleteDisucuss" //删除评论
 #define DiscussOrReply          @"/moment/discuss/reply/create/discussOrReply"  //评论
 #define LikeOrDisLike           @"/moment/like/likeOrDisLike"           //点赞
-#define DelFriendInfo           @"/moment/detail/del"           //删除动态
-#define CreatFrindInfo          @"/moment/detail/create"           //发布朋友圈
+#define DelFriendInfo           @"/moment/detail/del"                   //删除动态
+#define CreatFrindInfo          @"/moment/detail/create"                //发布朋友圈
+#define GetOtherMoments         @"/moment/detail/getMyMomentLog"        //获取朋友圈动态
+#define GetMomentDetail         @"/moment/detail/getOneMomentDetail"    //获取动态详情
+#define GetMomentMsg            @"/moment/opt/getMyMomentOpt"           //获取互动消息
+#define ClearMomentMsg          @"/moment/opt/delAllOpt"                //清空互动消息列表
 
 
 #import <Foundation/Foundation.h>

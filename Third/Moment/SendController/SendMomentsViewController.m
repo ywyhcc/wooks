@@ -65,9 +65,6 @@
     self.params = [NSMutableDictionary dictionaryWithCapacity:0];
     [self.params setObject:[ProfileUtil getUserAccountID] forKey:@"optUserAccountId"];
     
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.color = [UIColor colorWithHexString:@"343637" alpha:0.5];
-    [self.hud hideAnimated:YES];
 }
 
 - (void)viewDidLoad {
@@ -189,7 +186,7 @@
 
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, 130)];
     _textView.font = [UIFont systemFontOfSize:16];
-    _textView.text = @"   你的想法";
+//    _textView.text = @"   你的想法";
     [headerView addSubview:_textView];
 
     _tableView.tableHeaderView = headerView;
@@ -211,7 +208,7 @@
 
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, 50)];
     _textView.font = [UIFont systemFontOfSize:16];
-    _textView.text = @"   你的想法";
+//    _textView.text = @"   你的想法";
     [headerView addSubview:_textView];
     
     self.videoPic = [[UIImageView alloc] initWithFrame:CGRectMake(20, _textView.bottom + 10, 45, 80)];
@@ -264,14 +261,16 @@
 
     self.rightBtn = [[RCDUIBarButtonItem alloc]
         initWithbuttonTitle:@"发布"
-                 titleColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
+                 titleColor:[RCDUtilities generateDynamicColor:[UIColor whiteColor]
                                                      darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                 buttonFrame:CGRectMake(0, 0, 50, 30)
                      target:self
                      action:@selector(sendBtnClicked)];
+    self.rightBtn.button.backgroundColor = [FPStyleGuide weichatGreenColor];
+    self.rightBtn.button.layer.cornerRadius = 7;
+    self.rightBtn.button.clipsToBounds = YES;
     [self.rightBtn buttonIsCanClick:YES
-                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
-                                                             darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
+                        buttonColor:[UIColor whiteColor]
                       barButtonItem:self.rightBtn];
     self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];
 }
@@ -281,7 +280,8 @@
 }
 
 - (void)sendBtnClicked{
-    [self.hud showAnimated:YES];
+    [self.textView resignFirstResponder];
+    [self.hud show:YES];
     [self.params setObject:self.textView.text forKey:@"momentAbout"];
     if (self.locationStr.length > 0) {
         [self.params setObject:self.locationStr forKey:@"location"];
@@ -296,7 +296,6 @@
             } failure:^(NSError *error) {
                 [self.hud hideAnimated:YES];
             }];
-            [self.hud hideAnimated:YES];
         }
             break;
         case pic:{
@@ -310,7 +309,7 @@
                     [self.hud hideAnimated:YES];
                 }];
             }];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(12 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.hud hideAnimated:YES];
             });
         }
@@ -503,6 +502,12 @@
     return videoImage;
 }
 
-
+- (MBProgressHUD *)hud {
+    if (!_hud) {
+        _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        _hud.color = [UIColor colorWithHexString:@"343637" alpha:0.8];
+    }
+    return _hud;
+}
 
 @end

@@ -24,6 +24,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "RCDCommonString.h"
 #import "QiniuQuery.h"
+#import "DetailMomentViewController.h"
+#import "RCDPersonDetailViewController.h"
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -38,6 +40,8 @@
 @property (nonatomic, strong) MUser * loginUser; // 当前用户
 @property (nonatomic, strong) NSIndexPath * selectedIndexPath; // 当前评论indexPath
 @property (nonatomic, assign) CGFloat keyboardHeight; // 键盘高度
+@property (nonatomic, strong) UILabel *commentLabel;  //个性签名
+@property (nonatomic) NSInteger pageNumber;
 
 @property(nonatomic, assign) BOOL bo; //!< <#注释#>
 
@@ -52,9 +56,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.pageNumber = 1;
     self.title = @"";
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.momentList = [[NSMutableArray alloc] init];
 //    [self getData];//获取朋友圈数据
 //    [self configData];
     [self configUI];
@@ -65,6 +70,14 @@
     [super viewWillAppear:animated];
     
     [self getData];
+    [self updateHeadData];
+}
+
+- (void)updateHeadData{
+    NSString *portraitUrl = [DEFAULTS stringForKey:RCDUserPortraitUriKey];
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:portraitUrl] placeholderImage:[UIImage imageNamed:@"moment_head"]];
+    
+    self.commentLabel.text = [DEFAULTS objectForKey:UserSingleSign];
 }
 
 #pragma mark - 模拟数据
@@ -82,9 +95,34 @@
     }];
 }
 
+- (void)getMoreData{
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"清空中";
+    NSDictionary *dic = @{@"userAccountId":[ProfileUtil getUserAccountID], @"pageNumber":[NSString stringWithFormat:@"%ld",(long)self.pageNumber], @"pageSize":@"20"};
+    
+    [SYNetworkingManager getWithURLString:GetMomentData parameters:dic success:^(NSDictionary *data) {
+        [hud hideAnimated:YES];
+        if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+            if ([[MomentUtil getMomentListDic:data] count]) {
+                self.pageNumber ++;
+                [self.tableView.mj_footer endRefreshing];
+                [self.momentList addObjectsFromArray:[MomentUtil getMomentListDic:data]];
+                [self.tableView reloadData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+
 - (void)handleData:(NSDictionary *)dic {
     NSString *errCodeStr = dic[@"errorCode"];
     if (!errCodeStr.intValue) {
+        self.pageNumber = 2;
         [self configData:dic];
     }
 }
@@ -98,11 +136,8 @@
 //    self.loginUser.portrait = @"";
 //    self.loginUser.region = @"山东 青岛";
     self.loginUser = [MUser findFirstByCriteria:@"WHERE type = 1"];
-    self.momentList = [[NSMutableArray alloc] init];
-    
-    
-    
-    [self.momentList addObjectsFromArray:[MomentUtil getMomentList:0 pageNum:dic]];
+    [self.momentList removeAllObjects];
+    [self.momentList addObjectsFromArray:[MomentUtil getMomentListDic:dic]];
     [self.tableView reloadData];
     NSLog(@"%@", self.momentList);
 }
@@ -120,11 +155,21 @@
     [self.coverImageView addGestureRecognizer:singleTap];
     // 用户头像
     NSString *portraitUrl = [DEFAULTS stringForKey:RCDUserPortraitUriKey];
-    imageView = [[MMImageView alloc] initWithFrame:CGRectMake(k_screen_width-85, self.coverImageView.bottom-40, 75, 75)];
+    imageView = [[MMImageView alloc] initWithFrame:CGRectMake(k_screen_width-85, self.coverImageView.bottom-60, 75, 75)];
     imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
     imageView.layer.borderWidth = 2;
     [imageView sd_setImageWithURL:[NSURL URLWithString:portraitUrl] placeholderImage:[UIImage imageNamed:@"moment_head"]];
     self.avatarImageView = imageView;
+    
+    UITapGestureRecognizer *porTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headGestureTap)];
+    [self.avatarImageView addGestureRecognizer:porTap];
+    
+    //个性签名
+    self.commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.avatarImageView.bottom, SCREEN_WIDTH - 20, 30)];
+    self.commentLabel.numberOfLines = 0;
+    self.commentLabel.text = [DEFAULTS objectForKey:UserSingleSign];
+    self.commentLabel.font = [UIFont systemFontOfSize:13];
+    self.commentLabel.textAlignment = NSTextAlignmentRight;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(k_screen_width - 50, 20, 40, 30);
@@ -141,6 +186,7 @@
     view.userInteractionEnabled = YES;
     [view addSubview:self.coverImageView];
     [view addSubview:self.avatarImageView];
+    [view addSubview:self.commentLabel];
     [view addSubview:btn];
     self.tableHeaderView = view;
     // 表格
@@ -149,23 +195,34 @@
     tableView.dataSource = self;
     tableView.delegate = self;
     tableView.tableHeaderView = self.tableHeaderView;
+    tableView.tableFooterView = [UIView new];
     [self.view addSubview:tableView];
     self.tableView = tableView;
     // 上拉加载更多
     MJRefreshAutoNormalFooter * footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        Moment * moment = [self.momentList lastObject];
-        NSArray * tempList = [MomentUtil getMomentList:moment.pk pageNum:nil];
-        if ([tempList count]) {
-            [self.momentList addObjectsFromArray:tempList];
-            [self.tableView reloadData];
-            [tableView.mj_footer endRefreshing];
-        } else {
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        }
+        [self getMoreData];
+//        Moment * moment = [self.momentList lastObject];
+//        NSArray * tempList = [MomentUtil getMomentListDic:nil];
+//        if ([tempList count]) {
+//            [self.momentList addObjectsFromArray:tempList];
+//            [self.tableView reloadData];
+//            [tableView.mj_footer endRefreshing];
+//        } else {
+//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//        }
     }];
     [footer setTitle:@"已加载全部" forState:MJRefreshStateNoMoreData];
     footer.stateLabel.font = [UIFont systemFontOfSize:14];
     self.tableView.mj_footer = footer;
+}
+
+- (void)headGestureTap{
+    RCDPersonDetailViewController *personDetailVC = [[RCDPersonDetailViewController alloc] init];
+    personDetailVC.userId = [ProfileUtil getUserAccountID];
+    [self.navigationController pushViewController:personDetailVC animated:YES];
+//    DetailMomentViewController *nextVC = [[DetailMomentViewController alloc] init];
+//    nextVC.userAccoutID = [ProfileUtil getUserAccountID];
+//    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 -(void)btnLong:(UILongPressGestureRecognizer *)gestureRecognizer{
@@ -352,9 +409,12 @@
     {
         case MMOperateTypeProfile: // 用户详情
         {
-            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
-            controller.user = cell.moment.user;
-            [self.navigationController pushViewController:controller animated:YES];
+//            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
+//            controller.user = cell.moment.user;
+//            [self.navigationController pushViewController:controller animated:YES];
+            RCDPersonDetailViewController *detailViewController = [[RCDPersonDetailViewController alloc] init];
+            detailViewController.userId = cell.moment.userIds;
+            [self.navigationController pushViewController:detailViewController animated:YES];
             break;
         }
         case MMOperateTypeDelete: // 删除

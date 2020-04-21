@@ -395,52 +395,14 @@
 		A2F0A99222FAA4C600422802 /* RCDGroupLeftMember.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F0A99122FAA4C600422802 /* RCDGroupLeftMember.m */; };
 		A2F0A99622FACE9300422802 /* RCDGroupMemberDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F0A99522FACE9300422802 /* RCDGroupMemberDetailInfo.m */; };
 		A2FF706D22B0EE2900962AB3 /* RCDGroupAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FF706C22B0EE2900962AB3 /* RCDGroupAPI.m */; };
-		A6447A0C1B1DBE6500EA2CEE /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A0B1B1DBE6500EA2CEE /* InterfaceController.m */; };
-		A6447A0F1B1DBE6500EA2CEE /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A0E1B1DBE6500EA2CEE /* NotificationController.m */; };
-		A6447A111B1DBE6500EA2CEE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6447A101B1DBE6500EA2CEE /* Images.xcassets */; };
 		A6447A151B1DBE6500EA2CEE /* SealTalk WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = A6447A141B1DBE6500EA2CEE /* SealTalk WatchKit App.app */; };
-		A6447A1D1B1DBE6500EA2CEE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6447A1B1B1DBE6500EA2CEE /* Interface.storyboard */; };
-		A6447A1F1B1DBE6500EA2CEE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6447A1E1B1DBE6500EA2CEE /* Images.xcassets */; };
 		A6447A3E1B1DC12500EA2CEE /* RCWKRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A3B1B1DC12500EA2CEE /* RCWKRequestHandler.m */; };
 		A6447A3F1B1DC12500EA2CEE /* RCWKSharedUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A3D1B1DC12500EA2CEE /* RCWKSharedUserDefault.m */; };
-		A6447A851B1DC14A00EA2CEE /* ConversationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A431B1DC14A00EA2CEE /* ConversationController.m */; };
-		A6447A861B1DC14A00EA2CEE /* ConversationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A451B1DC14A00EA2CEE /* ConversationListController.m */; };
-		A6447A871B1DC14A00EA2CEE /* ConversationRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A471B1DC14A00EA2CEE /* ConversationRowController.m */; };
-		A6447A881B1DC14A00EA2CEE /* FriendListController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A491B1DC14A00EA2CEE /* FriendListController.m */; };
-		A6447A891B1DC14A00EA2CEE /* FriendRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A4B1B1DC14A00EA2CEE /* FriendRowController.m */; };
-		A6447A8A1B1DC14A00EA2CEE /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A4D1B1DC14A00EA2CEE /* ImageViewController.m */; };
-		A6447A8B1B1DC14A00EA2CEE /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A4F1B1DC14A00EA2CEE /* LocationViewController.m */; };
-		A6447A8C1B1DC14A00EA2CEE /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A511B1DC14A00EA2CEE /* MainInterfaceController.m */; };
-		A6447A8D1B1DC14A00EA2CEE /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A531B1DC14A00EA2CEE /* SettingsController.m */; };
-		A6447A8E1B1DC14A00EA2CEE /* VoiceInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A551B1DC14A00EA2CEE /* VoiceInputController.m */; };
-		A6447A941B1DC14A00EA2CEE /* BlankRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A621B1DC14A00EA2CEE /* BlankRow.m */; };
-		A6447A951B1DC14A00EA2CEE /* ConversationRowBase.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A641B1DC14A00EA2CEE /* ConversationRowBase.m */; };
-		A6447A961B1DC14A00EA2CEE /* DiscussionNotificationRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A661B1DC14A00EA2CEE /* DiscussionNotificationRow.m */; };
-		A6447A971B1DC14A00EA2CEE /* ImageMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A681B1DC14A00EA2CEE /* ImageMessageRow.m */; };
-		A6447A981B1DC14A00EA2CEE /* LocationMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A6A1B1DC14A00EA2CEE /* LocationMessageRow.m */; };
-		A6447A991B1DC14A00EA2CEE /* ReceivedImageMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A6C1B1DC14A00EA2CEE /* ReceivedImageMessageRow.m */; };
-		A6447A9A1B1DC14A00EA2CEE /* ReceivedLocationMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A6E1B1DC14A00EA2CEE /* ReceivedLocationMessageRow.m */; };
-		A6447A9B1B1DC14A00EA2CEE /* ReceivedTextMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A701B1DC14A00EA2CEE /* ReceivedTextMessageRow.m */; };
-		A6447A9C1B1DC14A00EA2CEE /* ReceivedUnsupportMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A721B1DC14A00EA2CEE /* ReceivedUnsupportMessageRow.m */; };
-		A6447A9D1B1DC14A00EA2CEE /* ReceivedVoiceMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A741B1DC14A00EA2CEE /* ReceivedVoiceMessageRow.m */; };
-		A6447A9E1B1DC14A00EA2CEE /* ReplyRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A761B1DC14A00EA2CEE /* ReplyRow.m */; };
-		A6447A9F1B1DC14A00EA2CEE /* SentImageMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A781B1DC14A00EA2CEE /* SentImageMessageRow.m */; };
-		A6447AA01B1DC14A00EA2CEE /* SentLocationMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A7A1B1DC14A00EA2CEE /* SentLocationMessageRow.m */; };
-		A6447AA11B1DC14A00EA2CEE /* SentTextMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A7C1B1DC14A00EA2CEE /* SentTextMessageRow.m */; };
-		A6447AA21B1DC14A00EA2CEE /* SentUnsupportMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A7E1B1DC14A00EA2CEE /* SentUnsupportMessageRow.m */; };
-		A6447AA31B1DC14A00EA2CEE /* SentVoiceMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A801B1DC14A00EA2CEE /* SentVoiceMessageRow.m */; };
-		A6447AA41B1DC14A00EA2CEE /* TextMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A821B1DC14A00EA2CEE /* TextMessageRow.m */; };
-		A6447AA51B1DC14A00EA2CEE /* VoiceMessageRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A841B1DC14A00EA2CEE /* VoiceMessageRow.m */; };
 		A6447AA61B1DC17900EA2CEE /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C330FB1A0C724A00E31B9A /* CoreTelephony.framework */; };
 		A6447AA71B1DC18100EA2CEE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C3310D1A0C72A000E31B9A /* SystemConfiguration.framework */; };
 		A6447AA81B1DC18700EA2CEE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C331031A0C726F00E31B9A /* libsqlite3.dylib */; };
 		A6447AA91B1DC19100EA2CEE /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C331051A0C727C00E31B9A /* libstdc++.dylib */; };
 		A6B1D8EB1B1FFCB700AD32EC /* RCWKNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1D8EA1B1FFCB700AD32EC /* RCWKNotifier.m */; };
-		A6B1D8F71B201B3600AD32EC /* RCAppInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1D8EE1B201B3600AD32EC /* RCAppInfoModel.m */; };
-		A6B1D8F81B201B3600AD32EC /* RCAppQueryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1D8F01B201B3600AD32EC /* RCAppQueryHelper.m */; };
-		A6B1D8F91B201B3600AD32EC /* RCAppSharedUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1D8F21B201B3600AD32EC /* RCAppSharedUserDefault.m */; };
-		A6B1D8FA1B201B3600AD32EC /* RCWKNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1D8F41B201B3600AD32EC /* RCWKNotificationCenter.m */; };
-		A6B1D8FB1B201B3600AD32EC /* RCWKUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1D8F61B201B3600AD32EC /* RCWKUtility.m */; };
 		A6EFAB9F1BB0ED94007E9D67 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EFAB9E1BB0ED94007E9D67 /* libz.tbd */; };
 		A6EFABA11BB0EDAC007E9D67 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EFABA01BB0EDAC007E9D67 /* libxml2.tbd */; };
 		A6EFABA51BB0EDE1007E9D67 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EFABA41BB0EDE1007E9D67 /* libsqlite3.tbd */; };
@@ -1276,17 +1238,7 @@
 		A2FF706B22B0EE2900962AB3 /* RCDGroupAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCDGroupAPI.h; sourceTree = "<group>"; };
 		A2FF706C22B0EE2900962AB3 /* RCDGroupAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCDGroupAPI.m; sourceTree = "<group>"; };
 		A6447A051B1DBE6500EA2CEE /* SealTalk WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SealTalk WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6447A081B1DBE6500EA2CEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A6447A091B1DBE6500EA2CEE /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		A6447A0A1B1DBE6500EA2CEE /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
-		A6447A0B1B1DBE6500EA2CEE /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
-		A6447A0D1B1DBE6500EA2CEE /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
-		A6447A0E1B1DBE6500EA2CEE /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
-		A6447A101B1DBE6500EA2CEE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A6447A141B1DBE6500EA2CEE /* SealTalk WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SealTalk WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6447A1A1B1DBE6500EA2CEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A6447A1C1B1DBE6500EA2CEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		A6447A1E1B1DBE6500EA2CEE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A6447A361B1DC0F400EA2CEE /* RCWKAPPCommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCWKAPPCommonDefine.h; sourceTree = "<group>"; };
 		A6447A371B1DC0F400EA2CEE /* RCWKAppExtenalDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCWKAppExtenalDefine.h; sourceTree = "<group>"; };
 		A6447A391B1DC12500EA2CEE /* RCWKAppInfoProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCWKAppInfoProvider.h; sourceTree = "<group>"; };
@@ -1294,75 +1246,8 @@
 		A6447A3B1B1DC12500EA2CEE /* RCWKRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCWKRequestHandler.m; sourceTree = "<group>"; };
 		A6447A3C1B1DC12500EA2CEE /* RCWKSharedUserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCWKSharedUserDefault.h; sourceTree = "<group>"; };
 		A6447A3D1B1DC12500EA2CEE /* RCWKSharedUserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCWKSharedUserDefault.m; sourceTree = "<group>"; };
-		A6447A421B1DC14A00EA2CEE /* ConversationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationController.h; sourceTree = "<group>"; };
-		A6447A431B1DC14A00EA2CEE /* ConversationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationController.m; sourceTree = "<group>"; };
-		A6447A441B1DC14A00EA2CEE /* ConversationListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationListController.h; sourceTree = "<group>"; };
-		A6447A451B1DC14A00EA2CEE /* ConversationListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationListController.m; sourceTree = "<group>"; };
-		A6447A461B1DC14A00EA2CEE /* ConversationRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationRowController.h; sourceTree = "<group>"; };
-		A6447A471B1DC14A00EA2CEE /* ConversationRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRowController.m; sourceTree = "<group>"; };
-		A6447A481B1DC14A00EA2CEE /* FriendListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListController.h; sourceTree = "<group>"; };
-		A6447A491B1DC14A00EA2CEE /* FriendListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListController.m; sourceTree = "<group>"; };
-		A6447A4A1B1DC14A00EA2CEE /* FriendRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendRowController.h; sourceTree = "<group>"; };
-		A6447A4B1B1DC14A00EA2CEE /* FriendRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendRowController.m; sourceTree = "<group>"; };
-		A6447A4C1B1DC14A00EA2CEE /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
-		A6447A4D1B1DC14A00EA2CEE /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
-		A6447A4E1B1DC14A00EA2CEE /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
-		A6447A4F1B1DC14A00EA2CEE /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
-		A6447A501B1DC14A00EA2CEE /* MainInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInterfaceController.h; sourceTree = "<group>"; };
-		A6447A511B1DC14A00EA2CEE /* MainInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInterfaceController.m; sourceTree = "<group>"; };
-		A6447A521B1DC14A00EA2CEE /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
-		A6447A531B1DC14A00EA2CEE /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
-		A6447A541B1DC14A00EA2CEE /* VoiceInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceInputController.h; sourceTree = "<group>"; };
-		A6447A551B1DC14A00EA2CEE /* VoiceInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceInputController.m; sourceTree = "<group>"; };
-		A6447A611B1DC14A00EA2CEE /* BlankRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlankRow.h; sourceTree = "<group>"; };
-		A6447A621B1DC14A00EA2CEE /* BlankRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlankRow.m; sourceTree = "<group>"; };
-		A6447A631B1DC14A00EA2CEE /* ConversationRowBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationRowBase.h; sourceTree = "<group>"; };
-		A6447A641B1DC14A00EA2CEE /* ConversationRowBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRowBase.m; sourceTree = "<group>"; };
-		A6447A651B1DC14A00EA2CEE /* DiscussionNotificationRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussionNotificationRow.h; sourceTree = "<group>"; };
-		A6447A661B1DC14A00EA2CEE /* DiscussionNotificationRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussionNotificationRow.m; sourceTree = "<group>"; };
-		A6447A671B1DC14A00EA2CEE /* ImageMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageMessageRow.h; sourceTree = "<group>"; };
-		A6447A681B1DC14A00EA2CEE /* ImageMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageMessageRow.m; sourceTree = "<group>"; };
-		A6447A691B1DC14A00EA2CEE /* LocationMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMessageRow.h; sourceTree = "<group>"; };
-		A6447A6A1B1DC14A00EA2CEE /* LocationMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMessageRow.m; sourceTree = "<group>"; };
-		A6447A6B1B1DC14A00EA2CEE /* ReceivedImageMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedImageMessageRow.h; sourceTree = "<group>"; };
-		A6447A6C1B1DC14A00EA2CEE /* ReceivedImageMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceivedImageMessageRow.m; sourceTree = "<group>"; };
-		A6447A6D1B1DC14A00EA2CEE /* ReceivedLocationMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedLocationMessageRow.h; sourceTree = "<group>"; };
-		A6447A6E1B1DC14A00EA2CEE /* ReceivedLocationMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceivedLocationMessageRow.m; sourceTree = "<group>"; };
-		A6447A6F1B1DC14A00EA2CEE /* ReceivedTextMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedTextMessageRow.h; sourceTree = "<group>"; };
-		A6447A701B1DC14A00EA2CEE /* ReceivedTextMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceivedTextMessageRow.m; sourceTree = "<group>"; };
-		A6447A711B1DC14A00EA2CEE /* ReceivedUnsupportMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedUnsupportMessageRow.h; sourceTree = "<group>"; };
-		A6447A721B1DC14A00EA2CEE /* ReceivedUnsupportMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceivedUnsupportMessageRow.m; sourceTree = "<group>"; };
-		A6447A731B1DC14A00EA2CEE /* ReceivedVoiceMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivedVoiceMessageRow.h; sourceTree = "<group>"; };
-		A6447A741B1DC14A00EA2CEE /* ReceivedVoiceMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceivedVoiceMessageRow.m; sourceTree = "<group>"; };
-		A6447A751B1DC14A00EA2CEE /* ReplyRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyRow.h; sourceTree = "<group>"; };
-		A6447A761B1DC14A00EA2CEE /* ReplyRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyRow.m; sourceTree = "<group>"; };
-		A6447A771B1DC14A00EA2CEE /* SentImageMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentImageMessageRow.h; sourceTree = "<group>"; };
-		A6447A781B1DC14A00EA2CEE /* SentImageMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentImageMessageRow.m; sourceTree = "<group>"; };
-		A6447A791B1DC14A00EA2CEE /* SentLocationMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentLocationMessageRow.h; sourceTree = "<group>"; };
-		A6447A7A1B1DC14A00EA2CEE /* SentLocationMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentLocationMessageRow.m; sourceTree = "<group>"; };
-		A6447A7B1B1DC14A00EA2CEE /* SentTextMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentTextMessageRow.h; sourceTree = "<group>"; };
-		A6447A7C1B1DC14A00EA2CEE /* SentTextMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentTextMessageRow.m; sourceTree = "<group>"; };
-		A6447A7D1B1DC14A00EA2CEE /* SentUnsupportMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentUnsupportMessageRow.h; sourceTree = "<group>"; };
-		A6447A7E1B1DC14A00EA2CEE /* SentUnsupportMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentUnsupportMessageRow.m; sourceTree = "<group>"; };
-		A6447A7F1B1DC14A00EA2CEE /* SentVoiceMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentVoiceMessageRow.h; sourceTree = "<group>"; };
-		A6447A801B1DC14A00EA2CEE /* SentVoiceMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentVoiceMessageRow.m; sourceTree = "<group>"; };
-		A6447A811B1DC14A00EA2CEE /* TextMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessageRow.h; sourceTree = "<group>"; };
-		A6447A821B1DC14A00EA2CEE /* TextMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessageRow.m; sourceTree = "<group>"; };
-		A6447A831B1DC14A00EA2CEE /* VoiceMessageRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceMessageRow.h; sourceTree = "<group>"; };
-		A6447A841B1DC14A00EA2CEE /* VoiceMessageRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceMessageRow.m; sourceTree = "<group>"; };
 		A6B1D8E91B1FFCB700AD32EC /* RCWKNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCWKNotifier.h; sourceTree = "<group>"; };
 		A6B1D8EA1B1FFCB700AD32EC /* RCWKNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCWKNotifier.m; sourceTree = "<group>"; };
-		A6B1D8ED1B201B3600AD32EC /* RCAppInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCAppInfoModel.h; sourceTree = "<group>"; };
-		A6B1D8EE1B201B3600AD32EC /* RCAppInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCAppInfoModel.m; sourceTree = "<group>"; };
-		A6B1D8EF1B201B3600AD32EC /* RCAppQueryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCAppQueryHelper.h; sourceTree = "<group>"; };
-		A6B1D8F01B201B3600AD32EC /* RCAppQueryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCAppQueryHelper.m; sourceTree = "<group>"; };
-		A6B1D8F11B201B3600AD32EC /* RCAppSharedUserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCAppSharedUserDefault.h; sourceTree = "<group>"; };
-		A6B1D8F21B201B3600AD32EC /* RCAppSharedUserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCAppSharedUserDefault.m; sourceTree = "<group>"; };
-		A6B1D8F31B201B3600AD32EC /* RCWKNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCWKNotificationCenter.h; sourceTree = "<group>"; };
-		A6B1D8F41B201B3600AD32EC /* RCWKNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCWKNotificationCenter.m; sourceTree = "<group>"; };
-		A6B1D8F51B201B3600AD32EC /* RCWKUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCWKUtility.h; sourceTree = "<group>"; };
-		A6B1D8F61B201B3600AD32EC /* RCWKUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCWKUtility.m; sourceTree = "<group>"; };
-		A6BD040F1B1E938000ACAF17 /* 融云 Demo WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "融云 Demo WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		A6EFAB9E1BB0ED94007E9D67 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		A6EFABA01BB0EDAC007E9D67 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		A6EFABA21BB0EDD7007E9D67 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -3162,48 +3047,6 @@
 			path = QR;
 			sourceTree = "<group>";
 		};
-		A6447A061B1DBE6500EA2CEE /* 融云 Demo WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				A6BD040F1B1E938000ACAF17 /* 融云 Demo WatchKit Extension.entitlements */,
-				A6447A401B1DC14A00EA2CEE /* RCWKExtension */,
-				A6447A0A1B1DBE6500EA2CEE /* InterfaceController.h */,
-				A6447A0B1B1DBE6500EA2CEE /* InterfaceController.m */,
-				A6447A0D1B1DBE6500EA2CEE /* NotificationController.h */,
-				A6447A0E1B1DBE6500EA2CEE /* NotificationController.m */,
-				A6447A101B1DBE6500EA2CEE /* Images.xcassets */,
-				A6447A071B1DBE6500EA2CEE /* Supporting Files */,
-			);
-			path = "融云 Demo WatchKit Extension";
-			sourceTree = "<group>";
-		};
-		A6447A071B1DBE6500EA2CEE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A6447A081B1DBE6500EA2CEE /* Info.plist */,
-				A6447A091B1DBE6500EA2CEE /* PushNotificationPayload.apns */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A6447A181B1DBE6500EA2CEE /* 融云 Demo WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				A6447A1B1B1DBE6500EA2CEE /* Interface.storyboard */,
-				A6447A1E1B1DBE6500EA2CEE /* Images.xcassets */,
-				A6447A191B1DBE6500EA2CEE /* Supporting Files */,
-			);
-			path = "融云 Demo WatchKit App";
-			sourceTree = "<group>";
-		};
-		A6447A191B1DBE6500EA2CEE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A6447A1A1B1DBE6500EA2CEE /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		A6447A351B1DC0F400EA2CEE /* RCWatchKitCommon */ = {
 			isa = PBXGroup;
 			children = (
@@ -3227,103 +3070,6 @@
 			name = RCWatchKit;
 			path = RCloudMessage/RCWatchKit;
 			sourceTree = SOURCE_ROOT;
-		};
-		A6447A401B1DC14A00EA2CEE /* RCWKExtension */ = {
-			isa = PBXGroup;
-			children = (
-				A6B1D8EC1B201B3600AD32EC /* Utility */,
-				A6447A411B1DC14A00EA2CEE /* Controller */,
-				A6447A601B1DC14A00EA2CEE /* Rows */,
-			);
-			path = RCWKExtension;
-			sourceTree = "<group>";
-		};
-		A6447A411B1DC14A00EA2CEE /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				A6447A421B1DC14A00EA2CEE /* ConversationController.h */,
-				A6447A431B1DC14A00EA2CEE /* ConversationController.m */,
-				A6447A441B1DC14A00EA2CEE /* ConversationListController.h */,
-				A6447A451B1DC14A00EA2CEE /* ConversationListController.m */,
-				A6447A461B1DC14A00EA2CEE /* ConversationRowController.h */,
-				A6447A471B1DC14A00EA2CEE /* ConversationRowController.m */,
-				A6447A481B1DC14A00EA2CEE /* FriendListController.h */,
-				A6447A491B1DC14A00EA2CEE /* FriendListController.m */,
-				A6447A4A1B1DC14A00EA2CEE /* FriendRowController.h */,
-				A6447A4B1B1DC14A00EA2CEE /* FriendRowController.m */,
-				A6447A4C1B1DC14A00EA2CEE /* ImageViewController.h */,
-				A6447A4D1B1DC14A00EA2CEE /* ImageViewController.m */,
-				A6447A4E1B1DC14A00EA2CEE /* LocationViewController.h */,
-				A6447A4F1B1DC14A00EA2CEE /* LocationViewController.m */,
-				A6447A501B1DC14A00EA2CEE /* MainInterfaceController.h */,
-				A6447A511B1DC14A00EA2CEE /* MainInterfaceController.m */,
-				A6447A521B1DC14A00EA2CEE /* SettingsController.h */,
-				A6447A531B1DC14A00EA2CEE /* SettingsController.m */,
-				A6447A541B1DC14A00EA2CEE /* VoiceInputController.h */,
-				A6447A551B1DC14A00EA2CEE /* VoiceInputController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		A6447A601B1DC14A00EA2CEE /* Rows */ = {
-			isa = PBXGroup;
-			children = (
-				A6447A611B1DC14A00EA2CEE /* BlankRow.h */,
-				A6447A621B1DC14A00EA2CEE /* BlankRow.m */,
-				A6447A631B1DC14A00EA2CEE /* ConversationRowBase.h */,
-				A6447A641B1DC14A00EA2CEE /* ConversationRowBase.m */,
-				A6447A651B1DC14A00EA2CEE /* DiscussionNotificationRow.h */,
-				A6447A661B1DC14A00EA2CEE /* DiscussionNotificationRow.m */,
-				A6447A671B1DC14A00EA2CEE /* ImageMessageRow.h */,
-				A6447A681B1DC14A00EA2CEE /* ImageMessageRow.m */,
-				A6447A691B1DC14A00EA2CEE /* LocationMessageRow.h */,
-				A6447A6A1B1DC14A00EA2CEE /* LocationMessageRow.m */,
-				A6447A6B1B1DC14A00EA2CEE /* ReceivedImageMessageRow.h */,
-				A6447A6C1B1DC14A00EA2CEE /* ReceivedImageMessageRow.m */,
-				A6447A6D1B1DC14A00EA2CEE /* ReceivedLocationMessageRow.h */,
-				A6447A6E1B1DC14A00EA2CEE /* ReceivedLocationMessageRow.m */,
-				A6447A6F1B1DC14A00EA2CEE /* ReceivedTextMessageRow.h */,
-				A6447A701B1DC14A00EA2CEE /* ReceivedTextMessageRow.m */,
-				A6447A711B1DC14A00EA2CEE /* ReceivedUnsupportMessageRow.h */,
-				A6447A721B1DC14A00EA2CEE /* ReceivedUnsupportMessageRow.m */,
-				A6447A731B1DC14A00EA2CEE /* ReceivedVoiceMessageRow.h */,
-				A6447A741B1DC14A00EA2CEE /* ReceivedVoiceMessageRow.m */,
-				A6447A751B1DC14A00EA2CEE /* ReplyRow.h */,
-				A6447A761B1DC14A00EA2CEE /* ReplyRow.m */,
-				A6447A771B1DC14A00EA2CEE /* SentImageMessageRow.h */,
-				A6447A781B1DC14A00EA2CEE /* SentImageMessageRow.m */,
-				A6447A791B1DC14A00EA2CEE /* SentLocationMessageRow.h */,
-				A6447A7A1B1DC14A00EA2CEE /* SentLocationMessageRow.m */,
-				A6447A7B1B1DC14A00EA2CEE /* SentTextMessageRow.h */,
-				A6447A7C1B1DC14A00EA2CEE /* SentTextMessageRow.m */,
-				A6447A7D1B1DC14A00EA2CEE /* SentUnsupportMessageRow.h */,
-				A6447A7E1B1DC14A00EA2CEE /* SentUnsupportMessageRow.m */,
-				A6447A7F1B1DC14A00EA2CEE /* SentVoiceMessageRow.h */,
-				A6447A801B1DC14A00EA2CEE /* SentVoiceMessageRow.m */,
-				A6447A811B1DC14A00EA2CEE /* TextMessageRow.h */,
-				A6447A821B1DC14A00EA2CEE /* TextMessageRow.m */,
-				A6447A831B1DC14A00EA2CEE /* VoiceMessageRow.h */,
-				A6447A841B1DC14A00EA2CEE /* VoiceMessageRow.m */,
-			);
-			path = Rows;
-			sourceTree = "<group>";
-		};
-		A6B1D8EC1B201B3600AD32EC /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				A6B1D8ED1B201B3600AD32EC /* RCAppInfoModel.h */,
-				A6B1D8EE1B201B3600AD32EC /* RCAppInfoModel.m */,
-				A6B1D8EF1B201B3600AD32EC /* RCAppQueryHelper.h */,
-				A6B1D8F01B201B3600AD32EC /* RCAppQueryHelper.m */,
-				A6B1D8F11B201B3600AD32EC /* RCAppSharedUserDefault.h */,
-				A6B1D8F21B201B3600AD32EC /* RCAppSharedUserDefault.m */,
-				A6B1D8F31B201B3600AD32EC /* RCWKNotificationCenter.h */,
-				A6B1D8F41B201B3600AD32EC /* RCWKNotificationCenter.m */,
-				A6B1D8F51B201B3600AD32EC /* RCWKUtility.h */,
-				A6B1D8F61B201B3600AD32EC /* RCWKUtility.m */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
 		};
 		E4C4E7E71A0A309100140067 /* Frameworks */ = {
 			isa = PBXGroup;
@@ -3385,8 +3131,6 @@
 				7F30D5A524239AFC0018A519 /* Third */,
 				E4D40F2A1A031F460045097C /* RCloudMessage */,
 				A6447A351B1DC0F400EA2CEE /* RCWatchKitCommon */,
-				A6447A061B1DBE6500EA2CEE /* 融云 Demo WatchKit Extension */,
-				A6447A181B1DBE6500EA2CEE /* 融云 Demo WatchKit App */,
 				17D7D1D91D534F56000AEC54 /* SealTalkShareExtension */,
 				F1D49DB321ABE4A70047381F /* ServiceExtension */,
 				E4C4E7E71A0A309100140067 /* Frameworks */,
@@ -3586,7 +3330,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6447A151B1DBE6500EA2CEE /* SealTalk WatchKit App.app in Resources */,
-				A6447A111B1DBE6500EA2CEE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3594,8 +3337,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6447A1D1B1DBE6500EA2CEE /* Interface.storyboard in Resources */,
-				A6447A1F1B1DBE6500EA2CEE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3745,41 +3486,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6B1D8FA1B201B3600AD32EC /* RCWKNotificationCenter.m in Sources */,
-				A6447A0F1B1DBE6500EA2CEE /* NotificationController.m in Sources */,
-				A6447AA51B1DC14A00EA2CEE /* VoiceMessageRow.m in Sources */,
-				A6447A9D1B1DC14A00EA2CEE /* ReceivedVoiceMessageRow.m in Sources */,
-				A6447A8B1B1DC14A00EA2CEE /* LocationViewController.m in Sources */,
-				A6447AA11B1DC14A00EA2CEE /* SentTextMessageRow.m in Sources */,
-				A6447A8C1B1DC14A00EA2CEE /* MainInterfaceController.m in Sources */,
-				A6447A851B1DC14A00EA2CEE /* ConversationController.m in Sources */,
-				A6447A8A1B1DC14A00EA2CEE /* ImageViewController.m in Sources */,
-				A6447AA01B1DC14A00EA2CEE /* SentLocationMessageRow.m in Sources */,
-				A6B1D8F71B201B3600AD32EC /* RCAppInfoModel.m in Sources */,
-				A6447A971B1DC14A00EA2CEE /* ImageMessageRow.m in Sources */,
-				A6447AA21B1DC14A00EA2CEE /* SentUnsupportMessageRow.m in Sources */,
-				A6447A991B1DC14A00EA2CEE /* ReceivedImageMessageRow.m in Sources */,
-				A6447AA31B1DC14A00EA2CEE /* SentVoiceMessageRow.m in Sources */,
-				A6447A961B1DC14A00EA2CEE /* DiscussionNotificationRow.m in Sources */,
-				A6447A9E1B1DC14A00EA2CEE /* ReplyRow.m in Sources */,
-				A6447A9A1B1DC14A00EA2CEE /* ReceivedLocationMessageRow.m in Sources */,
-				A6447A871B1DC14A00EA2CEE /* ConversationRowController.m in Sources */,
-				A6447A881B1DC14A00EA2CEE /* FriendListController.m in Sources */,
-				A6447AA41B1DC14A00EA2CEE /* TextMessageRow.m in Sources */,
-				A6447A981B1DC14A00EA2CEE /* LocationMessageRow.m in Sources */,
-				A6447A9C1B1DC14A00EA2CEE /* ReceivedUnsupportMessageRow.m in Sources */,
-				A6447A9F1B1DC14A00EA2CEE /* SentImageMessageRow.m in Sources */,
-				A6447A861B1DC14A00EA2CEE /* ConversationListController.m in Sources */,
-				A6447A0C1B1DBE6500EA2CEE /* InterfaceController.m in Sources */,
-				A6B1D8F81B201B3600AD32EC /* RCAppQueryHelper.m in Sources */,
-				A6B1D8FB1B201B3600AD32EC /* RCWKUtility.m in Sources */,
-				A6B1D8F91B201B3600AD32EC /* RCAppSharedUserDefault.m in Sources */,
-				A6447A9B1B1DC14A00EA2CEE /* ReceivedTextMessageRow.m in Sources */,
-				A6447A951B1DC14A00EA2CEE /* ConversationRowBase.m in Sources */,
-				A6447A891B1DC14A00EA2CEE /* FriendRowController.m in Sources */,
-				A6447A941B1DC14A00EA2CEE /* BlankRow.m in Sources */,
-				A6447A8D1B1DC14A00EA2CEE /* SettingsController.m in Sources */,
-				A6447A8E1B1DC14A00EA2CEE /* VoiceInputController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4196,14 +3902,6 @@
 				A28C439722E95832005BA7A0 /* zh-Hans */,
 			);
 			name = SealTalk.strings;
-			sourceTree = "<group>";
-		};
-		A6447A1B1B1DBE6500EA2CEE /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A6447A1C1B1DBE6500EA2CEE /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

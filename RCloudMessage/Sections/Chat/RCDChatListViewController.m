@@ -30,6 +30,7 @@
 #import "RCDChatNotificationMessage.h"
 #import "RCDUtilities.h"
 #import "TypeHeaderSelectView.h"
+#import "SingleMomentViewController.h"
 
 @interface RCDChatListViewController () <UISearchBarDelegate, RCDSearchViewDelegate>
 @property (nonatomic, strong) UINavigationController *searchNavigationController;
@@ -131,6 +132,19 @@
 - (void)onSelectedTableRow:(RCConversationModelType)conversationModelType
          conversationModel:(RCConversationModel *)model
                atIndexPath:(NSIndexPath *)indexPath {
+    if (self.comeToMsgList) {
+        RCTextMessage *msg = (RCTextMessage*)model.lastestMessage;
+        if (msg.extra.length > 0) {
+            NSData *jsonData = [msg.extra dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+            SingleMomentViewController *momentVC = [[SingleMomentViewController alloc] init];
+            momentVC.momentID = [dic stringValueForKey:@"momentId"];
+            [self.navigationController pushViewController:momentVC animated:YES];
+        }
+        [[RCIMClient sharedRCIMClient] clearMessagesUnreadStatus:model.conversationType
+        targetId:model.targetId];
+        return;
+    }
     if (self.isClick) {
         self.isClick = NO;
         if ([model.targetId isEqualToString:RCDGroupNoticeTargetId]) {
@@ -147,6 +161,7 @@
             RCDChatListViewController *temp = [[RCDChatListViewController alloc] init];
             NSArray *array = [NSArray arrayWithObject:[NSNumber numberWithInteger:model.conversationType]];
             [temp setDisplayConversationTypes:array];
+            temp.comeToMsgList = YES;
             [temp setCollectionConversationType:nil];
             temp.isEnteredToCollectionViewController = YES;
             [self.navigationController pushViewController:temp animated:YES];

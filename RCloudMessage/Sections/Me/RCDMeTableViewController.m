@@ -118,7 +118,7 @@
     if (0 == section) {
         rows = 1;
     } else if (1 == section) {
-        rows = 6;
+        rows = 4;
     }
     return rows;
 }
@@ -195,18 +195,18 @@
                 [cell setCellWithImageName:@"setting_up"
                                  labelName:RCDLocalizedString(@"account_setting")
                             rightLabelName:@""];
-            }
-            else if (3 == indexPath.row) {
-                NSString *currentLanguage = [RCDLanguageManager sharedRCDLanguageManager].currentLanguage;
-                NSString *currentLanguageString = self.languageDic[currentLanguage];
-                NSString *rightString = currentLanguageString ? currentLanguageString : RCDLocalizedString(@"language");
-                [cell setCellWithImageName:@"icon_ multilingual"
-                                 labelName:RCDLocalizedString(@"language")
-                            rightLabelName:rightString];
-            }
-            else if (4 == indexPath.row) {
-                [cell setCellWithImageName:@"sevre_inactive" labelName:RCDLocalizedString(@"feedback") rightLabelName:@""];
-            } else if (5 == indexPath.row) {
+//            }
+//            else if (3 == indexPath.row) {
+//                NSString *currentLanguage = [RCDLanguageManager sharedRCDLanguageManager].currentLanguage;
+//                NSString *currentLanguageString = self.languageDic[currentLanguage];
+//                NSString *rightString = currentLanguageString ? currentLanguageString : RCDLocalizedString(@"language");
+//                [cell setCellWithImageName:@"icon_ multilingual"
+//                                 labelName:RCDLocalizedString(@"language")
+//                            rightLabelName:rightString];
+//            }
+//            else if (4 == indexPath.row) {
+//                [cell setCellWithImageName:@"sevre_inactive" labelName:RCDLocalizedString(@"feedback") rightLabelName:@""];
+            } else if (3 == indexPath.row) {
                 [cell setCellWithImageName:@"about_rongcloud"
                                  labelName:RCDLocalizedString(@"about_sealtalk")
                             rightLabelName:@""];
@@ -276,14 +276,14 @@
     else if (4 == index) {
         RCDSettingsTableViewController *vc = [[RCDSettingsTableViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if (5 == index) {
-        RCDLanguageSettingViewController *vc = [[RCDLanguageSettingViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if (6 == index) {
-        [self chatWithCustomerService:SERVICE_ID];
-    } else if (7 == index) {
+//    }
+//    else if (5 == index) {
+//        RCDLanguageSettingViewController *vc = [[RCDLanguageSettingViewController alloc] init];
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
+//    else if (6 == index) {
+//        [self chatWithCustomerService:SERVICE_ID];
+    } else if (5 == index) {
         RCDAboutRongCloudTableViewController *vc = [[RCDAboutRongCloudTableViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }

@@ -10,6 +10,8 @@
 
 @interface RCDChatListViewController : RCConversationListViewController
 
+@property (nonatomic)BOOL comeToMsgList;
+
 - (void)updateBadgeValueForTabBarItem;
 
 @end

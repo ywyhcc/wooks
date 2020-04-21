@@ -347,9 +347,9 @@
     CGRect newFrame = CGRectMake(leftWid, topWid, 230, 100);
 //    UIImage *resImg = nil;
 //    return [self.mapView takeSnapshotInRect:frame];
-    [self.mapView takeSnapshotInRect:frame withCompletionBlock:^(UIImage *resultImage, CGRect rect) {
+//    [self.mapView takeSnapshotInRect:frame withCompletionBlock:^(UIImage *resultImage, CGRect rect) {
 //        resImg = resultImage;
-    }];
+//    }];
     
 //    [self.mapView takeSnapshotInRect:newFrame withCompletionBlock:^(UIImage *resultImage, CGRect rect) {
 //        return resultImage;

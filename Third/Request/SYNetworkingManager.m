@@ -9,30 +9,64 @@
 #import "SYNetworkingManager.h"
 #import <AFNetworking.h>
 
+static AFHTTPSessionManager *smanager;
+
 @implementation SYNetworkingManager
+
+
++ (AFHTTPSessionManager *)sharedHTTPManager {
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        
+        smanager = [AFHTTPSessionManager manager];
+        /**
+         *  可以接受的类型
+         */
+        smanager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        smanager.requestSerializer = [AFJSONRequestSerializer serializer];
+        if ([ProfileUtil getToken].length > 0) {
+            [smanager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+        }
+        /**
+         *  请求队列的最大并发数
+         */
+        //    manager.operationQueue.maxConcurrentOperationCount = 5;
+        /**
+         *  请求超时的时间
+         */
+        smanager.requestSerializer.timeoutInterval = 5;
+        
+    });
+    return smanager;
+}
+
+
+
 
 + (void)getWithURLString:(NSString *)urlString
               parameters:(id)parameters
                  success:(SuccessBlock)successBlock
                  failure:(FailureBlock)failureBlock
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    /**
-     *  可以接受的类型
-     */
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    if ([ProfileUtil getToken].length > 0) {
-        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
-    }
-    /**
-     *  请求队列的最大并发数
-     */
-    //    manager.operationQueue.maxConcurrentOperationCount = 5;
-    /**
-     *  请求超时的时间
-     */
-    manager.requestSerializer.timeoutInterval = 5;
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    /**
+//     *  可以接受的类型
+//     */
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    if ([ProfileUtil getToken].length > 0) {
+//        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+//    }
+//    /**
+//     *  请求队列的最大并发数
+//     */
+//    //    manager.operationQueue.maxConcurrentOperationCount = 5;
+//    /**
+//     *  请求超时的时间
+//     */
+//    manager.requestSerializer.timeoutInterval = 5;
+    
+    AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",BaseURL,urlString];
     [manager GET:urlStr parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -56,14 +90,17 @@
     
 
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    if ([ProfileUtil getToken].length > 0) {
-        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
-    }
-    manager.requestSerializer.timeoutInterval = 5;
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    if ([ProfileUtil getToken].length > 0) {
+//        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+//    }
+//    manager.requestSerializer.timeoutInterval = 5;
+    
+    AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
+    
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",BaseURL,urlString];
     [manager POST:urlStr parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (successBlock) {
@@ -81,16 +118,19 @@
 
 + (void)requestPUTWithURLStr:(NSString *)urlStr paramDic:(NSDictionary *)paramDic success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock{
  
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//
+//    // 设置请求头
+////    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    if ([ProfileUtil getToken].length > 0) {
+//        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+//    }
     
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
     
-    // 设置请求头
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    if ([ProfileUtil getToken].length > 0) {
-        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
-    }
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BaseURL,urlStr];
     [manager PUT:urlString parameters:paramDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -111,14 +151,16 @@
 parameters:(id)parameters
    success:(SuccessBlock)successBlock
                     failure:(FailureBlock)failureBlock{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    if ([ProfileUtil getToken].length > 0) {
-        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
-    }
-    manager.requestSerializer.timeoutInterval = 5;
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    if ([ProfileUtil getToken].length > 0) {
+//        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+//    }
+//    manager.requestSerializer.timeoutInterval = 5;
+    
+    AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",BaseURL,urlString];
     

@@ -36,7 +36,5 @@
 // ids
 + (NSString *)getIdsByIdList:(NSArray *)idList;
 
-// 初始化
-+ (void)initMomentData;
 
 @end

@@ -14,8 +14,8 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - AMap2DMap (5.6.1):
-    - AMapFoundation (~> 1.4)
+  - AMap3DMap (7.2.0):
+    - AMapFoundation (~> 1.5)
   - AMapFoundation (1.6.2)
   - AMapSearch (7.1.0):
     - AMapFoundation (~> 1.4)
@@ -79,7 +79,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 3.2.1)
-  - AMap2DMap
+  - AMap3DMap
   - AMapSearch
   - ASIHTTPRequest (~> 1.8.2)
   - Bugly (= 2.5.0)
@@ -114,7 +114,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
-    - AMap2DMap
+    - AMap3DMap
     - AMapFoundation
     - AMapSearch
     - ASIHTTPRequest
@@ -144,7 +144,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  AMap2DMap: cac76bc057de18a1641f34df6b50bf5bc6b23571
+  AMap3DMap: be13191194c9aeb29a67d9d3e9a797588fb329aa
   AMapFoundation: 672dc3a4759cb733f447c1e1b020f7ba2729f4ab
   AMapSearch: 6bd6d361c5eb00110e0bffa4acf88b7bb9f7e059
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
@@ -172,6 +172,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 283cdfffba9e1d2838eadeb9ce3eb1f0a3ba70be
+PODFILE CHECKSUM: 7bca6dd19b8e69d62787dcfe4439855cf6dc7106
 
 COCOAPODS: 1.6.0

@@ -98,7 +98,7 @@
 - (void)getMoreData{
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"清空中";
+    hud.labelText = @"加载中";
     NSDictionary *dic = @{@"userAccountId":[ProfileUtil getUserAccountID], @"pageNumber":[NSString stringWithFormat:@"%ld",(long)self.pageNumber], @"pageSize":@"20"};
     
     [SYNetworkingManager getWithURLString:GetMomentData parameters:dic success:^(NSDictionary *data) {

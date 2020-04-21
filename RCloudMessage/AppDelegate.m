@@ -63,13 +63,8 @@
     [self configWeChatShare];
     [self loginAndEnterMainPage];
     [self getAppConfig];
-    [self initMomentData];
     [self initMapKey];
     return YES;
-}
-
-- (void)initMomentData{
-    [MomentUtil initMomentData];
 }
 
 - (void)initMapKey{//线上key：

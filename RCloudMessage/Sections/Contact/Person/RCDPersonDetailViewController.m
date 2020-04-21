@@ -105,16 +105,17 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 }
 
 - (void)setNaviItem {
-    
-    RCDUIBarButtonItem *rightBtn = [[RCDUIBarButtonItem alloc] initContainImage:[UIImage imageNamed:@"config"]
-                                                                 imageViewFrame:CGRectMake(8.5, 8.5, 17, 17)
-                                                                    buttonTitle:nil
-                                                                     titleColor:nil
-                                                                     titleFrame:CGRectZero
-                                                                    buttonFrame:CGRectMake(0, 0, 40, 40)
-                                                                         target:self
-                                                                         action:@selector(showMessageList)];
-    self.navigationItem.rightBarButtonItem = rightBtn;
+    if ([self isCurrentUser]) {
+        RCDUIBarButtonItem *rightBtn = [[RCDUIBarButtonItem alloc] initContainImage:[UIImage imageNamed:@"config"]
+                                                                     imageViewFrame:CGRectMake(8.5, 8.5, 17, 17)
+                                                                        buttonTitle:nil
+                                                                         titleColor:nil
+                                                                         titleFrame:CGRectZero
+                                                                        buttonFrame:CGRectMake(0, 0, 40, 40)
+                                                                             target:self
+                                                                             action:@selector(showMessageList)];
+        self.navigationItem.rightBarButtonItem = rightBtn;
+    }
 }
 
 - (void)showMessageList{

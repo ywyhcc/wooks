@@ -48,19 +48,19 @@
             NSInteger pk = i + 1;
             Comment * comment = [[Comment alloc] init];//获取评论的内容
             comment.pk = pk;
-            comment.text = [NSString stringWithFormat:@"%@", idList[i][@"content"]];//, idList[i][@"discussId"]
-            comment.commentDiscussIdStr = idList[i][@"discussId"];
+            comment.text = [NSString stringWithFormat:@"%@", [idList[i] stringValueForKey:@"content"] ];//, idList[i][@"discussId"]
+            comment.commentDiscussIdStr = [idList[i] stringValueForKey:@"discussId"];
             comment.fromId = 4;
             comment.toId = typeStr.intValue;
-            comment.fromUserAccountIdStr = idList[i][@"fromUserAccountId"];
+            comment.fromUserAccountIdStr = [idList[i] stringValueForKey:@"fromUserAccountId"];
             
             MUser * user1 = nil;
-            NSString *accoutIdStr = idList[i][@"fromUserAccountId"];
+            NSString *accoutIdStr = [idList[i] stringValueForKey:@"fromUserAccountId"];
             if (comment.fromId != 0) {
-                user1 = [MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.fromId]];
+                user1 = [[MUser alloc] init];//[MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.fromId]];
                 user1.pk = 5;
                 user1.type = [accoutIdStr isEqualToString:[ProfileUtil getUserAccountID]] ? 1 : 0;//1是自己 0是他人
-                user1.name = idList[i][@"userNickName"];
+                user1.name = [idList[i] stringValueForKey:@"userNickName"];
                 user1.account = accoutIdStr;
                 user1.portrait = nil;
                 user1.region = nil;
@@ -73,11 +73,11 @@
             MUser * user2 = nil;
             
             if (comment.toId == 2) {
-                NSString *accoutIdStr = idList[i][@"toUserAccountId"];
-                user2 = [MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.toId]];
+                NSString *accoutIdStr = [idList[i] stringValueForKey:@"toUserAccountId"];
+                user2 = [[MUser alloc] init];//[MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.toId]];
                 user2.pk = 6;
                 user2.type = [accoutIdStr isEqualToString:[ProfileUtil getUserAccountID]] ? 1 : 0;
-                user2.name = idList[i][@"replyedUserNickName"];
+                user2.name = [idList[i] stringValueForKey:@"replyedUserNickName"];
                 user2.account = accoutIdStr;
                 user2.portrait = nil;
                 user2.region = nil;
@@ -91,20 +91,20 @@
         }
         moment.commentList = list;
         // 处理赞  ↓↓
-        idList = tempList[i][@"likeUsers"];
-        NSString *momentIdStr = tempList[i][@"id"];
+        idList = [tempList[i] arrayValueForKey:@"likeUsers"];
+        NSString *momentIdStr = [tempList[i] stringValueForKey:@"id"];
         count = [idList count];
         list = [NSMutableArray array];
         for (NSInteger i = 0; i < count; i ++)
         {
-            NSString *accoutIdStr = idList[i][@"createUser"];
+            NSString *accoutIdStr = [idList[i] stringValueForKey:@"createUser"];
             NSInteger pk = i+1;
             MUser * user = [[MUser alloc] init];
             user.pk = pk;
             user.type = [accoutIdStr isEqualToString:[ProfileUtil getUserAccountID]] ? 1 : 0;//1是自己 0是他人
-            user.name = idList[i][@"nickName"];
-            user.account = idList[i][@"createUser"];
-            user.portrait = idList[i][@"avaterUrl"];
+            user.name = [idList[i] stringValueForKey:@"nickName"];
+            user.account = [idList[i] stringValueForKey:@"createUser"];
+            user.portrait = [idList[i] stringValueForKey:@"avaterUrl"];
             if (!moment.isLike) {
                 moment.isLike = [accoutIdStr isEqualToString:[ProfileUtil getUserAccountID]] ? 1 : 0;
             }
@@ -116,18 +116,18 @@
         }
         moment.likeList = list;
         // 处理图片 ↓↓
-        idList = tempList[i][@"momentFiles"];
+        idList = [tempList[i] arrayValueForKey:@"momentFiles"];
         count = [idList count];
         list = [NSMutableArray array];
         for (NSInteger i = 0; i < count; i ++)
         {
             NSInteger pk = i+1;
-            MPicture * pic = [MPicture findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)pk]];
-            pic.thumbnail = idList[i][@"fileUrl"];
-            NSString *fileTypeStr = idList[i][@"fileType"];
+            MPicture * pic = [[MPicture alloc] init];//[MPicture findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)pk]];
+            pic.thumbnail = [idList[i] stringValueForKey:@"fileUrl"];
+            NSString *fileTypeStr = [idList[i] stringValueForKey:@"fileType"];
             if (fileTypeStr.intValue == 2) {
-                pic.thumbnailVideo = idList[i][@"fileUrl"];
-                pic.thumbnailAvert = idList[i][@"fileThumbnailUrl"];
+                pic.thumbnailVideo = [idList[i] stringValueForKey:@"fileUrl"];
+                pic.thumbnailAvert = [idList[i] stringValueForKey:@"fileThumbnailUrl"];
             }
             
             if (pic) {
@@ -487,25 +487,6 @@
 }
 
 #pragma mark - 初始化
-// 初始化数据库
-+ (void)initMomentData
-{
-    // 将数据库写入document
-//    NSString * dbPath = [[NSBundle mainBundle] pathForResource:@"MK" ofType:@"db"];
-//    NSData * dbData = [NSData dataWithContentsOfFile:dbPath];
-//    if (dbData) {
-//        NSString * docPath = [JKDBHelper dbPath];
-//        [dbData writeToFile:docPath atomically:YES];
-//    } else {
-//        [self createData];
-//    }
-    
-    BOOL res = [Message clearTable];
-    
-    if (res) {
-        [self createData];
-    }
-}
 
 // 用于生成测试数据
 + (void)createData

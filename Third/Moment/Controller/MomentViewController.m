@@ -26,6 +26,7 @@
 #import "QiniuQuery.h"
 #import "DetailMomentViewController.h"
 #import "RCDPersonDetailViewController.h"
+#import "MeDetailViewController.h"
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -217,8 +218,7 @@
 }
 
 - (void)headGestureTap{
-    RCDPersonDetailViewController *personDetailVC = [[RCDPersonDetailViewController alloc] init];
-    personDetailVC.userId = [ProfileUtil getUserAccountID];
+    MeDetailViewController *personDetailVC = [[MeDetailViewController alloc] init];
     [self.navigationController pushViewController:personDetailVC animated:YES];
 //    DetailMomentViewController *nextVC = [[DetailMomentViewController alloc] init];
 //    nextVC.userAccoutID = [ProfileUtil getUserAccountID];
@@ -333,9 +333,9 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     MUser * user = [[MUser alloc] init];
     user.type = 1;
-    user.name = @"123213";
-    user.account = @"wxid12345678";
-    user.region = @"浙江 杭州";
+    user.name = [DEFAULTS objectForKey:RCDUserNickNameKey];;
+    user.account = [ProfileUtil getUserAccountID];
+//    user.region = @"浙江 杭州";
     [user save];
 }
 
@@ -816,7 +816,7 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    MM_PostNotification(@"ResetMenuView", nil);
+//    MM_PostNotification(@"ResetMenuView", nil);
 }
 
 #pragma mark - lazy load

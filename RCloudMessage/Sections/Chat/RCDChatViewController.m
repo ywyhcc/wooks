@@ -242,12 +242,17 @@
     if (self.conversationType == ConversationType_GROUP || self.conversationType == ConversationType_PRIVATE ||
         self.conversationType == ConversationType_CHATROOM) {
         __weak typeof(self) weakSelf = self;
-        [RCDUserInfoManager getUserInfoFromServer:userId
-                                         complete:^(RCDUserInfo *userInfo) {
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 [weakSelf pushPersonDetailVC:userInfo];
-                                             });
-                                         }];
+        [RCDUserInfoManager getOtherInfoFromServer:userId complete:^(RCDUserInfo *userInfo) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf pushPersonDetailVC:userInfo];
+            });
+        }];
+//        [RCDUserInfoManager getUserInfoFromServer:userId
+//                                         complete:^(RCDUserInfo *userInfo) {
+//                                             dispatch_async(dispatch_get_main_queue(), ^{
+//                                                 [weakSelf pushPersonDetailVC:userInfo];
+//                                             });
+//                                         }];
     }
 }
 
@@ -869,8 +874,10 @@
     } else {
         RCUserInfo *userInfo = [[RCIM sharedRCIM] getUserInfoCache:self.targetId];
         if (userInfo) {
-            self.title = userInfo.name;
-            NSLog(@"2222----%@",self.title);
+            if (userInfo.name.length > 0) {
+                self.title = userInfo.name;
+                NSLog(@"2222----%@",self.title);
+            }
         }
     }
 }

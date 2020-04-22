@@ -36,7 +36,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"密友圈";
+    self.title = @"蜜友圈";
     self.pageNumber = 1;
     self.momentList = [NSMutableArray arrayWithCapacity:0];
     

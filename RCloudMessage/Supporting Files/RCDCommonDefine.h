@@ -10,7 +10,7 @@
 #define RCloudMessage_RCDCommonDefine_h
 #define RCDGroupNoticeTargetId @"__group_apply__"
 #define RCDOpenQRCodeUrlNotification @"RCDOpenQRCodeUrlNotification"
-#define RCDQRCodeContentInfoUrl @"http://web.sealtalk.im/download"
+#define RCDQRCodeContentInfoUrl @"http://www.woostalk.com"
 
 #define SealTalkLog(s, ...) NSLog((@"[SealTalkLog]%s [Line %d] " s), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 

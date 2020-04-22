@@ -68,7 +68,8 @@
         if (!self.group.needCertification) {
             countInfo = [NSString stringWithFormat:@"%@ %@", self.group.number, RCDLocalizedString(@"Person")];
             info = RCDLocalizedString(@"GroupScanQRCodeInfo");
-            qrInfo = [NSString stringWithFormat:@"%@?key=sealtalk://group/join?g=%@&u=%@", RCDQRCodeContentInfoUrl,
+
+            qrInfo = [NSString stringWithFormat:@"%@?key=woostalk://group/join?g=%@&u=%@", RCDQRCodeContentInfoUrl,
                                                 self.targetId, [RCIMClient sharedRCIMClient].currentUserInfo.userId];
             self.countLabel.text = countInfo;
             self.qrCodeImageView.image = [RCDQRCodeManager getQRCodeImage:qrInfo];
@@ -78,8 +79,8 @@
         portraitUri = user.portraitUri;
         name = user.name;
         info = RCDLocalizedString(@"MyScanQRCodeInfo");
-        qrInfo = @"https://itunes.apple.com/app/id1501463082";//[NSString stringWithFormat:@"%@?key=sealtalk://user/info?u=%@", RCDQRCodeContentInfoUrl,
-//                                            [RCIMClient sharedRCIMClient].currentUserInfo.userId];
+        qrInfo = [NSString stringWithFormat:@"%@?key=woostalk://user/info?u=%@", RCDQRCodeContentInfoUrl,
+                                            [RCIMClient sharedRCIMClient].currentUserInfo.userId];
         self.qrCodeImageView.image = [RCDQRCodeManager getQRCodeImage:qrInfo];
     }
     if (![portraitUri isEqualToString:@""]) {
@@ -91,6 +92,13 @@
     }
     self.nameLabel.text = name;
     self.infoLabel.text = info;
+    [RCDUserInfoManager getOtherInfoFromServer:self.targetId complete:^(RCDUserInfo *userInfo) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.nameLabel.text = userInfo.name;
+            [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri]
+            placeholderImage:[UIImage imageNamed:@"contact"]];
+        });
+    }];
 }
 
 - (void)setNaviItem {

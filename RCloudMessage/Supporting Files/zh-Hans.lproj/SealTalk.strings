@@ -1,7 +1,7 @@
 "conversation"="聊天";
 "search"="搜索";
 "contacts"="通讯录";
-"discover"="密友圈";
+"discover"="蜜友圈";
 "me"="我";
 "start_chatting"="发起聊天";
 "create_groups"="创建群聊";
@@ -421,7 +421,7 @@
 "ToSettingContactsPermissions"="请进入 “设置 - 隐私 - 通讯录”，允许本 App 获取通讯录";
 "ToSetting"="进入设置";
 "DeviceNotSupportedSMS"="该设备不支持 SMS";
-"SMSBody"="嗨~ 我正在使用 woostalk，一款专为同行量身打造的聊天应用，快来试试吧！下载地址：https://www.rongcloud.cn/downloads/demo";
+"SMSBody"="嗨~ 我正在使用 woostalk，一款专为同行量身打造的聊天应用，快来试试吧！下载地址：http://www.woostalk.com";
 "AddressBookMatching"="手机通讯录匹配";
 "SetFailure"="设置失败";
 "Add"="添加";

@@ -46,7 +46,7 @@
 - (void)setNaviItem {
     
     self.rightBtn = [[RCDUIBarButtonItem alloc]
-        initWithbuttonTitle:@"清空列表"
+        initWithbuttonTitle:@"清空"
                  titleColor:[RCDUtilities generateDynamicColor:[UIColor whiteColor]
                                                      darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                 buttonFrame:CGRectMake(0, 0, 50, 30)

@@ -14,6 +14,7 @@
 #import "AddContactFriendsTableViewCell.h"
 #import "RCDGroupManager.h"
 #import "ContactAddUserModel.h"
+#import "RCDAddFriendViewController.h"
 
 @interface AddContactFriendsTableViewController ()<UISearchResultsUpdating>
 @property (nonatomic, strong) UISearchController *searchController;
@@ -35,6 +36,12 @@
                 NSString *status = [dic stringValueForKey:@"status"];
                 ContactAddUserModel *model = [[ContactAddUserModel alloc] initWithDictionary:dic];
                 model.status = status;
+                if ([status isEqualToString:@"1"] || [status isEqualToString:@"3"]) {
+                    model.isFriend = YES;
+                }
+                else{
+                    model.isFriend = NO;
+                }
                 [muArr addObject:model];
             }
             self.userMembers = muArr;
@@ -90,9 +97,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactAddUserModel *userInfo = self.userMembers[indexPath.row];
-    RCDPersonDetailViewController *personDetailVC = [[RCDPersonDetailViewController alloc] init];
-    personDetailVC.userId = userInfo.userAccountId;
-    [self.navigationController pushViewController:personDetailVC animated:YES];
+    if (userInfo.isFriend) {
+        RCDPersonDetailViewController *personDetailVC = [[RCDPersonDetailViewController alloc] init];
+        personDetailVC.userId = userInfo.userAccountId;
+        [self.navigationController pushViewController:personDetailVC animated:YES];
+    }
+    else{
+        RCDAddFriendViewController *addViewController = [[RCDAddFriendViewController alloc] init];
+        addViewController.targetUserId = userInfo.userAccountId;
+        [self.navigationController pushViewController:addViewController animated:YES];
+    }
+    
 //    NSString *userId = self.userMembers[indexPath.row];
 //    if (self.searchController.active) {
 //        userId = self.searchResultList[indexPath.row];

@@ -72,6 +72,10 @@
                   complete:^(BOOL success) {
                       if (success) {
                           RCDUserInfo *currentUser = [self getUserInfo:[RCIM sharedRCIM].currentUserInfo.userId];
+                          if (currentUser == nil) {
+                              currentUser = [[RCDUserInfo alloc] init];
+                              currentUser.userId = [RCIM sharedRCIM].currentUserInfo.userId;
+                          }
                           currentUser.name = name;
                           [RCDDBManager saveUsers:@[ currentUser ]];
                           [RCIM sharedRCIM].currentUserInfo = currentUser;
@@ -89,6 +93,9 @@
                       complete:^(BOOL success) {
                           if (success) {
                               RCDUserInfo *currentUser = [self getUserInfo:[RCIM sharedRCIM].currentUserInfo.userId];
+                              if (currentUser == nil) {
+                                  currentUser = [[RCDUserInfo alloc] init];
+                              }
                               currentUser.portraitUri = portraitUri;
                               [RCDDBManager saveUsers:@[ currentUser ]];
                               [RCIM sharedRCIM].currentUserInfo = currentUser;
@@ -444,6 +451,10 @@
                         complete:^(BOOL success) {
                             if (success) {
                                 RCDUserInfo *currentUser = [self getUserInfo:[RCIM sharedRCIM].currentUserInfo.userId];
+                                if (currentUser == nil) {
+                                    currentUser = [[RCDUserInfo alloc] init];
+                                    currentUser.userId = [RCIM sharedRCIM].currentUserInfo.userId;
+                                }
                                 currentUser.stAccount = stAccount;
                                 [RCDDBManager saveUsers:@[ currentUser ]];
                             }
@@ -459,6 +470,10 @@
                      complete:^(BOOL success) {
                          if (success) {
                              RCDUserInfo *currentUser = [self getUserInfo:[RCIM sharedRCIM].currentUserInfo.userId];
+                             if (currentUser == nil) {
+                                 currentUser = [[RCDUserInfo alloc] init];
+                                 currentUser.userId = [RCIM sharedRCIM].currentUserInfo.userId;
+                             }
                              if ([currentUser.gender isEqualToString:@"1"]) {
                                  currentUser.gender = @"female";
                              }

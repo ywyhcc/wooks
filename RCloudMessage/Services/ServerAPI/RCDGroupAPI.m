@@ -842,15 +842,36 @@
         }
         return;
     }
-    NSDictionary *params = @{ @"groupId" : groupId };
-    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
-                                URLString:@"group/join"
-                               parameters:params
-                                 response:^(RCDHTTPResult *result) {
-                                     if (complete) {
-                                         complete(result.success);
-                                     }
-                                 }];
+    
+    NSDictionary *params = @{ @"groupId" : groupId,@"optUserAccountId":[ProfileUtil getUserAccountID], @"members" : @[[ProfileUtil getUserAccountID]] };
+    
+    [SYNetworkingManager requestPUTWithURLStr:AddGroupMember paramDic:params success:^(NSDictionary *data) {
+        if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+            if (complete) {
+                complete(YES);
+            }
+        }
+        else{
+            if (complete) {
+                complete(NO);
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        if (complete) {
+            complete(NO);
+        }
+    }];
+    
+//    NSDictionary *params = @{ @"groupId" : groupId };
+//    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
+//                                URLString:@"group/join"
+//                               parameters:params
+//                                 response:^(RCDHTTPResult *result) {
+//                                     if (complete) {
+//                                         complete(result.success);
+//                                     }
+//                                 }];
 }
 
 //添加群组成员

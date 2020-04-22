@@ -72,7 +72,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 @property (nonatomic, strong) RCDFriendDescription *friendDescription;
 @property (nonatomic, assign) BOOL isLoadFriendDescription;
 @property (nonatomic, assign) RCDFriendDescriptionType descriptionType;
-@property (nonatomic, strong) UIButton *miyouButton;
+@property (nonatomic, strong) RCDUIBarButtonItem *rightBtn;
 
 @property (nonatomic, assign) CGFloat tableViewHeight;
 
@@ -99,22 +99,28 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setNaviItem];
+//    [self setNaviItem];
     [self setupSubviews];
     [self getUserInfoData];
 }
 
 - (void)setNaviItem {
     if ([self isCurrentUser]) {
-        RCDUIBarButtonItem *rightBtn = [[RCDUIBarButtonItem alloc] initContainImage:[UIImage imageNamed:@"config"]
-                                                                     imageViewFrame:CGRectMake(8.5, 8.5, 17, 17)
-                                                                        buttonTitle:nil
-                                                                         titleColor:nil
-                                                                         titleFrame:CGRectZero
-                                                                        buttonFrame:CGRectMake(0, 0, 40, 40)
-                                                                             target:self
-                                                                             action:@selector(showMessageList)];
-        self.navigationItem.rightBarButtonItem = rightBtn;
+        self.rightBtn = [[RCDUIBarButtonItem alloc]
+            initWithbuttonTitle:@"好友互动"
+                     titleColor:[RCDUtilities generateDynamicColor:[UIColor whiteColor]
+                                                         darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
+                    buttonFrame:CGRectMake(0, 0, 70, 30)
+                         target:self
+                         action:@selector(showMessageList)];
+        self.rightBtn.button.backgroundColor = [FPStyleGuide weichatGreenColor];
+        self.rightBtn.button.layer.cornerRadius = 7;
+        self.rightBtn.button.clipsToBounds = YES;
+        [self.rightBtn buttonIsCanClick:YES
+                            buttonColor:[UIColor whiteColor]
+                          barButtonItem:self.rightBtn];
+        self.rightBtn.button.titleLabel.font = [UIFont systemFontOfSize:15];
+        self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];
     }
 }
 
@@ -146,15 +152,13 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
     UIView *lastView = nil;
     if ([self isCurrentUser]) {
-        
-        [self.contentView addSubview:self.miyouButton];
-        self.miyouButton.enabled = YES;
-        [self.miyouButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.infoView.mas_bottom).offset(15);
-            make.left.right.equalTo(self.contentView).inset(10);
-            make.height.offset(43);
+        [self.contentView addSubview:self.tableView];
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.infoView.mas_bottom);
+            make.left.right.equalTo(self.contentView);
+            make.height.offset(self.tableView.contentSize.height - 30);
         }];
-        lastView = self.miyouButton;
+        lastView = self.tableView;
         
 //        lastView = self.infoView;
     } else {
@@ -267,8 +271,6 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
         [self updateTableView];
     }
     
-    
-//    SYNetworkingManager postWithURLString:@"/userInfo/getUserInfo" parameters:<#(id)#> success:<#^(NSDictionary *data)successBlock#> failure:<#^(NSError *error)failureBlock#>
 }
 
 - (void)updateTableView {
@@ -619,7 +621,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                     cell.detailLabel.text = self.friendDescription.desc;
                 }
                 else if (indexPath.row == 3) {
-                    cell.titleLabel.text = @"密友圈";
+                    cell.titleLabel.text = @"蜜友圈";
                 }
             }
         } break;
@@ -745,21 +747,6 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
         _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
-}
-
-- (UIButton *)miyouButton{
-    if (!_miyouButton) {
-
-        _miyouButton = [[UIButton alloc] init];
-        _miyouButton.backgroundColor = [UIColor whiteColor];//RCDDYCOLOR(0x0099ff, 0x007acc);
-        _miyouButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_miyouButton setTitle:@"密友圈" forState:UIControlStateNormal];
-        [_miyouButton addTarget:self action:@selector(onMiyouButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_miyouButton setTitleColor:[UIColor colorWithHex:0x5a5ca0] forState:UIControlStateNormal];
-        _miyouButton.layer.masksToBounds = YES;
-        _miyouButton.layer.cornerRadius = 5.f;
-    }
-    return _miyouButton;
 }
 
 - (UIButton *)conversationButton {

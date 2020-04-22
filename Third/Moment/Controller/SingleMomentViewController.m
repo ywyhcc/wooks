@@ -20,6 +20,7 @@
 #import "XFCameraController.h"
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "RCDCommonString.h"
 
 @interface SingleMomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -111,9 +112,8 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     MUser * user = [[MUser alloc] init];
     user.type = 1;
-    user.name = @"123213";
-    user.account = @"wxid12345678";
-    user.region = @"浙江 杭州";
+    user.name = [DEFAULTS objectForKey:RCDUserNickNameKey];;
+    user.account = [ProfileUtil getUserAccountID];
     [user save];
 }
 

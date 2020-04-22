@@ -21,8 +21,8 @@
 - (void)identifyQRCode:(NSString *)info base:(UIViewController *)viewController {
     self.baseController = viewController;
     if (info) {
-        if ([info containsString:@"key=sealtalk://group/join?"]) {
-            NSArray *array = [info componentsSeparatedByString:@"key=sealtalk://group/join?"];
+        if ([info containsString:@"key=woostalk://group/join?"]) {
+            NSArray *array = [info componentsSeparatedByString:@"key=woostalk://group/join?"];
             if (array.count >= 2) {
                 NSArray *arr = [array[1] componentsSeparatedByString:@"&"];
                 if (arr.count >= 2) {
@@ -39,8 +39,8 @@
                     }
                 }
             }
-        } else if ([info containsString:@"key=sealtalk://user/info?"]) {
-            NSArray *array = [info componentsSeparatedByString:@"key=sealtalk://user/info?"];
+        } else if ([info containsString:@"key=woostalk://user/info?"]) {
+            NSArray *array = [info componentsSeparatedByString:@"key=woostalk://user/info?"];
             if (array.count >= 2) {
                 NSString *uIdStr = array[1];
                 if ([uIdStr hasPrefix:@"u="] && uIdStr.length > 2) {

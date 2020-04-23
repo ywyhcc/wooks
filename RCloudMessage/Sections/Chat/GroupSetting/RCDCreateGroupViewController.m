@@ -297,7 +297,9 @@
 //                                 [self createGroupWithPortraitUri:url];
 //                             }];
     } else {
-//        [self createGroupWithPortraitUri:nil];
+        [self showAlert:@"重新上传图片"];
+        [hud hideAnimated:YES];
+        
     }
 }
 

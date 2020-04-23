@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RCDForwardSelectedViewController : RCDViewController
 
+@property (nonatomic)BOOL shareImg;
+
 @end
 
 NS_ASSUME_NONNULL_END

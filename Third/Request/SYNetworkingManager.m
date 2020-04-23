@@ -67,7 +67,9 @@ static AFHTTPSessionManager *smanager;
 //    manager.requestSerializer.timeoutInterval = 5;
     
     AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
-    
+    if ([ProfileUtil getToken].length > 0) {
+        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+    }
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",BaseURL,urlString];
     [manager GET:urlStr parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (successBlock) {
@@ -100,7 +102,9 @@ static AFHTTPSessionManager *smanager;
 //    manager.requestSerializer.timeoutInterval = 5;
     
     AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
-    
+    if ([ProfileUtil getToken].length > 0) {
+        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+    }
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",BaseURL,urlString];
     [manager POST:urlStr parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (successBlock) {
@@ -130,7 +134,9 @@ static AFHTTPSessionManager *smanager;
 //    }
     
     AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
-    
+    if ([ProfileUtil getToken].length > 0) {
+        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+    }
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BaseURL,urlStr];
     [manager PUT:urlString parameters:paramDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -161,7 +167,9 @@ parameters:(id)parameters
 //    manager.requestSerializer.timeoutInterval = 5;
     
     AFHTTPSessionManager *manager = [SYNetworkingManager sharedHTTPManager];
-    
+    if ([ProfileUtil getToken].length > 0) {
+        [manager.requestSerializer setValue:[ProfileUtil getToken] forHTTPHeaderField:@"token"];
+    }
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",BaseURL,urlString];
     
     manager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", nil];

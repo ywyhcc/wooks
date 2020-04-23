@@ -68,6 +68,11 @@ CGFloat lineSpacing = 5;
     [_imageListView setSingleTapHandler:^(MMImageView *imageView) {
         [wSelf resetMenuView];
     }];
+    [_imageListView setSingleLongHandler:^(MMScrollView *imageView) {
+        if (self.singleLongHandler) {
+            self.singleLongHandler(imageView);
+        }
+    }];
     [self.contentView addSubview:_imageListView];
     // 位置视图
     _locationBtn = [[UIButton alloc] init];

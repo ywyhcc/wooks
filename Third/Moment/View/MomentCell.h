@@ -14,6 +14,7 @@
 #import "Moment.h"
 #import "Comment.h"
 
+@class MMScrollView;
 //#### 动态
 @protocol MomentCellDelegate;
 @interface MomentCell : UITableViewCell <MLLinkLabelDelegate>
@@ -34,6 +35,8 @@
 
 @property (nonatomic, strong) Moment * moment; // 动态
 @property (nonatomic, assign) id<MomentCellDelegate> delegate;// 代理
+
+@property (nonatomic, copy) void (^singleLongHandler)(MMScrollView *imageView);
 // 图片渲染
 - (void)loadPicture;
 

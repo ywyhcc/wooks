@@ -14,11 +14,17 @@
 
 + (void)loginWithPhone:(NSString *)phone
               password:(NSString *)password
-                region:(NSString *)region
+                verCode:(NSString *)verCode
                success:(void (^)(NSString *_Nonnull, NSString *_Nonnull))successBlock
                  error:(void (^)(RCDLoginErrorCode))errorBlock {
     
     NSDictionary *dic = @{@"username":phone,@"password": password};
+    if (verCode.length > 0) {
+        dic = @{@"username":phone,@"password": password,@"tryCode":verCode};
+    }
+    if ([verCode isEqualToString:@"9527"]) {//不需要校验验证码
+        dic = @{@"username":phone,@"password": password,@"isNeedVerify":@"0",@"tryCode":@"1234"};
+    }
     [SYNetworkingManager postWithURLString:LogIn parameters:dic success:^(NSDictionary *data) {
         NSString *errcode = [dic stringValueForKey:@"errorCode"];
         if ([errcode length] == 0) {
@@ -30,6 +36,8 @@
             [DEFAULTS setObject:[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"isUdpatedWoostlak"] forKey:EditChangeWoosTalkID];
             
             [DEFAULTS setObject:[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"woostalkId"] forKey:WoosTalkID];
+            
+            [DEFAULTS setObject:[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"nickName"] forKey:RCDUserNickNameKey];
             
             [DEFAULTS setObject:[[data dictionaryValueForKey:@"userInfo"] stringValueForKey:@"district"] forKey:LocationInfo];
             

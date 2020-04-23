@@ -27,6 +27,13 @@
 #import "DetailMomentViewController.h"
 #import "RCDPersonDetailViewController.h"
 #import "MeDetailViewController.h"
+#import "RCDUserInfoManager.h"
+#import "RCDQRCodeManager.h"
+#import "RCDForwardManager.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "RCDQRInfoHandle.h"
+#import "RCDForwardSelectedViewController.h"
+#import "MMImagePreviewView.h"
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -50,6 +57,10 @@
 
 @property (strong, nonatomic) UIActionSheet *actionSheet;
 
+@property (nonatomic, strong) NSArray<RCDFriendInfo *> *friendList;
+
+@property (nonatomic, strong) MMScrollView *currentScrollImageView;
+
 @end
 
 @implementation MomentViewController
@@ -61,8 +72,9 @@
     self.title = @"";
     self.view.backgroundColor = [UIColor whiteColor];
     self.momentList = [[NSMutableArray alloc] init];
-//    [self getData];//获取朋友圈数据
-//    [self configData];
+
+    [self getFriendList];
+    [self getData];
     [self configUI];
 }
 
@@ -70,8 +82,31 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
-    [self getData];
+    [self setStatusBarBackgroundColor:RCDDYCOLOR(0xf0f0f6, 0x000000)];
+    self.view.backgroundColor = [UIColor whiteColor];
+
+    
     [self updateHeadData];
+}
+
+- (void)getFriendList{
+    [RCDUserInfoManager getFriendListFromServer:^(NSArray<RCDFriendInfo *> *friendList) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (friendList) {
+                self.friendList = friendList;
+            }
+        });
+    }];
+}
+
+
+- (void)setStatusBarBackgroundColor:(UIColor *)color {
+    if ([UIDevice currentDevice].systemVersion.floatValue <= 10.0) {
+        UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+        if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+            statusBar.backgroundColor = color;
+        }
+    }
 }
 
 - (void)updateHeadData{
@@ -90,9 +125,12 @@
     [SYNetworkingManager getWithURLString:GetMomentData parameters:dic success:^(NSDictionary *data) {
         NSLog(@"%@", data);
         [self handleData:data];
+        if (![[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+            [self.tableView.mj_header endRefreshing];
+        }
         
     } failure:^(NSError *error) {
-        NSLog(@"%@", error);
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 
@@ -125,6 +163,7 @@
     if (!errCodeStr.intValue) {
         self.pageNumber = 2;
         [self configData:dic];
+        [self.tableView.mj_header endRefreshing];
     }
 }
 
@@ -137,6 +176,16 @@
 //    self.loginUser.portrait = @"";
 //    self.loginUser.region = @"山东 青岛";
     self.loginUser = [MUser findFirstByCriteria:@"WHERE type = 1"];
+    if (self.loginUser == nil) {
+        self.loginUser = [[MUser alloc] init];
+        self.loginUser.account = [ProfileUtil getUserAccountID];
+        self.loginUser.name = [DEFAULTS objectForKey:RCDUserNickNameKey];
+        self.loginUser.pk = 5;
+        self.loginUser.type = 1;
+        self.loginUser.portrait = [DEFAULTS objectForKey:RCDUserPortraitUriKey];
+        
+    }
+    
     [self.momentList removeAllObjects];
     [self.momentList addObjectsFromArray:[MomentUtil getMomentListDic:dic]];
     [self.tableView reloadData];
@@ -191,7 +240,10 @@
     [view addSubview:btn];
     self.tableHeaderView = view;
     // 表格
-    MMTableView * tableView = [[MMTableView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, k_screen_height-k_bar_height)];
+    MMTableView * tableView = [[MMTableView alloc] initWithFrame:CGRectMake(0, k_status_height, k_screen_width, k_screen_height-k_bar_height - k_status_height)];
+    if ([UIDevice currentDevice].systemVersion.floatValue < 10.0) {
+        tableView.frame = CGRectMake(0, 0, k_screen_width, k_screen_height-k_bar_height);
+    }
     tableView.separatorInset = UIEdgeInsetsZero;
     tableView.dataSource = self;
     tableView.delegate = self;
@@ -212,9 +264,21 @@
 //            [self.tableView.mj_footer endRefreshingWithNoMoreData];
 //        }
     }];
+    
     [footer setTitle:@"已加载全部" forState:MJRefreshStateNoMoreData];
     footer.stateLabel.font = [UIFont systemFontOfSize:14];
     self.tableView.mj_footer = footer;
+    
+    //下拉刷新
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getData];
+    }];
+//    header.lastUpdatedTimeText = ^NSString * _Nonnull(NSDate * _Nullable lastUpdatedTime) {
+//
+//    };
+    [header setTitle:@"加载中" forState:MJRefreshStateRefreshing];
+    header.stateLabel.font = [UIFont systemFontOfSize:14];
+    self.tableView.mj_header = header;
 }
 
 - (void)headGestureTap{
@@ -335,6 +399,7 @@
     user.type = 1;
     user.name = [DEFAULTS objectForKey:RCDUserNickNameKey];;
     user.account = [ProfileUtil getUserAccountID];
+    user.portrait = [DEFAULTS objectForKey:RCDUserPortraitUriKey];
 //    user.region = @"浙江 杭州";
     [user save];
 }
@@ -412,9 +477,16 @@
 //            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
 //            controller.user = cell.moment.user;
 //            [self.navigationController pushViewController:controller animated:YES];
-            RCDPersonDetailViewController *detailViewController = [[RCDPersonDetailViewController alloc] init];
-            detailViewController.userId = cell.moment.userIds;
-            [self.navigationController pushViewController:detailViewController animated:YES];
+            if ([cell.moment.userIds isEqualToString:[ProfileUtil getUserAccountID]]) {
+                MeDetailViewController *nextVC = [[MeDetailViewController alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+            else {
+                RCDPersonDetailViewController *detailViewController = [[RCDPersonDetailViewController alloc] init];
+                detailViewController.userId = cell.moment.userIds;
+                [self.navigationController pushViewController:detailViewController animated:YES];
+            }
+            
             break;
         }
         case MMOperateTypeDelete: // 删除
@@ -561,12 +633,36 @@
         }
         case MLLinkTypeOther: // 用户
         {
-            int pk = [link.linkValue intValue];
-            MUser * user = [MUser findByPK:pk];
+//            int pk = [link.linkValue intValue];
+//            MUser * user = [MUser findByPK:pk];
             
-            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
-            controller.user = user;
-            [self.navigationController pushViewController:controller animated:YES];
+            if ([[DEFAULTS objectForKey:RCDUserNickNameKey] isEqualToString:linkText]) {
+                MeDetailViewController *nextVC = [[MeDetailViewController alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+            else{
+                if (self.friendList.count == 0) {
+                    [self getFriendList];
+                    return;
+                }
+                NSString *userID = nil;
+                if (self.friendList.count > 0) {
+                    for (RCDFriendInfo *friendInfo in self.friendList) {
+                        if ([friendInfo.displayName isEqualToString:linkText] || [friendInfo.name isEqualToString:linkText]) {
+                            userID = friendInfo.userId;
+                            break;
+                        }
+                    }
+                }
+                if (userID != nil) {
+                    RCDPersonDetailViewController *nextVC = [[RCDPersonDetailViewController alloc] init];
+                    nextVC.userId = userID;
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }
+            }
+//            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
+//            controller.user = user;
+//            [self.navigationController pushViewController:controller animated:YES];
             break;
         }
         default:
@@ -793,6 +889,78 @@
     cell.tag = indexPath.row;
     cell.moment = [self.momentList objectAtIndex:indexPath.row]; // UITrackingRunLoopMode
     cell.delegate = self;
+    [cell setSingleLongHandler:^(MMScrollView *imgView) {
+        if (imgView.imageURL.length == 0) {
+            return;
+        }
+        self.currentScrollImageView = imgView;
+        UIAlertAction *cancelAction =
+                    [UIAlertAction actionWithTitle:RCDLocalizedString(@"cancel") style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *saveAction =
+            [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"RongCloudKit", nil)
+                                     style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction *_Nonnull action) {
+                                       [self saveImage];
+                                   }];
+        UIAlertAction *fowardAction =
+        [UIAlertAction actionWithTitle:@"转发"
+                                 style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *_Nonnull action) {
+            
+            UIImage *image = imgView.imageView.image;
+            RCImageMessage *msg = [RCImageMessage messageWithImage:image];
+            msg.full = YES;
+            RCMessage *message = [[RCMessage alloc] initWithType:1
+                                                        targetId:[RCIM sharedRCIM].currentUserInfo.userId
+                                                       direction:(MessageDirection_SEND)
+                                                       messageId:-1
+                                                         content:msg];
+            [[RCDForwardManager sharedInstance]
+                setWillForwardMessageBlock:^(RCConversationType type, NSString *_Nonnull targetId) {
+                    [[RCIM sharedRCIM] sendMediaMessage:type
+                        targetId:targetId
+                        content:msg
+                        pushContent:nil
+                        pushData:nil
+                        progress:^(int progress, long messageId) {
+
+                        }
+                        success:^(long messageId) {
+
+                        }
+                        error:^(RCErrorCode errorCode, long messageId) {
+
+                        }
+                        cancel:^(long messageId){
+
+                        }];
+                }];
+            [RCDForwardManager sharedInstance].isForward = YES;
+            [RCDForwardManager sharedInstance].isMultiSelect = NO;
+            [RCDForwardManager sharedInstance].selectedMessages = @[ [RCMessageModel modelWithMessage:message] ];
+            RCDForwardSelectedViewController *forwardSelectedVC = [[RCDForwardSelectedViewController alloc] init];
+            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:forwardSelectedVC];
+            navi.modalPresentationStyle = UIModalPresentationFullScreen;
+            [self.navigationController presentViewController:navi animated:YES completion:nil];
+                               }];
+        
+        NSArray *actions = @[ cancelAction, saveAction,fowardAction ];
+        NSString *info = [RCDQRCodeManager decodeQRCodeImage:[UIImage imageWithData:[self getCurrentPreviewImageData:imgView.imageURL]]];
+        if (info) {
+            UIAlertAction *identifyQRCodeAction =
+                [UIAlertAction actionWithTitle:RCDLocalizedString(@"IdentifyQRCode")
+                                         style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction *_Nonnull action) {
+                                           [[RCDQRInfoHandle alloc] identifyQRCode:info base:self];
+                                       }];
+            actions = @[ cancelAction, saveAction, identifyQRCodeAction ];
+        }
+        [RCKitUtility showAlertController:nil
+                                  message:nil
+                           preferredStyle:UIAlertControllerStyleActionSheet
+                                  actions:actions
+                         inViewController:self];
+    }];
     // 停止滚动时渲染图片
     cell.currentIndexPath = indexPath;
 //    [[MMRunLoopWorkDistribution sharedInstance] addTask:^BOOL{ // kCFRunLoopDefaultMode
@@ -847,5 +1015,53 @@
 {
     [super didReceiveMemoryWarning];
 }
+
+//
+- (void)saveImage {
+    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+    if (status == ALAuthorizationStatusRestricted || status == ALAuthorizationStatusDenied) {
+        [self showAlertController:NSLocalizedStringFromTable(@"AccessRightTitle", @"RongCloudKit", nil)
+                          message:NSLocalizedStringFromTable(@"photoAccessRight", @"RongCloudKit", nil)
+                      cancelTitle:NSLocalizedStringFromTable(@"OK", @"RongCloudKit", nil)];
+        return;
+    }
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    [assetsLibrary
+        writeImageDataToSavedPhotosAlbum:[self getCurrentPreviewImageData:self.currentScrollImageView.imageURL]
+                                metadata:nil
+                         completionBlock:^(NSURL *assetURL, NSError *error) {
+                             if (error != NULL) {
+                                 [self showAlertController:nil
+                                                   message:NSLocalizedStringFromTable(@"SavePhotoFailed",
+                                                                                      @"RongCloudKit", nil)
+                                               cancelTitle:NSLocalizedStringFromTable(@"OK", @"RongCloudKit", nil)];
+                             } else {
+                                 [self showAlertController:nil
+                                                   message:NSLocalizedStringFromTable(@"SavePhotoSuccess",
+                                                                                      @"RongCloudKit", nil)
+                                               cancelTitle:NSLocalizedStringFromTable(@"OK", @"RongCloudKit", nil)];
+                             }
+                         }];
+}
+- (NSData *)getCurrentPreviewImageData:(NSString*)path {
+    NSData *imageData;
+    imageData = [RCKitUtility getImageDataForURLString:path];
+    
+    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:path]];
+    
+    return data;
+}
+//NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
+- (void)showAlertController:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:message
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController
+            addAction:[UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
+}
+
 
 @end

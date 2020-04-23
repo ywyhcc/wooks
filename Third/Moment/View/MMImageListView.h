@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "Moment.h"
 
+@class MMScrollView;
 @class MMImageView;
 @interface MMImageListView : UIView
 
@@ -18,6 +19,9 @@
 @property (nonatomic, strong) Moment * moment;
 // 点击小图
 @property (nonatomic, copy) void (^singleTapHandler)(MMImageView *imageView);
+
+//长按小图
+@property (nonatomic, copy) void (^singleLongHandler)(MMScrollView *imageView);
 // 图片渲染
 - (void)loadPicture;
 
@@ -25,6 +29,8 @@
 
 //### 单个小图显示视图
 @interface MMImageView : UIImageView
+//我加的图片路径
+@property (nonatomic, strong)NSString *picURL;
 
 @property (nonatomic, strong)UIImageView *centerImage;
 

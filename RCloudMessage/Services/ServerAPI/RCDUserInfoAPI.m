@@ -367,6 +367,9 @@
 }
 //获取申请列表
 + (void)getApplyList:(void (^)(NSArray<RCDFriendInfo *> *))completeBlock {
+    if ([ProfileUtil getUserAccountID].length == 0) {
+        return;
+    }
     NSDictionary *params = @{@"userAccountId":[ProfileUtil getUserAccountID]};
    [SYNetworkingManager getWithURLString:ApplyRecord parameters:params success:^(NSDictionary *data) {
         if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
@@ -434,6 +437,9 @@
 }
 
 + (void)getFriendList:(void (^)(NSArray<RCDFriendInfo *> *))completeBlock {
+    if ([ProfileUtil getUserAccountID].length <= 0) {
+        return;
+    }
     
     NSDictionary *params = @{@"userAccountId":[ProfileUtil getUserAccountID]};
     [SYNetworkingManager getWithURLString:ApplyRecord parameters:params success:^(NSDictionary *data) {
@@ -1323,6 +1329,7 @@
             RCDFriendDescription *description =
                 [[RCDFriendDescription alloc] init];
             description.userId = friendId;
+            description.friendDescribe = [data stringValueForKey:@"friendDescribe"];
             if ([data stringValueForKey:@"friendRemark"].length > 0) {
                 description.displayName = [data stringValueForKey:@"friendRemark"];
 //            }else {

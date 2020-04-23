@@ -64,6 +64,7 @@
     [self loginAndEnterMainPage];
     [self getAppConfig];
     [self initMapKey];
+    [self configStatusBar];
     return YES;
 }
 
@@ -80,6 +81,10 @@
     } failure:^(NSError *error) {
         
     }];
+}
+
+- (void)configStatusBar{
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)configRongIM {
@@ -220,7 +225,7 @@
                 userId:(NSString *)userId {
     [RCDLoginManager loginWithPhone:userName
         password:password
-        region:regionCode
+        verCode:@"9527"
         success:^(NSString *_Nonnull token, NSString *_Nonnull userId) {
             [self saveLoginData:userName userId:userId token:token password:password];
         }
@@ -232,7 +237,7 @@
 - (void)refreshIMTokenAndReconnect:(NSString *)userName password:(NSString *)password region:(NSString *)regionCode {
     [RCDLoginManager loginWithPhone:userName
         password:password
-        region:regionCode
+        verCode:@"9527"
         success:^(NSString *_Nonnull newToken, NSString *_Nonnull newUserId) {
             [[RCDIMService sharedService] connectWithToken:newToken
                 dbOpened:^(RCDBErrorCode code) {

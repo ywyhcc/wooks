@@ -234,6 +234,7 @@
 		7F60A93F244DA20A00F63BC5 /* MomentMsgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60A93E244DA20A00F63BC5 /* MomentMsgTableViewCell.m */; };
 		7F611FDD243B149100BE72D6 /* PostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDC243B149100BE72D6 /* PostInfoViewController.m */; };
 		7F611FE0243B14BB00BE72D6 /* PrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */; };
+		7F61216C24519D900071DCA3 /* SendMomentImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F61216B24519D900071DCA3 /* SendMomentImageViewController.m */; };
 		7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */; };
 		7F66C9012446E7B300B6AB1E /* XFCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */; };
 		7F66C9022446E7B300B6AB1E /* XFCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F66C8FB2446E7B300B6AB1E /* XFCameraController.xib */; };
@@ -927,6 +928,8 @@
 		7F611FDC243B149100BE72D6 /* PostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostInfoViewController.m; sourceTree = "<group>"; };
 		7F611FDE243B14BB00BE72D6 /* PrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyViewController.h; sourceTree = "<group>"; };
 		7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyViewController.m; sourceTree = "<group>"; };
+		7F61216A24519D900071DCA3 /* SendMomentImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMomentImageViewController.h; sourceTree = "<group>"; };
+		7F61216B24519D900071DCA3 /* SendMomentImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendMomentImageViewController.m; sourceTree = "<group>"; };
 		7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraButton.m; sourceTree = "<group>"; };
 		7F66C8F92446E7B300B6AB1E /* XFCameraButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFCameraButton.h; sourceTree = "<group>"; };
 		7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraController.m; sourceTree = "<group>"; };
@@ -2919,6 +2922,8 @@
 			children = (
 				3B47890C22B79A3B00D33F10 /* RCDForwardSelectedViewController.h */,
 				3B47890D22B79A3B00D33F10 /* RCDForwardSelectedViewController.m */,
+				7F61216A24519D900071DCA3 /* SendMomentImageViewController.h */,
+				7F61216B24519D900071DCA3 /* SendMomentImageViewController.m */,
 				3B47892722B8D70B00D33F10 /* RCDHaveSelectedViewController.h */,
 				3B47892822B8D70B00D33F10 /* RCDHaveSelectedViewController.m */,
 				3B47893422B9D31300D33F10 /* RCDSelectContactViewController.h */,
@@ -3584,6 +3589,7 @@
 				7F30D73C24239AFE0018A519 /* KeyChainUtils.m in Sources */,
 				A2A5258022B8B9D1008188A1 /* NormalAlertView.m in Sources */,
 				7F30D73824239AFE0018A519 /* NSURLRequest+Additions.m in Sources */,
+				7F61216C24519D900071DCA3 /* SendMomentImageViewController.m in Sources */,
 				7F66C9032446E7B300B6AB1E /* XFPhotoLibraryManager.m in Sources */,
 				27AD3023229E721F003C2680 /* RCDNoFriendView.m in Sources */,
 				9C119469229D4A14005407ED /* RCDRCIMDataSource.m in Sources */,

@@ -297,6 +297,13 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     for (RCDFriendInfo *user in self.friendArray) {
         [seletedUsersId addObject:user.friendID];
     }
+    //好友审核状态(我发送的好友请求:0.已发送1.已通过-1.被拒绝) 别人加我的好友请求(2.正在审核中3.同意-2.拒绝)
+    NSMutableArray *seletedAccoutId = [NSMutableArray new];
+    for (RCDFriendInfo *user in self.friendArray) {
+        if (user.status == 11) {
+            [seletedAccoutId addObject:user.userId];
+        }
+    }
     
     [RCDUserInfoManager acceptFriendRequest:seletedUsersId
     complete:^(BOOL success) {
@@ -306,6 +313,24 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
                 postNotificationName:RCDContactsRequestKey
                               object:nil];
                 [self getUserInfoFromServer];
+                if (seletedAccoutId.count > 0) {
+                    for (NSString *userID in seletedAccoutId) {
+                        RCTextMessage *txtMsg = [RCTextMessage messageWithContent:@"我们已经是好友了，快来聊天吧"];
+                        [[RCIM sharedRCIM] sendMessage:ConversationType_PRIVATE
+                        targetId:userID
+                        content:txtMsg
+                        pushContent:nil
+                        pushData:nil
+                        success:^(long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+
+                            });
+                        }
+                        error:^(RCErrorCode nErrorCode, long messageId){
+
+                        }];
+                    }
+                }
             } else {
                 [self.hud hide:YES];
             }
@@ -316,14 +341,32 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
 - (void)agreeBtnClicked{
         // get seleted users
     NSMutableArray *seletedUsersId = [NSMutableArray new];
+    NSMutableArray *selectedAccoutID = [NSMutableArray arrayWithCapacity:0];
     for (RCDFriendInfo *user in self.collectionViewResource) {
         [seletedUsersId addObject:user.friendID];
+        [selectedAccoutID addObject:user.userId];
     }
     [RCDUserInfoManager acceptFriendRequest:seletedUsersId
     complete:^(BOOL success) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success) {
-                
+                [self getUserInfoFromServer];
+                for (NSString *userID in selectedAccoutID) {
+                    RCTextMessage *txtMsg = [RCTextMessage messageWithContent:@"我们已经是好友了，快来聊天吧"];
+                    [[RCIM sharedRCIM] sendMessage:ConversationType_PRIVATE
+                    targetId:userID
+                    content:txtMsg
+                    pushContent:nil
+                    pushData:nil
+                    success:^(long messageId) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                        });
+                    }
+                    error:^(RCErrorCode nErrorCode, long messageId){
+
+                    }];
+                }
             } else {
                 [self.hud hide:YES];
             }
@@ -760,6 +803,13 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     if (userId.length == 0) {
         return;
     }
+    
+    NSString *accountID = nil;
+    for (RCDFriendInfo *user in self.friendArray) {
+        if ([user.friendID isEqualToString:userId]) {
+            accountID = user.userId;
+        }
+    }
     self.hud.labelText = RCDLocalizedString(@"adding_friend");
     [self.hud show:YES];
     [RCDUserInfoManager acceptFriendRequest:@[userId]
@@ -770,6 +820,22 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
                                                postNotificationName:RCDContactsRequestKey
                                                              object:nil];
                                                [self getUserInfoFromServer];
+                                               if (accountID != nil) {
+                                                   RCTextMessage *txtMsg = [RCTextMessage messageWithContent:@"我们已经是好友了，快来聊天吧"];
+                                                   [[RCIM sharedRCIM] sendMessage:ConversationType_PRIVATE
+                                                   targetId:accountID
+                                                   content:txtMsg
+                                                   pushContent:nil
+                                                   pushData:nil
+                                                   success:^(long messageId) {
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
+
+                                                       });
+                                                   }
+                                                   error:^(RCErrorCode nErrorCode, long messageId){
+
+                                                   }];
+                                               }
                                                [self.hud hide:YES];
                                            } else {
                                                [self.hud hide:YES];

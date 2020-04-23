@@ -107,6 +107,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)showAlertWithTitle:(NSString *)title
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - action
 - (void)loginEvent:(id)sender {
     [self startRetryTimer];
@@ -114,6 +121,9 @@
     NSString *userName = self.phoneTextField.textField.text;
     NSString *userPwd = self.passwordTextField.text;
     NSString *verCode = self.verificationCodeField.text;
+    if (verCode.length == 0) {
+        [self showAlertWithTitle:@"请输入验证码"];
+    }
 
     [self login:userName password:userPwd];
 }
@@ -136,7 +146,7 @@
         
         [RCDLoginManager loginWithPhone:userName
             password:password
-            region:self.currentRegion.phoneCode
+            verCode:self.verificationCodeField.text
             success:^(NSString *_Nonnull token, NSString *_Nonnull userId) {
                 [self loginRongCloud:userName userId:userId token:token password:password];
             }
@@ -308,10 +318,28 @@
     self.countryTextField.textField.text = country.countryName;
     self.phoneTextField.indicateInfoLabel.text = [NSString stringWithFormat:@"+%@", self.currentRegion.phoneCode];
 }
-
+- (BOOL)validatePhoneNumber:(NSString *)phoneNumber {
+    NSString *regex = @"^\\d{3,15}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isPhoneNumber = [pred evaluateWithObject:phoneNumber];
+    return isPhoneNumber;
+}
 #pragma mark UITextFieldDelegate
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+}
+
+- (void)textFieldDidChange:(UITextField *)textField {
+    BOOL enable = [self validatePhoneNumber:textField.text];
+    UIColor *color = [FPStyleGuide weichatGreenColor];//[[UIColor alloc] initWithRed:23 / 255.f green:136 / 255.f blue:213 / 255.f alpha:1];
+    if (!enable) {
+        color = [[UIColor alloc] initWithRed:133 / 255.f green:133 / 255.f blue:133 / 255.f alpha:1];
+    }
+    self.sendCodeButton.enabled = enable;
+    self.sendCodeButton.backgroundColor = color;
+//        if (enable) {
+//            self.phoneNumber = textField.text;
+//        }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -486,6 +514,9 @@
 //    [self.inputBackground addSubview:self.countryTextField];
     //用户名
     self.phoneTextField.textField.text = [self getDefaultUserName];
+    if ([self getDefaultUserName].length > 0) {
+        self.sendCodeButton.backgroundColor = [FPStyleGuide weichatGreenColor];
+    }
     [self.inputBackground addSubview:self.phoneTextField];
     //密码
     [self.inputBackground addSubview:self.passwordTextField];
@@ -768,6 +799,9 @@
         _phoneTextField.textField.adjustsFontSizeToFitWidth = YES;
         _phoneTextField.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTextField.textField.keyboardType = UIKeyboardTypeNumberPad;
+        [_phoneTextField.textField addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
         _phoneTextField.textField.attributedPlaceholder =
         [[NSAttributedString alloc] initWithString:@"请输入手机号"
                                         attributes:@{NSForegroundColorAttributeName : [FPStyleGuide lightGrayTextColor]}];

@@ -17,6 +17,8 @@ typedef NS_ENUM(NSUInteger, RCDContactSelectedGroupOptionType) {
 @class RCDFriendInfo;
 @interface RCDContactSelectedTableViewController : RCDViewController
 
+@property (nonatomic) BOOL shareImg;
+
 @property (nonatomic, strong) NSString *groupId;
 
 @property (nonatomic, strong) NSMutableArray *orignalGroupMembers;

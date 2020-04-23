@@ -797,6 +797,7 @@
                 group.groupId = [dic stringValueForKey:@"groupId"];
                 group.groupName = [dic stringValueForKey:@"groupName"];
                 group.portraitUri = [dic stringValueForKey:@"groupCover"];
+                group.number = [dic stringValueForKey:@"count"];
                 [groupList addObject:group];
             }
             if (complete) {

@@ -42,6 +42,7 @@
 #import <Masonry/Masonry.h>
 #import "UIView+MBProgressHUD.h"
 #import "SendLocationViewController.h"
+#import "MeDetailViewController.h"
 
 #define PLUGIN_BOARD_ITEM_POKE_TAG 20000
 
@@ -632,6 +633,7 @@
 
 #pragma mark - Demo
 - (void)handleChatSessionInputBarControlDemo {
+//    [self.chatSessionInputBarControl.pluginBoardView updateItemWithTag:101 image:newImage title:newTitle];
     //    self.chatSessionInputBarControl.hidden = YES;
     //    CGRect intputTextRect = self.conversationMessageCollectionView.frame;
     //    intputTextRect.size.height = intputTextRect.size.height+50;
@@ -709,18 +711,23 @@
 - (void)addOtherPluginBoard {
     if (self.conversationType != ConversationType_APPSERVICE &&
         self.conversationType != ConversationType_PUBLICSERVICE) {
+//        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"poke_plugin_item"]
+//        title:RCDLocalizedString(@"Poke")
+//          tag:PLUGIN_BOARD_ITEM_POKE_TAG];
         //加号区域增加发送文件功能，Kit中已经默认实现了该功能，但是为了SDK向后兼容性，目前SDK默认不开启该入口，可以参考以下代码在加号区域中增加发送文件功能。
         UIImage *imageFile = [RCKitUtility imageNamed:@"actionbar_file_icon" ofBundle:@"RongCloud.bundle"];
         RCPluginBoardView *pluginBoardView = self.chatSessionInputBarControl.pluginBoardView;
-        [pluginBoardView insertItemWithImage:imageFile
-                                       title:NSLocalizedStringFromTable(@"File", @"RongCloudKit", nil)
-                                     atIndex:3
-                                         tag:PLUGIN_BOARD_ITEM_FILE_TAG];
+        [pluginBoardView insertItemWithImage:imageFile title:NSLocalizedStringFromTable(@"File", @"RongCloudKit", nil) tag:PLUGIN_BOARD_ITEM_FILE_TAG];
+//        [pluginBoardView insertItemWithImage:imageFile
+//                                       title:NSLocalizedStringFromTable(@"File", @"RongCloudKit", nil)
+//                                     atIndex:3
+//                                         tag:PLUGIN_BOARD_ITEM_FILE_TAG];
     }
     if (self.conversationType == ConversationType_PRIVATE || self.conversationType == ConversationType_GROUP) {
-        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"poke_plugin_item"]
-                                                                       title:RCDLocalizedString(@"Poke")
-                                                                         tag:PLUGIN_BOARD_ITEM_POKE_TAG];
+        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"poke_plugin_item"] title:RCDLocalizedString(@"Poke") atIndex:3 tag:PLUGIN_BOARD_ITEM_POKE_TAG];
+//        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"poke_plugin_item"]
+//                                                                       title:RCDLocalizedString(@"Poke")
+//                                                                         tag:PLUGIN_BOARD_ITEM_POKE_TAG];
     }
 }
 
@@ -729,8 +736,16 @@
         UIViewController *vc = [RCDPersonDetailViewController configVC:user.userId groupId:self.targetId];
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-        UIViewController *vc = [RCDPersonDetailViewController configVC:user.userId groupId:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+        BOOL isCurrentUser = [user.userId isEqualToString:[RCIM sharedRCIM].currentUserInfo.userId];
+        if (isCurrentUser) {
+            MeDetailViewController *personDetailVC = [[MeDetailViewController alloc] init];
+            [self.navigationController pushViewController:personDetailVC animated:YES];
+        }
+        else {
+            UIViewController *vc = [RCDPersonDetailViewController configVC:user.userId groupId:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
     }
 }
 

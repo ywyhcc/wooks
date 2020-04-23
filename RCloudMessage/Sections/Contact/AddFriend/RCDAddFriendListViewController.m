@@ -165,7 +165,9 @@
         phoneValue = [phoneValue stringByReplacingOccurrencesOfString:@" " withString:@""];
         
         NSLog(@"姓名：%@%@ 电话：%@", firstName, lastName, phoneValue);
-        [self.phoneList addObject:phoneValue];
+        if (phoneValue.length > 0) {
+            [self.phoneList addObject:phoneValue];
+        }
         
     }];
     

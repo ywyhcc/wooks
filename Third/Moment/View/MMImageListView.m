@@ -9,6 +9,11 @@
 #import "MMImageListView.h"
 #import "MMImagePreviewView.h"
 #import <AVFoundation/AVFoundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "RCDQRInfoHandle.h"
+#import "RCDQRCodeManager.h"
+#import "RCDForwardSelectedViewController.h"
+#import "RCDForwardManager.h"
 
 #pragma mark - ------------------ 小图List显示视图 ------------------
 
@@ -51,6 +56,12 @@
         _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];      
     }
     return self;
+}
+
+- (void)btnLong:(UILongPressGestureRecognizer*)tap{
+    if ([tap.view isKindOfClass:[MMImageView class]]) {
+        
+    }
 }
 
 #pragma mark - Setter
@@ -121,6 +132,7 @@
         } else {
             [imageView sd_setImageWithURL:[NSURL URLWithString:picture.thumbnail]
                          placeholderImage:nil];
+            imageView.picURL = picture.thumbnail;
         }
     }
 }
@@ -160,11 +172,17 @@
         // 转换Frame
         MMImageView *pImageView = (MMImageView *)[self viewWithTag:1000+i];
         convertRect = [[pImageView superview] convertRect:pImageView.frame toView:window];
+        
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
+        longPress.minimumPressDuration = 0.5; //定义按的时间
+        [pImageView addGestureRecognizer:longPress];
+        
         // 添加
         MMScrollView *scrollView = [[MMScrollView alloc] initWithFrame:CGRectMake(i*_previewView.width, 0, _previewView.width, _previewView.height)];
         scrollView.tag = 100+i;
         scrollView.maximumZoomScale = 2.0;
         scrollView.image = pImageView.image;
+        scrollView.imageURL = pImageView.picURL;
         scrollView.contentRect = convertRect;
         // 单击
         [scrollView setTapBigView:^(MMScrollView *scrollView){
@@ -277,8 +295,8 @@
 
 - (void)singleTapGestureCallback1:(UIGestureRecognizer *)gesture
 {
-    [self.avLayer removeFromSuperlayer];
     [self.player pause];
+    [self.avLayer removeFromSuperlayer];
     [UIView animateWithDuration:0.3 animations:^{
         _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         _previewView.pageControl.hidden = YES;
@@ -289,7 +307,9 @@
 
 - (void)longPresssBigViewCallback:(MMScrollView *)scrollView
 {
-    
+    if (self.singleLongHandler) {
+        self.singleLongHandler(scrollView);
+    }
 }
 
 @end

@@ -127,7 +127,7 @@
     }
     self.remarksView.inputText = self.friendDescription.displayName;
     self.phoneView.btnTitle = self.friendDescription.region;
-    self.descriptionView.inputText = self.friendDescription.desc;
+    self.descriptionView.inputText = self.friendDescription.friendDescribe;
     if (self.friendDescription.sparePhone.length > 0) {
         self.phoneView.inputText = self.friendDescription.sparePhone;
     }
@@ -234,7 +234,7 @@
     if (![self.remarksView.inputText isEqualToString:self.friendDescription.displayName] ||
         ![self.phoneView.btnTitle isEqualToString:self.friendDescription.region] ||
         ![self.phoneView.inputText isEqualToString:self.friendDescription.phone] ||
-        ![self.descriptionView.inputText isEqualToString:self.friendDescription.desc]) {
+        ![self.descriptionView.inputText isEqualToString:self.friendDescription.friendDescribe]) {
         isChange = YES;
     }
     return isChange;

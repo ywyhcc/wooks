@@ -18,12 +18,12 @@ static NSString *const DBName = @"SealTalkDB";
 
 + (void)loginWithPhone:(NSString *)phone
               password:(NSString *)password
-                region:(NSString *)region
+                verCode:(NSString *)verCode
                success:(void (^)(NSString *_Nonnull, NSString *_Nonnull))successBlock
                  error:(void (^)(RCDLoginErrorCode))errorBlock {
     [RCDLoginAPI loginWithPhone:phone
                        password:password
-                         region:region
+                         verCode:verCode
                         success:^(NSString *_Nonnull token, NSString *_Nonnull userId) {
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self openDB:userId];

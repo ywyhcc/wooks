@@ -57,7 +57,10 @@
             MUser * user1 = nil;
             NSString *accoutIdStr = [idList[i] stringValueForKey:@"fromUserAccountId"];
             if (comment.fromId != 0) {
-                user1 = [[MUser alloc] init];//[MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.fromId]];
+                user1 = [MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.fromId]];
+                if (user1 == nil) {
+                    user1 = [[MUser alloc] init];
+                }
                 user1.pk = 5;
                 user1.type = [accoutIdStr isEqualToString:[ProfileUtil getUserAccountID]] ? 1 : 0;//1是自己 0是他人
                 user1.name = [idList[i] stringValueForKey:@"userNickName"];
@@ -74,7 +77,10 @@
             
             if (comment.toId == 2) {
                 NSString *accoutIdStr = [idList[i] stringValueForKey:@"toUserAccountId"];
-                user2 = [[MUser alloc] init];//[MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.toId]];
+                user2 = [MUser findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)comment.toId]];
+                if (user2 == nil) {
+                    user2 = [[MUser alloc] init];
+                }
                 user2.pk = 6;
                 user2.type = [accoutIdStr isEqualToString:[ProfileUtil getUserAccountID]] ? 1 : 0;
                 user2.name = [idList[i] stringValueForKey:@"replyedUserNickName"];
@@ -122,7 +128,10 @@
         for (NSInteger i = 0; i < count; i ++)
         {
             NSInteger pk = i+1;
-            MPicture * pic = [[MPicture alloc] init];//[MPicture findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)pk]];
+            MPicture * pic = [MPicture findFirstByCriteria:[NSString stringWithFormat:@"WHERE PK = %ld",(long)pk]];
+            if (pic == nil) {
+                pic = [[MPicture alloc] init];
+            }
             pic.thumbnail = [idList[i] stringValueForKey:@"fileUrl"];
             NSString *fileTypeStr = [idList[i] stringValueForKey:@"fileType"];
             if (fileTypeStr.intValue == 2) {

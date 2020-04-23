@@ -389,6 +389,12 @@
                  menuItems:menuItems];
 }
 
+- (void)pushChat:(id)sender {
+    RCDContactSelectedTableViewController *contactSelectedVC =
+        [[RCDContactSelectedTableViewController alloc] initWithTitle:RCDLocalizedString(@"start_chatting")
+                                           isAllowsMultipleSelection:NO];
+    [self.navigationController pushViewController:contactSelectedVC animated:YES];
+}
 /**
  *  创建群组
  *

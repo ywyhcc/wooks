@@ -27,6 +27,8 @@
 //### 单个大图显示视图
 @interface MMScrollView : UIScrollView <UIScrollViewDelegate>
 
+
+@property (nonatomic, strong) NSString *imageURL;
 // 显示的大图
 @property (nonatomic,strong) UIImageView *imageView;
 // 原始Frame

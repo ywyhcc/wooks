@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RCDSelectGroupViewController : RCDViewController
 
+@property (nonatomic) BOOL shareImg;
+
 @end
 
 NS_ASSUME_NONNULL_END

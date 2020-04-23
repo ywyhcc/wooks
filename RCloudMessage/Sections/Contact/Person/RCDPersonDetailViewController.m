@@ -99,29 +99,8 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self setNaviItem];
     [self setupSubviews];
     [self getUserInfoData];
-}
-
-- (void)setNaviItem {
-    if ([self isCurrentUser]) {
-        self.rightBtn = [[RCDUIBarButtonItem alloc]
-            initWithbuttonTitle:@"好友互动"
-                     titleColor:[RCDUtilities generateDynamicColor:[UIColor whiteColor]
-                                                         darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
-                    buttonFrame:CGRectMake(0, 0, 70, 30)
-                         target:self
-                         action:@selector(showMessageList)];
-        self.rightBtn.button.backgroundColor = [FPStyleGuide weichatGreenColor];
-        self.rightBtn.button.layer.cornerRadius = 7;
-        self.rightBtn.button.clipsToBounds = YES;
-        [self.rightBtn buttonIsCanClick:YES
-                            buttonColor:[UIColor whiteColor]
-                          barButtonItem:self.rightBtn];
-        self.rightBtn.button.titleLabel.font = [UIFont systemFontOfSize:15];
-        self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];
-    }
 }
 
 - (void)showMessageList{
@@ -254,22 +233,24 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
 - (void)getFriendDescription {
 //    self.friendDescription = [RCDUserInfoManager getFriendDescription:self.userId];
-    if (!self.friendDescription && !self.isLoadFriendDescription) {
-        self.isLoadFriendDescription = YES;
-        [RCDUserInfoManager getDescriptionFromServer:self.userId
-                                            complete:^(RCDFriendDescription *description) {
-                                                rcd_dispatch_main_async_safe(^{
-                                                    self.friendDescription = description;
-                                                    [self setupDescriptionType];
-                                                    [self.tableView reloadData];
-                                                    [self updateTableView];
-                                                });
-                                            }];
-    } else {
-        [self setupDescriptionType];
-        [self.tableView reloadData];
-        [self updateTableView];
-    }
+//    if (!self.friendDescription && !self.isLoadFriendDescription) {
+//        self.isLoadFriendDescription = YES;
+//
+//    } else {
+//        [self setupDescriptionType];
+//        [self.tableView reloadData];
+//        [self updateTableView];
+//    }
+    
+    [RCDUserInfoManager getDescriptionFromServer:self.userId
+    complete:^(RCDFriendDescription *description) {
+        rcd_dispatch_main_async_safe(^{
+            self.friendDescription = description;
+            [self setupDescriptionType];
+            [self.tableView reloadData];
+            [self updateTableView];
+        });
+    }];
     
 }
 
@@ -618,7 +599,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 }
                 else if (indexPath.row == 2) {
                     cell.titleLabel.text = @"设置备注和描述";//RCDLocalizedString(@"Describe");
-                    cell.detailLabel.text = self.friendDescription.desc;
+                    cell.detailLabel.text = self.friendDescription.friendDescribe;
                 }
                 else if (indexPath.row == 3) {
                     cell.titleLabel.text = @"蜜友圈";

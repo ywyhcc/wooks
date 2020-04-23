@@ -1,12 +1,12 @@
 //
-//  RCDForwardSelectedViewController.m
+//  SendMomentImageViewController.m
 //  SealTalk
 //
-//  Created by 孙浩 on 2019/6/17.
-//  Copyright © 2019 RongCloud. All rights reserved.
+//  Created by zhangzhendong on 2020/4/23.
+//  Copyright © 2020 RongCloud. All rights reserved.
 //
 
-#import "RCDForwardSelectedViewController.h"
+#import "SendMomentImageViewController.h"
 #import <RongIMKit/RongIMKit.h>
 #import "RCDBottomResultView.h"
 #import "UIColor+RCColor.h"
@@ -23,7 +23,8 @@
 static NSString *rightArrowCellIdentifier = @"RCDRightArrowCellIdentifier";
 static NSString *forwardSelectedCellIdentifier = @"RCDForwardSelectedCellIdentifier";
 
-@interface RCDForwardSelectedViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,
+
+@interface SendMomentImageViewController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,
                                                 RCDForwardSearchViewDelegate>
 
 @property (nonatomic, strong) RCDSearchBar *searchBar;
@@ -34,9 +35,10 @@ static NSString *forwardSelectedCellIdentifier = @"RCDForwardSelectedCellIdentif
 @property (nonatomic, assign) BOOL isMultiSelectModel;
 @property (nonatomic, strong) UINavigationController *searchNavigationController;
 
+
 @end
 
-@implementation RCDForwardSelectedViewController
+@implementation SendMomentImageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -189,22 +191,15 @@ static NSString *forwardSelectedCellIdentifier = @"RCDForwardSelectedCellIdentif
                 RCDContactSelectedTableViewController *contactSelectedVC =
                     [[RCDContactSelectedTableViewController alloc] initWithTitle:RCDLocalizedString(@"select_contact")
                                                        isAllowsMultipleSelection:YES];
-                contactSelectedVC.shareImg = self.shareImg;
                 contactSelectedVC.groupOptionType = RCDContactSelectedGroupOptionTypeCreate;
                 [self.navigationController pushViewController:contactSelectedVC animated:YES];
             } else if (indexPath.row == 1) {
                 RCDSelectGroupViewController *selecteGroupVC = [[RCDSelectGroupViewController alloc] init];
-                selecteGroupVC.shareImg = self.shareImg;
                 [self.navigationController pushViewController:selecteGroupVC animated:YES];
             }
         } else if (indexPath.section == 1) {
-            if (self.shareImg) {
-                
-            }
-            else {
-                RCConversation *conversation = self.conversationList[indexPath.row];
-                [self showForwardAlertView:conversation];
-            }
+            RCConversation *conversation = self.conversationList[indexPath.row];
+            [self showForwardAlertView:conversation];
         }
     }
 }

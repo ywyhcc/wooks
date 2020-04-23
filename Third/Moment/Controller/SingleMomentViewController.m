@@ -21,6 +21,10 @@
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "RCDCommonString.h"
+#import "RCDPersonDetailViewController.h"
+#import "MeDetailViewController.h"
+#import "RCDUserInfoManager.h"
+#import "RCDFriendInfo.h"
 
 @interface SingleMomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -38,6 +42,8 @@
 @property(nonatomic, assign) BOOL picOrBack;
 
 @property (strong, nonatomic) UIActionSheet *actionSheet;
+
+@property (nonatomic, strong) NSArray<RCDFriendInfo *> *friendList;
 
 @end
 
@@ -57,6 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self getFriendList];
     [self getData];
 }
 
@@ -94,6 +101,16 @@
     [self.momentList addObject:moment];
     [self.tableView reloadData];
     NSLog(@"%@", self.momentList);
+}
+
+- (void)getFriendList{
+    [RCDUserInfoManager getFriendListFromServer:^(NSArray<RCDFriendInfo *> *friendList) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (friendList) {
+                self.friendList = friendList;
+            }
+        });
+    }];
 }
 
 #pragma mark - UI
@@ -187,9 +204,19 @@
     {
         case MMOperateTypeProfile: // 用户详情
         {
-            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
-            controller.user = cell.moment.user;
-            [self.navigationController pushViewController:controller animated:YES];
+            if ([cell.moment.userIds isEqualToString:[ProfileUtil getUserAccountID]]) {
+                MeDetailViewController *nextVC = [[MeDetailViewController alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+            else {
+                RCDPersonDetailViewController *detailViewController = [[RCDPersonDetailViewController alloc] init];
+                detailViewController.userId = cell.moment.userIds;
+                [self.navigationController pushViewController:detailViewController animated:YES];
+            }
+            
+//            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
+//            controller.user = cell.moment.user;
+//            [self.navigationController pushViewController:controller animated:YES];
             break;
         }
         case MMOperateTypeDelete: // 删除
@@ -336,12 +363,39 @@
         }
         case MLLinkTypeOther: // 用户
         {
-            int pk = [link.linkValue intValue];
-            MUser * user = [MUser findByPK:pk];
             
-            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
-            controller.user = user;
-            [self.navigationController pushViewController:controller animated:YES];
+            if ([[DEFAULTS objectForKey:RCDUserNickNameKey] isEqualToString:linkText]) {
+                MeDetailViewController *nextVC = [[MeDetailViewController alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+            else{
+                if (self.friendList.count == 0) {
+                    [self getFriendList];
+                    return;
+                }
+                NSString *userID = nil;
+                if (self.friendList.count > 0) {
+                    for (RCDFriendInfo *friendInfo in self.friendList) {
+                        if ([friendInfo.displayName isEqualToString:linkText] || [friendInfo.name isEqualToString:linkText]) {
+                            userID = friendInfo.userId;
+                            break;
+                        }
+                    }
+                }
+                if (userID != nil) {
+                    RCDPersonDetailViewController *nextVC = [[RCDPersonDetailViewController alloc] init];
+                    nextVC.userId = userID;
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }
+            }
+            
+            
+//            int pk = [link.linkValue intValue];
+//            MUser * user = [MUser findByPK:pk];
+//
+//            MMUserDetailViewController * controller = [[MMUserDetailViewController alloc] init];
+//            controller.user = user;
+//            [self.navigationController pushViewController:controller animated:YES];
             break;
         }
         default:

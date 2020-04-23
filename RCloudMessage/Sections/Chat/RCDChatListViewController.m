@@ -31,6 +31,7 @@
 #import "RCDUtilities.h"
 #import "TypeHeaderSelectView.h"
 #import "SingleMomentViewController.h"
+#import "NewFriendsInviteViewController.h"
 
 @interface RCDChatListViewController () <UISearchBarDelegate, RCDSearchViewDelegate>
 @property (nonatomic, strong) UINavigationController *searchNavigationController;
@@ -81,6 +82,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    self.title = @"";
     self.isClick = YES;
     [self setTabbarSelectColor];
     [self setNaviItem];
@@ -137,9 +139,20 @@
         if (msg.extra.length > 0) {
             NSData *jsonData = [msg.extra dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-            SingleMomentViewController *momentVC = [[SingleMomentViewController alloc] init];
-            momentVC.momentID = [dic stringValueForKey:@"momentId"];
-            [self.navigationController pushViewController:momentVC animated:YES];
+            NSString *nextType = [dic stringValueForKey:@"type"];
+            if ([nextType isEqualToString:@"2"]) {
+                SingleMomentViewController *momentVC = [[SingleMomentViewController alloc] init];
+                momentVC.momentID = [dic stringValueForKey:@"momentId"];
+                [self.navigationController pushViewController:momentVC animated:YES];
+            }
+            else if ([nextType isEqualToString:@"1"]){
+                NewFriendsInviteViewController *contactSelectedVC =
+                    [[NewFriendsInviteViewController alloc] initWithTitle:@"新的朋友"
+                                                       isAllowsMultipleSelection:YES];
+                [self.navigationController pushViewController:contactSelectedVC animated:YES];
+            }
+            else {
+            }
         }
         [[RCIMClient sharedRCIMClient] clearMessagesUnreadStatus:model.conversationType
         targetId:model.targetId];
@@ -722,6 +735,18 @@
     if (self.selectGroupChat) {
         [self.typeView selectIndex:1];
     }
+    
+    if (self.comeToMsgList) {
+        RCDUIBarButtonItem *leftButton =
+            [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""
+                                                       target:self
+                                                       action:@selector(leftBarButtonItemPressed)];
+        [self.navigationItem setLeftBarButtonItem:leftButton];
+        
+    }
+}
+- (void)leftBarButtonItemPressed {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)testSendMessage{

@@ -156,7 +156,7 @@
 
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, kSingleLineHeight)];
     _textView.font = [UIFont systemFontOfSize:16];
-    _textView.text = @"   你的想法";
+//    _textView.text = @"   你的想法";
     [headerView addSubview:_textView];
 
     itemList.y = _textView.height + 64;
@@ -286,11 +286,15 @@
     if (self.locationStr.length > 0) {
         [self.params setObject:self.locationStr forKey:@"location"];
     }
+    __weak SendMomentsViewController *weakSelf = self;
     switch (self.type) {
         case text:{
             [SYNetworkingManager postWithURLString:CreatFrindInfo parameters:self.params success:^(NSDictionary *data) {
                 [self.hud hideAnimated:YES];
                 if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                    if (weakSelf.sendCallBack) {
+                        weakSelf.sendCallBack(YES);
+                    }
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
             } failure:^(NSError *error) {
@@ -303,6 +307,9 @@
                 [SYNetworkingManager postWithURLString:CreatFrindInfo parameters:self.params success:^(NSDictionary *data) {
                     [self.hud hideAnimated:YES];
                     if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                        if (weakSelf.sendCallBack) {
+                            weakSelf.sendCallBack(YES);
+                        }
                         [self dismissViewControllerAnimated:YES completion:nil];
                     }
                 } failure:^(NSError *error) {
@@ -329,6 +336,9 @@
                 [SYNetworkingManager postWithURLString:CreatFrindInfo parameters:self.params success:^(NSDictionary *data) {
                     [self.hud hideAnimated:YES];
                     if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                        if (weakSelf.sendCallBack) {
+                            weakSelf.sendCallBack(YES);
+                        }
                         [self dismissViewControllerAnimated:YES completion:nil];
                     }
                 } failure:^(NSError *error) {

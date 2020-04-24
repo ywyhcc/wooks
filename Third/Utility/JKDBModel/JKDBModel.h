@@ -20,6 +20,8 @@
 
 @interface JKDBModel : NSObject
 
+@property (nonatomic, strong) NSString *isHorPic;
+
 /** 主键 id */
 @property (nonatomic, assign)   int        pk;
 /** 列名 */

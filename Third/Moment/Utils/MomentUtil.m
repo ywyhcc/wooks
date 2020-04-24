@@ -10,6 +10,8 @@
 #import "JKDBHelper.h"
 #import "Message.h"
 #import "RCDCommonString.h"
+#import "UIImage+RCImage.h"
+#import <SDImageCache.h>
 
 @implementation MomentUtil
 
@@ -30,6 +32,10 @@
 //    NSInteger count = [tempList count];
     for (NSInteger i = 0; i < tempList.count; i ++)
     {
+        NSDictionary *tempDic = tempList[i];
+        if ([[tempDic stringValueForKey:@"canLookThisMoment"] isEqualToString:@"0"]) {
+            continue;
+        }
         Moment * moment = [[Moment alloc] init];
         moment.time = 1555382410;
         moment.singleWidth = 500;
@@ -138,11 +144,41 @@
                 pic.thumbnailVideo = [idList[i] stringValueForKey:@"fileUrl"];
                 pic.thumbnailAvert = [idList[i] stringValueForKey:@"fileThumbnailUrl"];
             }
+            
+//            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+//
+//            UIImage *img;
+//            if ([manager diskImageExistsForURL:[NSURL URLWithString:imgURL]]) {
+//                  img = [[manager imageCache] imageFromDiskCacheForKey:    [NSURL URLWithString:imgURL].absoluteString];
+//                  ZFLOG(@"SD--获取网络图片的大小--Size : %@", NSStringFromCGSize(img.size));
+//            } else {
+//                  NSData *data = [NSData dataWithContentsOfURL:[NSURL       URLWithString:imgURL]];
+//                  img = [UIImage imageWithData:data];
+//                  ZFLog(@"NSData--获取网络图片的大小--Size : %@",     NSStringFromCGSize(img.size));
+//            }
+            
+//            if (pic.thumbnail.length > 0) {
+//
+//                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnail];
+//                if (newSize.height > newSize.width) {
+//                    pic.isHorPic = @"1";
+//                }
+//            }
+//            else if (pic.thumbnailAvert.length > 0){
+//                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnailAvert];
+//                if (newSize.height > newSize.width) {
+//                    pic.isHorPic = @"1";
+//                }
+//            }
+//            else {
+//                pic.isHorPic = @"0";
+//            }
+
             //这里做一个处理
             if (pic) {
-                if ([UIDevice currentDevice].systemVersion.floatValue >= 10.0) {
+//                if ([UIDevice currentDevice].systemVersion.floatValue >= 10.0) {
                     [list addObject:pic];
-                }
+//                }
             }
         }
         moment.pictureList = list;
@@ -280,6 +316,22 @@
                 pic.thumbnailAvert = idList[i][@"fileThumbnailUrl"];
             }
             
+            if (pic.thumbnail.length > 0) {
+                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnail];
+                if (newSize.height > newSize.width) {
+                    pic.isHorPic = @"1";
+                }
+            }
+            else if (pic.thumbnailAvert.length > 0){
+                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnailAvert];
+                if (newSize.height > newSize.width) {
+                    pic.isHorPic = @"1";
+                }
+            }
+            else {
+                pic.isHorPic = @"0";
+            }
+            
             if (pic) {
                 [list addObject:pic];
             }
@@ -411,7 +463,21 @@
             pic.thumbnailVideo = idList[i][@"fileUrl"];
             pic.thumbnailAvert = idList[i][@"fileThumbnailUrl"];
         }
-        
+//        if (pic.thumbnail.length > 0) {
+//            CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnail];
+//            if (newSize.height > newSize.width) {
+//                pic.isHorPic = @"1";
+//            }
+//        }
+//        else if (pic.thumbnailAvert.length > 0){
+//            CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnailAvert];
+//            if (newSize.height > newSize.width) {
+//                pic.isHorPic = @"1";
+//            }
+//        }
+//        else {
+//            pic.isHorPic = @"0";
+//        }
         if (pic) {
             [list addObject:pic];
         }

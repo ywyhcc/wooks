@@ -59,4 +59,30 @@
     UIGraphicsEndImageContext();
     return scaledImage;
 }
+
++(CGSize)GetImageSizeWithURL:(id)imageURL
+
+{
+
+    NSURL* URL = nil;
+
+    if([imageURL isKindOfClass:[NSURL class]]){
+
+        URL = imageURL;
+
+    }
+
+    if([imageURL isKindOfClass:[NSString class]]){
+
+        URL = [NSURL URLWithString:imageURL];
+
+    }
+
+    NSData *data = [NSData dataWithContentsOfURL:URL];
+
+    UIImage *image = [UIImage imageWithData:data];
+
+    return CGSizeMake(image.size.width, image.size.height);
+
+}
 @end

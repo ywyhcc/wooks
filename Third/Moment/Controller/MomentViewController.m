@@ -34,6 +34,7 @@
 #import "RCDQRInfoHandle.h"
 #import "RCDForwardSelectedViewController.h"
 #import "MMImagePreviewView.h"
+#import "UIImage+Additions.h"
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -60,6 +61,8 @@
 @property (nonatomic, strong) NSArray<RCDFriendInfo *> *friendList;
 
 @property (nonatomic, strong) MMScrollView *currentScrollImageView;
+
+@property (nonatomic, strong) NSString *momentBackImg;
 
 @end
 
@@ -144,17 +147,19 @@
         [hud hideAnimated:YES];
         if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
             if ([[MomentUtil getMomentListDic:data] count]) {
+                if (self.pageNumber == 1) {
+                    [self.momentList removeAllObjects];
+                }
                 self.pageNumber ++;
                 [self.tableView.mj_footer endRefreshing];
                 [self.momentList addObjectsFromArray:[MomentUtil getMomentListDic:data]];
                 [self.tableView reloadData];
-            } else {
-                [self.tableView.mj_footer endRefreshing];
             }
         }
+        [self.tableView.mj_footer endRefreshing];
         
     } failure:^(NSError *error) {
-        NSLog(@"%@", error);
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -175,16 +180,13 @@
 //    self.loginUser.account = @"wx123456";
 //    self.loginUser.portrait = @"";
 //    self.loginUser.region = @"山东 青岛";
-    self.loginUser = [MUser findFirstByCriteria:@"WHERE type = 1"];
-    if (self.loginUser == nil) {
-        self.loginUser = [[MUser alloc] init];
-        self.loginUser.account = [ProfileUtil getUserAccountID];
-        self.loginUser.name = [DEFAULTS objectForKey:RCDUserNickNameKey];
-        self.loginUser.pk = 5;
-        self.loginUser.type = 1;
-        self.loginUser.portrait = [DEFAULTS objectForKey:RCDUserPortraitUriKey];
-        
-    }
+//    self.loginUser = [MUser findFirstByCriteria:@"WHERE type = 1"];
+    self.loginUser = [[MUser alloc] init];
+    self.loginUser.account = [ProfileUtil getUserAccountID];
+    self.loginUser.name = [DEFAULTS objectForKey:RCDUserNickNameKey];
+    self.loginUser.pk = 5;
+    self.loginUser.type = 1;
+    self.loginUser.portrait = [DEFAULTS objectForKey:RCDUserPortraitUriKey];
     
     [self.momentList removeAllObjects];
     [self.momentList addObjectsFromArray:[MomentUtil getMomentListDic:dic]];
@@ -199,7 +201,9 @@
     MMImageView * imageView = [[MMImageView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, 250)];
 //    imageView.image = [UIImage imageNamed:@"moment_cover"];
     [imageView sd_setImageWithURL:[NSURL URLWithString:[DEFAULTS objectForKey:MomentBackImg]] placeholderImage:[UIImage imageNamed:@"moment_cover"]];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.coverImageView = imageView;
+    self.momentBackImg = [DEFAULTS objectForKey:MomentBackImg];
     
     UITapGestureRecognizer * singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCoverImage)];
     [self.coverImageView addGestureRecognizer:singleTap];
@@ -294,6 +298,9 @@
         // do something
         SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
         UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
+        nextVC.sendCallBack = ^(BOOL send) {
+            [self getData];
+        };
         nextVC.type = text;
         nextVC.title = @"发布动态";
         cityListNav.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -325,7 +332,7 @@
     }];
     
     // 文件显示的图片
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+//    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
      // 获取文件类型:
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
@@ -335,9 +342,12 @@
         // 获取视频对应的URL
         NSURL *url = info[UIImagePickerControllerMediaURL];
         // 上传视频时用到data
-        NSData *data = [NSData dataWithContentsOfURL:url];
+//        NSData *data = [NSData dataWithContentsOfURL:url];
         
         SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+        nextVC.sendCallBack = ^(BOOL send) {
+            [self getData];
+        };
         UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
         nextVC.title = @"发布动态";
         nextVC.type = video;
@@ -349,7 +359,10 @@
     if (self.picOrBack) {
         __weak MomentViewController *weakSelf = self;
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        image = [image fixOrientation];
         QiniuQuery *query = [[QiniuQuery alloc] init];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"加载中";
         [query uploadWithImage:UIImagePNGRepresentation(image) success:^(NSString *urlStr, NSString *key) {
             
             NSDictionary *params = @{@"momentCover":urlStr,@"userInfoId":[ProfileUtil getUserProfile].userInfoID};
@@ -358,21 +371,30 @@
                     [DEFAULTS setObject:urlStr forKey:MomentBackImg];
                     [DEFAULTS synchronize];
                     [weakSelf updateCoverImage:urlStr];
+                    [hud hideAnimated:YES];
                 }
                 else {
-                    
+                    [hud hideAnimated:YES];
                 }
             } failure:^(NSError *error) {
-                
+                [hud hideAnimated:YES];
             }];
             
             
-        } faild:^(NSError *error) {}];
+        } faild:^(NSError *error) {
+            [hud hideAnimated:YES];
+        }];
     }
 }
 
 - (void)updateCoverImage:(NSString*)imageStr{
-    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"moment_cover"]];
+    
+    UIImageView *tempImgView = [[UIImageView alloc] init];
+    [tempImgView sd_setImageWithURL:[NSURL URLWithString:self.momentBackImg]];
+    
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:tempImgView.image];
+    
+    self.momentBackImg = imageStr;
 }
 
 
@@ -771,6 +793,9 @@
                             [weakCameraController dismissViewControllerAnimated:YES completion:nil];
                             
                             SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                            nextVC.sendCallBack = ^(BOOL send) {
+                                [self getData];
+                            };
                             UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
                             nextVC.type = pic;
                             nextVC.imageArray = @[image];
@@ -787,6 +812,9 @@
                             [weakCameraController dismissViewControllerAnimated:YES completion:nil];
                             
                             SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                            nextVC.sendCallBack = ^(BOOL send) {
+                                [self getData];
+                            };
                             UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
                             nextVC.type = video;
                             nextVC.videoPath = videoUrl;
@@ -808,6 +836,9 @@
                         //可选  可以通过代理的回调去获取数据
                         [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
                             SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                            nextVC.sendCallBack = ^(BOOL send) {
+                                [self getData];
+                            };
                             UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
                             nextVC.type = pic;
                             nextVC.imageArray = photos;
@@ -841,6 +872,9 @@
                     //可选  可以通过代理的回调去获取数据
                     [imageVc loadTheSelectedData:^(NSArray<UIImage *> *photos, NSArray<NSURL *> *avPlayers, NSArray<PHAsset *> *assets, NSArray<NSDictionary *> *infos, IJSPExportSourceType sourceType, NSError *error) {
                         SendMomentsViewController *nextVC = [[SendMomentsViewController alloc] init];
+                        nextVC.sendCallBack = ^(BOOL send) {
+                            [self getData];
+                        };
                         UINavigationController* cityListNav = [[UINavigationController alloc]initWithRootViewController:nextVC];
                         nextVC.imageArray = photos;
                         nextVC.type = pic;

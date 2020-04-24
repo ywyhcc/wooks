@@ -14,6 +14,7 @@
 #import "RCDQRCodeManager.h"
 #import "RCDForwardSelectedViewController.h"
 #import "RCDForwardManager.h"
+#import "UIImage+RCImage.h"
 
 #pragma mark - ------------------ 小图List显示视图 ------------------
 
@@ -95,15 +96,34 @@
         CGFloat imageY = rowNum * (kImageWidth + kImagePadding);
         CGRect frame = CGRectMake(imageX, imageY, kImageWidth, kImageWidth);
         
+        MPicture * picture = [_moment.pictureList objectAtIndex:i];
         // 单张图片需计算实际显示size
         if (count == 1) {
             CGSize singleSize = [Utility getMomentImageSize:CGSizeMake(moment.singleWidth, moment.singleHeight)];
             frame = CGRectMake(0, 0, singleSize.width, singleSize.height);
+            
+//            if ([picture.isHorPic isEqualToString:@"1"]) {
+//                frame = CGRectMake(0, 0, SCREEN_WIDTH / 3, 200);
+//            }
+            
+//            if (picture.thumbnail.length > 0) {
+//                CGSize newSize = [UIImage GetImageSizeWithURL:picture.thumbnail];
+//                if (newSize.height > newSize.width) {
+//                    frame = CGRectMake(0, 0, SCREEN_WIDTH / 3, 200);
+//                }
+//            }
+//            else if (picture.thumbnailAvert.length > 0){
+//                CGSize newSize = [UIImage GetImageSizeWithURL:picture.thumbnailAvert];
+//                if (newSize.height > newSize.width) {
+//                    frame = CGRectMake(0, 0, SCREEN_WIDTH / 3, 200);
+//                }
+//            }
+            
         }
         imageView = [self viewWithTag:1000 + i];
         imageView.hidden = NO;
         imageView.frame = frame;
-        MPicture * picture = [_moment.pictureList objectAtIndex:i];
+        
        if (picture.thumbnailVideo.length) {
            [imageView setCenterImageHidden:NO];
        }

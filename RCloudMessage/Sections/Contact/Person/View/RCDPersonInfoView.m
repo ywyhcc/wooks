@@ -88,7 +88,7 @@
 - (void)setGroupNickname:(NSString *)groupNickname {
     if (groupNickname.length > 0) {
         self.groupNicknameLabel.hidden = NO;
-        self.groupNicknameLabel.text =
+//        self.groupNicknameLabel.text =
             [NSString stringWithFormat:@"%@：%@", RCDLocalizedString(@"GroupNickname"), groupNickname];
         [self updateInfoViewLayout];
     }
@@ -303,14 +303,14 @@
         make.left.equalTo(self.portraitImgView.mas_right).offset(10);
         make.height.offset(16);
     }];
-    
+
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.remarksLabel.mas_bottom).offset(3);
         make.left.equalTo(self.remarksLabel);
         make.right.equalTo(self.infoBgView);
         make.height.offset(16);
     }];
-
+    
     [self.stAccountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLabel.mas_bottom).offset(4);
         make.left.equalTo(self.remarksLabel);

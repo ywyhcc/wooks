@@ -223,10 +223,10 @@
 - (NSArray *)urls {
     if (!_urls) {
         _urls = @[
-            @"http://47.99.177.136:8081/Woostalk/index_wap.html",
-            @"http://47.99.177.136:8081/Woostalk/index_wap.html",
-            @"http://47.99.177.136:8081/Woostalk/index_wap.html",
-            @"http://47.99.177.136:8081/Woostalk/index_wap.html"
+            @"www.woostalk.com",
+            @"www.woostalk.com",
+            @"www.woostalk.com",
+            @"www.woostalk.com"
         ];
     }
     return _urls;

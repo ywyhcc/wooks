@@ -23,4 +23,6 @@
 + (UIImage *)getSubImage:(UIImage *)originImage Rect:(CGRect)rect imageOrientation:(UIImageOrientation)imageOrientation;
 
 + (UIImage *)scaleImage:(UIImage *)Image toScale:(float)scaleSize;
+
++(CGSize)GetImageSizeWithURL:(id)imageURL;
 @end

@@ -15,10 +15,10 @@
 // 图片路径
 @property (nonatomic, copy) NSString * thumbnail;
 
-// 图片路径
+// 视频路径
 @property (nonatomic, copy) NSString * thumbnailVideo;
 
-// 图片路径
+// 视频缩略图路径
 @property (nonatomic, copy) NSString * thumbnailAvert;
 
 @end

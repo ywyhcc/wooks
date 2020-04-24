@@ -16,6 +16,8 @@ typedef enum {
 
 @interface SendMomentsViewController : UIViewController
 
+@property (nonatomic, copy) void (^sendCallBack)(BOOL send);
+
 @property (nonatomic, strong) NSArray *imageArray;
 
 @property (nonatomic, assign) momentType type;

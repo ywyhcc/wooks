@@ -254,7 +254,8 @@
         [self.navigationController pushViewController:rechargeVC animated:YES];
     }
     else if (index == 2) {
-        if ([DEFAULTS objectForKey:InviteCode]) {
+        NSLog(@"----%@",[DEFAULTS objectForKey:InviteCode]);
+        if ([NSString stringWithFormat:@"%@",[DEFAULTS objectForKey:InviteCode]].length > 0 && [DEFAULTS objectForKey:InviteCode] != nil) {
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"已填写邀请码" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 // 取消
@@ -264,6 +265,9 @@
         else{
             ActiveInviteCodeViewController *qrCodeVC =
                 [[ActiveInviteCodeViewController alloc] init];
+            qrCodeVC.sendCallBack = ^{
+                [self.tableView reloadData];
+            };
             [self.navigationController pushViewController:qrCodeVC animated:YES];
         }
     }

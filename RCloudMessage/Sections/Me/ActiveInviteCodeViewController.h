@@ -11,5 +11,7 @@
 
 @interface ActiveInviteCodeViewController : RCDViewController
 
+@property (nonatomic, copy) void (^sendCallBack)();
+
 @end
 

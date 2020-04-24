@@ -166,6 +166,7 @@
 - (void)logout {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [DEFAULTS removeObjectForKey:RCDIMTokenKey];
+    [DEFAULTS removeObjectForKey:InviteCode];
     [DEFAULTS synchronize];
 
     [RCDLoginManager logout:^(BOOL success){

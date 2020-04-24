@@ -231,7 +231,11 @@
         }
         error:^(RCDLoginErrorCode errorCode){
 
-        }];
+    } errorMsg:^(NSString * _Nonnull msg) {
+        if (msg.length > 0) {
+//            [self showAlertWithTitle:msg];
+        }
+    }];
 }
 
 - (void)refreshIMTokenAndReconnect:(NSString *)userName password:(NSString *)password region:(NSString *)regionCode {
@@ -258,7 +262,9 @@
             if (errorCode == RCDLoginErrorCodeWrongPassword) {
                 [self gotoLoginViewAndDisplayReasonInfo:@"手机号或密码错误"];
             }
-        }];
+    } errorMsg:^(NSString * _Nonnull msg) {
+        
+    }];
 }
 
 /**

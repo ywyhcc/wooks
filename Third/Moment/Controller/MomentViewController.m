@@ -90,6 +90,9 @@
 
     
     [self updateHeadData];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.navigationController setNavigationBarHidden:YES animated:animated];
+//    });
 }
 
 - (void)getFriendList{
@@ -536,9 +539,9 @@
         }
         case MMOperateTypeLocation: // 位置
         {
-            MMLocationViewController * controller = [[MMLocationViewController alloc] init];
-            controller.location = cell.moment.location;
-            [self.navigationController pushViewController:controller animated:YES];
+//            MMLocationViewController * controller = [[MMLocationViewController alloc] init];
+//            controller.location = cell.moment.location;
+//            [self.navigationController pushViewController:controller animated:YES];
         }
         case MMOperateTypeLike: // 点赞
         {

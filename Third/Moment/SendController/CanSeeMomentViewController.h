@@ -10,7 +10,7 @@
 
 @interface CanSeeMomentViewController : RCDViewController
 
-@property (nonatomic, copy) void (^canSeeCallBack)(NSArray *membersID,BOOL isSomeCanSee,NSArray *labelsID);
+@property (nonatomic, copy) void (^canSeeCallBack)(NSArray *membersID,BOOL isSomeCanSee,NSArray *labelsID, NSString *whoCanSee);
 
 @end
 

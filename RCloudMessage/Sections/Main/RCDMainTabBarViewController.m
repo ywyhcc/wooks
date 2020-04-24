@@ -49,9 +49,22 @@
 
 - (void)setControllers {
     RCDChatListViewController *chatVC = [[RCDChatListViewController alloc] init];
+    NSDictionary *dictHome = [NSDictionary dictionaryWithObject:[FPStyleGuide weichatGreenColor] forKey:NSForegroundColorAttributeName];
+    NSDictionary *dicNormal = [NSDictionary dictionaryWithObject:[FPStyleGuide lightGrayTextColor] forKey:NSForegroundColorAttributeName];
+    [chatVC.tabBarItem setTitleTextAttributes:dicNormal forState:UIControlStateNormal];
+    [chatVC.tabBarItem setTitleTextAttributes:dictHome forState:UIControlStateSelected];
+    
     RCDContactViewController *contactVC = [[RCDContactViewController alloc] init];
+    [contactVC.tabBarItem setTitleTextAttributes:dicNormal forState:UIControlStateNormal];
+    [contactVC.tabBarItem setTitleTextAttributes:dictHome forState:UIControlStateSelected];
+    
     MomentViewController *discoveryVC = [[MomentViewController alloc] init];
+    [discoveryVC.tabBarItem setTitleTextAttributes:dicNormal forState:UIControlStateNormal];
+    [discoveryVC.tabBarItem setTitleTextAttributes:dictHome forState:UIControlStateSelected];
+    
     RCDMeTableViewController *meVC = [[RCDMeTableViewController alloc] init];
+    [meVC.tabBarItem setTitleTextAttributes:dicNormal forState:UIControlStateNormal];
+    [meVC.tabBarItem setTitleTextAttributes:dictHome forState:UIControlStateSelected];
     self.viewControllers = @[ chatVC, contactVC, discoveryVC, meVC ];
 }
 
@@ -104,7 +117,7 @@
 - (void)tabBarController:(UITabBarController *)tabBarController
  didSelectViewController:(UIViewController *)viewController {
     
-    self.tabBar.tintColor = [FPStyleGuide weichatGreenColor];
+    self.tabBar.tintColor = [FPStyleGuide lightGrayTextColor];
     
     NSUInteger index = tabBarController.selectedIndex;
     [RCDMainTabBarViewController sharedInstance].selectedTabBarIndex = index;

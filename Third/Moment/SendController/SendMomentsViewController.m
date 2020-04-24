@@ -30,6 +30,7 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) NSString *locationStr;
+@property (nonatomic, strong) NSString *membersStr;
 
 @property (nonatomic, assign) CGFloat lastTextViewHeight;
 
@@ -382,6 +383,9 @@
         }
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"谁可以看";
+        if (self.membersStr.length > 0) {
+            cell.textLabel.text = [NSString stringWithFormat:@"谁可以看:%@",self.membersStr];
+        }
     }
     return cell;
 }
@@ -398,7 +402,7 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     } else if (indexPath.row == 1) {
         CanSeeMomentViewController *nextVC = [[CanSeeMomentViewController alloc] init];
-        nextVC.canSeeCallBack = ^(NSArray *membersID, BOOL isSomeCanSee, NSArray *labelsID) {
+        nextVC.canSeeCallBack = ^(NSArray *membersID, BOOL isSomeCanSee, NSArray *labelsID, NSString *names) {
             if (membersID.count > 0) {
                 [weakSelf.params setObject:membersID forKey:@"momentCanLookUserAccountIds"];
             }
@@ -408,7 +412,10 @@
             if (labelsID.count > 0) {
                 [weakSelf.params setObject:membersID forKey:@"momentCanLookLabelIds"];
             }
-            
+            if (names.length > 0) {
+                weakSelf.membersStr = names;
+                [weakSelf.tableView reloadData];
+            }
         };
         [self.navigationController pushViewController:nextVC animated:YES];
     }

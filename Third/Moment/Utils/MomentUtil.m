@@ -197,6 +197,9 @@
         moment.user = user;
         // 位置
         MLocation * location = [MLocation findByPK:1];
+        if (location == nil) {
+            location = [[MLocation alloc] init];
+        }
         location.pk = i+1;
         location.position = tempList[i][@"location"];
         moment.location = location;
@@ -316,21 +319,21 @@
                 pic.thumbnailAvert = idList[i][@"fileThumbnailUrl"];
             }
             
-            if (pic.thumbnail.length > 0) {
-                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnail];
-                if (newSize.height > newSize.width) {
-                    pic.isHorPic = @"1";
-                }
-            }
-            else if (pic.thumbnailAvert.length > 0){
-                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnailAvert];
-                if (newSize.height > newSize.width) {
-                    pic.isHorPic = @"1";
-                }
-            }
-            else {
-                pic.isHorPic = @"0";
-            }
+//            if (pic.thumbnail.length > 0) {
+//                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnail];
+//                if (newSize.height > newSize.width) {
+//                    pic.isHorPic = @"1";
+//                }
+//            }
+//            else if (pic.thumbnailAvert.length > 0){
+//                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnailAvert];
+//                if (newSize.height > newSize.width) {
+//                    pic.isHorPic = @"1";
+//                }
+//            }
+//            else {
+//                pic.isHorPic = @"0";
+//            }
             
             if (pic) {
                 [list addObject:pic];
@@ -352,6 +355,9 @@
         moment.user = user;
         // 位置
         MLocation * location = [MLocation findByPK:1];
+        if (location == nil) {
+            location = [[MLocation alloc] init];
+        }
         location.pk = i+1;
         location.position = tempList[i][@"location"];
         moment.location = location;
@@ -498,6 +504,9 @@
     moment.user = user;
     // 位置
     MLocation * location = [MLocation findByPK:1];
+    if (location == nil) {
+        location = [[MLocation alloc] init];
+    }
     location.pk = 1;
     location.position = dic[@"momentDetail"][@"location"];
     moment.location = location;

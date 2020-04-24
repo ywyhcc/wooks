@@ -13,7 +13,7 @@ extern NSString *_Nullable const RCDChatNotificationSendScreenNtf;
 extern NSString *_Nullable const RCDChatNotificationOpenRegularClearNtf;
 extern NSString *_Nullable const RCDChatNotificationCloseRegularClearNtf;
 NS_ASSUME_NONNULL_BEGIN
-#define RCDChatNotificationMessageIdentifier @"ST:ConNtf"
+#define RCDChatNotificationMessageIdentifier @"ec:phoneinfo"
 @interface RCDChatNotificationMessage : RCMessageContent
 @property (nonatomic, copy) NSString *operation;
 

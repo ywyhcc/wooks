@@ -290,7 +290,8 @@
         [query uploadWithImage:self.imageData success:^(NSString *success, NSString *kye) {
             [self createGroupWithPortraitUri:success];
         } faild:^(NSError *error) {
-            NSLog(@"");
+            [hud hideAnimated:YES];
+            [self showAlert:@"创建失败"];
         }];
 //        [RCDUploadManager uploadImage:self.imageData
 //                             complete:^(NSString *url) {

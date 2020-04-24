@@ -123,8 +123,9 @@
     NSString *verCode = self.verificationCodeField.text;
     if (verCode.length == 0) {
         [self showAlertWithTitle:@"请输入验证码"];
+        return;
     }
-
+    
     [self login:userName password:userPwd];
 }
 
@@ -162,8 +163,14 @@
                         self.errorMsgLb.text = RCDLocalizedString(@"Login_fail_please_check_network");
                     }
                 });
-            }];
+        } errorMsg:^(NSString * _Nonnull msg) {
+            [self.hud hideAnimated:YES];
+            if (msg.length > 0) {
+                [self showAlertWithTitle:msg];
+            }
+        }];
     } else {
+        [self.hud hideAnimated:YES];
         self.errorMsgLb.text = RCDLocalizedString(@"please_check_mobile_number_and_password");
     }
 }

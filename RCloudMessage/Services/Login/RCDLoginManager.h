@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
               password:(NSString *)password
                 verCode:(NSString *)verCode
                success:(void (^)(NSString *token, NSString *userId))successBlock
-                 error:(void (^)(RCDLoginErrorCode errorCode))errorBlock;
+                 error:(void (^)(RCDLoginErrorCode errorCode))errorBlock
+                errorMsg:(void (^)(NSString *_Nonnull))errorMsgBlock;
 
 // 当前用户注销
 + (void)logout:(void (^)(BOOL success))completeBlock;

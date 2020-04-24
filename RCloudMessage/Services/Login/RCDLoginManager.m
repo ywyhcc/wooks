@@ -20,7 +20,8 @@ static NSString *const DBName = @"SealTalkDB";
               password:(NSString *)password
                 verCode:(NSString *)verCode
                success:(void (^)(NSString *_Nonnull, NSString *_Nonnull))successBlock
-                 error:(void (^)(RCDLoginErrorCode))errorBlock {
+                 error:(void (^)(RCDLoginErrorCode))errorBlock
+              errorMsg:(void (^)(NSString *_Nonnull))errorMsgBlock{
     [RCDLoginAPI loginWithPhone:phone
                        password:password
                          verCode:verCode
@@ -32,7 +33,7 @@ static NSString *const DBName = @"SealTalkDB";
                                 successBlock(token, userId);
                             }
                         }
-                          error:errorBlock];
+                          error:errorBlock errorMsg:errorMsgBlock];
 }
 
 + (void)logout:(void (^)(BOOL))completeBlock {

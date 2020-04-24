@@ -8,8 +8,15 @@
 
 #import "MMLocationViewController.h"
 #import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
 
 @interface MMLocationViewController ()<MAMapViewDelegate>
+
+@property (nonatomic, strong)AMapTip *modelTip;
+
+@property (nonatomic, strong)MAMapView * mapView;
 
 @end
 
@@ -37,6 +44,8 @@
     _mapView.showsUserLocation = NO;
     [_mapView setCenterCoordinate:coordinate];
     [self.view addSubview:_mapView];
+    self.mapView = _mapView;
+    
     // 添加标注
     MAPointAnnotation * annotation = [[MAPointAnnotation alloc] init];
     annotation.coordinate = coordinate;
@@ -67,6 +76,19 @@
                            value:[UIColor blackColor]
                            range:NSMakeRange(0,[_location.landmark length])];
     _locationLab.attributedText = attributedText;
+    
+    AMapInputTipsSearchRequest *tips = [[AMapInputTipsSearchRequest alloc] init];
+    tips.keywords = self.location.position;
+    tips.cityLimit = YES;
+}
+
+- (void)onInputTipsSearchDone:(AMapInputTipsSearchRequest *)request response:(AMapInputTipsSearchResponse *)response{
+    if (response.tips.count > 0) {
+        AMapTip *tipModel = response.tips[0];
+        CLLocationCoordinate2D locationCoordinate = CLLocationCoordinate2DMake(tipModel.location.latitude, tipModel.location.longitude);
+        [self.mapView setCenterCoordinate:locationCoordinate animated:YES];
+    }
+    
 }
 
 #pragma mark - MAMapViewDelegate

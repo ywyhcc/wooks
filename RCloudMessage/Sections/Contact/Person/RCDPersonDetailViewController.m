@@ -599,7 +599,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                 }
                 else if (indexPath.row == 2) {
                     cell.titleLabel.text = @"设置备注和描述";//RCDLocalizedString(@"Describe");
-                    cell.detailLabel.text = self.friendDescription.friendDescribe;
+//                    cell.detailLabel.text = self.friendDescription.friendDescribe;
                 }
                 else if (indexPath.row == 3) {
                     cell.titleLabel.text = @"蜜友圈";

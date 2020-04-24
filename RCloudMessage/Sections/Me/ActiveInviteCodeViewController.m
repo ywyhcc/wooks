@@ -44,8 +44,8 @@
 }
 
 - (void)updateCurrentUserInfo:(NSString *)name {
-//    [DEFAULTS setObject:name forKey:RCDUserNickNameKey];
-//    [DEFAULTS synchronize];
+    [DEFAULTS setObject:name forKey:InviteCode];
+    [DEFAULTS synchronize];
 }
 
 - (void)saveUserName:(id)sender {
@@ -56,8 +56,16 @@
         
         NSDictionary *params = @{@"userAccountId":[ProfileUtil getUserAccountID],@"inviterId":name};
         [SYNetworkingManager requestPUTWithURLStr:ActiveInviteCode paramDic:params success:^(NSDictionary *data) {
+            [self.hud hideAnimated:YES];
             if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                [weakSelf updateCurrentUserInfo:name];
+                if (self.sendCallBack) {
+                    self.sendCallBack();
+                }
                 [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+            else{
+                [self showAlertViewWithMessage:[data stringValueForKey:@"message"]];
             }
         } failure:^(NSError *error) {
             [weakSelf.hud hide:YES];
@@ -107,12 +115,11 @@
 - (void)textFieldDidChange:(UITextField *)textField {
     NSString *toBeString = textField.text;
     if (![toBeString isEqualToString:self.originNickName]) {
-        [self.rightBtn buttonIsCanClick:YES buttonColor:RCDDYCOLOR(0xffffff, 0xA8A8A8) barButtonItem:self.rightBtn];
+        [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
     } else {
         [self.rightBtn
             buttonIsCanClick:NO
-                 buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
-                                                      darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
+                 buttonColor:[FPStyleGuide lightGrayTextColor]
                barButtonItem:self.rightBtn];
     }
 }
@@ -141,14 +148,12 @@
 
     self.rightBtn = [[RCDUIBarButtonItem alloc]
         initWithbuttonTitle:@"激活"
-                 titleColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
-                                                     darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
+                 titleColor:[UIColor blackColor]
                 buttonFrame:CGRectMake(0, 0, 50, 30)
                      target:self
                      action:@selector(saveUserName:)];
     [self.rightBtn buttonIsCanClick:NO
-                        buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
-                                                             darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
+                        buttonColor:[FPStyleGuide lightGrayTextColor]
                       barButtonItem:self.rightBtn];
     self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];
 }
@@ -208,6 +213,15 @@
         _hud = hud;
     }
     return _hud;
+}
+
+- (void)showAlertViewWithMessage:(NSString *)message {
+    UIAlertController *alertController =
+        [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:RCDLocalizedString(@"confirm")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

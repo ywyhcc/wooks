@@ -36,18 +36,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-
-    NSLog(@"%@",infoDictionary);
-
-    // app名称
-
-    NSString *app_Name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
-
-    // app版本
-
-    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    NSLog(@"------%@------%@",app_Name,app_Version);
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//
+//    NSLog(@"%@",infoDictionary);
+//
+//    // app名称
+//
+//    NSString *app_Name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+//
+//    // app版本
+//
+//    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//    NSLog(@"------%@------%@",app_Name,app_Version);
     [self initUI];
 }
 
@@ -98,8 +98,13 @@
         }
         [versionCell setCellStyle:DefaultStyle_RightLabel_WithoutRightArrow];
         versionCell.leftLabel.text = RCDLocalizedString(@"SealTalk_version");
-//        NSString *SealTalkVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"SealTalk Version"];
-        versionCell.rightLabel.text = @"1.0";
+        
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+
+        NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        
+        
+        versionCell.rightLabel.text = app_Version;
         BOOL isNeedUpdate = [[DEFAULTS objectForKey:RCDNeedUpdateKey] boolValue];
         if (isNeedUpdate) {
             [versionCell addNewImageView];

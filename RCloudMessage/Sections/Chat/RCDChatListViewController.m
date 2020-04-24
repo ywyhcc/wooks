@@ -86,8 +86,12 @@
     self.isClick = YES;
     [self setTabbarSelectColor];
     [self setNaviItem];
+    [self.searchBar resignFirstResponder];
     RCUserInfo *groupNotify = [[RCUserInfo alloc] initWithUserId:@"__system__" name:@"" portrait:nil];
     [[RCIM sharedRCIM] refreshUserInfoCache:groupNotify withUserId:@"__system__"];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.navigationController setNavigationBarHidden:NO animated:animated];
+//    });
 }
 
 - (void)dealloc {

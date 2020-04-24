@@ -217,6 +217,7 @@
 		7F4CEE682441B6FC008C24DA /* POITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4CEE642441B6FC008C24DA /* POITableViewCell.m */; };
 		7F4CEE692441B6FC008C24DA /* POITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4CEE652441B6FC008C24DA /* POITableViewCell.xib */; };
 		7F4CEE7F2441BDF1008C24DA /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4CEE7E2441BDF1008C24DA /* AMapLocationKit.framework */; };
+		7F5C556E245302EE00731286 /* MomentNewsMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C556D245302EE00731286 /* MomentNewsMsg.m */; };
 		7F5ED404243998D8007958F5 /* AddContactFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED403243998D8007958F5 /* AddContactFriendsTableViewController.m */; };
 		7F5ED40724399992007958F5 /* AddContactFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED40624399992007958F5 /* AddContactFriendsTableViewCell.m */; };
 		7F5ED40A2439A277007958F5 /* BaseUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED4092439A277007958F5 /* BaseUserInfoModel.m */; };
@@ -894,6 +895,8 @@
 		7F4CEE652441B6FC008C24DA /* POITableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = POITableViewCell.xib; sourceTree = "<group>"; };
 		7F4CEE662441B6FC008C24DA /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
 		7F4CEE7E2441BDF1008C24DA /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
+		7F5C556C245302EE00731286 /* MomentNewsMsg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MomentNewsMsg.h; sourceTree = "<group>"; };
+		7F5C556D245302EE00731286 /* MomentNewsMsg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MomentNewsMsg.m; sourceTree = "<group>"; };
 		7F5ED402243998D8007958F5 /* AddContactFriendsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactFriendsTableViewController.h; sourceTree = "<group>"; };
 		7F5ED403243998D8007958F5 /* AddContactFriendsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactFriendsTableViewController.m; sourceTree = "<group>"; };
 		7F5ED40524399992007958F5 /* AddContactFriendsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactFriendsTableViewCell.h; sourceTree = "<group>"; };
@@ -2140,6 +2143,8 @@
 				7F30D7BD2425F84C0018A519 /* WKWebViewController.h */,
 				7F30D7BB2425F84C0018A519 /* MomentViewController.h */,
 				7F30D7BE2425F84C0018A519 /* MomentViewController.m */,
+				7F5C556C245302EE00731286 /* MomentNewsMsg.h */,
+				7F5C556D245302EE00731286 /* MomentNewsMsg.m */,
 				7F60A92E244C363500F63BC5 /* DetailMomentViewController.h */,
 				7F60A92F244C363500F63BC5 /* DetailMomentViewController.m */,
 				7F60A934244C67DF00F63BC5 /* SingleMomentViewController.h */,
@@ -3809,6 +3814,7 @@
 				27AD3032229E721F003C2680 /* RCDCountryListController.m in Sources */,
 				7F66CA6F24471CED00B6AB1E /* IJSAssetModel.m in Sources */,
 				A2907096229E7F61006BDAC7 /* RCDCreateGroupViewController.m in Sources */,
+				7F5C556E245302EE00731286 /* MomentNewsMsg.m in Sources */,
 				7F30D73724239AFE0018A519 /* UIViewAdditions.m in Sources */,
 				7FF936E0242A6A2400694A1E /* TypeHeaderSelectView.m in Sources */,
 				7F30D8172425F84D0018A519 /* ContactsViewController.m in Sources */,

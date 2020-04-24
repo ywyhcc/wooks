@@ -16,7 +16,8 @@
               password:(NSString *)password
                 verCode:(NSString *)verCode
                success:(void (^)(NSString *_Nonnull, NSString *_Nonnull))successBlock
-                 error:(void (^)(RCDLoginErrorCode))errorBlock {
+                 error:(void (^)(RCDLoginErrorCode))errorBlock
+                errorMsg:(void (^)(NSString *_Nonnull))errorMsgBlock{
     
     NSDictionary *dic = @{@"username":phone,@"password": password};
     if (verCode.length > 0) {
@@ -27,7 +28,7 @@
     }
     [SYNetworkingManager postWithURLString:LogIn parameters:dic success:^(NSDictionary *data) {
         NSString *errcode = [dic stringValueForKey:@"errorCode"];
-        if ([errcode length] == 0) {
+        if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
             NSLog(@"%@",[data stringValueForKey:@"message"]);
 
             [ProfileUtil saveUserInfo:data];
@@ -51,8 +52,8 @@
                 successBlock(rongCloudToken, userID);
             }
         } else {
-            if (errorBlock) {
-                errorBlock(RCDLoginErrorCodeUnknown);
+            if (errorMsgBlock) {
+                errorMsgBlock([data stringValueForKey:@"message"]);
             }
         }
 

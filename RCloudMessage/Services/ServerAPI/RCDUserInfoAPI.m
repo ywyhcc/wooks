@@ -19,6 +19,9 @@
         }
         return;
     }
+    if ([ProfileUtil getUserAccountID] == nil) {
+        return;
+    }
     
     NSDictionary *params = @{@"fromUserAccountId":[ProfileUtil getUserAccountID],@"toUserAccountId":otherId};
     

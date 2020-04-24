@@ -22,6 +22,7 @@
 #import "RCDDBManager.h"
 #import "RCDChatManager.h"
 #import "UIView+MBProgressHUD.h"
+#import "RCDChatManager.h"
 
 static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
 

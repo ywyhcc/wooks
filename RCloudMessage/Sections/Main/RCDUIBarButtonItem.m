@@ -21,11 +21,11 @@
 //        titleFrame = CGRectZero;
 //    }
     return [self initContainImage:[UIImage imageNamed:@"back_nav"]
-                   imageViewFrame:CGRectMake(0, 4, 10, 17)
+                   imageViewFrame:CGRectMake(0, 10, 10, 17)
                       buttonTitle:title
                        titleColor:[UIColor blackColor]
                        titleFrame:titleFrame
-                      buttonFrame:CGRectMake(-10, 0, 87, 23)
+                      buttonFrame:CGRectMake(-10, 0, 87, 40)
                            target:target
                            action:method];
 }
@@ -44,8 +44,13 @@
     self.button = [UIButton buttonWithType:UIButtonTypeCustom];
     self.button.frame = buttonFrame;
     UIImageView *image = [[UIImageView alloc] initWithImage:buttonImage];
+    image.userInteractionEnabled = YES;
     image.frame = imageFrame;
     [self.button addSubview:image];
+    
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:target action:method];
+    [image addGestureRecognizer:tap1];
+    
     if (buttonTitle != nil && titleColor != nil) {
         self.titleText = [[UILabel alloc] initWithFrame:titleFrame];
         self.titleText.text = buttonTitle;

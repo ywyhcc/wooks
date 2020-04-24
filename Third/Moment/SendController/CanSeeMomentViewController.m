@@ -82,14 +82,34 @@
     if (self.canSeeCallBack) {
         NSMutableArray *personIDs = [NSMutableArray arrayWithCapacity:0];
         NSMutableArray *labelIDs = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *labelNames = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *personNames = [NSMutableArray arrayWithCapacity:0];
         for (RCDFriendInfo *friend in self.personSelectArray) {
             [personIDs addObject:friend.userId];
+            [personNames addObject:friend.name];
         }
         for (LabelModel *model in self.labelSelectArray) {
             [labelIDs addObject:model.labelid];
+            [labelNames addObject:model.labelName];
         }
-        
-        self.canSeeCallBack(personIDs, self.isSomeCanSee, labelIDs);
+        NSString *namesStr = nil;
+        for (NSString *name in labelNames) {
+            if (namesStr.length > 0) {
+                namesStr = [NSString stringWithFormat:@"%@,%@",namesStr,name];
+            }
+            else {
+                namesStr = [NSString stringWithFormat:@"%@",name];
+            }
+        }
+        for (NSString *name in personNames) {
+            if (namesStr.length > 0) {
+                namesStr = [NSString stringWithFormat:@"%@,%@",namesStr,name];
+            }
+            else {
+                namesStr = [NSString stringWithFormat:@"%@",name];
+            }
+        }
+        self.canSeeCallBack(personIDs, self.isSomeCanSee, labelIDs,namesStr);
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

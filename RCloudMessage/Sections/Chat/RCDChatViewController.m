@@ -1099,11 +1099,74 @@
             targetId:self.targetId
             complete:^(BOOL screenCaptureNotification) {
                 if (screenCaptureNotification) {
-                    [RCDChatManager sendScreenCaptureNotification:self.conversationType
-                                                         targetId:self.targetId
-                                                         complete:^(BOOL success){
-
-                                                         }];
+                
+                    if (self.conversationType == ConversationType_GROUP) {
+                        RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:[NSString stringWithFormat:@"%@在聊天中截屏了",[DEFAULTS objectForKey:RCDUserNickNameKey]]];
+                                            
+                        [message encode];
+                        
+                        [[RCIMClient sharedRCIMClient]
+                                    sendMessage:self.conversationType
+                                    targetId:self.targetId
+                                    content:message
+                                    pushContent:@""
+                                    pushData:@""
+                                    success:^(long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"aaaaa");
+                            });
+                                    }
+                                    error:^(RCErrorCode nErrorCode, long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"bbbbb");
+                            });
+                        }];
+                    }
+                    else{
+                        RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:[NSString stringWithFormat:@"%@在聊天中截屏了",[DEFAULTS objectForKey:RCDUserNickNameKey]]];
+                                            
+                        [message encode];
+                        
+                        [[RCIMClient sharedRCIMClient]
+                                    sendMessage:self.conversationType
+                                    targetId:self.targetId
+                                    content:message
+                                    pushContent:@""
+                                    pushData:@""
+                                    success:^(long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"aaaaa");
+                            });
+                                    }
+                                    error:^(RCErrorCode nErrorCode, long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"bbbbb");
+                            });
+                        }];
+                        
+//                        RCTextMessage *txtMsg = [RCTextMessage messageWithContent:[NSString stringWithFormat:@"%@在聊天中截屏了",[DEFAULTS objectForKey:RCDUserNickNameKey]]];
+//                        [[RCIM sharedRCIM] sendMessage:ConversationType_PRIVATE
+//                        targetId:self.targetId
+//                        content:txtMsg
+//                        pushContent:nil
+//                        pushData:nil
+//                        success:^(long messageId) {
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//
+//                            });
+//                        }
+//                        error:^(RCErrorCode nErrorCode, long messageId){
+//
+//                        }];
+                    }
+                    
+                
+                    
+//                    [RCDChatManager sendScreenCaptureNotification:self.conversationType
+//                                                         targetId:self.targetId
+//                                                         complete:^(BOOL success){
+//
+//                                                         }];
                 }
             }
             error:^{

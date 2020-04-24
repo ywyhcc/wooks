@@ -36,6 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getGroupMessageClearStatus:(NSString *)groupId complete:(void (^)(RCDGroupMessageClearStatus status))complete;
 
 + (BOOL)isHoldChatNotificationMessage:(RCMessage *)message;
+
+
++ (void)saveScreenCaptureNotification:(BOOL)screenCaptureNotification
+conversationType:(RCConversationType)type
+                             targetId:(NSString *)targetId;
 @end
 
 NS_ASSUME_NONNULL_END

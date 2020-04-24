@@ -25,18 +25,42 @@
         complete(NO);
         return;
     }
-    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
-                                URLString:@"misc/set_screen_capture"
-                               parameters:@{
-                                   @"conversationType" : @(conversationType),
-                                   @"targetId" : targetId,
-                                   @"noticeStatus" : @(open ? 1 : 0)
-                               }
-                                 response:^(RCDHTTPResult *result) {
-                                     if (complete) {
-                                         complete(result.success);
-                                     }
-                                 }];
+    if (conversationType == ConversationType_PRIVATE) {
+        NSDictionary *params = @{@"fromUserAccountId":[ProfileUtil getUserAccountID],@"toUserAccountId":targetId,@"isOpenScreenshotsNotice":@(open ? 1 : 0)};
+        [SYNetworkingManager requestPUTWithURLStr:ResetDisturb paramDic:params success:^(NSDictionary *data) {
+            if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                if (complete) {
+                    complete(YES);
+                }
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"失败");
+        }];
+    }
+    if (conversationType == ConversationType_GROUP) {
+        NSDictionary *params = @{@"optUserAccountId":[ProfileUtil getUserAccountID],@"groupId":targetId,@"isOpenScreenshotsNotice":@(open ? 1 : 0)};
+        [SYNetworkingManager requestPUTWithURLStr:ChangeGroupInfo paramDic:params success:^(NSDictionary *data) {
+            if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                if (complete) {
+                    complete(YES);
+                }
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"失败");
+        }];
+    }
+//    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
+//                                URLString:@"misc/set_screen_capture"
+//                               parameters:@{
+//                                   @"conversationType" : @(conversationType),
+//                                   @"targetId" : targetId,
+//                                   @"noticeStatus" : @(open ? 1 : 0)
+//                               }
+//                                 response:^(RCDHTTPResult *result) {
+//                                     if (complete) {
+//                                         complete(result.success);
+//                                     }
+//                                 }];
 }
 
 + (void)getChatConfigWithConversationType:(RCConversationType)type
@@ -50,23 +74,64 @@
         }
         return;
     }
-    NSDictionary *params = @{ @"conversationType" : @(type), @"targetId" : targetId };
-    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
-                                URLString:@"misc/get_screen_capture"
-                               parameters:params
-                                 response:^(RCDHTTPResult *result) {
-                                     if (result.success) {
-                                         NSDictionary *dic = result.content;
-                                         BOOL open = [dic[@"status"] boolValue];
-                                         if (success) {
-                                             success(open);
-                                         }
-                                     } else {
-                                         if (error) {
-                                             error();
-                                         }
-                                     }
-                                 }];
+    
+    if (type == ConversationType_PRIVATE) {
+        NSDictionary *params = @{@"fromUserAccountId":[ProfileUtil getUserAccountID],@"toUserAccountId":targetId};
+            
+        [SYNetworkingManager postWithURLString:GetInfo parameters:params success:^(NSDictionary *data) {
+            if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                
+                BOOL open = [data boolValueForKey:@"isOpenScreenshotsNotice"];
+                if (success) {
+                    success(open);
+                }
+            }
+            else{
+                if (error) {
+                    error();
+                }
+            }
+        } failure:^(NSError *error) {
+            if (error) {
+            }
+        }];
+    }
+    else if (type == ConversationType_GROUP){
+        NSDictionary *params = @{@"groupId":targetId};
+        [SYNetworkingManager getWithURLString:GetGroupInfo parameters:params success:^(NSDictionary *data) {
+            if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                NSDictionary *groupInfo = [[data dictionaryValueForKey:@"groupInfo"] dictionaryValueForKey:@"group"];
+                BOOL open = [groupInfo boolValueForKey:@"isOpenScreenshotsNotice"];
+                if (success) {
+                    success(open);
+                }
+                
+            }
+            else{
+                if (error) {
+                    error();
+                }
+            }
+        } failure:^(NSError *error) {
+        }];
+    }
+//    NSDictionary *params = @{ @"conversationType" : @(type), @"targetId" : targetId };
+//    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
+//                                URLString:@"misc/get_screen_capture"
+//                               parameters:params
+//                                 response:^(RCDHTTPResult *result) {
+//                                     if (result.success) {
+//                                         NSDictionary *dic = result.content;
+//                                         BOOL open = [dic[@"status"] boolValue];
+//                                         if (success) {
+//                                             success(open);
+//                                         }
+//                                     } else {
+//                                         if (error) {
+//                                             error();
+//                                         }
+//                                     }
+//                                 }];
 }
 
 + (void)sendScreenCaptureNotification:(RCConversationType)conversationType
@@ -79,17 +144,20 @@
         }
         return;
     }
-    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
-                                URLString:@"misc/send_sc_msg"
-                               parameters:@{
-                                   @"conversationType" : @(conversationType),
-                                   @"targetId" : targetId
-                               }
-                                 response:^(RCDHTTPResult *result) {
-                                     if (complete) {
-                                         complete(result.success);
-                                     }
-                                 }];
+    if (complete) {
+        complete(YES);
+    }
+//    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
+//                                URLString:@"misc/send_sc_msg"
+//                               parameters:@{
+//                                   @"conversationType" : @(conversationType),
+//                                   @"targetId" : targetId
+//                               }
+//                                 response:^(RCDHTTPResult *result) {
+//                                     if (complete) {
+//                                         complete(result.success);
+//                                     }
+//                                 }];
 }
 
 + (void)setGroupMessageClearStatus:(RCDGroupMessageClearStatus)status

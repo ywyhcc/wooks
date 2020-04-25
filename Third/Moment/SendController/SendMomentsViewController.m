@@ -379,12 +379,13 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = @"所在位置";
         if (self.locationStr.length > 0) {
-            cell.textLabel.text = [NSString stringWithFormat:@"所在位置:%@",self.locationStr];
+            cell.textLabel.text = [NSString stringWithFormat:@"所在位置：%@",self.locationStr];
+            
         }
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"谁可以看";
         if (self.membersStr.length > 0) {
-            cell.textLabel.text = [NSString stringWithFormat:@"谁可以看:%@",self.membersStr];
+            cell.textLabel.text = [NSString stringWithFormat:@"谁可以看：%@",self.membersStr];
         }
     }
     return cell;

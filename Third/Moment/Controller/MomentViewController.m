@@ -35,6 +35,9 @@
 #import "RCDForwardSelectedViewController.h"
 #import "MMImagePreviewView.h"
 #import "UIImage+Additions.h"
+#import "MomentListViewController.h"
+#import <Foundation/Foundation.h>
+#import "MomentNewsMsg.h"
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -61,6 +64,8 @@
 @property (nonatomic, strong) NSArray<RCDFriendInfo *> *friendList;
 
 @property (nonatomic, strong) MMScrollView *currentScrollImageView;
+
+@property (nonatomic, strong) UIButton *messagBtn;
 
 @property (nonatomic, strong) NSString *momentBackImg;
 
@@ -120,6 +125,23 @@
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:portraitUrl] placeholderImage:[UIImage imageNamed:@"moment_head"]];
     
     self.commentLabel.text = [DEFAULTS objectForKey:UserSingleSign];
+    
+    [self updateHeadHeight];
+}
+
+- (void)updateHeadHeight{
+    if ([MomentNewsMsg shareInstance].shouldShowMessage) {
+        self.messagBtn.hidden = NO;
+        self.tableHeaderView.height = 330;
+        self.tableView.tableHeaderView = self.tableHeaderView;
+        [self.tableView reloadData];
+    }
+    else{
+        self.messagBtn.hidden = YES;
+        self.tableHeaderView.height = 290;
+        self.tableView.tableHeaderView = self.tableHeaderView;
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - 模拟数据
@@ -162,6 +184,7 @@
         [self.tableView.mj_footer endRefreshing];
         
     } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
         [self.tableView.mj_footer endRefreshing];
     }];
 }
@@ -238,12 +261,24 @@
     longPress.minimumPressDuration = 0.5; //定义按的时间
     [btn addGestureRecognizer:longPress];
     
+    UIButton *msgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    msgBtn.frame = CGRectMake((SCREEN_WIDTH - 150) / 2, self.commentLabel.bottom, 140, 30);
+    msgBtn.backgroundColor = [FPStyleGuide weichatGreenColor];
+    [msgBtn setTitle:@"您有新的消息" forState:UIControlStateNormal];
+    msgBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    msgBtn.hidden = YES;
+    msgBtn.layer.cornerRadius = 5;
+    msgBtn.clipsToBounds = YES;
+    [msgBtn addTarget:self action:@selector(msgBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.messagBtn = msgBtn;
+    
     // 表头
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, 290)];
     view.userInteractionEnabled = YES;
     [view addSubview:self.coverImageView];
     [view addSubview:self.avatarImageView];
     [view addSubview:self.commentLabel];
+    [view addSubview:self.messagBtn];
     [view addSubview:btn];
     self.tableHeaderView = view;
     // 表格
@@ -286,6 +321,12 @@
     [header setTitle:@"加载中" forState:MJRefreshStateRefreshing];
     header.stateLabel.font = [UIFont systemFontOfSize:14];
     self.tableView.mj_header = header;
+}
+
+- (void)msgBtnClicked{
+    MomentListViewController *listVC = [[MomentListViewController alloc] init];
+    [self.navigationController pushViewController:listVC animated:YES];
+    [MomentNewsMsg shareInstance].shouldShowMessage = NO;
 }
 
 - (void)headGestureTap{

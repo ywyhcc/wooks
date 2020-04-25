@@ -32,6 +32,7 @@
 #import "TypeHeaderSelectView.h"
 #import "SingleMomentViewController.h"
 #import "NewFriendsInviteViewController.h"
+#import "MomentNewsMsg.h"
 
 @interface RCDChatListViewController () <UISearchBarDelegate, RCDSearchViewDelegate>
 @property (nonatomic, strong) UINavigationController *searchNavigationController;
@@ -89,9 +90,6 @@
     [self.searchBar resignFirstResponder];
     RCUserInfo *groupNotify = [[RCUserInfo alloc] initWithUserId:@"__system__" name:@"" portrait:nil];
     [[RCIM sharedRCIM] refreshUserInfoCache:groupNotify withUserId:@"__system__"];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.navigationController setNavigationBarHidden:NO animated:animated];
-//    });
 }
 
 - (void)dealloc {
@@ -388,6 +386,17 @@
             [super didReceiveMessageNotification:notification];
         }
     } else {
+        if (message.conversationType == ConversationType_SYSTEM) {
+            RCTextMessage *msg = (RCTextMessage*)message.content;
+            if (msg.extra.length > 0) {
+                NSData *jsonData = [msg.extra dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+                NSString *nextType = [dic stringValueForKey:@"type"];
+                if ([nextType isEqualToString:@"2"]) {
+                    [MomentNewsMsg shareInstance].shouldShowMessage = YES;
+                }
+            }
+        }
         //调用父类刷新未读消息数
         [super didReceiveMessageNotification:notification];
     }

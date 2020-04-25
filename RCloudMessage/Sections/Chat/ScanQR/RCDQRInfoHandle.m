@@ -14,6 +14,7 @@
 #import "RCDUserInfoManager.h"
 #import "RCDPersonDetailViewController.h"
 #import "RCDAddFriendViewController.h"
+#import "RCDUserInfoManager.h"
 @interface RCDQRInfoHandle ()
 @property (nonatomic, strong) UIViewController *baseController;
 @end
@@ -62,8 +63,43 @@
 
 #pragma mark - helper
 - (void)handleUserInfo:(NSString *)userId {
-    UIViewController *vc = [RCDPersonDetailViewController configVC:userId groupId:nil];
-    [self.baseController.navigationController pushViewController:vc animated:YES];
+//    UIViewController *vc = [RCDPersonDetailViewController configVC:userId groupId:nil];
+//    [self.baseController.navigationController pushViewController:vc animated:YES];
+    
+    [RCDUserInfoManager findUserByPhone:userId
+         region:@"86"
+    orStAccount:nil
+       complete:^(RCDUserInfo *userInfo) {
+           [self pushVCWithUser:userInfo];
+       }];
+}
+
+- (void)pushVCWithUser:(RCDUserInfo *)userInfo {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (userInfo) {
+            RCDFriendInfo *friend = [RCDUserInfoManager getFriendInfo:userInfo.userId];
+            if (friend != nil && (friend.status == RCDFriendStatusAgree || friend.status == RCDFriendStatusBlock)) {
+                RCDPersonDetailViewController *detailViewController = [[RCDPersonDetailViewController alloc] init];
+                detailViewController.userId = userInfo.userId;
+                [self.baseController.navigationController pushViewController:detailViewController animated:YES];
+            } else {
+                [self pushAddFriendVC:userInfo];
+            }
+        } else {
+            [self showAlert:RCDLocalizedString(@"no_search_Friend")];
+        }
+    });
+}
+
+- (void)pushAddFriendVC:(RCDUserInfo *)user {
+    if ([user.userId isEqualToString:[RCIM sharedRCIM].currentUserInfo.userId]) {
+        [self showAlert:RCDLocalizedString(@"can_not_add_self_to_address_book")];
+    } else {
+        RCDAddFriendViewController *addViewController = [[RCDAddFriendViewController alloc] init];
+        addViewController.targetUserId = user.userId;
+        addViewController.targetUserInfo = user;
+        [self.baseController.navigationController pushViewController:addViewController animated:YES];
+    }
 }
 
 - (void)handleGroupInfo:(NSString *)groupId {

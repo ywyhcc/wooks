@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"互动消息";
     self.pageNumber = 1;
     self.momentList = [NSMutableArray arrayWithCapacity:0];

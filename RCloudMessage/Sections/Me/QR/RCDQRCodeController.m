@@ -20,6 +20,7 @@
 #import "RCDForwardManager.h"
 #import "RCDWeChatManager.h"
 #import "NormalAlertView.h"
+#import "RCDCommonString.h"
 @interface RCDQRCodeController ()
 @property (nonatomic, strong) UIView *qrBgView;
 @property (nonatomic, strong) UIImageView *portraitImageView;
@@ -80,7 +81,7 @@
         name = user.name;
         info = RCDLocalizedString(@"MyScanQRCodeInfo");
         qrInfo = [NSString stringWithFormat:@"%@?key=woostalk://user/info?u=%@", RCDQRCodeContentInfoUrl,
-                                            [RCIMClient sharedRCIMClient].currentUserInfo.userId];
+                                            [DEFAULTS objectForKey:RCDUserNameKey]];
         self.qrCodeImageView.image = [RCDQRCodeManager getQRCodeImage:qrInfo];
     }
     if (![portraitUri isEqualToString:@""]) {

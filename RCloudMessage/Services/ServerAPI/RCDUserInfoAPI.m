@@ -447,6 +447,7 @@
     NSDictionary *params = @{@"userAccountId":[ProfileUtil getUserAccountID]};
     [SYNetworkingManager getWithURLString:ApplyRecord parameters:params success:^(NSDictionary *data) {
          if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+             NSLog(@"----%@",data);
              NSMutableArray *friendList = [[NSMutableArray alloc] init];
              NSArray *respFriendList = [data arrayValueForKey:@"myFriends"];
              for (NSDictionary *userDic in respFriendList) {

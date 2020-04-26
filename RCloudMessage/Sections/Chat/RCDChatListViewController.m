@@ -90,6 +90,7 @@
     [self.searchBar resignFirstResponder];
     RCUserInfo *groupNotify = [[RCUserInfo alloc] initWithUserId:@"__system__" name:@"" portrait:nil];
     [[RCIM sharedRCIM] refreshUserInfoCache:groupNotify withUserId:@"__system__"];
+    [self resetLeftItem];
 }
 
 - (void)dealloc {
@@ -542,10 +543,29 @@
     [self updateBadgeValueForTabBarItem];
 }
 
++ (UIViewController *)topViewControllerWithRootViewController:(UIViewController*)rootViewController
+{
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBarController = (UITabBarController *)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    } else if (rootViewController.presentedViewController) {
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    } else {
+        return rootViewController;
+    }
+}
+
 - (void)updateBadgeValueForTabBarItem {
     __weak typeof(self) __weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         int count = [RCDUtilities getTotalUnreadCount];
+        if ([RCDChatListViewController topViewControllerWithRootViewController:self.tabBarController] == self) {
+            [self resetLeftItem];
+        }
         if (count > 0) {
             [__weakSelf.tabBarController.tabBar showBadgeOnItemIndex:0 badgeValue:count];
 
@@ -703,6 +723,27 @@
     self.index = 0;
 }
 
+- (void)resetLeftItem{
+    int count = [RCDUtilities getTotalUnreadCount];
+    NSString *backString = nil;
+    if (count > 0 && count < 1000) {
+        backString = [NSString stringWithFormat:@"(%d)", count];
+    } else if (count >= 1000) {
+        backString = [NSString stringWithFormat:@"(...)"];
+    } else {
+        backString = @"";//RCDLocalizedString(@"back");
+    }
+    if (backString.length > 0) {
+        RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithNewbuttonTitle:[NSString stringWithFormat:@"Woostalk%@",backString] titleColor:[UIColor blackColor] buttonFrame:CGRectMake(0, 10, 34, 34)];
+        self.tabBarController.navigationItem.leftBarButtonItems = @[ leftBtn ];
+    }
+    else {
+        RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithNewbuttonTitle:@"Woostalk" titleColor:[UIColor blackColor] buttonFrame:CGRectMake(0, 10, 34, 34)];
+        self.tabBarController.navigationItem.leftBarButtonItems = @[ leftBtn ];
+    }
+    
+}
+
 - (void)setNaviItem {
     RCDUIBarButtonItem *rightBtn = [[RCDUIBarButtonItem alloc] initContainImage:[UIImage imageNamed:@"right_add_friend"]
                                                                  imageViewFrame:CGRectMake(8.5, 8.5, 17, 17)
@@ -715,10 +756,9 @@
     self.tabBarController.navigationItem.rightBarButtonItems = @[ rightBtn ];
     
     
-    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithNewbuttonTitle:@"Woostalk" titleColor:[UIColor blackColor] buttonFrame:CGRectMake(0, 10, 34, 34)];
-    self.tabBarController.navigationItem.leftBarButtonItems = @[ leftBtn ];
+//    RCDUIBarButtonItem *leftBtn = [[RCDUIBarButtonItem alloc] initWithNewbuttonTitle:@"Woostalk" titleColor:[UIColor blackColor] buttonFrame:CGRectMake(0, 10, 34, 34)];
+//    self.tabBarController.navigationItem.leftBarButtonItems = @[ leftBtn ];
 
-    
     
     __weak typeof(self) ws = self;
     self.typeView = [[TypeHeaderSelectView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH / 3, 45) typeNames:@[@"私聊",@"群聊"]];

@@ -429,12 +429,12 @@
     return user;
 }
 
-+ (void)deleteFriend:(NSString *)userId complete:(void (^)(BOOL))completeBlock {
++ (void)deleteFriend:(NSString *)userId withUID:(NSString*)uID complete:(void (^)(BOOL))completeBlock {
     [RCDUserInfoAPI
         deleteFriend:userId
             complete:^(BOOL success) {
                 if (success) {
-                    [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:userId];
+                    [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:uID];
                     [RCDDBManager deleteFriends:@[ userId ]];
                 }
                 if (completeBlock) {

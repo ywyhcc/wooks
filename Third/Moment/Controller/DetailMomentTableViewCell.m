@@ -101,8 +101,8 @@
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:self.imgBgView.bounds];
         imgView.contentMode = UIViewContentModeScaleAspectFit;
         if (picture.thumbnailVideo.length > 0) {
-            UIImageView *videoImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.imgBgView.height - 20, 20, 20)];
-            videoImg.image = [UIImage imageNamed:@"video_start"];
+            UIImageView *videoImg = [[UIImageView alloc] initWithFrame:CGRectMake((self.imgBgView.height - 20) / 2, (self.imgBgView.width - 20) / 2, 20, 20)];
+            videoImg.image = [UIImage imageNamed:@"album_video"];
             [imgView addSubview:videoImg];
             
             [imgView sd_setImageWithURL:[NSURL URLWithString:picture.thumbnailAvert]];

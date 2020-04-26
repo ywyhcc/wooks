@@ -43,6 +43,7 @@
 #import "UIView+MBProgressHUD.h"
 #import "SendLocationViewController.h"
 #import "MeDetailViewController.h"
+#import "MediaPicViewController.h"
 
 #define PLUGIN_BOARD_ITEM_POKE_TAG 20000
 
@@ -110,7 +111,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
-
+    [self setLeftNavigationItem];
     self.defaultInputType = [self getInputStatus];
     [self refreshTitle];
     self.isShow = YES;
@@ -192,6 +193,14 @@
 
 #pragma mark - over methods
 - (void)didTapMessageCell:(RCMessageModel *)model {
+    if ([model.content isKindOfClass:[RCMediaMessageContent class]] && ([UIDevice currentDevice].systemVersion.floatValue < 10.0) && [model.objectName isEqualToString:@"RC:CombineMsg"]) {
+        RCMediaMessageContent *mediaMsg = (RCMediaMessageContent *)model.content;
+        MediaPicViewController *webVC = [[MediaPicViewController alloc] init];
+        webVC.url = mediaMsg.remoteUrl;
+        webVC.title = mediaMsg.name;
+        [self.navigationController pushViewController:webVC animated:YES];
+        return;
+    }
     [super didTapMessageCell:model];
     if ([model.content isKindOfClass:[RCRealTimeLocationStartMessage class]]) {
         [self showRealTimeLocationViewController];
@@ -460,7 +469,7 @@
         return;
     }
     rcd_dispatch_main_async_safe(^{
-        [self setLeftNavigationItem];
+//        [self setLeftNavigationItem];
         [self setRightNavigationItems];
     });
 }
@@ -761,20 +770,22 @@
 }
 
 - (void)setLeftNavigationItem {
-    int count = [RCDUtilities getTotalUnreadCount];
-    NSString *backString = nil;
-    if (count > 0 && count < 1000) {
-        backString = [NSString stringWithFormat:@"(%d)", count];
-    } else if (count >= 1000) {
-        backString = [NSString stringWithFormat:@"(...)"];
-    } else {
-        backString = @"";//RCDLocalizedString(@"back");
-    }
-    RCDUIBarButtonItem *leftButton =
-        [[RCDUIBarButtonItem alloc] initWithLeftBarButton:backString
-                                                   target:self
-                                                   action:@selector(leftBarButtonItemPressed:)];
-    [self.navigationItem setLeftBarButtonItem:leftButton];
+//    int count = [RCDUtilities getTotalUnreadCount];
+//    NSString *backString = nil;
+//    if (count > 0 && count < 1000) {
+//        backString = [NSString stringWithFormat:@"(%d)", count];
+//    } else if (count >= 1000) {
+//        backString = [NSString stringWithFormat:@"(...)"];
+//    } else {
+//        backString = @"";//RCDLocalizedString(@"back");
+//    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        RCDUIBarButtonItem *leftButton =
+            [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""
+                                                       target:self
+                                                       action:@selector(leftBarButtonItemPressed:)];
+        [self.navigationItem setLeftBarButtonItem:leftButton];
+    });
 }
 
 - (void)setRightNavigationItem:(UIImage *)image withFrame:(CGRect)frame {

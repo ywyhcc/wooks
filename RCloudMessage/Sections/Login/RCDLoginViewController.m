@@ -511,7 +511,7 @@
 
     //添加动态图
     [self.view addSubview:self.animatedImagesView];
-    [self.animatedImagesView addSubview:[self getSwitchLanguageBtn]];
+//    [self.animatedImagesView addSubview:[self getSwitchLanguageBtn]];
     [self.view addSubview:self.rongLogoView];
     [self.view addSubview:self.nameLabel];
     [self.view addSubview:self.chatLabel];

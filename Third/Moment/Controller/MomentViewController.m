@@ -69,6 +69,10 @@
 
 @property (nonatomic, strong) NSString *momentBackImg;
 
+@property (nonatomic, strong) UIImageView *imgLoadingView;
+
+@property (nonatomic, strong) CABasicAnimation *picAnimation;
+
 @end
 
 @implementation MomentViewController
@@ -84,6 +88,50 @@
     [self getFriendList];
     [self getData];
     [self configUI];
+    [self createAnimationView];
+}
+
+- (void)createAnimationView{
+    
+    self.imgLoadingView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 80, 30, 30)];
+    self.imgLoadingView.image = [UIImage imageNamed:@"rainbow_ic"];
+    [self.view addSubview:self.imgLoadingView];
+    [self.view bringSubviewToFront:self.imgLoadingView];
+    
+    CABasicAnimation *animation =  [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+
+    //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
+
+    animation.fromValue = [NSNumber numberWithFloat:0.f];
+
+    animation.toValue =  [NSNumber numberWithFloat: M_PI *2];
+
+    animation.duration  = 0.5;
+
+    animation.autoreverses = NO;
+
+    animation.fillMode =kCAFillModeForwards;
+
+    animation.repeatCount = MAXFLOAT; //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
+    
+    self.picAnimation = animation;
+    
+    [self.imgLoadingView.layer addAnimation:self.picAnimation forKey:nil];
+
+}
+
+- (void)startAnimation{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.imgLoadingView.hidden = NO;
+        [self.imgLoadingView.layer addAnimation:self.picAnimation forKey:nil];
+    });
+}
+
+- (void)stopAnimation{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.imgLoadingView.hidden = YES;
+        [self.imgLoadingView.layer removeAllAnimations];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -149,16 +197,21 @@
 - (void)getData {
     
     NSDictionary *dic = @{@"userAccountId":[ProfileUtil getUserAccountID], @"pageNumber":@"1", @"pageSize":@"20"};
-    
+    [self startAnimation];
     [SYNetworkingManager getWithURLString:GetMomentData parameters:dic success:^(NSDictionary *data) {
         NSLog(@"%@", data);
-        [self handleData:data];
         if (![[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
             [self.tableView.mj_header endRefreshing];
+            [self stopAnimation];
+        }
+        else {
+            [self stopAnimation];
+            [self handleData:data];
         }
         
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
+        [self stopAnimation];
     }];
 }
 
@@ -190,12 +243,9 @@
 }
 
 - (void)handleData:(NSDictionary *)dic {
-    NSString *errCodeStr = dic[@"errorCode"];
-    if (!errCodeStr.intValue) {
-        self.pageNumber = 2;
-        [self configData:dic];
-        [self.tableView.mj_header endRefreshing];
-    }
+    self.pageNumber = 2;
+    [self configData:dic];
+    [self.tableView.mj_header endRefreshing];
 }
 
 - (void)configData:(NSDictionary *)dic
@@ -583,6 +633,7 @@
 //            MMLocationViewController * controller = [[MMLocationViewController alloc] init];
 //            controller.location = cell.moment.location;
 //            [self.navigationController pushViewController:controller animated:YES];
+            break;
         }
         case MMOperateTypeLike: // 点赞
         {

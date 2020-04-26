@@ -392,7 +392,7 @@
     self.view.translatesAutoresizingMaskIntoConstraints = YES;
     [self.view addSubview:self.animatedImagesView];
 
-    [self.animatedImagesView addSubview:[self getSwitchLanguage]];
+//    [self.animatedImagesView addSubview:[self getSwitchLanguage]];
     [self.view addSubview:self.licenseLb];
     [self.view addSubview:self.rongLogo];
 

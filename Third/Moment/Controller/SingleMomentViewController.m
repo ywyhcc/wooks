@@ -93,6 +93,14 @@
 - (void)configData:(NSDictionary *)dic
 {
     self.loginUser = [MUser findFirstByCriteria:@"WHERE type = 1"];
+    if (self.loginUser == nil) {
+        self.loginUser = [[MUser alloc] init];
+        self.loginUser.account = [ProfileUtil getUserAccountID];
+        self.loginUser.name = [DEFAULTS objectForKey:RCDUserNickNameKey];
+        self.loginUser.pk = 5;
+        self.loginUser.type = 1;
+        self.loginUser.portrait = [DEFAULTS objectForKey:RCDUserPortraitUriKey];
+    }
     self.momentList = [[NSMutableArray alloc] init];
     
     Moment *moment = [MomentUtil getSingleMomentWithDic:[dic dictionaryValueForKey:@"moment"]];

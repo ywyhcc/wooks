@@ -98,7 +98,8 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.view.backgroundColor = RCDDYCOLOR(0xf0f0f6, 0x000000);
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self setupSubviews];
     [self getUserInfoData];
 }
@@ -396,7 +397,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
 
 - (void)deleteFriend {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [RCDUserInfoManager deleteFriend:self.friendID
+    [RCDUserInfoManager deleteFriend:self.friendID withUID:self.friendDescription.userId
                             complete:^(BOOL success) {
                                 rcd_dispatch_main_async_safe(^{
                                     [hud hideAnimated:YES];

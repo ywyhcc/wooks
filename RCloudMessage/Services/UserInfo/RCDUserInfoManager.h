@@ -107,7 +107,7 @@
 
 + (void)ignoreFriendRequest:(NSString *)userId complete:(void (^)(BOOL success))completeBlock;
 
-+ (void)deleteFriend:(NSString *)userId complete:(void (^)(BOOL success))completeBlock;
++ (void)deleteFriend:(NSString *)userId withUID:(NSString*)uID complete:(void (^)(BOOL success))completeBlock;
 
 + (void)setSTAccount:(NSString *)stAccount
             complete:(void (^)(BOOL success))completeBlock

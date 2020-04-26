@@ -218,6 +218,7 @@
 		7F4CEE692441B6FC008C24DA /* POITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4CEE652441B6FC008C24DA /* POITableViewCell.xib */; };
 		7F4CEE7F2441BDF1008C24DA /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4CEE7E2441BDF1008C24DA /* AMapLocationKit.framework */; };
 		7F5C556E245302EE00731286 /* MomentNewsMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C556D245302EE00731286 /* MomentNewsMsg.m */; };
+		7F5C55B2245589C700731286 /* MediaPicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C55B1245589C600731286 /* MediaPicViewController.m */; };
 		7F5ED404243998D8007958F5 /* AddContactFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED403243998D8007958F5 /* AddContactFriendsTableViewController.m */; };
 		7F5ED40724399992007958F5 /* AddContactFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED40624399992007958F5 /* AddContactFriendsTableViewCell.m */; };
 		7F5ED40A2439A277007958F5 /* BaseUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5ED4092439A277007958F5 /* BaseUserInfoModel.m */; };
@@ -897,6 +898,8 @@
 		7F4CEE7E2441BDF1008C24DA /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		7F5C556C245302EE00731286 /* MomentNewsMsg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MomentNewsMsg.h; sourceTree = "<group>"; };
 		7F5C556D245302EE00731286 /* MomentNewsMsg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MomentNewsMsg.m; sourceTree = "<group>"; };
+		7F5C55B0245589C600731286 /* MediaPicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaPicViewController.h; sourceTree = "<group>"; };
+		7F5C55B1245589C600731286 /* MediaPicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaPicViewController.m; sourceTree = "<group>"; };
 		7F5ED402243998D8007958F5 /* AddContactFriendsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactFriendsTableViewController.h; sourceTree = "<group>"; };
 		7F5ED403243998D8007958F5 /* AddContactFriendsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddContactFriendsTableViewController.m; sourceTree = "<group>"; };
 		7F5ED40524399992007958F5 /* AddContactFriendsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddContactFriendsTableViewCell.h; sourceTree = "<group>"; };
@@ -2773,6 +2776,8 @@
 				A2907070229E7F61006BDAC7 /* RCDChatViewController.m */,
 				7F4CEE5E244195DC008C24DA /* SendLocationViewController.h */,
 				7F4CEE5F244195DC008C24DA /* SendLocationViewController.m */,
+				7F5C55B0245589C600731286 /* MediaPicViewController.h */,
+				7F5C55B1245589C600731286 /* MediaPicViewController.m */,
 				7F4CEE612441B6C0008C24DA /* LocationExtension */,
 				A20131DF22F28BDA00C24160 /* Poke */,
 				A2AD036D22D3221500F8E64D /* ScanQR */,
@@ -3684,6 +3689,7 @@
 				7F66CB6C244721AD00B6AB1E /* IJSMapViewCollectionViewLayout.m in Sources */,
 				3B0F2C5522DC1C470017979E /* RCDUnableGetContactsView.m in Sources */,
 				7F60A929244876DB00F63BC5 /* CanSeePersonTableViewCell.m in Sources */,
+				7F5C55B2245589C700731286 /* MediaPicViewController.m in Sources */,
 				A2F0A97B22FA7C8200422802 /* RCDCopyGroupController.m in Sources */,
 				7F30D72A24239AFE0018A519 /* UIView+Snapshot.m in Sources */,
 				A2D549572320FE7000AC640B /* RCDClearMessage.m in Sources */,

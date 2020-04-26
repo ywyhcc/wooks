@@ -85,6 +85,9 @@
     [self.contentView addSubview:self.phoneView];
     [self.contentView addSubview:self.descriptionView];
     [self.contentView addSubview:self.pictureView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClicked)];
+    [self.contentView addGestureRecognizer:tap];
 
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.height.width.equalTo(self.view);
@@ -119,6 +122,10 @@
     }];
 }
 
+- (void)tapClicked{
+//    self.phoneView.inputView
+}
+
 - (void)setupData {
     self.originalFrame = self.view.frame;
 //    self.friendDescription = [RCDUserInfoManager getFriendDescription:self.friendId];
@@ -136,7 +143,7 @@
             self.phoneView.inputText = self.friendDescription.showPhone;
         }
         else {
-            self.phoneView.inputText = self.friendDescription.phone;
+//            self.phoneView.inputText = self.friendDescription.phone;
         }
     }
 
@@ -146,9 +153,9 @@
         self.pictureView.promptTitle = @"";
     }
 
-    __weak typeof(self) weakSelf = self;
+    //__weak typeof(self) weakSelf = self;
     self.phoneView.tapAreaCodeBlock = ^{
-        [weakSelf pushToCountryListVC];
+        //[weakSelf pushToCountryListVC];
     };
 }
 

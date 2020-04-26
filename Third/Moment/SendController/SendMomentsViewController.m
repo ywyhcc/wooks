@@ -381,11 +381,17 @@
         if (self.locationStr.length > 0) {
             cell.textLabel.text = [NSString stringWithFormat:@"所在位置：%@",self.locationStr];
             
+            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"所在位置：%@",self.locationStr]];
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]} range:[[NSString stringWithFormat:@"所在位置：%@",self.locationStr] rangeOfString:self.locationStr]];
+            cell.textLabel.attributedText = attributedText;
         }
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"谁可以看";
         if (self.membersStr.length > 0) {
             cell.textLabel.text = [NSString stringWithFormat:@"谁可以看：%@",self.membersStr];
+            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"谁可以看：%@",self.membersStr]];
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]} range:[[NSString stringWithFormat:@"谁可以看：%@",self.membersStr] rangeOfString:self.membersStr]];
+            cell.textLabel.attributedText = attributedText;
         }
     }
     return cell;

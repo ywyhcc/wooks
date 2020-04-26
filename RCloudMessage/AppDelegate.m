@@ -116,7 +116,7 @@
     [RCContactCardKit shareInstance].contactsDataSource = RCDDataSource;
     [RCContactCardKit shareInstance].groupDataSource = RCDDataSource;
     [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(46, 46);
-    [RCIM sharedRCIM].globalNavigationBarTintColor = RCDDYCOLOR(0xffffff, 0xA8A8A8);
+    [RCIM sharedRCIM].globalNavigationBarTintColor = [UIColor blackColor];//RCDDYCOLOR(0xffffff, 0xA8A8A8);
     [RCIM sharedRCIM].enableTypingStatus = YES;
     [RCIM sharedRCIM].enableSyncReadStatus = YES;
     [RCIM sharedRCIM].showUnkownMessage = YES;

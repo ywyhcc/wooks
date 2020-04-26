@@ -375,7 +375,7 @@
     moment.singleWidth = 500;
     moment.singleHeight = 302;
 //        moment.isLike = 0;
-    moment.text = dic[@"momentAbout"];
+    moment.text = dic[@"momentDetail"][@"momentAbout"];
     moment.discussIdStr = dic[@"momentDetail"][@"id"];
     moment.userIds = dic[@"momentCreateUser"][@"userAccountId"];
     // 处理评论 ↓↓

@@ -64,6 +64,7 @@
 - (void)setDataInfo {
     NSString *portraitUri, *name, *countInfo, *info, *qrInfo;
     if (self.type == ConversationType_GROUP) {
+        
         portraitUri = self.group.portraitUri;
         name = self.group.groupName;
         if (!self.group.needCertification) {
@@ -93,13 +94,15 @@
     }
     self.nameLabel.text = name;
     self.infoLabel.text = info;
-    [RCDUserInfoManager getOtherInfoFromServer:self.targetId complete:^(RCDUserInfo *userInfo) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.nameLabel.text = userInfo.name;
-            [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri]
-            placeholderImage:[UIImage imageNamed:@"contact"]];
-        });
-    }];
+    if (self.type != ConversationType_GROUP) {
+        [RCDUserInfoManager getOtherInfoFromServer:self.targetId complete:^(RCDUserInfo *userInfo) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.nameLabel.text = userInfo.name;
+                [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri]
+                placeholderImage:[UIImage imageNamed:@"contact"]];
+            });
+        }];
+    }
 }
 
 - (void)setNaviItem {

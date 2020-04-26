@@ -217,6 +217,7 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                                                });
                                            }];
         [self getFriendDescription];
+        [self getFriendAllInfo];
     }
     if (self.groupId.length > 0) {
         RCDGroupMember *member = [RCDGroupManager getGroupMember:self.userId groupId:self.groupId];
@@ -246,7 +247,22 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
     [RCDUserInfoManager getDescriptionFromServer:self.userId
     complete:^(RCDFriendDescription *description) {
         rcd_dispatch_main_async_safe(^{
-            self.friendDescription = description;
+            if (self.friendDescription == nil) {
+                self.friendDescription = description;
+            }
+            else{
+                self.friendDescription.userId = description.userId;
+                self.friendDescription.displayName = description.displayName;
+                self.friendDescription.region = description.region;
+                self.friendDescription.phone = description.phone;
+                self.friendDescription.desc = description.desc;
+                self.friendDescription.imageUrl = description.imageUrl;
+                self.friendDescription.hidePhone = description.hidePhone;
+                self.friendDescription.showPhone = description.showPhone;
+                self.friendDescription.sparePhone = description.sparePhone;
+                self.friendDescription.friendDescribe = description.friendDescribe;
+                
+            }
             [self setupDescriptionType];
             [self.tableView reloadData];
             [self updateTableView];
@@ -484,6 +500,23 @@ typedef NS_ENUM(NSInteger, RCDFriendDescriptionType) {
                        preferredStyle:UIAlertControllerStyleActionSheet
                               actions:@[ cancelAction, callAction, copyAction ]
                      inViewController:self];
+}
+
+- (void)getFriendAllInfo{
+    NSDictionary *params = @{@"fromUserAccountId":[ProfileUtil getUserAccountID],@"toUserAccountId":self.userId};
+    [SYNetworkingManager postWithURLString:GetUserAllInfo parameters:params success:^(NSDictionary *data) {
+        if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+            if (self.friendDescription == nil) {
+                self.friendDescription = [[RCDFriendDescription alloc] init];
+                self.friendDescription.displayImageUrl = [[data dictionaryValueForKey:@"friend"] stringValueForKey:@"userCart"];
+            }
+            else{
+                self.friendDescription.displayImageUrl = [[data dictionaryValueForKey:@"friend"] stringValueForKey:@"userCart"];
+            }
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)presentSpareActionSheet {

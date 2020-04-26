@@ -180,7 +180,7 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
     } else if ([title isEqualToString:RCDLocalizedString(@"MyInfoInGroup")]) {
         [self pushMyInfoInGroup];
     }
-    else if ([title isEqualToString:@"一键加好友"]){
+    else if ([title isEqualToString:@"一键加本群成员为好友"]){
         [self showActionSheet:@"您确定添加所有的群成员为好友?" tag:103];
     }
 }
@@ -581,7 +581,7 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
         RCDLocalizedString(@"group_announcement"),
         RCDLocalizedString(@"MyInfoInGroup"),
         RCDLocalizedString(@"GroupManage"),
-        @"一键加好友"
+        @"一键加本群成员为好友"
     ].mutableCopy;
     RCDGroupMember *member =
         [RCDGroupManager getGroupMember:[RCIM sharedRCIM].currentUserInfo.userId groupId:self.group.groupId];

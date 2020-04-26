@@ -234,10 +234,15 @@
         dic = @{@"username":nickName,@"password":userPwd,@"telphone":phoneNum,@"region":self.currentRegion.phoneCode,@"tryCode":verifyToken,@"inviterId":self.inviteTextField.text};
     }
     [SYNetworkingManager postWithURLString:Register parameters:dic success:^(NSDictionary *data) {
-        ws.errorMsgLb.text = RCDLocalizedString(@"register_success");
+//        ws.errorMsgLb.text = RCDLocalizedString(@"register_success");
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_MSEC),
                        dispatch_get_main_queue(), ^{
-           [self.navigationController popViewControllerAnimated:YES];
+            if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                [self showAlertViewWithMessage:@"注册成功"];
+            }
+            else{
+                [self showAlertViewWithMessage:[data stringValueForKey:@"message"]];
+            }
        });
     } failure:^(NSError *error) {
         ws.errorMsgLb.text = RCDLocalizedString(@"register_fail");
@@ -259,6 +264,19 @@
 //                            }
 //                        });
 //                    }];
+}
+
+- (void)showAlertViewWithMessage:(NSString *)message {
+    UIAlertController *alertController =
+        [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:RCDLocalizedString(@"confirm")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+        if ([message isEqualToString:@"注册成功"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+                                                      }]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 /*找回密码*/

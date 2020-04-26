@@ -62,6 +62,7 @@
 #define GetProvenceInfo         @"/location/provience/getAllProviences" //获取省份信息
 #define GetCityInfo             @"/location/city/getAllCitys"           //获取城市信息
 #define GetXianInfo             @"/location/district/getAllDistricts"   //获取区县信息
+#define GetUserAllInfo          @"/friend/allFriendInfo"                //获取该好友的全部信息
 
 
 #define Cancellection           @"/userAccount/loginout"                //注销

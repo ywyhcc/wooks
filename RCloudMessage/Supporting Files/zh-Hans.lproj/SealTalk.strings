@@ -127,7 +127,7 @@
 "please_type_discuss_group_name"="请输入讨论组名称!";
 "discuss_group_can_not_space"="讨论组名称不能包含空格!";
 "Login"="登录";
-"new_user"="新用户";
+"new_user"="注册";
 "verification_code"="验证码";
 "send_verification_code"="发送验证码";
 "after_60_seconds_obtain"="60秒后获取";

@@ -148,7 +148,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.row < 4) {
+    if (indexPath.row < 3) {
         [self openUrlFor:indexPath.row];
     } else if (indexPath.row == 4) {
         [self downloadNewVersionIfNeed];
@@ -228,10 +228,10 @@
 - (NSArray *)urls {
     if (!_urls) {
         _urls = @[
-            @"www.woostalk.com",
-            @"www.woostalk.com",
-            @"www.woostalk.com",
-            @"www.woostalk.com"
+            @"http://www.woostalk.com",
+            @"http://www.woostalk.com",
+            @"http://www.woostalk.com",
+            @"http://www.woostalk.com"
         ];
     }
     return _urls;

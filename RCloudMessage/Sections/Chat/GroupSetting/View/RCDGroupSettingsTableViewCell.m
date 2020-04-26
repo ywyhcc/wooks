@@ -79,9 +79,9 @@
         [self setClearChatHistory];
     } else if ([title isEqualToString:RCDLocalizedString(@"MyInfoInGroup")]) {
         [self setCellStyle:DefaultStyle];
-    } else if ([title isEqualToString:@"一键加好友"]) {
+    } else if ([title isEqualToString:@"一键加本群成员为好友"]) {
         [self setCellStyle:DefaultStyle];
-        self.leftLabel.text = @"一键加好友";
+        self.leftLabel.text = @"一键加本群成员为好友";
     }
 }
 

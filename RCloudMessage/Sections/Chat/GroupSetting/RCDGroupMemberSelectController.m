@@ -18,9 +18,11 @@
 #import "RCDUtilities.h"
 #import "UIColor+RCColor.h"
 #import "UIView+MBProgressHUD.h"
+#import "RCDGroupNotificationMessage.h"
 @interface RCDGroupMemberSelectController () <UISearchControllerDelegate, UISearchResultsUpdating>
 @property (nonatomic, strong) NSArray *allMembers;
 @property (nonatomic, strong) NSMutableArray *selectUsers;
+@property (nonatomic, strong) NSMutableArray *selectNames;
 @property (nonatomic, strong) NSString *groupId;
 @property (nonatomic, strong) NSArray *resultKeys;
 @property (nonatomic, strong) NSDictionary *resultSectionDict;
@@ -130,9 +132,11 @@
     RCUserInfo *user = array[indexPath.row];
     RCDGroupMemberSelectCell *cell = (RCDGroupMemberSelectCell *)[tableView cellForRowAtIndexPath:indexPath];
     if ([self.selectUsers containsObject:user.userId]) {
+        [self.selectNames removeObject:user.name];
         [self.selectUsers removeObject:user.userId];
         [cell setCellSelectState:(RCDGroupMemberSelectCellStateUnselected)];
     } else {
+        [self.selectNames addObject:user.name];
         [self.selectUsers addObject:user.userId];
         [cell setCellSelectState:(RCDGroupMemberSelectCellStateSelected)];
     }
@@ -232,6 +236,39 @@
                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
                                      if (success) {
                                          [self.navigationController popViewControllerAnimated:YES];
+                                         
+                                         NSString *nameStr = nil;
+                                         for (NSString *userName in self.selectNames) {
+                                             if (nameStr.length > 0 && nameStr != nil) {
+                                                 nameStr = [NSString stringWithFormat:@"%@、%@",nameStr,userName];
+                                             }
+                                             else{
+                                                 nameStr = userName;
+                                             }
+                                         }
+                                         
+                                         RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:[NSString stringWithFormat:@"群主将%@添加为管理员",nameStr]];
+                                         //                        [message decodeUserInfo:@{@"message":@"新建了群聊"}];
+                                                                 
+                                             [message encode];
+                                             
+                                             [[RCIMClient sharedRCIMClient]
+                                                         sendMessage:ConversationType_GROUP
+                                                         targetId:self.groupId
+                                                         content:message
+                                                         pushContent:@""
+                                                         pushData:@""
+                                                         success:^(long messageId) {
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     NSLog(@"aaaaa");
+                                                 });
+                                                         }
+                                                         error:^(RCErrorCode nErrorCode, long messageId) {
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     NSLog(@"bbbbb");
+                                                 });
+                                             }];
+                                         
                                      } else {
                                          [self.view showHUDMessage:RCDLocalizedString(@"Failed")];
                                      }
@@ -300,5 +337,12 @@
         _selectUsers = [NSMutableArray array];
     }
     return _selectUsers;
+}
+
+- (NSMutableArray *)selectNames {
+    if (!_selectNames) {
+        _selectNames = [NSMutableArray array];
+    }
+    return _selectNames;
 }
 @end

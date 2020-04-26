@@ -54,7 +54,8 @@
             [self addSubview:imageView];
         }
         // 预览视图
-        _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];      
+        _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        _previewView.backgroundColor = [UIColor blackColor];
     }
     return self;
 }
@@ -273,15 +274,15 @@
    //本地视频可以直接播放
    //网络视频需要监测AVPlayerItem的status属性为AVPlayerStatusReadyToPlay时方法才会生效
     [UIView animateWithDuration:0.3 animations:^{
-        _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+        _previewView.backgroundColor = [UIColor blackColor];
         [self.player play];
     }];
    
 }
 
 - (void)dealloc {
-    [self.avLayer removeFromSuperlayer];
     [self.player pause];
+    [self.avLayer removeFromSuperlayer];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 }

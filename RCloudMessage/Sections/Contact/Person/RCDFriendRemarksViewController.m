@@ -147,8 +147,8 @@
         }
     }
 
-    if (self.friendDescription.imageUrl != nil && ![self.friendDescription.imageUrl isEqualToString:@""]) {
-        [self.pictureView.imageView sd_setImageWithURL:[NSURL URLWithString:self.friendDescription.imageUrl]
+    if (self.friendDescription.displayImageUrl != nil && ![self.friendDescription.displayImageUrl isEqualToString:@""]) {
+        [self.pictureView.imageView sd_setImageWithURL:[NSURL URLWithString:self.friendDescription.displayImageUrl]
                                       placeholderImage:[UIImage imageNamed:@""]];
         self.pictureView.promptTitle = @"";
     }
@@ -285,7 +285,7 @@
             [self setRemarksAndDescription:@"" hud:hud];
         }
     } else {
-        [self setRemarksAndDescription:self.friendDescription.imageUrl hud:hud];
+        [self setRemarksAndDescription:self.friendDescription.displayImageUrl hud:hud];
     }
 }
 

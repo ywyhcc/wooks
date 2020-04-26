@@ -66,9 +66,12 @@
     self.tabBarController.navigationItem.titleView = nil;
     self.tabBarController.navigationItem.title = RCDLocalizedString(@"contacts");
     self.tabBarController.navigationItem.leftBarButtonItems = nil;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.tabBarController.navigationItem.leftBarButtonItems = nil;
-    });
+//    });
+    if ([UIDevice currentDevice].systemVersion.floatValue < 10.0) {
+        self.tabBarController.navigationItem.leftBarButtonItems = nil;
+    }
     
     [self setupNavi];
     [self.searchFriendsBar resignFirstResponder];
@@ -546,9 +549,9 @@
     }
     [self.friendsTabelView reloadData];
     [self updateFriendNum];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.tabBarController.navigationItem.leftBarButtonItems = nil;
-    });
+//    });
 }
 
 #pragma mark - Target Action

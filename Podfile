@@ -13,11 +13,11 @@ target 'SealTalk' do
   pod 'SDWebImage', '5.0.6'
   pod 'Bugly', '2.5.0'
   pod 'WechatOpenSDK', '1.8.4'
-  pod 'RongCloudIM/IMLib', '2.10.4'
+#  pod 'RongCloudIM/IMLib', '2.10.4'
   pod 'RongCloudIM/IMKit', '2.10.4'
   pod 'RongCloudIM/RongSticker', '2.10.4'
   pod 'RongCloudIM/Sight', '2.10.4'
-  pod 'RongCloudRTC/RongCallLib', '2.10.4'
+#  pod 'RongCloudRTC/RongCallLib', '2.10.4'
   pod 'RongCloudRTC/RongCallKit', '2.10.4'
 
   pod 'ASIHTTPRequest', '~> 1.8.2'

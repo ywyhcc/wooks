@@ -16,6 +16,7 @@
 #import "RCDCommonString.h"
 #import <WebKit/WebKit.h>
 #import "WkWebViewController.h"
+#import "FuctionIntroduceViewController.h"
 
 @interface RCDAboutRongCloudTableViewController ()
 @property (nonatomic, strong) NSArray *urls;
@@ -126,8 +127,9 @@
         [cell setCellStyle:DefaultStyle];
         cell.leftLabel.text = RCDLocalizedString(@"function_introduce");
     } else if (2 == indexPath.row) {
-        [cell setCellStyle:DefaultStyle];
+        [cell setCellStyle:DefaultStyle_RightLabel_WithoutRightArrow];
         cell.leftLabel.text = RCDLocalizedString(@"offical_website");
+        cell.rightLabel.text = @"www.woostalk.com";
     } else if (4 == indexPath.row) {
         [cell setCellStyle:DefaultStyle_RightLabel_WithoutRightArrow];
         cell.leftLabel.text = @"联系我们";//RCDLocalizedString(@"SDK_version");
@@ -148,8 +150,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.row < 3) {
-        [self openUrlFor:indexPath.row];
+    if (indexPath.row == 1) {
+        FuctionIntroduceViewController *nextVC = [[FuctionIntroduceViewController alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+//    }else if (indexPath.row < 3) {
+//        [self openUrlFor:indexPath.row];
     } else if (indexPath.row == 4) {
         [self downloadNewVersionIfNeed];
     } else if (indexPath.row == 5) {

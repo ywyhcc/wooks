@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *stAccount;
 @property (nonatomic, strong) NSString *gender;
 
+@property (nonatomic, strong) NSString *displayName;
+
 @end
 
 NS_ASSUME_NONNULL_END

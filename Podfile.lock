@@ -96,11 +96,9 @@ DEPENDENCIES:
   - MMWebView
   - Qiniu (~> 7.3)
   - RongCloudIM/IMKit (= 2.10.4)
-  - RongCloudIM/IMLib (= 2.10.4)
   - RongCloudIM/RongSticker (= 2.10.4)
   - RongCloudIM/Sight (= 2.10.4)
   - RongCloudRTC/RongCallKit (= 2.10.4)
-  - RongCloudRTC/RongCallLib (= 2.10.4)
   - SDWebImage (= 5.0.6)
   - SSZipArchive (= 2.2.2)
   - TPKeyboardAvoiding (~> 1.2.11)
@@ -172,6 +170,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 7bca6dd19b8e69d62787dcfe4439855cf6dc7106
+PODFILE CHECKSUM: c409bb8af3a342d72175da81251275ada3a8c8ca
 
 COCOAPODS: 1.6.0

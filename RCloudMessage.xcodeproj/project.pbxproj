@@ -288,6 +288,7 @@
 		7F9BE1E62431F5EF00BFABB2 /* VipRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1E52431F5EF00BFABB2 /* VipRechargeViewController.m */; };
 		7F9BE1E92431F74700BFABB2 /* VipRechargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1E82431F74700BFABB2 /* VipRechargeView.m */; };
 		7F9BE1EC2431F7B600BFABB2 /* VipRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1EB2431F7B600BFABB2 /* VipRechargeModel.m */; };
+		7FBD6F322457F1BB00094F99 /* FuctionIntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD6F312457F1BB00094F99 /* FuctionIntroduceViewController.m */; };
 		7FC042092439C4FB007CF4F6 /* MeMoreInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC042082439C4FB007CF4F6 /* MeMoreInfoTableViewController.m */; };
 		7FC0420C2439D6A8007CF4F6 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC0420B2439D6A8007CF4F6 /* LocationTableViewController.m */; };
 		7FC0420F2439D926007CF4F6 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC0420E2439D926007CF4F6 /* LocationModel.m */; };
@@ -1031,6 +1032,8 @@
 		7F9BE1E82431F74700BFABB2 /* VipRechargeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VipRechargeView.m; sourceTree = "<group>"; };
 		7F9BE1EA2431F7B600BFABB2 /* VipRechargeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VipRechargeModel.h; sourceTree = "<group>"; };
 		7F9BE1EB2431F7B600BFABB2 /* VipRechargeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VipRechargeModel.m; sourceTree = "<group>"; };
+		7FBD6F302457F1BB00094F99 /* FuctionIntroduceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FuctionIntroduceViewController.h; sourceTree = "<group>"; };
+		7FBD6F312457F1BB00094F99 /* FuctionIntroduceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FuctionIntroduceViewController.m; sourceTree = "<group>"; };
 		7FC042072439C4FB007CF4F6 /* MeMoreInfoTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeMoreInfoTableViewController.h; sourceTree = "<group>"; };
 		7FC042082439C4FB007CF4F6 /* MeMoreInfoTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeMoreInfoTableViewController.m; sourceTree = "<group>"; };
 		7FC0420A2439D6A8007CF4F6 /* LocationTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationTableViewController.h; sourceTree = "<group>"; };
@@ -1447,6 +1450,8 @@
 				7FF936DC242A202D00694A1E /* ActiveInviteCodeViewController.m */,
 				27F0E39922A0E3E100C8B0B8 /* RCDAboutRongCloudTableViewController.h */,
 				27F0E39B22A0E3E100C8B0B8 /* RCDAboutRongCloudTableViewController.m */,
+				7FBD6F302457F1BB00094F99 /* FuctionIntroduceViewController.h */,
+				7FBD6F312457F1BB00094F99 /* FuctionIntroduceViewController.m */,
 				27F0E38E22A0E3E000C8B0B8 /* RCDLogoTableViewCell.h */,
 				27F0E3C122A0E3E300C8B0B8 /* RCDLogoTableViewCell.m */,
 				7F4CEE55243C6338008C24DA /* MeHeadTableViewCell.h */,
@@ -3743,6 +3748,7 @@
 				A257509F22B8DA0000A79749 /* RCDGroupMemberSelectController.m in Sources */,
 				276599E2229E95250074FAB2 /* UIImage+RCImage.m in Sources */,
 				7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */,
+				7FBD6F322457F1BB00094F99 /* FuctionIntroduceViewController.m in Sources */,
 				7F30D7FC2425F84D0018A519 /* MLLabelUtil.m in Sources */,
 				A25750AB22B8F6DD00A79749 /* RCDGroupMember.m in Sources */,
 				9C226CF2229FB17000F49FC5 /* RCDHTTPUtility.m in Sources */,
@@ -4036,6 +4042,7 @@
 				PROVISIONING_PROFILE = $APP_PROFILE;
 				PROVISIONING_PROFILE_SPECIFIER = ADHoc_2020.1.14_woostalk;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
 			};
 			name = AutoDebug;
@@ -4206,6 +4213,7 @@
 				PROVISIONING_PROFILE = $APP_PROFILE;
 				PROVISIONING_PROFILE_SPECIFIER = ADHoc_2020.1.14_woostalk;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
 			};
 			name = AutoRelease;
@@ -4543,6 +4551,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = develop_2020.4.14_woostalk;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
 			};
 			name = Debug;
@@ -4604,6 +4613,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = ADHoc_2020.1.14_woostalk;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
 			};
 			name = Release;

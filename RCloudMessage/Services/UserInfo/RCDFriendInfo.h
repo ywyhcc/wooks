@@ -36,8 +36,6 @@ typedef NS_ENUM(NSInteger, RCDFriendStatus) {
  */
 @property (nonatomic, assign) RCDFriendStatus status;
 
-@property (nonatomic, strong) NSString *displayName;
-
 @property (nonatomic, strong) NSString *phoneNumber;
 
 @property (nonatomic, assign) long long updateDt;

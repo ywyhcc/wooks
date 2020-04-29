@@ -25,6 +25,7 @@
 #import "MeDetailViewController.h"
 #import "RCDUserInfoManager.h"
 #import "RCDFriendInfo.h"
+#import <WebKit/WebKit.h>
 
 @interface SingleMomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -418,7 +419,7 @@
         NSString * title = actionSheet.title;
         NSString * subString = [title substringWithRange:NSMakeRange(0, [title length] - 13)];
         if (buttonIndex == 0) { // 拨打电话
-            UIWebView * webView = [[UIWebView alloc] init];
+            WKWebView * webView = [[WKWebView alloc] init];
             NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",subString]];
             [webView loadRequest:[NSURLRequest requestWithURL:url]];
             [self.view addSubview:webView];

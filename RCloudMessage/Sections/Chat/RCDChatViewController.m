@@ -22,7 +22,7 @@
 #import "RCDChatViewController+RealTimeLocation.h"
 #import "RCDCommonString.h"
 #import "RCDIMService.h"
-#import "RCDCustomerEmoticonTab.h"
+//#import "RCDCustomerEmoticonTab.h"
 #import <RongContactCard/RongContactCard.h>
 #import "RCDGroupManager.h"
 #import "RCDImageSlideController.h"

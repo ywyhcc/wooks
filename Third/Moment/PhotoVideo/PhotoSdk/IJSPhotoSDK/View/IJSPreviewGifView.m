@@ -9,12 +9,13 @@
 #import "IJSPreviewGifView.h"
 #import "IJSImageManager.h"
 #import "IJSAssetModel.h"
+#import <WebKit/WebKit.h>
 
 #import <objc/runtime.h>
 
 @interface IJSPreviewGifView ()
 /* 背景动态图 */
-@property (nonatomic, weak) UIWebView *backWebView;
+@property (nonatomic, weak) WKWebView *backWebView;
 
 @end
 
@@ -32,7 +33,7 @@
 
 - (void)_createdUI
 {
-    UIWebView *backWebView = [UIWebView new];
+    WKWebView *backWebView = [WKWebView new];
     backWebView.backgroundColor = [UIColor blackColor];
     self.backWebView = backWebView;
     self.backWebView.userInteractionEnabled = NO;
@@ -49,7 +50,8 @@
     if (assetModel.outputPath) //编辑完成的image
     {
         NSData *imageData = [NSData dataWithContentsOfURL:assetModel.outputPath];
-        [self.backWebView loadData:imageData MIMEType:@"image/gif" textEncodingName:@"" baseURL:[NSURL URLWithString:@""]];
+        [self.backWebView loadData:imageData MIMEType:@"image/gif" characterEncodingName:@"" baseURL:[NSURL URLWithString:@""]];
+//        [self.backWebView loadData:imageData MIMEType:@"image/gif" textEncodingName:@"" baseURL:[NSURL URLWithString:@""]];
     }
     else
     {
@@ -58,7 +60,8 @@
             [[PHImageManager defaultManager] cancelImageRequest:assetModel.imageRequestID];  // 取消加载
         }
         assetModel.imageRequestID = [[IJSImageManager shareManager] getOriginalPhotoDataWithAsset:assetModel.asset completion:^(NSData *data, NSDictionary *info, BOOL isDegraded) {
-            [self.backWebView loadData:data MIMEType:@"image/gif" textEncodingName:@"" baseURL:[NSURL URLWithString:@""]];
+            [self.backWebView loadData:data MIMEType:@"image/gif" characterEncodingName:@"" baseURL:[NSURL URLWithString:@""]];
+//            [self.backWebView loadData:data MIMEType:@"image/gif" textEncodingName:@"" baseURL:[NSURL URLWithString:@""]];
             if (!isDegraded)
             {
                 assetModel.imageRequestID = 0;

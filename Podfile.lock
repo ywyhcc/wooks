@@ -39,8 +39,6 @@ PODS:
   - GCDWebServer/Core (3.5.2)
   - GCDWebServer/WebDAV (3.5.2):
     - GCDWebServer/Core
-  - GCDWebServer/WebUploader (3.5.2):
-    - GCDWebServer/Core
   - IJSFoundation (0.0.4)
   - IJSUExtension (0.0.5)
   - Masonry (1.1.0)
@@ -86,7 +84,6 @@ DEPENDENCIES:
   - FMDB (= 2.7.5)
   - GCDWebServer/Core (= 3.5.2)
   - GCDWebServer/WebDAV (= 3.5.2)
-  - GCDWebServer/WebUploader (= 3.5.2)
   - IJSFoundation
   - IJSUExtension
   - Masonry (= 1.1.0)
@@ -170,6 +167,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: c409bb8af3a342d72175da81251275ada3a8c8ca
+PODFILE CHECKSUM: e221ecccafe4250346f0ced9b3397d48ad8871df
 
 COCOAPODS: 1.6.0

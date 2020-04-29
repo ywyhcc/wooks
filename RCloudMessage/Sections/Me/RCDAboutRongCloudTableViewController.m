@@ -12,7 +12,7 @@
 #import "RCDUIBarButtonItem.h"
 #import "RCDVersionCell.h"
 #import "UIColor+RCColor.h"
-#import "RCDDebugTableViewController.h"
+//#import "RCDDebugTableViewController.h"
 #import "RCDCommonString.h"
 #import <WebKit/WebKit.h>
 #import "WkWebViewController.h"
@@ -174,8 +174,8 @@
 }
 
 - (void)gotoDebugModel {
-    RCDDebugTableViewController *debugVC = [RCDDebugTableViewController new];
-    [self.navigationController pushViewController:debugVC animated:YES];
+//    RCDDebugTableViewController *debugVC = [RCDDebugTableViewController new];
+//    [self.navigationController pushViewController:debugVC animated:YES];
 }
 
 - (void)setPoweredView {

@@ -38,6 +38,7 @@
 #import "MomentListViewController.h"
 #import <Foundation/Foundation.h>
 #import "MomentNewsMsg.h"
+#import <WebKit/WebKit.h>
 
 @interface MomentViewController ()<UITableViewDelegate,UITableViewDataSource,UUActionSheetDelegate,MomentCellDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
@@ -794,7 +795,7 @@
         NSString * title = actionSheet.title;
         NSString * subString = [title substringWithRange:NSMakeRange(0, [title length] - 13)];
         if (buttonIndex == 0) { // 拨打电话
-            UIWebView * webView = [[UIWebView alloc] init];
+            WKWebView * webView = [[WKWebView alloc] init];
             NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",subString]];
             [webView loadRequest:[NSURLRequest requestWithURL:url]];
             [self.view addSubview:webView];

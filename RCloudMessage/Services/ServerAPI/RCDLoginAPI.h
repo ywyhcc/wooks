@@ -20,7 +20,6 @@
 
 + (void)logout:(void (^)(BOOL success))completeBlock;
 
-+ (void)getVersionInfo:(void (^)(NSDictionary *versionInfo))completeBlock;
 
 + (void)checkPhoneNumberAvailable:(NSString *)phoneCode
                       phoneNumber:(NSString *)phoneNumber

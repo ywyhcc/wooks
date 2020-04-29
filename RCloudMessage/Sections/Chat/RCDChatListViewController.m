@@ -659,17 +659,17 @@
 }
 
 - (void)checkVersion {
-    __weak typeof(self) __weakSelf = self;
-    [RCDLoginManager getVersionInfo:^(BOOL needUpdate, NSString *_Nonnull finalURL) {
-        rcd_dispatch_main_async_safe(^{
-            if (needUpdate) {
-                [DEFAULTS setObject:finalURL forKey:RCDApplistURLKey];
-                [__weakSelf.tabBarController.tabBar showBadgeOnItemIndex:3];
-            }
-            [DEFAULTS setObject:@(needUpdate) forKey:RCDNeedUpdateKey];
-            [DEFAULTS synchronize];
-        });
-    }];
+//    __weak typeof(self) __weakSelf = self;
+//    [RCDLoginManager getVersionInfo:^(BOOL needUpdate, NSString *_Nonnull finalURL) {
+//        rcd_dispatch_main_async_safe(^{
+//            if (needUpdate) {
+//                [DEFAULTS setObject:finalURL forKey:RCDApplistURLKey];
+//                [__weakSelf.tabBarController.tabBar showBadgeOnItemIndex:3];
+//            }
+//            [DEFAULTS setObject:@(needUpdate) forKey:RCDNeedUpdateKey];
+//            [DEFAULTS synchronize];
+//        });
+//    }];
 }
 
 - (void)getFriendRequesteds {

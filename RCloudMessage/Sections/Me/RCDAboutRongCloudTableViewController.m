@@ -54,12 +54,12 @@
 
 #pragma mark - action
 - (void)downloadNewVersionIfNeed {
-    BOOL isNeedUpdate = [[DEFAULTS objectForKey:RCDNeedUpdateKey] boolValue];
-    if (isNeedUpdate) {
-        NSString *finalURL = [DEFAULTS objectForKey:RCDApplistURLKey];
-        NSURL *applistURL = [NSURL URLWithString:finalURL];
-        [[UIApplication sharedApplication] openURL:applistURL];
-    }
+//    BOOL isNeedUpdate = [[DEFAULTS objectForKey:RCDNeedUpdateKey] boolValue];
+//    if (isNeedUpdate) {
+//        NSString *finalURL = [DEFAULTS objectForKey:RCDApplistURLKey];
+//        NSURL *applistURL = [NSURL URLWithString:finalURL];
+//        [[UIApplication sharedApplication] openURL:applistURL];
+//    }
 }
 - (void)openUrlFor:(NSInteger)index {
     NSString *urlString = self.urls[index];
@@ -233,10 +233,10 @@
 - (NSArray *)urls {
     if (!_urls) {
         _urls = @[
-            @"http://www.woostalk.com",
-            @"http://www.woostalk.com",
-            @"http://www.woostalk.com",
-            @"http://www.woostalk.com"
+//            @"http://www.woostalk.com",
+//            @"http://www.woostalk.com",
+//            @"http://www.woostalk.com",
+//            @"http://www.woostalk.com"
         ];
     }
     return _urls;

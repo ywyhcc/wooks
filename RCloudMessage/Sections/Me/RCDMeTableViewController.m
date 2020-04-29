@@ -210,10 +210,10 @@
                 [cell setCellWithImageName:@"about_rongcloud"
                                  labelName:RCDLocalizedString(@"about_sealtalk")
                             rightLabelName:@""];
-                BOOL isNeedUpdate = [[DEFAULTS objectForKey:RCDNeedUpdateKey] boolValue];
-                if (isNeedUpdate) {
-                    [cell addRedpointImageView];
-                }
+//                BOOL isNeedUpdate = [[DEFAULTS objectForKey:RCDNeedUpdateKey] boolValue];
+//                if (isNeedUpdate) {
+//                    [cell addRedpointImageView];
+//                }
             }
 //        }
         

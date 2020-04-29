@@ -96,40 +96,6 @@
                                  }];
 }
 
-+ (void)getVersionInfo:(void (^)(NSDictionary *))completeBlock {
-    [RCDHTTPUtility
-        requestWithHTTPMethod:HTTPMethodGet
-                    URLString:@"misc/mobile_version"
-                   parameters:nil
-                     response:^(RCDHTTPResult *_Nonnull result) {
-                         if (result.success) {
-                             NSDictionary *iOSResult = result.content[@"iOS"];
-                             NSString *sealtalkBuild = iOSResult[@"build"];
-                             NSString *applistURL = iOSResult[@"url"];
-
-                             NSDictionary *info;
-                             NSString *currentBuild =
-                                 [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-
-                             NSDate *currentBuildDate = [RCDLoginAPI stringToDate:currentBuild];
-                             NSDate *buildDate = [RCDLoginAPI stringToDate:sealtalkBuild];
-                             NSTimeInterval secondsInterval = [currentBuildDate timeIntervalSinceDate:buildDate];
-                             if (secondsInterval < 0) {
-                                 info = [NSDictionary
-                                     dictionaryWithObjectsAndKeys:@(YES), @"isNeedUpdate", applistURL, @"applist", nil];
-                             } else {
-                                 info = [NSDictionary dictionaryWithObjectsAndKeys:@(NO), @"isNeedUpdate", nil];
-                             }
-                             if (completeBlock) {
-                                 completeBlock(info);
-                             }
-                         } else {
-                             if (completeBlock) {
-                                 completeBlock(nil);
-                             }
-                         }
-                     }];
-}
 
 + (void)checkPhoneNumberAvailable:(NSString *)phoneCode
                       phoneNumber:(NSString *)phoneNumber

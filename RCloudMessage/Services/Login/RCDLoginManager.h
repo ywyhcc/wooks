@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)openDB:(NSString *)currentUserId;
 
-// 获取 App 版本信息
-+ (void)getVersionInfo:(void (^)(BOOL needUpdate, NSString *finalURL))completeBlock;
 
 // 检查手机号是否可以注册。
 + (void)checkPhoneNumberAvailable:(NSString *)phoneCode

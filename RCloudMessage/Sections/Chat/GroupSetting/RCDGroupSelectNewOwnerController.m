@@ -17,6 +17,9 @@
 #import "RCDUtilities.h"
 #import "UIColor+RCColor.h"
 #import "UIView+MBProgressHUD.h"
+#import "RCDGroupNotificationMessage.h"
+#import "RCDCommonString.h"
+
 @interface RCDGroupSelectNewOwnerController () <UISearchControllerDelegate, UISearchResultsUpdating>
 @property (nonatomic, strong) NSArray *allMembers;
 @property (nonatomic, strong) NSString *groupId;
@@ -183,6 +186,29 @@
                       dispatch_async(dispatch_get_main_queue(), ^{
                           [MBProgressHUD hideHUDForView:self.view animated:YES];
                           if (success) {
+                              
+                              NSString *nameStr = [NSString stringWithFormat:@"%@转让了群主",[DEFAULTS stringForKey:RCDUserNickNameKey]];
+                              RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:nameStr];
+                                                      
+                              [message encode];
+                              
+                              [[RCIMClient sharedRCIMClient]
+                                          sendMessage:ConversationType_GROUP
+                                          targetId:self.groupId
+                                          content:message
+                                          pushContent:@""
+                                          pushData:@""
+                                          success:^(long messageId) {
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      NSLog(@"aaaaa");
+                                  });
+                                          }
+                                          error:^(RCErrorCode nErrorCode, long messageId) {
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      NSLog(@"bbbbb");
+                                  });
+                              }];
+                              
                               NSArray *array = self.navigationController.viewControllers;
                               [self.navigationController popToViewController:array[array.count - 1 - 2] animated:YES];
                           } else {

@@ -28,6 +28,7 @@
 #import "RCDCommonString.h"
 #import <ContactsUI/ContactsUI.h>
 #import "RCDAddFriendListViewController.h"
+#import "RCDGroupNotificationMessage.h"
 
 @interface NewFriendsInviteViewController ()<UICollectionViewDelegateFlowLayout, UICollectionViewDataSource,
 UICollectionViewDelegate, UITableViewDelegate,
@@ -636,8 +637,10 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     } else {
         // get seleted users
         NSMutableArray *seletedUsersId = [NSMutableArray new];
+        NSMutableArray *selectedNames = [NSMutableArray new];
         for (RCDFriendInfo *user in self.collectionViewResource) {
             [seletedUsersId addObject:user.userId];
+            [selectedNames addObject:user.name];
         }
 
         if (seletedUsersId.count > 0 && self.groupOptionType == RCDContactSelectedGroupOptionTypeAdd) {
@@ -645,39 +648,103 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
                 addUsers:seletedUsersId
                  groupId:self.groupId
                 complete:^(BOOL success, RCDGroupAddMemberStatus status){
-                    rcd_dispatch_main_async_safe(^{
-                        [self.hud hide:YES];
-                        if (success == YES) {
-                            [self.navigationController popViewControllerAnimated:YES];
-                        } else {
-                            [self showAlertViewWithMessage:RCDLocalizedString(@"add_member_fail")];
-                            [self.rightBtn buttonIsCanClick:YES
-                                                buttonColor:[UIColor blackColor]
-                                              barButtonItem:self.rightBtn];
+                rcd_dispatch_main_async_safe((^{
+                    [self.hud hide:YES];
+                    if (success == YES) {
+                        NSString *nameStr = nil;
+                        for (NSString *userName in selectedNames) {
+                            if (nameStr.length > 0 && nameStr != nil) {
+                                nameStr = [NSString stringWithFormat:@"%@、%@",nameStr,userName];
+                            }
+                            else{
+                                nameStr = userName;
+                            }
                         }
-                        if (status == RCDGroupAddMemberStatusInviteeApproving) {
-                            [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
-                        } else if (status == RCDGroupAddMemberStatusOnlyManagerApproving) {
-                            [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedManagerConfirm")];
+                        
+                        RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:[NSString stringWithFormat:@"群主将%@移出群聊",nameStr]];
+                        
+                        [message encode];
+                        
+                        [[RCIMClient sharedRCIMClient]
+                         sendMessage:ConversationType_GROUP
+                         targetId:self.groupId
+                         content:message
+                         pushContent:@""
+                         pushData:@""
+                         success:^(long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"aaaaa");
+                            });
                         }
-                    })}];
+                         error:^(RCErrorCode nErrorCode, long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"bbbbb");
+                            });
+                        }];
+                        
+                        
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else {
+                        [self showAlertViewWithMessage:RCDLocalizedString(@"add_member_fail")];
+                        [self.rightBtn buttonIsCanClick:YES
+                                            buttonColor:[UIColor blackColor]
+                                          barButtonItem:self.rightBtn];
+                    }
+                    if (status == RCDGroupAddMemberStatusInviteeApproving) {
+                        //                            [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
+                    } else if (status == RCDGroupAddMemberStatusOnlyManagerApproving) {
+                        [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedManagerConfirm")];
+                    }
+                }))}];
             return;
         }
         if (seletedUsersId.count > 0 && self.groupOptionType == RCDContactSelectedGroupOptionTypeDelete) {
             [RCDGroupManager kickUsers:seletedUsersId
                                groupId:self.groupId
                               complete:^(BOOL success){
-                                  rcd_dispatch_main_async_safe(^{
-                                      [self.hud hide:YES];
-                                      if (success == YES) {
-                                          [self.navigationController popViewControllerAnimated:YES];
-                                      } else {
-                                          [self showAlertViewWithMessage:RCDLocalizedString(@"delete_member_fail")];
-                                          [self.rightBtn buttonIsCanClick:YES
-                                                              buttonColor:[UIColor blackColor]
-                                                            barButtonItem:self.rightBtn];
-                                      }
-                                  })}];
+                rcd_dispatch_main_async_safe((^{
+                    [self.hud hide:YES];
+                    if (success == YES) {
+                        NSString *nameStr = nil;
+                        for (NSString *userName in selectedNames) {
+                            if (nameStr.length > 0 && nameStr != nil) {
+                                nameStr = [NSString stringWithFormat:@"%@、%@",nameStr,userName];
+                            }
+                            else{
+                                nameStr = userName;
+                            }
+                        }
+                        
+                        RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:[NSString stringWithFormat:@"群主将%@踢出群聊",nameStr]];
+                        
+                        [message encode];
+                        
+                        [[RCIMClient sharedRCIMClient]
+                         sendMessage:ConversationType_GROUP
+                         targetId:self.groupId
+                         content:message
+                         pushContent:@""
+                         pushData:@""
+                         success:^(long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"aaaaa");
+                            });
+                        }
+                         error:^(RCErrorCode nErrorCode, long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSLog(@"bbbbb");
+                            });
+                        }];
+                        
+                        
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else {
+                        [self showAlertViewWithMessage:RCDLocalizedString(@"delete_member_fail")];
+                        [self.rightBtn buttonIsCanClick:YES
+                                            buttonColor:[UIColor blackColor]
+                                          barButtonItem:self.rightBtn];
+                    }
+                }))}];
             return;
         }
         if (self.groupOptionType == RCDContactSelectedGroupOptionTypeCreate) {

@@ -39,6 +39,7 @@
 #import "RCDGroupMemberDetailController.h"
 #import "QiniuQuery.h"
 #import "RCDGroupAPI.h"
+#import "RCDGroupNotificationMessage.h"
 
 static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
 
@@ -71,6 +72,7 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshGroupInfo];
+    [self updateGroupMembers];
     if (self.group.number) {
         self.title = [NSString stringWithFormat:RCDLocalizedString(@"group_information_x"), self.group.number];
     } else {
@@ -431,6 +433,27 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
                          complete:^(BOOL success) {
                              dispatch_async(dispatch_get_main_queue(), ^{
                                  if (success) {
+                                     
+                                     RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:@"该群已解散"];
+                                                             
+                                     [message encode];
+                                     
+                                     [[RCIMClient sharedRCIMClient]
+                                                 sendMessage:ConversationType_GROUP
+                                                 targetId:self.group.groupId
+                                                 content:message
+                                                 pushContent:@""
+                                                 pushData:@""
+                                                 success:^(long messageId) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             NSLog(@"aaaaa");
+                                         });
+                                                 }
+                                                 error:^(RCErrorCode nErrorCode, long messageId) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             NSLog(@"bbbbb");
+                                         });
+                                     }];
                                      [self clearConversationAndMessage];
                                      [self.navigationController popToRootViewControllerAnimated:YES];
                                  } else {
@@ -535,6 +558,19 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
                          }];
 }
 
+- (void)updateGroupMembers{
+    __weak typeof(self) weakSelf = self;
+    [RCDGroupManager
+        getGroupMembersFromServer:self.group.groupId
+                         complete:^(NSArray<NSString *> *_Nonnull memberIdList) {
+                             if (memberIdList) {
+                                 weakSelf.memberList = [weakSelf resetMemberList:memberIdList];
+                                 weakSelf.headerDisplayMembers = [weakSelf getHeaderDisplayMemberData];
+                                 [weakSelf setHeaderView];
+                             }
+                         }];
+}
+
 - (void)refreshGroupClearStatus {
     [RCDChatManager getGroupMessageClearStatus:self.group.groupId
                                       complete:^(RCDGroupMessageClearStatus status) {
@@ -568,7 +604,11 @@ static NSString *CellIdentifier = @"RCDBaseSettingTableViewCell";
                                            if (groupInfo) {
                                                weakSelf.group = groupInfo;
                                            }
-                                           [weakSelf refreshTableViewInfo];
+                                           if (weakSelf.group.number) {
+                                               weakSelf.title = [NSString stringWithFormat:RCDLocalizedString(@"group_information_x"), self.group.number];
+                                           } else {
+                                               weakSelf.title = RCDLocalizedString(@"group_information");
+                                           }
                                        });
                                    }];
 }

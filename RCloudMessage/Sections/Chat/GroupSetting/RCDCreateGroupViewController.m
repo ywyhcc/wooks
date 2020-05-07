@@ -341,7 +341,7 @@
                             }];
 
                         if (status == RCDGroupAddMemberStatusInviteeApproving) {
-                            [weakSelf.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
+//                            [weakSelf.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
                         }
                         [weakSelf gotoChatView:groupId groupName:groupName];
                     } else {
@@ -406,7 +406,7 @@
                            
                            
                            if (status == RCDGroupAddMemberStatusInviteeApproving) {
-                               [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
+//                               [self.view showHUDMessage:RCDLocalizedString(@"MemberInviteNeedConfirm")];
                            }
 
                            if ([RCDForwardManager sharedInstance].isForward) {

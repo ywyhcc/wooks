@@ -227,7 +227,7 @@
     if (textField.text.length == 0) {
         [textField setFont:[UIFont fontWithName:@"Heiti SC" size:18.0]];
     } else {
-        [textField setFont:[UIFont fontWithName:@"Heiti SC" size:25.0]];
+        [textField setFont:[UIFont fontWithName:@"Heiti SC" size:18.0]];
     }
 }
 
@@ -405,7 +405,7 @@
     [self.inputBackground addSubview:self.phoneTextField];
 
     if (self.phoneTextField.textField.text.length > 0) {
-        [self.phoneTextField.textField setFont:[UIFont fontWithName:@"Heiti SC" size:25.0]];
+        [self.phoneTextField.textField setFont:[UIFont fontWithName:@"Heiti SC" size:18.0]];
     }
 
     [self.inputBackground addSubview:self.verificationCodeField];
@@ -427,7 +427,6 @@
     [self.bottomBackground addSubview:[self getRegisterButton]];
     [self.bottomBackground addSubview:[self getLoginButton]];
 
-    [self.bottomBackground addSubview:[self getFooterLabel]];
 }
 
 - (void)setLayout {
@@ -483,13 +482,13 @@
                                                          multiplier:1.0
                                                            constant:0]];
 
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bottomBackground
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:20]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bottomBackground
+//                                                          attribute:NSLayoutAttributeBottom
+//                                                          relatedBy:NSLayoutRelationEqual
+//                                                             toItem:self.view
+//                                                          attribute:NSLayoutAttributeBottom
+//                                                         multiplier:1.0
+//                                                           constant:20]];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_pswMsgLb
                                                           attribute:NSLayoutAttributeBottom
@@ -517,7 +516,7 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_errorMsgLb, _licenseLb, _rongLogo, _inputBackground,
                                                          _bottomBackground, _vCodeTimerLb);
 
-    NSArray *viewConstraints = [[[[[[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-41-[_inputBackground]-41-|"
+    NSArray *viewConstraints = [[[[[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-41-[_inputBackground]-41-|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:views]
@@ -528,14 +527,14 @@
         arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-70-[_rongLogo(100)]-70-[_"
                                                                                       @"errorMsgLb(==15)]-[_"
                                                                                       @"inputBackground("
-                                                                                      @"==295)]"
+                                                                                      @"==295)]-0-[_bottomBackground(==50)]"
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomBackground(==50)]"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:views]]
+//        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomBackground(==50)]"
+//                                                                              options:0
+//                                                                              metrics:nil
+//                                                                                views:views]]
         arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_bottomBackground]-10-|"
                                                                               options:0
                                                                               metrics:nil
@@ -628,7 +627,7 @@
         _phoneTextField.textField.textColor = [UIColor blackColor];
         _phoneTextField.userInteractionEnabled = YES;
         _phoneTextField.translatesAutoresizingMaskIntoConstraints = NO;
-        _phoneTextField.textField.adjustsFontSizeToFitWidth = YES;
+//        _phoneTextField.textField.adjustsFontSizeToFitWidth = YES;
         _phoneTextField.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTextField.textField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTextField.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:RCDLocalizedString(@"set_phone_number")
@@ -812,7 +811,7 @@
         rePasswordTextField.returnKeyType = UIReturnKeyDone;
         rePasswordTextField.secureTextEntry = YES;
         // passwordTextField.delegate = self;
-        rePasswordTextField.adjustsFontSizeToFitWidth = YES;
+//        rePasswordTextField.adjustsFontSizeToFitWidth = YES;
         rePasswordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         UIColor *color = [FPStyleGuide lightGrayTextColor];//RCDLocalizedString(@"nickname")
         rePasswordTextField.attributedPlaceholder =
@@ -823,9 +822,9 @@
                                 action:@selector(textFieldDidChange:)
                       forControlEvents:UIControlEventEditingChanged];
 
-        if (rePasswordTextField.text.length > 0) {
-            [rePasswordTextField setFont:[UIFont fontWithName:@"Heiti SC" size:25.0]];
-        }
+//        if (rePasswordTextField.text.length > 0) {
+//            [rePasswordTextField setFont:[UIFont fontWithName:@"Heiti SC" size:25.0]];
+//        }
         _rePasswordTextField = rePasswordTextField;
     }
     return _rePasswordTextField;
@@ -857,7 +856,7 @@
 }
 
 - (UIButton *)getLoginButton {
-    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 100, -16, 80, 50)];
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2, 10, 120, 40)];
     [loginButton setTitle:RCDLocalizedString(@"Login") forState:UIControlStateNormal];
     [loginButton setTitleColor:[[UIColor alloc] initWithRed:153 green:153 blue:153 alpha:0.5]
                       forState:UIControlStateNormal];
@@ -869,7 +868,7 @@
 }
 
 - (UIButton *)getRegisterButton {
-    UIButton *registerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, -16, 80, 50)];
+    UIButton *registerButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 120, 10, 120, 40)];
     [registerButton setTitle:RCDLocalizedString(@"new_user") forState:UIControlStateNormal];
     [registerButton setTitleColor:[[UIColor alloc] initWithRed:153 green:153 blue:153 alpha:0.5]
                          forState:UIControlStateNormal];
@@ -881,14 +880,4 @@
     return registerButton;
 }
 
-- (UILabel *)getFooterLabel {
-    CGRect screenBounds = self.view.frame;
-    UILabel *footerLabel = [[UILabel alloc] init];
-    footerLabel.textAlignment = NSTextAlignmentCenter;
-    footerLabel.frame = CGRectMake(screenBounds.size.width / 2 - 100, -2, 200, 21);
-    footerLabel.text = @"Powered by Woostalk";
-    [footerLabel setFont:[UIFont systemFontOfSize:12.f]];
-    [footerLabel setTextColor:[UIColor colorWithHexString:@"484848" alpha:1.0]];
-    return footerLabel;
-}
 @end

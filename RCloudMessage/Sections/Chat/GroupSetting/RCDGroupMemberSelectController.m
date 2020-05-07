@@ -248,27 +248,26 @@
                                          }
                                          
                                          RCDGroupNotificationMessage *message = [RCDGroupNotificationMessage messageWithTextMsg:[NSString stringWithFormat:@"群主将%@添加为管理员",nameStr]];
-                                         //                        [message decodeUserInfo:@{@"message":@"新建了群聊"}];
                                                                  
-                                             [message encode];
-                                             
-                                             [[RCIMClient sharedRCIMClient]
-                                                         sendMessage:ConversationType_GROUP
-                                                         targetId:self.groupId
-                                                         content:message
-                                                         pushContent:@""
-                                                         pushData:@""
-                                                         success:^(long messageId) {
-                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                     NSLog(@"aaaaa");
-                                                 });
-                                                         }
-                                                         error:^(RCErrorCode nErrorCode, long messageId) {
-                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                     NSLog(@"bbbbb");
-                                                 });
-                                             }];
+                                         [message encode];
                                          
+                                         [[RCIMClient sharedRCIMClient]
+                                                     sendMessage:ConversationType_GROUP
+                                                     targetId:self.groupId
+                                                     content:message
+                                                     pushContent:@""
+                                                     pushData:@""
+                                                     success:^(long messageId) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 NSLog(@"aaaaa");
+                                             });
+                                                     }
+                                                     error:^(RCErrorCode nErrorCode, long messageId) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 NSLog(@"bbbbb");
+                                             });
+                                         }];
+                                     
                                      } else {
                                          [self.view showHUDMessage:RCDLocalizedString(@"Failed")];
                                      }

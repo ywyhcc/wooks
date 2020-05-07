@@ -502,8 +502,6 @@
     [self.bottomBackground addSubview:[self getLoginButton]];
 
     [self.bottomBackground addSubview:[self getForgetPswButton]];
-
-    [self.bottomBackground addSubview:[self getFooterLabel]];
 }
 
 - (void)setLayout {
@@ -585,7 +583,7 @@
                                                          multiplier:1.0
                                                            constant:-7]];
 
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bottomBackground
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_userProtocolButton
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
@@ -617,7 +615,7 @@
         arrayByAddingObjectsFromArray:[NSLayoutConstraint
                                           constraintsWithVisualFormat:@"V:|-60-[_rongLogo(100)]-80-[_errorMsgLb(=="
                                                                       @"12)]-1-[_inputBackground(==350)]-"
-                                                                      @"(==0)-[_userProtocolButton(==20)]"
+                                                                      @"(==0)-[_bottomBackground(==50)]"
                                                               options:0
                                                               metrics:nil
                                                                 views:views]]
@@ -627,14 +625,19 @@
                                                                               metrics:nil
                                                                                 views:views]]
 
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomBackground(==50)]"
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_userProtocolButton(==20)]-30-|"
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_bottomBackground]-10-|"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:views]]
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_bottomBackground]-0-|"
+        options:0
+        metrics:nil
+          views:views]]
+                                 
+//        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_userProtocolButton]-10-|"
+//                                                                              options:0
+//                                                                              metrics:nil
+//                                                                                views:views]]
         arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_licenseLb]-10-|"
                                                                               options:0
                                                                               metrics:nil
@@ -645,6 +648,15 @@
                                                                                 views:views]];
 
     [self.view addConstraints:viewConstraints];
+    
+    NSLayoutConstraint *bottomBackConstraint = [NSLayoutConstraint constraintWithItem:_bottomBackground
+                                                                                   attribute:NSLayoutAttributeCenterX
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:self.view
+                                                                                   attribute:NSLayoutAttributeCenterX
+                                                                                  multiplier:1.f
+                                                                                    constant:0];
+    [self.view addConstraint:bottomBackConstraint];
 
     NSLayoutConstraint *userProtocolLabelConstraint = [NSLayoutConstraint constraintWithItem:_userProtocolButton
                                                                                    attribute:NSLayoutAttributeCenterX
@@ -1096,7 +1108,7 @@
 }
 
 - (UIButton *)getLoginButton {
-    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 100, -16, 80, 50)];
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 30, 0, 120, 20)];
     [loginButton setTitle:RCDLocalizedString(@"Login") forState:UIControlStateNormal];
     [loginButton setTitleColor:[UIColor blackColor]
                       forState:UIControlStateNormal];
@@ -1108,7 +1120,7 @@
 }
 
 - (UIButton *)getForgetPswButton {
-    UIButton *forgetPswButton = [[UIButton alloc] initWithFrame:CGRectMake(0, -16, 120, 50)];
+    UIButton *forgetPswButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 120 + 30, 0, 120, 20)];
     [forgetPswButton setTitle:RCDLocalizedString(@"forgot_password") forState:UIControlStateNormal];
     [forgetPswButton setTitleColor:[UIColor blackColor]
                           forState:UIControlStateNormal];
@@ -1130,16 +1142,5 @@
         
     }
     return _nameLabel;
-}
-
-- (UILabel *)getFooterLabel {
-    CGRect screenBounds = self.view.frame;
-    UILabel *footerLabel = [[UILabel alloc] init];
-    footerLabel.textAlignment = NSTextAlignmentCenter;
-    footerLabel.frame = CGRectMake(screenBounds.size.width / 2 - 100, -2, 200, 21);
-    footerLabel.text = @"Powered by woostalk";
-    [footerLabel setFont:[UIFont systemFontOfSize:12.f]];
-    [footerLabel setTextColor:[UIColor colorWithHexString:@"484848" alpha:1.0]];
-    return footerLabel;
 }
 @end

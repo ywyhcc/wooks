@@ -17,7 +17,6 @@
 #import "UIView+MBProgressHUD.h"
 #import "RCDForwardSelectedViewController.h"
 #import "RCDForwardManager.h"
-#import "RCDWeChatManager.h"
 #import "NormalAlertView.h"
 @interface RCDMyQRCodeView ()
 
@@ -126,19 +125,19 @@
 }
 
 - (void)didShareWechatBtnAction {
-    if ([RCDWeChatManager weChatCanShared]) {
-        UIImage *image = [self captureCurrentView:self.qrBgView];
-        [[RCDWeChatManager sharedManager] sendImage:image atScene:WXSceneSession];
-    } else {
-        // 提示用户安装微信
-        [NormalAlertView showAlertWithTitle:nil
-                                    message:RCDLocalizedString(@"NotInstalledWeChat")
-                              describeTitle:nil
-                               confirmTitle:RCDLocalizedString(@"confirm")
-                                    confirm:^{
-
-                                    }];
-    }
+//    if ([RCDWeChatManager weChatCanShared]) {
+//        UIImage *image = [self captureCurrentView:self.qrBgView];
+//        [[RCDWeChatManager sharedManager] sendImage:image atScene:WXSceneSession];
+//    } else {
+//        // 提示用户安装微信
+//        [NormalAlertView showAlertWithTitle:nil
+//                                    message:RCDLocalizedString(@"NotInstalledWeChat")
+//                              describeTitle:nil
+//                               confirmTitle:RCDLocalizedString(@"confirm")
+//                                    confirm:^{
+//
+//                                    }];
+//    }
 }
 
 #pragma mark - Private Method

@@ -107,7 +107,6 @@
 		3B2CC34122A4D0C900C2EA1F /* RCDContactSelectedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2CC33F22A4D0C900C2EA1F /* RCDContactSelectedTableViewCell.m */; };
 		3B3DED11221D62E40079DFE6 /* RCDLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3DED0D221D62E40079DFE6 /* RCDLanguageManager.m */; };
 		3B3DED12221D62E40079DFE6 /* NSBundle+RC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3DED0F221D62E40079DFE6 /* NSBundle+RC.m */; };
-		3B45C89922D5E1E200DCADF5 /* RCDWeChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B45C89822D5E1E200DCADF5 /* RCDWeChatManager.m */; };
 		3B4788E822B780EF00D33F10 /* RCDForwardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4788E722B780EF00D33F10 /* RCDForwardManager.m */; };
 		3B47890622B78F3200D33F10 /* RCDBottomResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B47890522B78F3200D33F10 /* RCDBottomResultView.m */; };
 		3B47890E22B79A3B00D33F10 /* RCDForwardSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B47890D22B79A3B00D33F10 /* RCDForwardSelectedViewController.m */; };
@@ -277,9 +276,6 @@
 		7F9BE1DD2430BA6E00BFABB2 /* NewLabelMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1DC2430BA6E00BFABB2 /* NewLabelMemberViewController.m */; };
 		7F9BE1E02430EEE700BFABB2 /* LabelEditNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1DF2430EEE700BFABB2 /* LabelEditNameViewController.m */; };
 		7F9BE1E324310BC800BFABB2 /* LabelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1E224310BC800BFABB2 /* LabelModel.m */; };
-		7F9BE1E62431F5EF00BFABB2 /* VipRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1E52431F5EF00BFABB2 /* VipRechargeViewController.m */; };
-		7F9BE1E92431F74700BFABB2 /* VipRechargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1E82431F74700BFABB2 /* VipRechargeView.m */; };
-		7F9BE1EC2431F7B600BFABB2 /* VipRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BE1EB2431F7B600BFABB2 /* VipRechargeModel.m */; };
 		7FBD6F322457F1BB00094F99 /* FuctionIntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD6F312457F1BB00094F99 /* FuctionIntroduceViewController.m */; };
 		7FC042092439C4FB007CF4F6 /* MeMoreInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC042082439C4FB007CF4F6 /* MeMoreInfoTableViewController.m */; };
 		7FC0420C2439D6A8007CF4F6 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC0420B2439D6A8007CF4F6 /* LocationTableViewController.m */; };
@@ -671,8 +667,6 @@
 		3B3DED0E221D62E40079DFE6 /* NSBundle+RC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+RC.h"; sourceTree = "<group>"; };
 		3B3DED0F221D62E40079DFE6 /* NSBundle+RC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+RC.m"; sourceTree = "<group>"; };
 		3B3DED10221D62E40079DFE6 /* RCDLanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLanguageManager.h; sourceTree = "<group>"; };
-		3B45C89722D5E1E200DCADF5 /* RCDWeChatManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCDWeChatManager.h; sourceTree = "<group>"; };
-		3B45C89822D5E1E200DCADF5 /* RCDWeChatManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCDWeChatManager.m; sourceTree = "<group>"; };
 		3B4788E622B780EF00D33F10 /* RCDForwardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCDForwardManager.h; sourceTree = "<group>"; };
 		3B4788E722B780EF00D33F10 /* RCDForwardManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCDForwardManager.m; sourceTree = "<group>"; };
 		3B47890422B78F3200D33F10 /* RCDBottomResultView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCDBottomResultView.h; sourceTree = "<group>"; };
@@ -1002,12 +996,6 @@
 		7F9BE1DF2430EEE700BFABB2 /* LabelEditNameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelEditNameViewController.m; sourceTree = "<group>"; };
 		7F9BE1E124310BC800BFABB2 /* LabelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModel.h; sourceTree = "<group>"; };
 		7F9BE1E224310BC800BFABB2 /* LabelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModel.m; sourceTree = "<group>"; };
-		7F9BE1E42431F5EF00BFABB2 /* VipRechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VipRechargeViewController.h; sourceTree = "<group>"; };
-		7F9BE1E52431F5EF00BFABB2 /* VipRechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VipRechargeViewController.m; sourceTree = "<group>"; };
-		7F9BE1E72431F74700BFABB2 /* VipRechargeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VipRechargeView.h; sourceTree = "<group>"; };
-		7F9BE1E82431F74700BFABB2 /* VipRechargeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VipRechargeView.m; sourceTree = "<group>"; };
-		7F9BE1EA2431F7B600BFABB2 /* VipRechargeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VipRechargeModel.h; sourceTree = "<group>"; };
-		7F9BE1EB2431F7B600BFABB2 /* VipRechargeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VipRechargeModel.m; sourceTree = "<group>"; };
 		7FBD6F302457F1BB00094F99 /* FuctionIntroduceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FuctionIntroduceViewController.h; sourceTree = "<group>"; };
 		7FBD6F312457F1BB00094F99 /* FuctionIntroduceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FuctionIntroduceViewController.m; sourceTree = "<group>"; };
 		7FC042072439C4FB007CF4F6 /* MeMoreInfoTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeMoreInfoTableViewController.h; sourceTree = "<group>"; };
@@ -1415,12 +1403,6 @@
 			children = (
 				27F0E39C22A0E3E200C8B0B8 /* RCDMeTableViewController.h */,
 				27F0E39422A0E3E000C8B0B8 /* RCDMeTableViewController.m */,
-				7F9BE1E42431F5EF00BFABB2 /* VipRechargeViewController.h */,
-				7F9BE1E52431F5EF00BFABB2 /* VipRechargeViewController.m */,
-				7F9BE1E72431F74700BFABB2 /* VipRechargeView.h */,
-				7F9BE1E82431F74700BFABB2 /* VipRechargeView.m */,
-				7F9BE1EA2431F7B600BFABB2 /* VipRechargeModel.h */,
-				7F9BE1EB2431F7B600BFABB2 /* VipRechargeModel.m */,
 				7FF936DB242A202D00694A1E /* ActiveInviteCodeViewController.h */,
 				7FF936DC242A202D00694A1E /* ActiveInviteCodeViewController.m */,
 				27F0E39922A0E3E100C8B0B8 /* RCDAboutRongCloudTableViewController.h */,
@@ -1723,15 +1705,6 @@
 				3B3DED0D221D62E40079DFE6 /* RCDLanguageManager.m */,
 			);
 			path = LanguageUtility;
-			sourceTree = "<group>";
-		};
-		3B45C88922D5E1C400DCADF5 /* WeChat */ = {
-			isa = PBXGroup;
-			children = (
-				3B45C89722D5E1E200DCADF5 /* RCDWeChatManager.h */,
-				3B45C89822D5E1E200DCADF5 /* RCDWeChatManager.m */,
-			);
-			path = WeChat;
 			sourceTree = "<group>";
 		};
 		3B4788FB22B78F1C00D33F10 /* View */ = {
@@ -2484,7 +2457,6 @@
 		9C1193D5229CF0AE005407ED /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3B45C88922D5E1C400DCADF5 /* WeChat */,
 				274E2BF122BB8C770016EE65 /* KxMenu */,
 				466684341B5DF36E000B7504 /* RCDUtilities.h */,
 				466684351B5DF36E000B7504 /* RCDUtilities.m */,
@@ -3466,7 +3438,6 @@
 				7F5ED40A2439A277007958F5 /* BaseUserInfoModel.m in Sources */,
 				9C226CFE229FB82900F49FC5 /* RCDLoginAPI.m in Sources */,
 				27F0E3CE22A0E3E300C8B0B8 /* RCDCSAnnounceView.m in Sources */,
-				7F9BE1E62431F5EF00BFABB2 /* VipRechargeViewController.m in Sources */,
 				3B4789A422BCD2FF00D33F10 /* RCDForwardSearchViewController.m in Sources */,
 				7F30D73D24239AFE0018A519 /* FPStyleGuide.m in Sources */,
 				7F30D73E24239AFE0018A519 /* ProfileUtil.m in Sources */,
@@ -3553,7 +3524,6 @@
 				9C119469229D4A14005407ED /* RCDRCIMDataSource.m in Sources */,
 				9C226D1D229FFD1600F49FC5 /* RCDUserInfoAPI.m in Sources */,
 				7F66C91E244707E400B6AB1E /* HDragItem.m in Sources */,
-				3B45C89922D5E1E200DCADF5 /* RCDWeChatManager.m in Sources */,
 				A2907097229E7F61006BDAC7 /* RCDPrivateSettingsTableViewController.m in Sources */,
 				27F0E3DE22A0E3E300C8B0B8 /* RCDMeCell.m in Sources */,
 				27F0E3C722A0E3E300C8B0B8 /* RCDLanguageSettingTableViewCell.m in Sources */,
@@ -3622,7 +3592,6 @@
 				A2CEF0052366E3F7008BC233 /* RCDViewController.m in Sources */,
 				3B054E3422F2DCFC009A3C72 /* RCDRecentPictureViewController.m in Sources */,
 				9C21F43B22A8F0BE003AB415 /* RCDGroupManager.m in Sources */,
-				7F9BE1E92431F74700BFABB2 /* VipRechargeView.m in Sources */,
 				3B3DED11221D62E40079DFE6 /* RCDLanguageManager.m in Sources */,
 				3BB6CE1F22D82D520007FFFB /* RCDSelectAddressBookViewController.m in Sources */,
 				7F66CB6B244721AD00B6AB1E /* IJSMapViewModel.m in Sources */,
@@ -3801,7 +3770,6 @@
 				7FC042092439C4FB007CF4F6 /* MeMoreInfoTableViewController.m in Sources */,
 				7F66CA7324471CED00B6AB1E /* IJSPreviewLivePhotoView.m in Sources */,
 				7F30D80B2425F84D0018A519 /* MessageViewController.m in Sources */,
-				7F9BE1EC2431F7B600BFABB2 /* VipRechargeModel.m in Sources */,
 				27F0E3DC22A0E3E300C8B0B8 /* RCDPrivacyTableViewController.m in Sources */,
 				3B4789B222BCE1DB00D33F10 /* RCDForwardSearchMoreController.m in Sources */,
 				A29070A7229E7F61006BDAC7 /* RealTimeLocationStatusView.m in Sources */,
@@ -3933,7 +3901,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = L5ZYN489A2;
 				ENABLE_BITCODE = NO;
@@ -3979,7 +3947,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = ADHoc_2020.1.14_woostalk;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
+				VALID_ARCHS = "arm64 armv7s arm64e";
 			};
 			name = AutoDebug;
 		};
@@ -4104,7 +4072,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = L5ZYN489A2;
 				ENABLE_BITCODE = NO;
@@ -4150,7 +4118,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = ADHoc_2020.1.14_woostalk;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
+				VALID_ARCHS = "arm64 armv7s arm64e";
 			};
 			name = AutoRelease;
 		};
@@ -4442,7 +4410,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: 振栋 张 (9ZHAD5X75T)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 振栋 张 (9ZHAD5X75T)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = L5ZYN489A2;
 				ENABLE_BITCODE = NO;
@@ -4488,7 +4456,7 @@
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
+				VALID_ARCHS = "arm64 armv7s arm64e";
 			};
 			name = Debug;
 		};
@@ -4505,7 +4473,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Cloud Zhonglian (Beijing) Technology Co., Ltd. (L5ZYN489A2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cloud Zhonglian (Beijing) Technology Co., Ltd. (L5ZYN489A2)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = L5ZYN489A2;
 				ENABLE_BITCODE = NO;
@@ -4550,7 +4518,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = ADHoc_2020.1.14_woostalk;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 arm64 armv7s arm64e";
+				VALID_ARCHS = "arm64 armv7s arm64e";
 			};
 			name = Release;
 		};

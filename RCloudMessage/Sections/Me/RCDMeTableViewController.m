@@ -20,8 +20,6 @@
 #import "RCDCommonString.h"
 #import "RCDQRCodeController.h"
 #import "ActiveInviteCodeViewController.h"
-#import "VipRechargeViewController.h"
-#import "VipRechargeViewController.h"
 #import "MeHeadTableViewCell.h"
 
 //#define SERVICE_ID @"KEFU146001495753714"
@@ -146,45 +144,6 @@
     }
     if (1 == indexPath.section) {
         
-//        if ([[DEFAULTS valueForKey:ShowPayPage] isEqualToString:@"1"]) {
-//            if (indexPath.row == 0) {
-//                [cell setCellWithImageName:@"vip_card" labelName:@"会员缴费" rightLabelName:[DEFAULTS objectForKey:@""]];
-//            }
-//            else if (indexPath.row == 1){
-//                [cell setCellWithImageName:@"mixin_ic_vip" labelName:@"会员到期" rightLabelName:[DEFAULTS objectForKey:@""]];
-//            }
-//            else if (indexPath.row == 2) {
-//                [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"邀请码" rightLabelName:[DEFAULTS objectForKey:InviteCode]];
-//            }
-//            else if (indexPath.row == 3) {
-//                [cell setCellWithImageName:@"qr_setting" labelName:RCDLocalizedString(@"My_QR") rightLabelName:@""];
-//            }
-//            else if (4 == indexPath.row) {
-//                [cell setCellWithImageName:@"setting_up"
-//                                 labelName:RCDLocalizedString(@"account_setting")
-//                            rightLabelName:@""];
-//            }
-//            else if (5 == indexPath.row) {
-//                NSString *currentLanguage = [RCDLanguageManager sharedRCDLanguageManager].currentLanguage;
-//                NSString *currentLanguageString = self.languageDic[currentLanguage];
-//                NSString *rightString = currentLanguageString ? currentLanguageString : RCDLocalizedString(@"language");
-//                [cell setCellWithImageName:@"icon_ multilingual"
-//                                 labelName:RCDLocalizedString(@"language")
-//                            rightLabelName:rightString];
-//            }
-//            else if (6 == indexPath.row) {
-//                [cell setCellWithImageName:@"sevre_inactive" labelName:RCDLocalizedString(@"feedback") rightLabelName:@""];
-//            } else if (7 == indexPath.row) {
-//                [cell setCellWithImageName:@"about_rongcloud"
-//                                 labelName:RCDLocalizedString(@"about_sealtalk")
-//                            rightLabelName:@""];
-//                BOOL isNeedUpdate = [[DEFAULTS objectForKey:RCDNeedUpdateKey] boolValue];
-//                if (isNeedUpdate) {
-//                    [cell addRedpointImageView];
-//                }
-//            }
-//        }
-//        else{
             if (indexPath.row == 0) {
                 [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"邀请码" rightLabelName:[DEFAULTS objectForKey:InviteCode]];
             }
@@ -246,12 +205,8 @@
 
 - (void)selectTableIndex:(NSInteger)index{
     if (index == 0) {
-        VipRechargeViewController *nextVC = [[VipRechargeViewController alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
     }
     else if (index == 1){
-        VipRechargeViewController *rechargeVC = [[VipRechargeViewController alloc] init];
-        [self.navigationController pushViewController:rechargeVC animated:YES];
     }
     else if (index == 2) {
         NSLog(@"----%@",[DEFAULTS objectForKey:InviteCode]);
@@ -280,13 +235,6 @@
     else if (4 == index) {
         RCDSettingsTableViewController *vc = [[RCDSettingsTableViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-//    }
-//    else if (5 == index) {
-//        RCDLanguageSettingViewController *vc = [[RCDLanguageSettingViewController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
-//    else if (6 == index) {
-//        [self chatWithCustomerService:SERVICE_ID];
     } else if (5 == index) {
         RCDAboutRongCloudTableViewController *vc = [[RCDAboutRongCloudTableViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];

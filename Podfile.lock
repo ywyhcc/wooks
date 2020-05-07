@@ -69,7 +69,6 @@ PODS:
   - UICKeyChainStore (2.1.2)
   - UUActionSheet (1.8)
   - UUButton (1.1)
-  - WechatOpenSDK (1.8.4)
   - YYText (1.0.7)
   - ZXingObjC (3.6.5):
     - ZXingObjC/All (= 3.6.5)
@@ -102,7 +101,6 @@ DEPENDENCIES:
   - UICKeyChainStore
   - UUActionSheet
   - UUButton
-  - WechatOpenSDK (= 1.8.4)
   - YYText
   - ZXingObjC (= 3.6.5)
 
@@ -133,7 +131,6 @@ SPEC REPOS:
     - UICKeyChainStore
     - UUActionSheet
     - UUButton
-    - WechatOpenSDK
     - YYText
     - ZXingObjC
 
@@ -163,10 +160,9 @@ SPEC CHECKSUMS:
   UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
   UUActionSheet: cde48ec5db6699f20f5b7f72517e4bb6294398e0
   UUButton: 9a19bbe0c812a6920de21da8acca7a2d0bad52da
-  WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: e221ecccafe4250346f0ced9b3397d48ad8871df
+PODFILE CHECKSUM: 5456d3288f5f547563a2175a9ad5cd0f26faa484
 
 COCOAPODS: 1.6.0

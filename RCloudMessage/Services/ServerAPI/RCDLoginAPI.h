@@ -13,7 +13,6 @@
 
 + (void)loginWithPhone:(NSString *)phone
               password:(NSString *)password
-                verCode:(NSString *)verCode
                success:(void (^)(NSString *token, NSString *userId))successBlock
                  error:(void (^)(RCDLoginErrorCode errorCode))errorBlock
                 errorMsg:(void (^)(NSString *_Nonnull))errorMsgBlock;

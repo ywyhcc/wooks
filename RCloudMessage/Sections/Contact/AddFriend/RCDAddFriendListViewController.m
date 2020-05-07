@@ -12,7 +12,6 @@
 #import "UIColor+RCColor.h"
 #import "RCDQRCodeController.h"
 #import <RongIMKit/RongIMKit.h>
-#import "RCDWeChatManager.h"
 #import "RCDSearchBar.h"
 #import "RCDSearchFriendController.h"
 #import "RCDScanQRCodeController.h"
@@ -27,7 +26,7 @@
 #import "AddContactFriendsTableViewController.h"
 #define RCDAddFriendListCellIdentifier @"RCDAddFriendListCell"
 
-@interface RCDAddFriendListViewController () <UITableViewDelegate, UITableViewDataSource, RCDWeChatManagerDelegate,
+@interface RCDAddFriendListViewController () <UITableViewDelegate, UITableViewDataSource,
                                               UISearchBarDelegate, RCDMyQRCodeViewDelegate>
 
 @property (nonatomic, strong) RCDSearchBar *searchBar;
@@ -249,7 +248,6 @@
     self.imageArray = @[ @"add_phonebook", @"add_scan", @"add_wechat", @"add_invite_phonebook" ];
     self.titleArray = @[ @"Phonebook_Title", @"Scan_Title", @"Wx_Title", @"Invite_Phonebook_Title" ];
     self.detailArray = @[ @"Phonebook_Detail", @"Scan_Detail", @"Wx_Detail", @"Invite_Phonebook_Detail" ];
-    [RCDWeChatManager sharedManager].delegate = self;
 }
 
 - (void)showAlert:(NSString *)title

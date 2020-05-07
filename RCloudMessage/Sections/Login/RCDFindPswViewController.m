@@ -47,7 +47,6 @@
 @property (nonatomic, strong) NSTimer *countDownTimer;
 @property (nonatomic, assign) int seconds;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *chatLabel;
 
 @end
 
@@ -399,7 +398,6 @@
     [self.view addSubview:self.inputBackground];
     
     [self.view addSubview:self.nameLabel];
-    [self.view addSubview:self.chatLabel];
     
     [self.view addSubview:self.errorMsgLb];
 
@@ -703,7 +701,7 @@
 - (UILabel*)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, SCREEN_WIDTH, 20)];
-        _nameLabel.text = @"WoosTalk";
+        _nameLabel.text = @"WOOSTALK";
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.userInteractionEnabled = NO;
         _nameLabel.textColor = [UIColor blackColor];
@@ -711,19 +709,6 @@
         
     }
     return _nameLabel;
-}
-
-- (UILabel*)chatLabel {
-    if (!_chatLabel) {
-        _chatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH, 20)];
-        _chatLabel.text = @"换一种沟通方式!";
-        _chatLabel.textAlignment = NSTextAlignmentCenter;
-        _chatLabel.userInteractionEnabled = NO;
-        _chatLabel.textColor = [FPStyleGuide weichatGreenColor];
-        _chatLabel.font = [UIFont boldSystemFontOfSize:20];
-        
-    }
-    return _chatLabel;
 }
 
 - (UILabel *)errorMsgLb {
@@ -763,6 +748,8 @@
         [sendCodeButton setTitle:RCDLocalizedString(@"send_verification_code") forState:UIControlStateNormal];
         [sendCodeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         sendCodeButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        sendCodeButton.layer.cornerRadius = 5;
+        sendCodeButton.clipsToBounds = YES;
         [sendCodeButton addTarget:self action:@selector(sendCodeEvent) forControlEvents:UIControlEventTouchUpInside];
         sendCodeButton.translatesAutoresizingMaskIntoConstraints = NO;
         _sendCodeButton = sendCodeButton;

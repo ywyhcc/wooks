@@ -56,7 +56,6 @@
 @property (nonatomic, strong) NSString *verCode;
 @property (nonatomic, strong) RCUnderlineTextField *inviteTextField;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *chatLabel;
 
 @end
 
@@ -186,6 +185,11 @@
     
     if (![_passwordTextField.text isEqualToString:_rePasswordTextField.text]) {
         self.errorMsgLb.text = @"两次密码不一致";
+        return;
+    }
+    
+    if (self.inviteTextField.text.length <= 0) {
+        [self showAlertViewWithMessage:@"请输入邀请码"];
         return;
     }
     
@@ -467,7 +471,6 @@
     [self.view addSubview:self.rongLogo];
     
     [self.view addSubview:self.nameLabel];
-    [self.view addSubview:self.chatLabel];
 
     [self.view addSubview:self.inputBackground];
 
@@ -996,7 +999,7 @@
         inviteTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         UIColor *color = [FPStyleGuide lightGrayTextColor];//RCDLocalizedString(@"nickname")
         inviteTextField.attributedPlaceholder =
-            [[NSAttributedString alloc] initWithString:@"邀请码(选填)"
+            [[NSAttributedString alloc] initWithString:@"邀请码(必填)"
                                             attributes:@{NSForegroundColorAttributeName : color}];
         inviteTextField.translatesAutoresizingMaskIntoConstraints = NO;
         [inviteTextField addTarget:self
@@ -1124,7 +1127,7 @@
 - (UILabel*)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, SCREEN_WIDTH, 20)];
-        _nameLabel.text = @"WoosTalk";
+        _nameLabel.text = @"WOOSTALK";
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.userInteractionEnabled = NO;
         _nameLabel.textColor = [UIColor blackColor];
@@ -1132,19 +1135,6 @@
         
     }
     return _nameLabel;
-}
-
-- (UILabel*)chatLabel {
-    if (!_chatLabel) {
-        _chatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH, 20)];
-        _chatLabel.text = @"换一种沟通方式!";
-        _chatLabel.textAlignment = NSTextAlignmentCenter;
-        _chatLabel.userInteractionEnabled = NO;
-        _chatLabel.textColor = [FPStyleGuide weichatGreenColor];
-        _chatLabel.font = [UIFont boldSystemFontOfSize:20];
-        
-    }
-    return _chatLabel;
 }
 
 - (UILabel *)getFooterLabel {

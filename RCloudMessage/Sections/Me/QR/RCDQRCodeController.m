@@ -18,7 +18,6 @@
 #import "UIView+MBProgressHUD.h"
 #import "RCDForwardSelectedViewController.h"
 #import "RCDForwardManager.h"
-#import "RCDWeChatManager.h"
 #import "NormalAlertView.h"
 #import "RCDCommonString.h"
 @interface RCDQRCodeController ()

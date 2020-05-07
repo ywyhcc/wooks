@@ -13,7 +13,7 @@
 #define QiniuCloudBaseURL                   @"http://resources.woostalk.com/"
 
 //#define BaseURL                             @"http://192.168.11.105:6060"
-#define RongCloudAPPKEY                     @"pvxdm17jpe31r"
+#define RongCloudAPPKEY                     @"uwd1c0sxu5p01"
 
 //
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]

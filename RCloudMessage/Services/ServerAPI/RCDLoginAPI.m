@@ -14,20 +14,12 @@
 
 + (void)loginWithPhone:(NSString *)phone
               password:(NSString *)password
-                verCode:(NSString *)verCode
                success:(void (^)(NSString *_Nonnull, NSString *_Nonnull))successBlock
                  error:(void (^)(RCDLoginErrorCode))errorBlock
                 errorMsg:(void (^)(NSString *_Nonnull))errorMsgBlock{
     
     NSDictionary *dic = @{@"username":phone,@"password": password};
-    if (verCode.length > 0) {
-        dic = @{@"username":phone,@"password": password,@"tryCode":verCode};
-    }
-    if ([verCode isEqualToString:@"9527"]) {//不需要校验验证码
-        dic = @{@"username":phone,@"password": password,@"isNeedVerify":@"0",@"tryCode":@"1234"};
-    }
     [SYNetworkingManager postWithURLString:LogIn parameters:dic success:^(NSDictionary *data) {
-        NSString *errcode = [dic stringValueForKey:@"errorCode"];
         if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
             NSLog(@"%@",[data stringValueForKey:@"message"]);
 

@@ -27,14 +27,13 @@
 #import "RCDGroupNoticeUpdateMessage.h"
 #import "RCDContactNotificationMessage.h"
 #import "RCDChatNotificationMessage.h"
-#import "RCDWeChatManager.h"
 #import "RCDChatManager.h"
 #import "RCDIMService.h"
 #import "MomentUtil.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
-//#define RONGCLOUD_IM_APPKEY @"n19jmcy59f1q9" // online key
-#define RONGCLOUD_IM_APPKEY @"pvxdm17jpe31r"
+//#define RONGCLOUD_IM_APPKEY @"pvxdm17jpe31r" // online key
+#define RONGCLOUD_IM_APPKEY @"uwd1c0sxu5p01" 
 #import "RCDPokeMessage.h"
 #import "RCDPokeManager.h"
 #import "RCDClearMessage.h"
@@ -45,7 +44,6 @@
 #define BUGLY_APPID @"197556f165"
 #define LOG_EXPIRE_TIME -7 * 24 * 60 * 60
 
-#define WECHAT_APPID @"wxe3d4d4ec21b00104"
 
 @interface AppDelegate () <RCWKAppInfoProvider>
 
@@ -60,7 +58,6 @@
 
     [self configSealTalkWithApp:application andOptions:launchOptions];
     [self configRongIM];
-    [self configWeChatShare];
     [self loginAndEnterMainPage];
     [self getAppConfig];
     [self initMapKey];
@@ -134,15 +131,6 @@
     //  [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
     //   设置优先使用WebView打开URL
     //  [RCIM sharedRCIM].embeddedWebViewPreferred = YES;
-}
-
-- (void)configWeChatShare {
-    [RCDWeChatManager registerApp:WECHAT_APPID];
-}
-
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-
-    return [[RCDWeChatManager sharedManager] handleOpenURL:url];
 }
 
 - (void)configSealTalkWithApp:(UIApplication *)application andOptions:(NSDictionary *)launchOptions {
@@ -225,7 +213,6 @@
                 userId:(NSString *)userId {
     [RCDLoginManager loginWithPhone:userName
         password:password
-        verCode:@"9527"
         success:^(NSString *_Nonnull token, NSString *_Nonnull userId) {
             [self saveLoginData:userName userId:userId token:token password:password];
         }
@@ -241,7 +228,6 @@
 - (void)refreshIMTokenAndReconnect:(NSString *)userName password:(NSString *)password region:(NSString *)regionCode {
     [RCDLoginManager loginWithPhone:userName
         password:password
-        verCode:@"9527"
         success:^(NSString *_Nonnull newToken, NSString *_Nonnull newUserId) {
             [[RCDIMService sharedService] connectWithToken:newToken
                 dbOpened:^(RCDBErrorCode code) {
@@ -468,10 +454,6 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options {
 
-    if ([url.absoluteString containsString:@"wechat"] || [url.absoluteString containsString:@"weixin"]) {
-        return [[RCDWeChatManager sharedManager] handleOpenURL:url];
-    }
-
     if ([[RCIM sharedRCIM] openExtensionModuleUrl:url]) {
         return YES;
     } else if ([url.absoluteString containsString:@"sealtalk:"]) {
@@ -484,9 +466,6 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    if ([url.absoluteString containsString:@"wechat"] || [url.absoluteString containsString:@"weixin"]) {
-        return [[RCDWeChatManager sharedManager] handleOpenURL:url];
-    }
 
     if ([[RCIM sharedRCIM] openExtensionModuleUrl:url]) {
         return YES;

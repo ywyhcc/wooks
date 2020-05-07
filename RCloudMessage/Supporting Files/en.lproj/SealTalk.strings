@@ -69,7 +69,7 @@
 "old_password"="Old Password";
 "old_and_new_friend_different"="The confirmed password is inconsistent with the new password.";
 "old_password_error"="The old password is incorrect";
-"password_hint"="6-16 characters, case sensitive";
+"password_hint"="6-24 characters, case sensitive";
 "password_alert"="Password must be 6-16 characters, case sensitive";
 "new_password"="New Password";
 "confirm_new_password"="Confirm Password";

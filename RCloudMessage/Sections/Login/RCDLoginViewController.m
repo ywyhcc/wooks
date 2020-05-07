@@ -51,7 +51,6 @@
 @property (nonatomic, strong) UIView *userProtocolButton;
 @property (nonatomic, strong) UIButton *registerButton;
 @property (nonatomic, strong) UIButton *forgetPswButton;
-@property (nonatomic, strong) UILabel *footerLabel;
 @property (nonatomic, assign) int loginFailureTimes;
 @property (nonatomic, strong) NSString *loginUserName;
 @property (nonatomic, strong) NSString *loginUserId;
@@ -509,12 +508,11 @@
     //底部按钮区
     [self.bottomBackground addSubview:self.registerButton];
     [self.bottomBackground addSubview:self.forgetPswButton];
-    [self.bottomBackground addSubview:self.footerLabel];
 }
 
 - (void)setLayout {
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bottomBackground
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_userProtocolButton
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
@@ -541,18 +539,23 @@
                                           constraintsWithVisualFormat:@"V:|-70-[_rongLogoView(100)]-50-["
                                                                       @"_errorMsgLb(==15)]-20-["
                                                                       @"_inputBackground(180)]-20-["
-                                                                      @"_userProtocolButton(==20)]"
+                                                                      @"_bottomBackground(==50)]"
                                                               options:0
                                                               metrics:nil
-                                                                views:views]]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomBackground(==50)]"
+                                                                views:views]]//_userProtocolButton//_bottomBackground
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_userProtocolButton(==20)]-40-|"
                                                                               options:0
                                                                               metrics:nil
                                                                                 views:views]]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_bottomBackground]-10-|"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:views]]
+//        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_userProtocolButton]-0-|"
+//                                                                              options:0
+//                                                                              metrics:nil
+//                                                                                views:views]]
+        
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_bottomBackground]-0-|"
+        options:0
+        metrics:nil
+          views:views]]
                                    
         arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_errorMsgLb]-10-|"
                                                                               options:0
@@ -566,6 +569,15 @@
 
     [self.view addConstraints:viewConstraints];
 
+    NSLayoutConstraint *bottomBackgroundConstraint = [NSLayoutConstraint constraintWithItem:_bottomBackground
+                                                                                   attribute:NSLayoutAttributeCenterX
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:self.view
+                                                                                   attribute:NSLayoutAttributeCenterX
+                                                                                  multiplier:1.f
+                                                                                    constant:0];
+    [self.view addConstraint:bottomBackgroundConstraint];
+    
     NSLayoutConstraint *userProtocolLabelConstraint = [NSLayoutConstraint constraintWithItem:_userProtocolButton
                                                                                    attribute:NSLayoutAttributeCenterX
                                                                                    relatedBy:NSLayoutRelationEqual
@@ -574,6 +586,7 @@
                                                                                   multiplier:1.f
                                                                                     constant:0];
     [self.view addConstraint:userProtocolLabelConstraint];
+    
     NSDictionary *inputViews = NSDictionaryOfVariableBindings( _phoneTextField, _passwordTextField,
                                                               _loginButton, _settingButton);
 
@@ -862,7 +875,7 @@
 
 - (UIButton *)registerButton {
     if (!_registerButton) {
-        UIButton *registerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, -16, 120, 50)];
+        UIButton *registerButton = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 240) / 2, 0, 120, 50)];
         [registerButton setTitle:RCDLocalizedString(@"forgot_password") forState:UIControlStateNormal];
         [registerButton setTitleColor:[UIColor blackColor]
                              forState:UIControlStateNormal];
@@ -877,7 +890,7 @@
 - (UIButton *)forgetPswButton {
     if (!_forgetPswButton) {
         UIButton *forgetPswButton =
-            [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 100, -16, 80, 50)];
+            [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2, 0, 120, 50)];
         [forgetPswButton setTitle:RCDLocalizedString(@"new_user") forState:UIControlStateNormal];
         [forgetPswButton setTitleColor:[UIColor blackColor]
                               forState:UIControlStateNormal];
@@ -887,20 +900,6 @@
         _forgetPswButton = forgetPswButton;
     }
     return _forgetPswButton;
-}
-
-- (UILabel *)footerLabel {
-    if (!_footerLabel) {
-        CGRect screenBounds = self.view.frame;
-        UILabel *footerLabel = [[UILabel alloc] init];
-        footerLabel.textAlignment = NSTextAlignmentCenter;
-        footerLabel.frame = CGRectMake(screenBounds.size.width / 2 - 100, -2, 200, 21);
-        footerLabel.text = @"Powered by woostalk";
-        [footerLabel setFont:[UIFont systemFontOfSize:12.f]];
-        [footerLabel setTextColor:[UIColor colorWithHexString:@"484848" alpha:1.0]];
-        _footerLabel = footerLabel;
-    }
-    return _footerLabel;
 }
 
 - (MBProgressHUD *)hud {

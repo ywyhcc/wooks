@@ -179,15 +179,33 @@
 
 + (void)changePassword:(NSString *)oldPwd newPwd:(NSString *)newPwd complete:(void (^)(BOOL))completeBlock {
     NSDictionary *params = @{ @"oldPassword" : oldPwd, @"newPassword" : newPwd };
-    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
-                                URLString:@"user/change_password"
-                               parameters:params
-                                 response:^(RCDHTTPResult *result) {
-                                     if (completeBlock) {
-                                         completeBlock(result.success);
-                                     }
-                                 }];
-}
+    
+    [SYNetworkingManager requestPUTWithURLStr:UpdatePassword paramDic:params success:^(NSDictionary *data) {
+        if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+            if (completeBlock) {
+                completeBlock(YES);
+            }
+        }
+        else {
+            if (completeBlock) {
+                completeBlock(NO);
+            }
+        }
+    } failure:^(NSError *error) {
+        if (completeBlock) {
+            completeBlock(NO);
+        }
+    }];
+    
+//    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodPost
+//                                URLString:@"user/change_password"
+//                               parameters:params
+//                                 response:^(RCDHTTPResult *result) {
+//                                     if (completeBlock) {
+//                                         completeBlock(result.success);
+//                                     }
+//                                 }];
+}//UpdatePassword
 
 + (void)resetPassword:(NSString *)password vToken:(NSString *)verificationToken complete:(void (^)(BOOL))completeBlock {
     NSDictionary *params = @{ @"password" : password, @"verification_token" : verificationToken };

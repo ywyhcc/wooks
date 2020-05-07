@@ -188,11 +188,6 @@
         return;
     }
     
-    if (self.inviteTextField.text.length <= 0) {
-        [self showAlertViewWithMessage:@"请输入邀请码"];
-        return;
-    }
-    
     RCNetworkStatus status = [[RCIMClient sharedRCIMClient] getCurrentNetworkStatus];
 
     if (RC_NotReachable == status) {
@@ -999,7 +994,7 @@
         inviteTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         UIColor *color = [FPStyleGuide lightGrayTextColor];//RCDLocalizedString(@"nickname")
         inviteTextField.attributedPlaceholder =
-            [[NSAttributedString alloc] initWithString:@"邀请码(必填)"
+            [[NSAttributedString alloc] initWithString:@"邀请码(选填)"
                                             attributes:@{NSForegroundColorAttributeName : color}];
         inviteTextField.translatesAutoresizingMaskIntoConstraints = NO;
         [inviteTextField addTarget:self

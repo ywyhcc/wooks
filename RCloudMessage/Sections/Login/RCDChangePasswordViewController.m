@@ -12,6 +12,7 @@
 #import "UIColor+RCColor.h"
 #import "RCDCommonString.h"
 #import "RCDLoginManager.h"
+#import "UIView+MBProgressHUD.h"
 
 @interface RCDChangePasswordViewController ()
 @property (nonatomic, strong) UILabel *oldPwdLabel;
@@ -55,7 +56,7 @@
     NSString *userPwd = [DEFAULTS objectForKey:RCDUserPasswordKey];
     if ([userPwd isEqualToString:self.oldPwdTextField.text]) {
         NSInteger newPwdLength = self.newsPwdTextField.text.length;
-        if (newPwdLength < 6 || newPwdLength > 20) {
+        if (newPwdLength < 6 || newPwdLength > 24) {
             [self AlertShow:RCDLocalizedString(@"password_alert")];
         } else {
             if ([self.newsPwdTextField.text isEqualToString:self.confirmPwdTextField.text]) {
@@ -65,9 +66,13 @@
                           complete:^(BOOL success) {
                               dispatch_async(dispatch_get_main_queue(), ^{
                                   if (success) {
+                                      [weakSelf.view showHUDMessage:@"修改成功"];
                                       [DEFAULTS setObject:self.newsPwdTextField.text forKey:RCDUserPasswordKey];
                                       [DEFAULTS synchronize];
                                       [weakSelf.navigationController popViewControllerAnimated:YES];
+                                  }
+                                  else{
+                                      [weakSelf.view showHUDMessage:@"修改失败,请重试"];
                                   }
                               });
                           }];
@@ -106,21 +111,21 @@
 }
 
 - (void)setNavigationButton {
-    self.leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:RCDLocalizedString(@"settings")
+    self.leftBtn = [[RCDUIBarButtonItem alloc] initWithLeftBarButton:@""
                                                               target:self
                                                               action:@selector(clickBackBtn)];
     self.navigationItem.leftBarButtonItem = self.leftBtn;
 
     self.rightBtn = [[RCDUIBarButtonItem alloc]
-        initWithbuttonTitle:RCDLocalizedString(@"save")
+        initWithbuttonTitle:@"修改"
 
-                 titleColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                 titleColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
                                                      darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                 buttonFrame:CGRectMake(0, 0, 50, 30)
                      target:self
                      action:@selector(saveNewPassword:)];
     [self.rightBtn buttonIsCanClick:NO
-                        buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                        buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
                                                              darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                       barButtonItem:self.rightBtn];
     self.navigationItem.rightBarButtonItems = [self.rightBtn setTranslation:self.rightBtn translation:-11];
@@ -260,12 +265,12 @@
 - (void)textFieldEditChanged:(NSNotification *)obj {
     if (self.oldPwdTextField.text.length > 0 || self.newsPwdTextField.text.length > 0 ||
         self.confirmPwdTextField.text.length > 0) {
-        [self.rightBtn buttonIsCanClick:YES buttonColor:RCDDYCOLOR(0xffffff, 0xA8A8A8) barButtonItem:self.rightBtn];
+        [self.rightBtn buttonIsCanClick:YES buttonColor:[UIColor blackColor] barButtonItem:self.rightBtn];
 
     } else {
         [self.rightBtn
             buttonIsCanClick:NO
-                 buttonColor:[RCDUtilities generateDynamicColor:HEXCOLOR(0x9fcdfd)
+                 buttonColor:[RCDUtilities generateDynamicColor:[FPStyleGuide lightGrayTextColor]
                                                       darkColor:[HEXCOLOR(0xA8A8A8) colorWithAlphaComponent:0.4]]
                barButtonItem:self.rightBtn];
     }

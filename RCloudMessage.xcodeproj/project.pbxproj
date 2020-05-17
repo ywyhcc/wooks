@@ -228,6 +228,9 @@
 		7F611FDD243B149100BE72D6 /* PostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDC243B149100BE72D6 /* PostInfoViewController.m */; };
 		7F611FE0243B14BB00BE72D6 /* PrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */; };
 		7F61216C24519D900071DCA3 /* SendMomentImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F61216B24519D900071DCA3 /* SendMomentImageViewController.m */; };
+		7F625A0E24713AD700CD9946 /* VipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F625A0D24713AD700CD9946 /* VipViewController.m */; };
+		7F625A10247151A100CD9946 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F625A0F247151A100CD9946 /* StoreKit.framework */; };
+		7F625A132471535F00CD9946 /* PaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F625A122471535E00CD9946 /* PaymentManager.m */; };
 		7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */; };
 		7F66C9012446E7B300B6AB1E /* XFCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */; };
 		7F66C9022446E7B300B6AB1E /* XFCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F66C8FB2446E7B300B6AB1E /* XFCameraController.xib */; };
@@ -907,6 +910,11 @@
 		7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyViewController.m; sourceTree = "<group>"; };
 		7F61216A24519D900071DCA3 /* SendMomentImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMomentImageViewController.h; sourceTree = "<group>"; };
 		7F61216B24519D900071DCA3 /* SendMomentImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendMomentImageViewController.m; sourceTree = "<group>"; };
+		7F625A0C24713AD700CD9946 /* VipViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VipViewController.h; sourceTree = "<group>"; };
+		7F625A0D24713AD700CD9946 /* VipViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VipViewController.m; sourceTree = "<group>"; };
+		7F625A0F247151A100CD9946 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		7F625A112471535E00CD9946 /* PaymentManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentManager.h; sourceTree = "<group>"; };
+		7F625A122471535E00CD9946 /* PaymentManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentManager.m; sourceTree = "<group>"; };
 		7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraButton.m; sourceTree = "<group>"; };
 		7F66C8F92446E7B300B6AB1E /* XFCameraButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFCameraButton.h; sourceTree = "<group>"; };
 		7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraController.m; sourceTree = "<group>"; };
@@ -1295,6 +1303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F625A10247151A100CD9946 /* StoreKit.framework in Frameworks */,
 				7F66CB702447240100B6AB1E /* PhotosUI.framework in Frameworks */,
 				7FC04217243A0BC7007CF4F6 /* Social.framework in Frameworks */,
 				7F9BE1D1242FA38100BFABB2 /* ContactsUI.framework in Frameworks */,
@@ -1409,6 +1418,10 @@
 				27F0E39B22A0E3E100C8B0B8 /* RCDAboutRongCloudTableViewController.m */,
 				7FBD6F302457F1BB00094F99 /* FuctionIntroduceViewController.h */,
 				7FBD6F312457F1BB00094F99 /* FuctionIntroduceViewController.m */,
+				7F625A0C24713AD700CD9946 /* VipViewController.h */,
+				7F625A0D24713AD700CD9946 /* VipViewController.m */,
+				7F625A112471535E00CD9946 /* PaymentManager.h */,
+				7F625A122471535E00CD9946 /* PaymentManager.m */,
 				27F0E38E22A0E3E000C8B0B8 /* RCDLogoTableViewCell.h */,
 				27F0E3C122A0E3E300C8B0B8 /* RCDLogoTableViewCell.m */,
 				7F4CEE55243C6338008C24DA /* MeHeadTableViewCell.h */,
@@ -3015,6 +3028,7 @@
 		E4C4E7E71A0A309100140067 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F625A0F247151A100CD9946 /* StoreKit.framework */,
 				7F66CB6F2447240000B6AB1E /* PhotosUI.framework */,
 				7FC04216243A0BC7007CF4F6 /* Social.framework */,
 				7F9BE1D0242FA38000BFABB2 /* ContactsUI.framework */,
@@ -3495,6 +3509,7 @@
 				A221948822BB5F1B00274D4D /* RCDChooseUserController.m in Sources */,
 				A2402F9922B2381C00BF8F6A /* RCDChatRoomAPI.m in Sources */,
 				7F30D72924239AFE0018A519 /* FBYHomeService.m in Sources */,
+				7F625A132471535F00CD9946 /* PaymentManager.m in Sources */,
 				7F30D8092425F84D0018A519 /* MomentCell.m in Sources */,
 				27AD303E229E721F003C2680 /* UITabBar+badge.m in Sources */,
 				3B47895622BA475600D33F10 /* RCDForwardCellModel.m in Sources */,
@@ -3690,6 +3705,7 @@
 				79B029F622D5FE920062CBA5 /* RCDChatConfig.m in Sources */,
 				7F30D8132425F84D0018A519 /* JKDBHelper.m in Sources */,
 				7F5ED40724399992007958F5 /* AddContactFriendsTableViewCell.m in Sources */,
+				7F625A0E24713AD700CD9946 /* VipViewController.m in Sources */,
 				A2AD03C722D47F3200F8E64D /* RCDGroupNoticeListController.m in Sources */,
 				3B47890622B78F3200D33F10 /* RCDBottomResultView.m in Sources */,
 				27AD302B229E721F003C2680 /* RCDGroupInfo.m in Sources */,

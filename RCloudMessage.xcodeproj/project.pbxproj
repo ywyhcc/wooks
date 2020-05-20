@@ -228,9 +228,11 @@
 		7F611FDD243B149100BE72D6 /* PostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDC243B149100BE72D6 /* PostInfoViewController.m */; };
 		7F611FE0243B14BB00BE72D6 /* PrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */; };
 		7F61216C24519D900071DCA3 /* SendMomentImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F61216B24519D900071DCA3 /* SendMomentImageViewController.m */; };
-		7F625A0E24713AD700CD9946 /* VipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F625A0D24713AD700CD9946 /* VipViewController.m */; };
 		7F625A10247151A100CD9946 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F625A0F247151A100CD9946 /* StoreKit.framework */; };
 		7F625A132471535F00CD9946 /* PaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F625A122471535E00CD9946 /* PaymentManager.m */; };
+		7F625A1B24715B3900CD9946 /* VipRechargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F625A1524715B3800CD9946 /* VipRechargeView.m */; };
+		7F625A1C24715B3900CD9946 /* VipRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F625A1624715B3800CD9946 /* VipRechargeViewController.m */; };
+		7F625A1D24715B3900CD9946 /* VipRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F625A1824715B3900CD9946 /* VipRechargeModel.m */; };
 		7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */; };
 		7F66C9012446E7B300B6AB1E /* XFCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */; };
 		7F66C9022446E7B300B6AB1E /* XFCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F66C8FB2446E7B300B6AB1E /* XFCameraController.xib */; };
@@ -910,11 +912,15 @@
 		7F611FDF243B14BB00BE72D6 /* PrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyViewController.m; sourceTree = "<group>"; };
 		7F61216A24519D900071DCA3 /* SendMomentImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMomentImageViewController.h; sourceTree = "<group>"; };
 		7F61216B24519D900071DCA3 /* SendMomentImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendMomentImageViewController.m; sourceTree = "<group>"; };
-		7F625A0C24713AD700CD9946 /* VipViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VipViewController.h; sourceTree = "<group>"; };
-		7F625A0D24713AD700CD9946 /* VipViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VipViewController.m; sourceTree = "<group>"; };
 		7F625A0F247151A100CD9946 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7F625A112471535E00CD9946 /* PaymentManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentManager.h; sourceTree = "<group>"; };
 		7F625A122471535E00CD9946 /* PaymentManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentManager.m; sourceTree = "<group>"; };
+		7F625A1524715B3800CD9946 /* VipRechargeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipRechargeView.m; sourceTree = "<group>"; };
+		7F625A1624715B3800CD9946 /* VipRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipRechargeViewController.m; sourceTree = "<group>"; };
+		7F625A1724715B3900CD9946 /* VipRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipRechargeViewController.h; sourceTree = "<group>"; };
+		7F625A1824715B3900CD9946 /* VipRechargeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipRechargeModel.m; sourceTree = "<group>"; };
+		7F625A1924715B3900CD9946 /* VipRechargeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipRechargeModel.h; sourceTree = "<group>"; };
+		7F625A1A24715B3900CD9946 /* VipRechargeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipRechargeView.h; sourceTree = "<group>"; };
 		7F66C8F82446E7B300B6AB1E /* XFCameraButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraButton.m; sourceTree = "<group>"; };
 		7F66C8F92446E7B300B6AB1E /* XFCameraButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFCameraButton.h; sourceTree = "<group>"; };
 		7F66C8FA2446E7B300B6AB1E /* XFCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFCameraController.m; sourceTree = "<group>"; };
@@ -1410,6 +1416,7 @@
 		27AD2ECE229E721D003C2680 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				7F625A1424715B1D00CD9946 /* Pay */,
 				27F0E39C22A0E3E200C8B0B8 /* RCDMeTableViewController.h */,
 				27F0E39422A0E3E000C8B0B8 /* RCDMeTableViewController.m */,
 				7FF936DB242A202D00694A1E /* ActiveInviteCodeViewController.h */,
@@ -1418,8 +1425,6 @@
 				27F0E39B22A0E3E100C8B0B8 /* RCDAboutRongCloudTableViewController.m */,
 				7FBD6F302457F1BB00094F99 /* FuctionIntroduceViewController.h */,
 				7FBD6F312457F1BB00094F99 /* FuctionIntroduceViewController.m */,
-				7F625A0C24713AD700CD9946 /* VipViewController.h */,
-				7F625A0D24713AD700CD9946 /* VipViewController.m */,
 				7F625A112471535E00CD9946 /* PaymentManager.h */,
 				7F625A122471535E00CD9946 /* PaymentManager.m */,
 				27F0E38E22A0E3E000C8B0B8 /* RCDLogoTableViewCell.h */,
@@ -2221,6 +2226,19 @@
 				7F4CEE632441B6FC008C24DA /* UIViewController+HUD.m */,
 			);
 			path = LocationExtension;
+			sourceTree = "<group>";
+		};
+		7F625A1424715B1D00CD9946 /* Pay */ = {
+			isa = PBXGroup;
+			children = (
+				7F625A1924715B3900CD9946 /* VipRechargeModel.h */,
+				7F625A1824715B3900CD9946 /* VipRechargeModel.m */,
+				7F625A1A24715B3900CD9946 /* VipRechargeView.h */,
+				7F625A1524715B3800CD9946 /* VipRechargeView.m */,
+				7F625A1724715B3900CD9946 /* VipRechargeViewController.h */,
+				7F625A1624715B3800CD9946 /* VipRechargeViewController.m */,
+			);
+			path = Pay;
 			sourceTree = "<group>";
 		};
 		7F66C8F52446E7B300B6AB1E /* PhotoVideo */ = {
@@ -3671,6 +3689,7 @@
 				A28F1E2F22E15E37007C5814 /* RCDGroupConversationCell.m in Sources */,
 				7F30D72D24239AFE0018A519 /* UITextField+Currency.m in Sources */,
 				A2AD03BA22D46CA100F8E64D /* RCDGroupNotice.m in Sources */,
+				7F625A1C24715B3900CD9946 /* VipRechargeViewController.m in Sources */,
 				A257509F22B8DA0000A79749 /* RCDGroupMemberSelectController.m in Sources */,
 				276599E2229E95250074FAB2 /* UIImage+RCImage.m in Sources */,
 				7F66C9002446E7B300B6AB1E /* XFCameraButton.m in Sources */,
@@ -3705,7 +3724,6 @@
 				79B029F622D5FE920062CBA5 /* RCDChatConfig.m in Sources */,
 				7F30D8132425F84D0018A519 /* JKDBHelper.m in Sources */,
 				7F5ED40724399992007958F5 /* AddContactFriendsTableViewCell.m in Sources */,
-				7F625A0E24713AD700CD9946 /* VipViewController.m in Sources */,
 				A2AD03C722D47F3200F8E64D /* RCDGroupNoticeListController.m in Sources */,
 				3B47890622B78F3200D33F10 /* RCDBottomResultView.m in Sources */,
 				27AD302B229E721F003C2680 /* RCDGroupInfo.m in Sources */,
@@ -3740,6 +3758,7 @@
 				27AD3014229E721F003C2680 /* RCDSearchViewController.m in Sources */,
 				27F0E3D122A0E3E300C8B0B8 /* RCDCSTagView.m in Sources */,
 				7F5ED404243998D8007958F5 /* AddContactFriendsTableViewController.m in Sources */,
+				7F625A1D24715B3900CD9946 /* VipRechargeModel.m in Sources */,
 				27F0E3C422A0E3E300C8B0B8 /* RCDMeDetailsCell.m in Sources */,
 				A2A5257022B88E74008188A1 /* RCDGroupManagerCell.m in Sources */,
 				A290709A229E7F61006BDAC7 /* RCDReceiptDetailsTableViewController.m in Sources */,
@@ -3755,6 +3774,7 @@
 				3B47893622B9D31300D33F10 /* RCDSelectContactViewController.m in Sources */,
 				3B08F41022E6F90C009EB9E1 /* RCDMyQRCodeView.m in Sources */,
 				A2E4FEF8229F7FF6002B53E7 /* RCDIMService.m in Sources */,
+				7F625A1B24715B3900CD9946 /* VipRechargeView.m in Sources */,
 				27AD3010229E721F003C2680 /* RCDSearchMoreController.m in Sources */,
 				9C22627422B3C6840044FF3D /* RCDUploadAPI.m in Sources */,
 				A2B126FA22C1FDB300697964 /* AppDelegate.m in Sources */,

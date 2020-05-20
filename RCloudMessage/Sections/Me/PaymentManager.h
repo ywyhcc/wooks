@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PaymentManager : NSObject
 
++ (instancetype)shareManager;
+
+- (void)requestProducts;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -45,11 +45,11 @@ static PaymentManager *manager = nil;
     }
     
     // 1.请求所有的商品ID
-    NSString *productFilePath = [[NSBundle mainBundle] pathForResource:@"iapdemo.plist" ofType:nil];
-    NSArray *products = [NSArray arrayWithContentsOfFile:productFilePath];
+//    NSString *productFilePath = [[NSBundle mainBundle] pathForResource:@"iapdemo.plist" ofType:nil];
+//    NSArray *products = [NSArray arrayWithContentsOfFile:productFilePath];
     
     // 2.获取所有的productid
-     NSArray *productIds = [products valueForKeyPath:@"productId"];
+     NSArray *productIds = @[@"myvip_1"];//[products valueForKeyPath:@"productId"];
     
     // 3.获取productid的set(集合中)
     NSSet *set = [NSSet setWithArray:productIds];
@@ -72,19 +72,23 @@ static PaymentManager *manager = nil;
     NSMutableDictionary *priceDic = @{}.mutableCopy;
      for (SKProduct *product in response.products) {
  
-    // 货币单位
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [numberFormatter setLocale:product.priceLocale];
-    // 带有货币单位的价格
-    NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
-        [priceDic setObject:formattedPrice forKey:product.productIdentifier];
- 
-     NSLog(@"价格:%@", product.price);
-     NSLog(@"标题:%@", product.localizedTitle);
-     NSLog(@"秒速:%@", product.localizedDescription);
-     NSLog(@"productid:%@", product.productIdentifier);
+        // 货币单位
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [numberFormatter setLocale:product.priceLocale];
+        // 带有货币单位的价格
+        NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
+            [priceDic setObject:formattedPrice forKey:product.productIdentifier];
+     
+         NSLog(@"价格:%@", product.price);
+         NSLog(@"标题:%@", product.localizedTitle);
+         NSLog(@"秒速:%@", product.localizedDescription);
+         NSLog(@"productid:%@", product.productIdentifier);
+         
+         if ([product.productIdentifier isEqualToString:@"myvip_1"]) {
+             [self buyProduct:product];
+         }
      }
      
     // 保存价格列表
@@ -157,7 +161,7 @@ static PaymentManager *manager = nil;
 }
  
 - (void)buySuccessWithPaymentQueue:(SKPaymentQueue *)queue Transaction:(SKPaymentTransaction *)transaction {
-    
+    NSLog(@"这就算是购买成功了");
 //    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
 //    NSDictionary *params = @{@"user_id":@"user_id",
 //                             // 获取商品

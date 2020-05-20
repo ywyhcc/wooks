@@ -21,6 +21,7 @@
 #import "RCDQRCodeController.h"
 #import "ActiveInviteCodeViewController.h"
 #import "MeHeadTableViewCell.h"
+#import "VipRechargeViewController.h"
 
 //#define SERVICE_ID @"KEFU146001495753714"
 #define SERVICE_ID @"service"
@@ -116,7 +117,7 @@
     if (0 == section) {
         rows = 1;
     } else if (1 == section) {
-        rows = 4;
+        rows = 6;
     }
     return rows;
 }
@@ -144,16 +145,22 @@
     }
     if (1 == indexPath.section) {
         
-            if (indexPath.row == 0) {
-                [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"邀请码" rightLabelName:[DEFAULTS objectForKey:InviteCode]];
-            }
-            else if (indexPath.row == 1) {
-                [cell setCellWithImageName:@"qr_setting" labelName:RCDLocalizedString(@"My_QR") rightLabelName:@""];
-            }
-            else if (2 == indexPath.row) {
-                [cell setCellWithImageName:@"setting_up"
-                                 labelName:RCDLocalizedString(@"account_setting")
-                            rightLabelName:@""];
+        if (indexPath.row == 0) {
+            [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"人脸对比" rightLabelName:@""];
+        }
+        else if (indexPath.row == 1) {
+            [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"会员中心" rightLabelName:@""];
+        }
+        else if (indexPath.row == 2) {
+            [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"邀请码" rightLabelName:[DEFAULTS objectForKey:InviteCode]];
+        }
+        else if (indexPath.row == 3) {
+            [cell setCellWithImageName:@"qr_setting" labelName:RCDLocalizedString(@"My_QR") rightLabelName:@""];
+        }
+        else if (4 == indexPath.row) {
+            [cell setCellWithImageName:@"setting_up"
+                             labelName:RCDLocalizedString(@"account_setting")
+                        rightLabelName:@""];
 //            }
 //            else if (3 == indexPath.row) {
 //                NSString *currentLanguage = [RCDLanguageManager sharedRCDLanguageManager].currentLanguage;
@@ -165,15 +172,15 @@
 //            }
 //            else if (4 == indexPath.row) {
 //                [cell setCellWithImageName:@"sevre_inactive" labelName:RCDLocalizedString(@"feedback") rightLabelName:@""];
-            } else if (3 == indexPath.row) {
-                [cell setCellWithImageName:@"about_rongcloud"
-                                 labelName:RCDLocalizedString(@"about_sealtalk")
-                            rightLabelName:@""];
+        } else if (5 == indexPath.row) {
+            [cell setCellWithImageName:@"about_rongcloud"
+                             labelName:RCDLocalizedString(@"about_sealtalk")
+                        rightLabelName:@""];
 //                BOOL isNeedUpdate = [[DEFAULTS objectForKey:RCDNeedUpdateKey] boolValue];
 //                if (isNeedUpdate) {
 //                    [cell addRedpointImageView];
 //                }
-            }
+        }
 //        }
         
     }
@@ -194,19 +201,22 @@
         [self.navigationController pushViewController:vc animated:YES];
     } else if (1 == indexPath.section) {
         
-        NSInteger selectIndex = indexPath.row + 2;
+//        NSInteger selectIndex = indexPath.row + 2;
 //        if ([[DEFAULTS valueForKey:ShowPayPage] isEqualToString:@"0"]) {
 //            selectIndex += 2;
 //        }
-        [self selectTableIndex:selectIndex];
+        [self selectTableIndex:indexPath.row];
         
     }
 }
 
 - (void)selectTableIndex:(NSInteger)index{
     if (index == 0) {
+        
     }
     else if (index == 1){
+        VipRechargeViewController *vipVC = [[VipRechargeViewController alloc] init];
+        [self.navigationController pushViewController:vipVC animated:YES];
     }
     else if (index == 2) {
         NSLog(@"----%@",[DEFAULTS objectForKey:InviteCode]);

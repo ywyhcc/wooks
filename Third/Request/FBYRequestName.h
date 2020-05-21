@@ -71,6 +71,8 @@
 #define AddSaleman              @"/admin/user/add/salesman"             //添加销售人员
 #define AdminLogin              @"/admin/admin/user/login"              //管理员登录
 
+#define GetVipInfo              @"/userAccount/getUserStatus"           //获取VIP信息
+
 #define GetMomentData           @"/moment/detail/getAllMoment"          //获取朋友圈数据
 #define GetMomentData           @"/moment/detail/getAllMoment"          //获取朋友圈数据
 #define DeleteDisucuss          @"/moment/discuss/reply/deleteDisucuss" //删除评论

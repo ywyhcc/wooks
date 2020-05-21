@@ -43,19 +43,6 @@
     
     [self requestRechargeCardInfo];
     
-    
-//    self.weichatBtn = [self createBtnCell:@"生成微信二维码" imageName:@"add_wechat"];
-//    self.weichatBtn.frame = CGRectMake(0, 20, SCREEN_WIDTH, 50);
-////    viewBottom = self.weichatBtn.bottom;
-//    [self.weichatBtn addTarget:self action:@selector(weixinBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-//    [self.scrollView addSubview:self.weichatBtn];
-//
-//    self.zhifuBtn = [self createBtnCell:@"生成支付宝二维码" imageName:@"mixin_ic_alipay"];
-//    self.zhifuBtn.frame = CGRectMake(0, self.weichatBtn.bottom, SCREEN_WIDTH, 50);
-//    [self.zhifuBtn addTarget:self action:@selector(zhifubaoBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-////    viewBottom = self.zhifuBtn.bottom;
-//    [self.scrollView addSubview:self.zhifuBtn];
-    
 //    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, viewBottom);
 }
 
@@ -90,7 +77,7 @@
     }
     sender.backgroundColor = [UIColor colorWithHex:0xcbcccb];
     VipRechargeModel *model = self.dataArray[sender.tag];
-    [[PaymentManager shareManager] requestProducts];
+    [[PaymentManager shareManager] requestProducts:@"vip_1month" inView:self.view];
 }
 
 - (void)weixinBtnClicked{
@@ -110,9 +97,9 @@
             for (NSDictionary *dic in list) {
                 VipRechargeModel *model = [[VipRechargeModel alloc] init];
                 model.vipID = [dic stringValueForKey:@"id"];
-                model.day = [dic stringValueForKey:@"discountPrice"];
+                model.day = [dic stringValueForKey:@"priceType"];
                 model.money = [dic stringValueForKey:@"price"];
-                model.moneyEveryday = [dic stringValueForKey:@"type"];
+                model.moneyEveryday = [dic stringValueForKey:@"priceDay"];
                 [dataMuArr addObject:model];
             }
             self.dataArray = dataMuArr;

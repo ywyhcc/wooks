@@ -34,24 +34,24 @@
 }
 
 - (void)createModelView:(VipRechargeModel*)model{
-    self.dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height / 3)];
+    self.dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, self.width, self.height / 3)];
     self.dayLabel.textAlignment = NSTextAlignmentCenter;
     self.dayLabel.text = model.day;//[NSString stringWithFormat:@"%@",model.day];
-    self.dayLabel.font = [UIFont systemFontOfSize:12];
+    self.dayLabel.font = [UIFont systemFontOfSize:15];
     self.dayLabel.textColor = [UIColor colorWithHex:0x24db5a];
     [self addSubview:self.dayLabel];
     
     self.moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.height / 3, self.width, self.height / 3)];
     self.moneyLabel.textAlignment = NSTextAlignmentCenter;
     self.moneyLabel.font = [UIFont systemFontOfSize:25];
-    self.moneyLabel.text = model.money;
+    self.moneyLabel.text = [NSString stringWithFormat:@"¥%@",model.money];
     self.moneyLabel.textColor = [UIColor colorWithHex:0x24db5a];
     [self addSubview:self.moneyLabel];
     
-    self.moneyEverydayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.height / 3 * 2, self.width, self.height / 3)];
+    self.moneyEverydayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.height / 3 * 2 - 5, self.width, self.height / 3)];
     self.moneyEverydayLabel.textAlignment = NSTextAlignmentCenter;
-    self.moneyEverydayLabel.text = model.moneyEveryday;//[NSString stringWithFormat:@"%@",model.moneyEveryday];
-    self.moneyEverydayLabel.font = [UIFont systemFontOfSize:12];
+    self.moneyEverydayLabel.text = [NSString stringWithFormat:@"%@/天",model.moneyEveryday];
+    self.moneyEverydayLabel.font = [UIFont systemFontOfSize:15];
     self.moneyEverydayLabel.textColor = [UIColor colorWithHex:0x24db5a];
     [self addSubview:self.moneyEverydayLabel];
 }

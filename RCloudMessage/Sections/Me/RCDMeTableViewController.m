@@ -22,6 +22,7 @@
 #import "ActiveInviteCodeViewController.h"
 #import "MeHeadTableViewCell.h"
 #import "VipRechargeViewController.h"
+#import "VipCardViewController.h"
 
 //#define SERVICE_ID @"KEFU146001495753714"
 #define SERVICE_ID @"service"
@@ -117,7 +118,7 @@
     if (0 == section) {
         rows = 1;
     } else if (1 == section) {
-        rows = 6;
+        rows = 7;
     }
     return rows;
 }
@@ -152,12 +153,15 @@
             [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"会员中心" rightLabelName:@""];
         }
         else if (indexPath.row == 2) {
-            [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"邀请码" rightLabelName:[DEFAULTS objectForKey:InviteCode]];
+            [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"会员充值" rightLabelName:@""];
         }
         else if (indexPath.row == 3) {
+            [cell setCellWithImageName:@"mixin_ic_invited_code" labelName:@"邀请码" rightLabelName:[DEFAULTS objectForKey:InviteCode]];
+        }
+        else if (indexPath.row == 4) {
             [cell setCellWithImageName:@"qr_setting" labelName:RCDLocalizedString(@"My_QR") rightLabelName:@""];
         }
-        else if (4 == indexPath.row) {
+        else if (5 == indexPath.row) {
             [cell setCellWithImageName:@"setting_up"
                              labelName:RCDLocalizedString(@"account_setting")
                         rightLabelName:@""];
@@ -172,7 +176,7 @@
 //            }
 //            else if (4 == indexPath.row) {
 //                [cell setCellWithImageName:@"sevre_inactive" labelName:RCDLocalizedString(@"feedback") rightLabelName:@""];
-        } else if (5 == indexPath.row) {
+        } else if (6 == indexPath.row) {
             [cell setCellWithImageName:@"about_rongcloud"
                              labelName:RCDLocalizedString(@"about_sealtalk")
                         rightLabelName:@""];
@@ -215,10 +219,14 @@
         
     }
     else if (index == 1){
+        VipCardViewController *vipCardVC = [[VipCardViewController alloc] init];
+        [self.navigationController pushViewController:vipCardVC animated:YES];
+    }
+    else if (index == 2) {
         VipRechargeViewController *vipVC = [[VipRechargeViewController alloc] init];
         [self.navigationController pushViewController:vipVC animated:YES];
     }
-    else if (index == 2) {
+    else if (index == 3) {
         NSLog(@"----%@",[DEFAULTS objectForKey:InviteCode]);
         if ([NSString stringWithFormat:@"%@",[DEFAULTS objectForKey:InviteCode]].length > 0 && [DEFAULTS objectForKey:InviteCode] != nil) {
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"已填写邀请码" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -236,16 +244,16 @@
             [self.navigationController pushViewController:qrCodeVC animated:YES];
         }
     }
-    else if (index == 3) {
+    else if (index == 4) {
         RCDQRCodeController *qrCodeVC =
             [[RCDQRCodeController alloc] initWithTargetId:[RCIM sharedRCIM].currentUserInfo.userId
                                          conversationType:ConversationType_PRIVATE];
         [self.navigationController pushViewController:qrCodeVC animated:YES];
     }
-    else if (4 == index) {
+    else if (5 == index) {
         RCDSettingsTableViewController *vc = [[RCDSettingsTableViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    } else if (5 == index) {
+    } else if (6 == index) {
         RCDAboutRongCloudTableViewController *vc = [[RCDAboutRongCloudTableViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }

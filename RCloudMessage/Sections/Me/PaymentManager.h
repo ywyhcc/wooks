@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareManager;
 
-- (void)requestProducts;
+- (void)requestProducts:(NSString*)productID inView:(UIView*)bgView;
 
 @end
 

@@ -1234,22 +1234,49 @@
 }
 
 + (void)getUserPrivacy:(void (^)(RCDUserSetting *))completeBlock {
-    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodGet
-                                URLString:@"user/get_privacy"
-                               parameters:nil
-                                 response:^(RCDHTTPResult *result) {
-                                     if (result.success) {
-                                         NSDictionary *dic = result.content;
-                                         RCDUserSetting *setting = [[RCDUserSetting alloc] initWithJson:dic];
-                                         if (completeBlock) {
-                                             completeBlock(setting);
-                                         }
-                                     } else {
-                                         if (completeBlock) {
-                                             completeBlock(nil);
-                                         }
-                                     }
-                                 }];
+    
+    NSString *userName = [DEFAULTS objectForKey:RCDUserNameKey];
+    NSString *password = [DEFAULTS objectForKey:RCDUserPasswordKey];
+    NSDictionary *dic = @{@"username":userName,@"password": password};
+    [SYNetworkingManager postWithURLString:LogIn parameters:dic success:^(NSDictionary *data) {
+        if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+            NSDictionary *dic = [data dictionaryValueForKey:@"userSettings"];
+            RCDUserSetting *setting = [[RCDUserSetting alloc] initWithJson:dic];
+            if (completeBlock) {
+                completeBlock(setting);
+            }
+            
+        } else {
+            if (completeBlock) {
+                completeBlock(nil);
+            }
+        }
+
+    } failure:^(NSError *error) {
+        if (completeBlock) {
+                completeBlock(nil);
+        }
+    }];
+    
+    
+    
+    
+//    [RCDHTTPUtility requestWithHTTPMethod:HTTPMethodGet
+//                                URLString:@"user/get_privacy"
+//                               parameters:nil
+//                                 response:^(RCDHTTPResult *result) {
+//                                     if (result.success) {
+//                                         NSDictionary *dic = result.content;
+//                                         RCDUserSetting *setting = [[RCDUserSetting alloc] initWithJson:dic];
+//                                         if (completeBlock) {
+//                                             completeBlock(setting);
+//                                         }
+//                                     } else {
+//                                         if (completeBlock) {
+//                                             completeBlock(nil);
+//                                         }
+//                                     }
+//                                 }];
 }
 
 #pragma mark - Friend Description

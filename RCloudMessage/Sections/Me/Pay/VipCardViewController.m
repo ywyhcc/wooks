@@ -49,6 +49,7 @@
     [self.view addSubview:whiteView];
     
     UIImageView *vipBgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 5, SCREEN_WIDTH - 30, (SCREEN_WIDTH - 30) / 3 * 2)];
+    vipBgView.userInteractionEnabled = YES;
     vipBgView.image = [UIImage imageNamed:@"vip_bg_img"];
     [whiteView addSubview:vipBgView];
     
@@ -88,7 +89,7 @@
 - (void)updateCardDate:(NSString*)dateStr isVip:(NSString*)vipStatus{
     if ([vipStatus isEqualToString:@"1"]) {
         self.vipLabel.text = @"您已成为会员";
-        self.vipDateLabel.text = [NSString stringWithFormat:@"会员有效期：%@",[NSString converDetailStrToTime:dateStr]];
+        self.vipDateLabel.text = [NSString stringWithFormat:@"会员有效期：%@",[NSString convertStrToTime:dateStr]];
     }
     else if ([vipStatus isEqualToString:@"0"]){
         self.vipLabel.text = @"您还未成为会员";

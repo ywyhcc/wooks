@@ -12,10 +12,10 @@
 - (instancetype)initWithJson:(NSDictionary *)json {
     if (self = [super init]) {
         self.userId = json[@"id"];
-        self.allowMobileSearch = [json[@"phoneVerify"] boolValue];
-        self.allowSTAccountSearch = [json[@"stSearchVerify"] boolValue];
-        self.needAddFriendVerify = [json[@"friVerify"] boolValue];
-        self.needJoinGroupVerify = [json[@"groupVerify"] boolValue];
+        self.allowMobileSearch = [json[@"isAllowFindmeByTelphone"] boolValue];
+        self.allowSTAccountSearch = [json[@"isAllowFindmeByWoostalk"] boolValue];
+        self.needAddFriendVerify = [json[@"isOpenFriendAuthentication"] boolValue];
+        self.needJoinGroupVerify = [json[@"isAllowAddGroup"] boolValue];
     }
     return self;
 }

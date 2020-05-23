@@ -64,6 +64,7 @@
 #define GetXianInfo             @"/location/district/getAllDistricts"   //获取区县信息
 #define GetUserAllInfo          @"/friend/allFriendInfo"                //获取该好友的全部信息
 #define UpdatePassword          @"/userAccount/updatePassword"          //修改密码
+#define DeleteFriendApplyRecord @"/friend/log/update/friendLogStatus"   //删除好友申请记录
 
 #define Cancellection           @"/userAccount/loginout"                //注销
 #define ResetDisturb            @"/friend/update/friend/info"           //更改好友打扰、置顶

@@ -144,7 +144,10 @@
                 pic.thumbnailVideo = [idList[i] stringValueForKey:@"fileUrl"];
                 pic.thumbnailAvert = [idList[i] stringValueForKey:@"fileThumbnailUrl"];
             }
-            
+            NSString *fileSizeTypeStr = idList[i][@"file_format"];
+            if ([fileSizeTypeStr isEqualToString:@"2"]) {
+                pic.isHorPic = @"2";
+            }
 //            SDWebImageManager *manager = [SDWebImageManager sharedManager];
 //
 //            UIImage *img;
@@ -318,6 +321,10 @@
                 pic.thumbnailVideo = idList[i][@"fileUrl"];
                 pic.thumbnailAvert = idList[i][@"fileThumbnailUrl"];
             }
+            NSString *fileSizeTypeStr = idList[i][@"file_format"];
+            if ([fileSizeTypeStr isEqualToString:@"2"]) {
+                pic.isHorPic = @"2";
+            }
             
 //            if (pic.thumbnail.length > 0) {
 //                CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnail];
@@ -468,6 +475,10 @@
         if (fileTypeStr.intValue == 2) {
             pic.thumbnailVideo = idList[i][@"fileUrl"];
             pic.thumbnailAvert = idList[i][@"fileThumbnailUrl"];
+        }
+        NSString *fileSizeTypeStr = idList[i][@"file_format"];
+        if ([fileSizeTypeStr isEqualToString:@"2"]) {
+            pic.isHorPic = @"2";
         }
 //        if (pic.thumbnail.length > 0) {
 //            CGSize newSize = [UIImage GetImageSizeWithURL:pic.thumbnail];

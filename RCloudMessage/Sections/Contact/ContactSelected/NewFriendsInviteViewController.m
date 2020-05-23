@@ -866,6 +866,55 @@ UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate,CNContactPickerD
     return cell;
 }
 
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        RCDFriendInfo *user;
+        if (self.isSearchResult == YES) {
+            user = [self.matchSearchList objectAtIndex:indexPath.row];
+        } else {
+            self.selectIndexPath = indexPath;
+            user = self.friendArray[indexPath.row];
+        }
+        
+        NSDictionary *params = @{@"fromUserAccountId":[ProfileUtil getUserAccountID],@"friendId":user.friendID};
+        
+        [SYNetworkingManager requestPUTWithURLStr:DeleteFriendApplyRecord paramDic:params success:^(NSDictionary *data) {
+            if ([[data stringValueForKey:@"errorCode"] isEqualToString:@"0"]) {
+                [self getUserInfoFromServer];
+            }
+        } failure:^(NSError *error) {
+        }];
+        
+        
+//        NSString *key = [self.keys objectAtIndex:indexPath.section];
+//        RCUserInfo *info = [[self.mDictData objectForKey:key] objectAtIndex:indexPath.row];
+//
+//        __weak typeof(self) weakSelf = self;
+//        [RCDUserInfoManager removeFromBlacklist:info.userId
+//                                       complete:^(BOOL success) {
+//                                           if (success) {
+//                                               dispatch_async(dispatch_get_main_queue(), ^{
+//                                                   [RCDDataSource syncFriendList];
+//                                                   [weakSelf getAllData];
+//                                               });
+//                                           } else {
+//                                               NSLog(@" ... 解除黑名单失败 ... ");
+//                                           }
+//                                       }];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+    }
+}
+
 - (void)acceptInvite:(NSString *)userId {
     if (userId.length == 0) {
         return;

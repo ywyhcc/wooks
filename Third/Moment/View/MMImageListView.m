@@ -103,9 +103,9 @@
             CGSize singleSize = [Utility getMomentImageSize:CGSizeMake(moment.singleWidth, moment.singleHeight)];
             frame = CGRectMake(0, 0, singleSize.width, singleSize.height);
             
-//            if ([picture.isHorPic isEqualToString:@"1"]) {
-//                frame = CGRectMake(0, 0, SCREEN_WIDTH / 3, 200);
-//            }
+            if ([picture.isHorPic isEqualToString:@"2"]) {
+                frame = CGRectMake(0, 0, SCREEN_WIDTH / 3, 200);
+            }
             
 //            if (picture.thumbnail.length > 0) {
 //                CGSize newSize = [UIImage GetImageSizeWithURL:picture.thumbnail];

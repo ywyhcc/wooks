@@ -72,7 +72,14 @@
     [self registerNotification];
     [self checkVersion];
     [self getFriendRequesteds];
+    [self getFriendList];
     
+}
+
+//防止数据刷新不出来
+- (void)getFriendList{
+    [RCDUserInfoManager getFriendListFromServer:^(NSArray<RCDFriendInfo *> *friendList) {
+    }];
 }
 
 - (void)viewDidLayoutSubviews {

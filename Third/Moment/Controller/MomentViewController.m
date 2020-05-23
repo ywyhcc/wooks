@@ -251,13 +251,6 @@
 
 - (void)configData:(NSDictionary *)dic
 {
-//    self.loginUser.pk = 1;
-//    self.loginUser.type = 1;
-//    self.loginUser.name = @"张振动";
-//    self.loginUser.account = @"wx123456";
-//    self.loginUser.portrait = @"";
-//    self.loginUser.region = @"山东 青岛";
-//    self.loginUser = [MUser findFirstByCriteria:@"WHERE type = 1"];
     self.loginUser = [[MUser alloc] init];
     self.loginUser.account = [ProfileUtil getUserAccountID];
     self.loginUser.name = [DEFAULTS objectForKey:RCDUserNickNameKey];
@@ -330,7 +323,7 @@
     [view addSubview:self.avatarImageView];
     [view addSubview:self.commentLabel];
     [view addSubview:self.messagBtn];
-    [view addSubview:btn];
+    [self.view addSubview:btn];
     self.tableHeaderView = view;
     // 表格
     MMTableView * tableView = [[MMTableView alloc] initWithFrame:CGRectMake(0, k_status_height, k_screen_width, k_screen_height-k_bar_height - k_status_height)];
@@ -372,6 +365,8 @@
     [header setTitle:@"加载中" forState:MJRefreshStateRefreshing];
     header.stateLabel.font = [UIFont systemFontOfSize:14];
     self.tableView.mj_header = header;
+    
+    [self.view bringSubviewToFront:btn];
 }
 
 - (void)msgBtnClicked{

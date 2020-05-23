@@ -444,6 +444,11 @@
                 [muDic setObject:@"1" forKey:@"fileType"];//图片
                 [muDic setObject:@"png" forKey:@"fileExtension"];
                 [muDic setObject:kye forKey:@"fileKey"];
+                if (self.itemList.itemArray.count == 2) {
+                    if (item.image.size.height > item.image.size.width) {
+                        [muDic setObject:@"2" forKey:@"file_format"];
+                    }
+                }
                 [weakSelf.fileArray addObject:muDic];
                 NSUInteger itemCount = weakSelf.itemList.itemArray.count;
                 if (lastIsAdd) {

@@ -8,11 +8,12 @@
 
 
 
-#define BaseURL                             @"http://api.woostalk.cn:6060"
-//http://api.woostalk.cn:6060/
+//#define BaseURL                             @"http://api.woostalk.cn:6060"  //线上
+#define BaseURL                             @"http://120.27.250.124:6060" //test
+
 #define QiniuCloudBaseURL                   @"http://resources.woostalk.com/"
 
-//#define BaseURL                             @"http://192.168.11.105:6060"
+
 #define RongCloudAPPKEY                     @"uwd1c0sxu5p01"
 
 //
